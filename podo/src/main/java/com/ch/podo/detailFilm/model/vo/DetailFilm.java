@@ -5,5 +5,7 @@ public class DetailFilm {
 	
 	private int id;
 	private int test1;
+	private int test2;
+	
 	
 }
