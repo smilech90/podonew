@@ -6,6 +6,6 @@ import org.springframework.stereotype.Controller;
 public class FilmController {
 
 	public void test() {
-		
+		System.out.println("혜꼉");
 	}
 }
