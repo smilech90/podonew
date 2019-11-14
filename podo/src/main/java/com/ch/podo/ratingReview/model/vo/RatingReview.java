@@ -1,6 +1,24 @@
 package com.ch.podo.ratingReview.model.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@ToString
 public class RatingReview {
-	private int rating1; // 점수1
-	private int rating2; // 점수2
+	private int id;
+	private int ratingSound;
+	private int ratingVisual;
+	private int ratingActing;
+	private int ratingPop;
+	private int ratingScript;
+	private int ratingDirect;
+
+
 }
