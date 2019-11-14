@@ -14,6 +14,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Comment {
+	
 	private int id;					// 댓글번호
 	private int type;				// 댓글 타입
 	private String content;			// 내용
