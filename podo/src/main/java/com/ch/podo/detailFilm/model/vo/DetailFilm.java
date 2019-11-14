@@ -4,5 +4,6 @@ public class DetailFilm {
 	
 	
 	private int id;
+	private int test1;
 	
 }
