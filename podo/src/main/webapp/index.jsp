@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -490,4 +491,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="resources/bootstrap/js/mail-script.js"></script>
   <script src="resources/bootstrap/js/main.js"></script>
 </body>
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Insert title here</title>
+   </head>
+   <body>
+      <a href="home.do">홈으로</a>
+   </body>
+>>>>>>> branch 'develop' of https://github.com/humormagnate/podo
 </html>
