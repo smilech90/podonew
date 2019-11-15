@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ratingReviewMapper">
+
+	<resultMap id="ratingReviewSet" type="RatingReview">
+		<id property="id" column="id"/>
+		<result property="ratingSound" column="RATING_SOUND"/>
+		<result property="ratingVisual" column="RATING_VISUAL"/>
+		<result property="ratingActing" column="RATING_ACTING"/>
+		<result property="ratingPop" column="RATING_POP"/>
+		<result property="ratingScript" column="RATING_SCRIPT"/>
+		<result property="ratingDirect" column="RATING_DIRECT"/>
+		<result property="titleKor" column="TITLE_KOR"/>
+		
+	</resultMap>
+	
+
+
+	<select id="selectRatingReviewList" resultMap="ratingReviewSet">
+		select *					
+		from tb_rating_review rr
+		join TB_REVIEW r on (review_id = r.id)
+		join TB_FILM f on (film_id = f.id)
+	</select>
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -19,6 +19,7 @@ public class RatingReview {
 	private int ratingPop;
 	private int ratingScript;
 	private int ratingDirect;
+	private String titleKor;
 
 
 }

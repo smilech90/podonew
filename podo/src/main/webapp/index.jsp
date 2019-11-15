@@ -6,7 +6,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<a href="home.do">홈으로</a>
+		<a href="home.do">홈으로</a><br>
 		<a href="ratingReview.do">레이팅리뷰</a>
 	</body>
 </html>
