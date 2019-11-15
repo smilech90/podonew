@@ -71,9 +71,9 @@
 				var releaseYear = $("select[name=releaseYear]").val();
 				var productionCountry = $("select[name=productionCountry]").val();
 				var genre = $("select[name=genre]").val();
-				console.log(releaseYear);
-				console.log(productionCountry);
-				console.log(genre);
+				// console.log(releaseYear);
+				// console.log(productionCountry);
+				// console.log(genre);
 				
 				$.ajax({
 					url:"sfFilm.do",
