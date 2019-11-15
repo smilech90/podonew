@@ -35,6 +35,7 @@
 		<select name="genre">
 			<option value="1">드라마</option>
 			<option value="2">액션</option>
+			<option value="3">다큐멘터리</option>
 		</select>
 		
 		<table id="search-film-result">
@@ -65,7 +66,7 @@
 		</table>
 		<script>
 			
-			$("select[name=releaseYear]").on("change", function(){
+			$("select[name=releaseYear], select[name=productionCountry], select[name=genre]").on("change", function(){
 				
 				var releaseYear = $("select[name=releaseYear]").val();
 				var productionCountry = $("select[name=productionCountry]").val();
@@ -73,12 +74,12 @@
 				console.log(releaseYear);
 				console.log(productionCountry);
 				console.log(genre);
-				/* 
+				
 				$.ajax({
 					url:"sfFilm.do",
-					data:{releaseYear : releaseYear,
-						  productionCountry : productionCountry,
-						  genre : genre},
+					data:{ releaseYear : releaseYear,
+						   productionCountry : productionCountry,
+						   genre : genre },
 					success:function(data){
 						console.log("ajax 통신 성공");
 						// console.log(data);
@@ -93,23 +94,29 @@
 							$.each(data, function(index, value){
 								$tr = $("<tr></tr>");
 								
-								$writerTd = $("<td width='100'></td>").text(value.writer);
-								$contentTd = $("<td></td>").text(value.content);
-								$dateTd = $("<td></td>").text(value.createDate);
+								$korTd = $("<td width='100'></td>").text(value.titleKor);
+								$engTd = $("<td></td>").text(value.titleEng);
+								$directorTd = $("<td></td>").text(value.director);
+								$releaseTd = $("<td></td>").text(value.releaseYear);
+								$countryTd = $("<td></td>").text(value.productionCountry);
+								$genreTd = $("<td></td>").text(value.genre);
 								
-								$tr.append($writerTd);
-								$tr.append($contentTd);
-								$tr.append($dateTd);
+								$tr.append($korTd);
+								$tr.append($engTd);
+								$tr.append($directorTd);
+								$tr.append($releaseTd);
+								$tr.append($countryTd);
+								$tr.append($genreTd);
 								
 								$tbody.append($tr);
 							
 							});
 							
-						} else { // 댓글이 존재하지 않을 경우
+						} else {
 							
 							$tr = $("<tr></tr>");
 							
-							$contentTd = $("<td colspan='3'></td>").text("등록된 댓글이 없습니다.");
+							$contentTd = $("<td colspan='6'></td>").text("검색된 결과가 없습니다.");
 							$tr.append($contentTd);
 							
 							$tbody.append($tr);
@@ -120,7 +127,7 @@
 						console.log("ajax 통신 실패");
 					}
 				});
-				 */
+				
 			});
 			
 		</script>

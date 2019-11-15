@@ -29,6 +29,8 @@
 		join tb_genre g
 		on (f.genre_id = g.id)
 		where release_year = #{ releaseYear }
+		  and production_country = #{ productionCountry }
+		  and f.genre_id = #{ genre }
 	</select>
 	
 </mapper>

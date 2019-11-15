@@ -18,7 +18,6 @@ DROP TABLE "TB_FILM_IMAGE";
 DROP TABLE "TB_FILM_ACTOR";
 DROP TABLE "TB_RATING_REVIEW";
 DROP TABLE "TB_GENRE" CASCADE CONSTRAINTS;
-DROP TABLE "TB_MEMBER_GENRE";
 
 DROP SEQUENCE SEQ_MEMBER_ID;
 DROP SEQUENCE SEQ_REVIEW_ID;
@@ -253,11 +252,6 @@ CREATE TABLE "TB_GENRE" (
 	"NAME"	VARCHAR2(30)		NOT NULL
 );
 
-CREATE TABLE "TB_MEMBER_GENRE" (
-	"MEMBER_ID"	NUMBER		NOT NULL,
-	"GENRE_ID"	NUMBER		NOT NULL
-);
-
 ALTER TABLE "TB_MEMBER" ADD CONSTRAINT "PK_TB_MEMBER" PRIMARY KEY (
 	"ID"
 );
@@ -340,11 +334,6 @@ ALTER TABLE "TB_GENRE" ADD CONSTRAINT "PK_TB_GENRE" PRIMARY KEY (
 	"ID"
 );
 
-ALTER TABLE "TB_MEMBER_GENRE" ADD CONSTRAINT "PK_TB_MEMBER_GENRE" PRIMARY KEY (
-	"MEMBER_ID",
-	"GENRE_ID"
-);
-
 ALTER TABLE "TB_FILM_COLLECTION" ADD CONSTRAINT "FK_FILM_COLLECTION_C" FOREIGN KEY (
 	"COLLECTION_ID"
 )
@@ -373,29 +362,49 @@ REFERENCES "TB_DETAIL_FILM" (
 	"ID"
 );
 
-ALTER TABLE "TB_MEMBER_GENRE" ADD CONSTRAINT "FK_MEMBER_GENRE_M" FOREIGN KEY (
-	"MEMBER_ID"
-)
-REFERENCES "TB_MEMBER" (
-	"ID"
-);
-
-ALTER TABLE "TB_MEMBER_GENRE" ADD CONSTRAINT "FK_MEMBER_GENRE_G" FOREIGN KEY (
+ALTER TABLE "TB_FILM" ADD CONSTRAINT "FK_FILM_GENRE" FOREIGN KEY (
 	"GENRE_ID"
 )
 REFERENCES "TB_GENRE" (
 	"ID"
 );
 
+
+-- 장르
 insert into tb_genre values(seq_genre_id.nextval, '드라마');
 insert into tb_genre values(seq_genre_id.nextval, '액션');
 insert into tb_genre values(seq_genre_id.nextval, '다큐멘터리');
+insert into tb_genre values(seq_genre_id.nextval, '스릴러');
 
+-- 영화
 insert into tb_film
 values(seq_film_id.nextval, '감쪽같은 그녀', 'A Little Princess', '허인무', 2019, '한국', '개봉예정', 1);
 insert into tb_film
 values(seq_film_id.nextval, '기생충', 'PARASITE', '봉준호', 2019, '한국', '개봉', 1);
 insert into tb_film
 values(seq_film_id.nextval, '녹차의 중력', 'Gravity of the Tea', '정성일', 2018, '한국', '개봉예정', 3);
+INSERT INTO TB_FILM
+VALUES(SEQ_FILM_ID.NEXTVAL, '조커', 'JOKER', '토드 필립스', 0, '2019-10-02', '개봉', 1);
+
+-- 회원
+INSERT INTO TB_MEMBER
+VALUES(SEQ_MEMBER_ID.NEXTVAL, DEFAULT, 'xv1212@naver.com', '1234', '회원1', DEFAULT, SYSDATE, SYSDATE, 0, 0);
+
+-- 배우
+INSERT INTO TB_ACTOR
+VALUES(SEQ_ACTOR_ID.NEXTVAL, '호아킨 피닉스', 'NULL');
+
+-- 영화 상세정보
+INSERT INTO TB_DETAIL_FILM
+VALUES(SEQ_DFILM_ID.NEXTVAL, '이것은 시놉시스', '이것은 트리비아', '예고편 링크', '스틸영상', DEFAULT, 1, 1);
+
+-- 영화상세정보 <->  배우
+INSERT INTO TB_FILM_ACTOR
+VALUES(1,1);
+
+-- 리뷰
+INSERT INTO TB_REVIEW
+VALUES(SEQ_REVIEW_ID.NEXTVAL, '이것은 리뷰 내용', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1);
+
 
 commit;

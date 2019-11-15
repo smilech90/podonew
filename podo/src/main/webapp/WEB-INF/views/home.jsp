@@ -6,7 +6,7 @@
 		<title>Home</title>
 	</head>
 	<body>
-		<form method="post" action="searchFilm.do">
+		<form method="post" action="skFilm.do">
 			<input type="text" name="keyword">
 			<button type="submit">검색</button>
 		</form>
