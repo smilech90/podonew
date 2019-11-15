@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>자유게시판 리스트</h1>
+	<h1 align="center">자유게시판 리스트</h1>
+	
+	
+	
+	
 </body>
 </html>
