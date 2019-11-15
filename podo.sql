@@ -1,14 +1,14 @@
-DROP TABLE "TB_MEMBER";
+DROP TABLE "TB_MEMBER" CASCADE CONSTRAINTS;
 DROP TABLE "TB_REVIEW";
 DROP TABLE "TB_LIKE";
-DROP TABLE "TB_FILM";
-DROP TABLE "TB_DETAIL_FILM";
+DROP TABLE "TB_FILM" CASCADE CONSTRAINTS;
+DROP TABLE "TB_DETAIL_FILM" CASCADE CONSTRAINTS;
 DROP TABLE "TB_BOARD";
 DROP TABLE "TB_RATING_FILM";
 DROP TABLE "TB_COMMENT";
 DROP TABLE "TB_INQUIRY";
 DROP TABLE "TB_NOTICE";
-DROP TABLE "TB_COLLECTION";
+DROP TABLE "TB_COLLECTION" CASCADE CONSTRAINTS;
 DROP TABLE "TB_FILM_COLLECTION";
 DROP TABLE "TB_REPORT";
 DROP TABLE "TB_BLACK_MEMBER";
@@ -17,7 +17,7 @@ DROP TABLE "TB_IMAGE";
 DROP TABLE "TB_FILM_IMAGE";
 DROP TABLE "TB_FILM_ACTOR";
 DROP TABLE "TB_RATING_REVIEW";
-DROP TABLE "TB_GENRE";
+DROP TABLE "TB_GENRE" CASCADE CONSTRAINTS;
 DROP TABLE "TB_MEMBER_GENRE";
 
 DROP SEQUENCE SEQ_MEMBER_ID;
@@ -386,4 +386,16 @@ ALTER TABLE "TB_MEMBER_GENRE" ADD CONSTRAINT "FK_MEMBER_GENRE_G" FOREIGN KEY (
 REFERENCES "TB_GENRE" (
 	"ID"
 );
+
+insert into tb_genre values(seq_genre_id.nextval, '드라마');
+insert into tb_genre values(seq_genre_id.nextval, '액션');
+insert into tb_genre values(seq_genre_id.nextval, '다큐멘터리');
+
+insert into tb_film
+values(seq_film_id.nextval, '감쪽같은 그녀', 'A Little Princess', '허인무', 2019, '한국', '개봉예정', 1);
+insert into tb_film
+values(seq_film_id.nextval, '기생충', 'PARASITE', '봉준호', 2019, '한국', '개봉', 1);
+insert into tb_film
+values(seq_film_id.nextval, '녹차의 중력', 'Gravity of the Tea', '정성일', 2018, '한국', '개봉예정', 3);
+
 
