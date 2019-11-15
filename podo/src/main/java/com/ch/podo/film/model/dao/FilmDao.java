@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.podo.film.model.vo.Film;
+import com.ch.podo.film.model.vo.Genre;
 
 @Repository("filmDao")
 public class FilmDao {
@@ -20,6 +21,10 @@ public class FilmDao {
 
 	public ArrayList<Film> selectFilterFilmList(Film film) {
 		return (ArrayList)sqlSession.selectList("filmMapper.selectFilterFilmList", film);
+	}
+
+	public ArrayList<Genre> selectAllGenreList() {
+		return (ArrayList)sqlSession.selectList("filmMapper.selectAllGenreList");
 	}
 
 }

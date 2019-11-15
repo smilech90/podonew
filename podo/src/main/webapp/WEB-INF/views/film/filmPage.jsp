@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>영화 페이지</title>
 		<style>
 			
 			#search-film-result {
@@ -25,17 +26,22 @@
 				다양한 필터를 적용해 오늘 감상할 영화를 찾아보세요!</h1>
 		</div>
 		<select name="releaseYear">
-			<option value="2019">2019</option>
-			<option value="2018">2018</option>
+			<option>연도별</option>
+			<c:forEach begin="2010" end="2019" step="1" var="yyyy">
+				<option value="${ yyyy }">${ yyyy }</option>
+			</c:forEach>
 		</select>
 		<select name="productionCountry">
+			<option>국가별</option>
 			<option value="한국">한국</option>
 			<option value="미국">미국</option>
+			<option value="일본">일본</option>
 		</select>
 		<select name="genre">
-			<option value="1">드라마</option>
-			<option value="2">액션</option>
-			<option value="3">다큐멘터리</option>
+			<option>장르별</option>
+			<c:forEach items="${ genre }" var="g">
+				<option value="${ g.id }">${ g.name }</option>
+			</c:forEach>
 		</select>
 		
 		<table id="search-film-result">
@@ -48,7 +54,7 @@
 					<th>감독</th>
 					<th>개봉연도</th>
 					<th>국가</th>
-					<th>장르</th>
+					<th>장르</th>	
 				</tr>
 			</thead>
 			<tbody>

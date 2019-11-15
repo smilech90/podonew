@@ -33,4 +33,9 @@
 		  and f.genre_id = #{ genre }
 	</select>
 	
+	<select id="selectAllGenreList" resultType="Genre">
+		select *
+		from tb_genre
+	</select>
+	
 </mapper>

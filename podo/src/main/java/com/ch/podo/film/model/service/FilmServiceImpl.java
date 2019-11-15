@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ch.podo.film.model.dao.FilmDao;
 import com.ch.podo.film.model.vo.Film;
+import com.ch.podo.film.model.vo.Genre;
 
 @Service("filmService")
 public class FilmServiceImpl implements FilmService {
@@ -17,6 +18,11 @@ public class FilmServiceImpl implements FilmService {
 	@Override
 	public ArrayList<Film> selectKeywordFilmList(String keyword) {
 		return filmDao.selectKeywordFilmList(keyword);
+	}
+
+	@Override
+	public ArrayList<Genre> selectAllGenreList() {
+		return filmDao.selectAllGenreList();
 	}
 
 	@Override
