@@ -398,4 +398,4 @@ values(seq_film_id.nextval, '기생충', 'PARASITE', '봉준호', 2019, '한국'
 insert into tb_film
 values(seq_film_id.nextval, '녹차의 중력', 'Gravity of the Tea', '정성일', 2018, '한국', '개봉예정', 3);
 
-
+commit;
