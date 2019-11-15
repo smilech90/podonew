@@ -17,9 +17,17 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ArrayList<Board> selectList(PageInfo pi) {
+	public ArrayList<Board> selectBoardList(PageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int insertBoard(Board b) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 
 }
