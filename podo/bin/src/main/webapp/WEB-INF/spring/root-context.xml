@@ -16,7 +16,7 @@
 	</bean>
 	
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
-		  	id="sqlSession">
+		  id="sqlSession">
 		<!-- classpath == resources -->
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>

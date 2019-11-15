@@ -1,7 +1,6 @@
 package com.ch.podo.film.model.service;
 
 import java.util.ArrayList;
-
 import com.ch.podo.film.model.vo.Film;
 
 public interface FilmService {
