@@ -6,8 +6,8 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<h1 style="text-align:center; color:#fff">
-			<img src="resources/bootstrap/img/logo.png" onclick="location.href='home.do'" style="cursor: pointer; height:50%; width:50%;"/>
-		</h1>
+		<jsp:include page="../common/header.jsp"/>
+		<h1>${ msg }</h1>
+		<jsp:include page="../common/footer.jsp"/>
 	</body>
 </html>

@@ -28,9 +28,16 @@
 		from tb_film f
 		join tb_genre g
 		on (f.genre_id = g.id)
-		where release_year = #{ releaseYear }
-		  and production_country = #{ productionCountry }
-		  and f.genre_id = #{ genre }
+		where 1 = 1
+		<if test="releaseYear != ''">
+			and release_year = #{ releaseYear }
+		</if>
+		<if test="productionCountry != ''">
+			and production_country = #{ productionCountry }
+		</if>
+		<if test="genre != ''">
+			and f.genre_id = #{ genre }
+		</if>
 	</select>
 	
 	<select id="selectAllGenreList" resultType="Genre">
