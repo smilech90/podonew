@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +35,9 @@
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav justify-content-center">
               <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li> 
-              <li class="nav-item"><a class="nav-link" href="archive.html">영화</a></li> 
+              <li class="nav-item"><a class="nav-link" href="archive.html">영화</a></li>
+<!-- 20191116 봉운 test1  -->
+              <li class="nav-item"><a class="nav-link" href="detailFilm.do?id=4">영화 상세페이지로(임시, 조커영화 번호 1번)</a></li>
               <li class="nav-item"><a class="nav-link" href="category.html">Review</a>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -491,16 +493,4 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="resources/bootstrap/js/mail-script.js"></script>
   <script src="resources/bootstrap/js/main.js"></script>
 </body>
-=======
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-   <head>
-      <meta charset="UTF-8">
-      <title>Insert title here</title>
-   </head>
-   <body>
-      <a href="home.do">홈으로</a>
-   </body>
->>>>>>> branch 'develop' of https://github.com/humormagnate/podo
 </html>
