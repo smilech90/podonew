@@ -23,7 +23,7 @@ public class DetailFilm {
 	private String productionStatus;	// 개봉상태
 	private int genre;					// 장르
 	private int id2;					// 디테일 정보 번호
-	private String synobsys;			// 시놉시스
+	private String synopsys;			// 시놉시스
 	private String trivia;				// 트리비아
 	private String trailer;				// 예고편 링크
 	private String footage;				// 스틸 영상

@@ -19,7 +19,7 @@ public class DetailFilmController {
 		
 		DetailFilm df = dfService.selectDetailFilm(id);
 		
-		mv.addObject("df",df).setViewName("film/detailFilmView");
+		mv.addObject("df",df).setViewName("detailFilm/detailFilmView");
 				
 		return mv; 
 	}

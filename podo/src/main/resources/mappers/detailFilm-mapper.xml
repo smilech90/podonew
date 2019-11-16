@@ -26,7 +26,7 @@
 		select *
 		from tb_film f
 		join tb_detail_film df on(df.film_id = f.id)
-		where f.id=${id}
+		where f.id=#{id}
 	</select>
 </mapper>
 
