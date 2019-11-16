@@ -104,6 +104,8 @@
 						  <button type="submit" id="btn-sign-in" class="btn btn-primary">Sign in</button>
 			      </div>
 					</form>
+					   <button type="button" class="btn btn-default" id="myBtn"  style="background:pink; color:white; width:60px;" onclick="location.href='insertFormMember.do';">Join</button>
+					
 	      </div>
 	    </div>
 	  </div>

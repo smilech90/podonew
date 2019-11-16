@@ -14,14 +14,17 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public int insertMember(Member mem) {
-		// TODO Auto-generated method stub
-		return 0;
+		return memberDao.insertMember(mem);
 	}
 
 	@Override
 	public int idCheck(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return memberDao.idCheck(id);
+	}
+	
+	@Override
+	public int nickCheck(String nick) {
+		return memberDao.nickCheck(nick);
 	}
 	
 	@Override
@@ -40,5 +43,6 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }

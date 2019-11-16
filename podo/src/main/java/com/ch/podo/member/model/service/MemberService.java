@@ -4,11 +4,14 @@ import com.ch.podo.member.model.vo.Member;
 
 public interface MemberService {
 
-	// 1. 회원 가입 
+	// 1_1. 회원 가입 
 	int insertMember(Member mem);
 	
-	// 2. 아이디 중복체크 서비스
+	// 1_2. 아이디 중복체크 서비스
 	int idCheck(String id);
+	
+	// 1_3. 닉네임 중복체크 서비스
+	int nickCheck(String nick);
 	
 	// 3. 로그인 서비스
 	Member selectLoginMember(Member mem);
