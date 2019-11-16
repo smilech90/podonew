@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="detailFilmmapper"> 
+
+	<resultMap id="detailFilmResultSet" type="DetailFilm">
+		<id property="id" column="id"/>
+		<result property="title" column="title_kor"/>
+		<result property="titleEng" column="title_eng"/>
+		<result property="director" column="director"/>
+		<result property="releaseYear" column="release_year"/>
+		<result property="productionCountry" column="production_country"/>
+		<result property="productionStatus" column="production_status"/>
+		<result property="genre" column="genre_id"/>
+		<result property="id2" column="id_1"/>		
+		<result property="synopsys" column="synopsys"/>
+		<result property="trivia" column="trivia"/>
+		<result property="trailer" column="trailer"/>
+		<result property="footage" column="footage"/>
+		<result property="status" column="status"/>
+		<result property="memberId" column="member_id"/>
+		<result property="filmId" column="film_id"/>
+	</resultMap>
+	
+	<select id="selectDetailFilm" resultMap="detailFilmResultSet">
+		select *
+		from tb_detail_film df
+		join tb_film f on(df.film_id = f.id)
+		where f.id=#{id}
+	</select>
+</mapper>
+
+
+

@@ -13,7 +13,12 @@ public class DetailFilmDao {
 	private SqlSessionTemplate sqlSession;
 	
 	public DetailFilm selectDetailFilm(int id) {
-		return sqlSession.selectOne("detailFilmmapper.selectDetailFilm", id);
+		
+		DetailFilm df = sqlSession.selectOne("detailFilmmapper.selectDetailFilm", id);
+		
+		System.out.println(df);
+		
+		return df;
 	}
 
 }
