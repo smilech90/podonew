@@ -36,8 +36,8 @@
 	<select id="selectLoginMember" resultMap="memberResultSet">
 		select *
 		from tb_member
-		where email = #{ email }
-			and pwd = #{ pwd }
+		where email=#{email}
+			and status='Y'
 	</select>
 	
 

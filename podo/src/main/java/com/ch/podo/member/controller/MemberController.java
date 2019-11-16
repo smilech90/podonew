@@ -41,7 +41,7 @@ public class MemberController {
 		// System.out.println("loginUser : " + loginUser);
 		// System.out.println("rememberMe : " + rememberMe);
 		
-		if (loginUser != null) {
+		if (loginUser != null && bcryptPasswordEncoder.matches(mem.getPwd(), loginUser.getPwd())) {
 			if (rememberMe == true) {
 				Cookie storeEmailCookie = new Cookie("email", mem.getEmail());
 				Cookie storePwdCookie = new Cookie("pwd", mem.getPwd());
