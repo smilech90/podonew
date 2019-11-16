@@ -28,7 +28,7 @@ public class DetailFilm {
 	private String trailer;				// 예고편 링크
 	private String footage;				// 스틸 영상
 	private String status;				// 영화 정보상태
-	private int memberId;
-	private int filmId;
+	private int memberId;				// 멤버 번호
+	private int filmId;					// 영화 번호
 	
 }
