@@ -15,7 +15,7 @@ import lombok.ToString;
 public class DetailFilm {
 	
 	private int id;						// 영화 상세정보 번호
-	private int title;					// 영화 제목
+	private String title;				// 영화 제목
 	private String titleEng;			// 영화 영어 제목
 	private String director;			// 감독
 	private int releaseYear;			// 제작 년도
