@@ -8,15 +8,37 @@ import com.ch.podo.member.model.vo.Member;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
-	
+
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Override
+	public int insertMember(Member mem) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int idCheck(String id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	@Override
 	public Member selectLoginMember(Member mem) {
 		return memberDao.selectLoginMember(mem);
 	}
-	
-	
-	
+
+	@Override
+	public int updateMember(Member mem) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteMember(String id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

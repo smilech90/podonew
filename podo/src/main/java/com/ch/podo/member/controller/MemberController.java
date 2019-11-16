@@ -21,31 +21,35 @@ public class MemberController {
 	
 	// @CookieValue(value="storeIdCookie", required = false) Cookie storeIdCookie
 	@RequestMapping("login.do")
-	public ModelAndView loginMember(Member mem, final HttpSession session, ModelAndView mv,
-									boolean rememberMe, HttpServletResponse response, HttpServletRequest request) {
+	public ModelAndView loginMember(Member mem, HttpSession session, ModelAndView mv,
+																	boolean rememberMe, HttpServletResponse response, HttpServletRequest request) {
 		
 		Member loginUser = memberService.selectLoginMember(mem);
+		// System.out.println("loginUser : " + loginUser);
+		// System.out.println("rememberMe : " + rememberMe);
 		
 		if (loginUser != null) {
 			if (rememberMe == true) {
 				Cookie storeEmailCookie = new Cookie("email", mem.getEmail());
 				Cookie storePwdCookie = new Cookie("pwd", mem.getPwd());
 				storeEmailCookie.setMaxAge(60 * 60 * 24 * 7);
-		        storePwdCookie.setMaxAge(60 * 60 * 24 * 7);
-		        response.addCookie(storeEmailCookie);
-		        response.addCookie(storePwdCookie);
+        storePwdCookie.setMaxAge(60 * 60 * 24 * 7);
+        response.addCookie(storeEmailCookie);
+        response.addCookie(storePwdCookie);
 			} else {
 				Cookie[] cookies = request.getCookies();
-				for(int i = 0; i < cookies.length; i++){
-					cookies[i].setMaxAge(0);
-					response.addCookie(cookies[i]);
+				for (int i = 0; i < cookies.length; i++) {
+					if (cookies[i].getName().equals("email") || cookies[i].getName().equals("pwd")) {
+						// System.out.println("cookies[" + i + "].name : " + cookies[i].getName());
+						cookies[i].setMaxAge(0);
+						response.addCookie(cookies[i]);
+					}
 				}
 			}
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:home.do");
 		} else {
-			mv.addObject("msg", "로그인 실패")
-			.setViewName("error/errorPage");
+			mv.addObject("msg", "로그인 실패").setViewName("error/errorPage");
 		}
 		return mv;
 	}
@@ -56,4 +60,14 @@ public class MemberController {
 		return "redirect:home.do";
 	}
 	
+	
+	@RequestMapping("insertFormMember.do")
+	public String insertForm() {
+		return "member/memberInsertForm";
+	}
+	
+	@RequestMapping("insertMember.do")
+	public void insertMember(Member mem) {
+		
+	}
 }
