@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +91,7 @@
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
                 <div id="movie_detail_info">
-                    <div>조커</div>
+                    <div>${ df.title }</div>
                     <div>영화 예고편</div>
                     <div>줄거리</div>
                     <div>추가정보</div>
