@@ -12,6 +12,7 @@
 		<typeAlias type="com.ch.podo.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.ch.podo.film.model.vo.Film" alias="Film"/>
 		<typeAlias type="com.ch.podo.detailFilm.model.vo.DetailFilm" alias="DetailFilm"/>
+		<typeAlias type="com.ch.podo.film.model.vo.Genre" alias="Genre"/>
 	</typeAliases>
 	
 	<mappers>

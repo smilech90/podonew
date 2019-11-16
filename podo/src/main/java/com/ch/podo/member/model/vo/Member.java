@@ -18,7 +18,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Member {
 
-
+	private int id;
 	private String image;		// 프로필 사진 
 	private String email;		// 회원 ID
 	private String pwd;			// 비밀번호
@@ -28,6 +28,7 @@ public class Member {
 	private Date modifyDate;	// 정보 수정일
 	private String googleId;	// 구글 API 로그인
 	private String kakaoId;		// 카카오 API 로그인
+	private int autho;
 
 	
 }
