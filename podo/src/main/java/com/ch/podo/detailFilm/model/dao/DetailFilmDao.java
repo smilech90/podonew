@@ -15,9 +15,7 @@ public class DetailFilmDao {
 	public DetailFilm selectDetailFilm(int id) {
 		
 		DetailFilm df = sqlSession.selectOne("detailFilmmapper.selectDetailFilm", id);
-		
 		System.out.println(df);
-		
 		return df;
 	}
 

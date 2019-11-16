@@ -18,9 +18,8 @@ public class DetailFilmController {
 	public ModelAndView selectDetailFilm(int id, ModelAndView mv) {
 		
 		DetailFilm df = dfService.selectDetailFilm(id);
-		
 		mv.addObject("df",df).setViewName("detailFilm/detailFilmView");
-				
 		return mv; 
 	}
+	
 }
