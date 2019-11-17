@@ -91,10 +91,9 @@
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
                 <div id="movie_detail_info">
-                    <div>${ df.titleKor }(${ df.titleEng })</div>
+                    <span>${ df.titleKor }(${ df.titleEng })</span> <span>${ df.trailer }</span>
                     <div>${ df.director }</div>
                     <div>${ df.actor }</div>
-                    <div>${ df.trailer }</div>
                     <div>${ df.synopsys }</div>
                     <div>${ df.trivia }</div>
                     <div>전체정보 수정</div>	<!-- 버튼 -->
