@@ -97,7 +97,7 @@
                     <div>${ df.trailer }</div>
                     <div>${ df.synopsys }</div>
                     <div>${ df.trivia }</div>
-                    <div>전체정보 수정</div>
+                    <div>전체정보 수정</div>	<!-- 버튼 -->
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
         <c:forEach items="${ rl }" var="r">
 	        <div class="review">
 	            <div>리뷰</div>
-	            <div>리뷰 작성하기 버튼</div>
+	            <div>리뷰 작성하기 버튼</div>		<!-- 버튼 -->
 	            <div>작성자 : ${ r.nickname}</div>
 	            <div>내용 : ${ r.content }</div>
 	            <div>좋아요 : ${ r.likeCount }</div>
