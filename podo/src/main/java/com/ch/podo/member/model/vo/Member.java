@@ -28,7 +28,7 @@ public class Member {
 	private Date modifyDate;	// 정보 수정일
 	private String googleId;	// 구글 API 로그인
 	private String kakaoId;		// 카카오 API 로그인
-	private int autho;
+	private int autho;			// 권한 (1=일반, 2=관리자)
 
 	
 }

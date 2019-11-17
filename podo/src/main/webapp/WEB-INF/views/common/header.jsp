@@ -57,7 +57,7 @@
 							</li>
 							<c:if test="${ loginUser ne null }">
 								<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>
-								<li class="nav-item"><a id="logout" class="nav-link" href="mypage.do">마이페이지</a>
+								<li class="nav-item"><a id="logout" class="nav-link" href="myPageForm.do">마이페이지</a>
 							</c:if>
 							<c:if test="${ loginUser eq null }">
 								<li class="nav-item"><a id="login-modal" class="nav-link" href="#" data-toggle="modal">로그인</a>
