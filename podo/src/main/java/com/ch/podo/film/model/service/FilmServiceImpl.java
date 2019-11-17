@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.film.model.dao.FilmDao;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
@@ -16,8 +17,18 @@ public class FilmServiceImpl implements FilmService {
 	private FilmDao filmDao;
 	
 	@Override
-	public ArrayList<Film> selectKeywordFilmList(String keyword) {
-		return filmDao.selectKeywordFilmList(keyword);
+	public int getListCount() {
+		return filmDao.getListCount();
+	}
+
+	@Override
+	public int selectKeywordFilmListCount(String keyword) {
+		return filmDao.selectKeywordFilmListCount(keyword);
+	}
+
+	@Override
+	public ArrayList<Film> selectKeywordFilmList(String keyword, PageInfo pi) {
+		return filmDao.selectKeywordFilmList(keyword, pi);
 	}
 
 	@Override
@@ -29,5 +40,6 @@ public class FilmServiceImpl implements FilmService {
 	public ArrayList<Film> selectFilterFilmList(Film film) {
 		return filmDao.selectFilterFilmList(film);
 	}
+
 	
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -30,59 +31,70 @@
 		        
 		        	<!-- 검색된 컨텐츠 -->
 		          <div class="row">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>${ f.productionCountry }</td>
-					<td>${ f.genre }</td>
 								<c:forEach items="${ list }" var="f">
 			            <div class="col-md-6">
 			              <div class="single-recent-blog-post card-view">
 			                <div class="thumb">
-			                  <img class="card-img rounded-0" src="resources/bootstrap/img/blog/thumb/thumb-card8.png" alt="">
+			                  <img class="card-img rounded-0" src="http://placehold.it/300x300" alt="">
 			                  <ul class="thumb-info">
 			                    <li><a href="#"><i class="ti-user"></i>${ f.director }</a></li>
 			                    <li><a href="#"><i class="ti-themify-favicon"></i>${ f.releaseYear }</a></li>
 			                  </ul>
 			                </div>
 			                <div class="details mt-20">
-			                  <a href="#">
+			                  <a href="dfilm.do?id=${ f.id }">
 			                    <h3>${ f.titleKor }</h3>
 			                  </a>
-			                  <p>${ f.titleEng }</p>
-			                  <a class="button" href="#">More Info<i class="ti-arrow-right"></i></a>
+			                  <p>${ f.titleEng } / ${ f.productionCountry } / ${ f.genre }</p>
+			                  <a class="button" href="dfilm.do?id=${ f.id }">More Info<i class="ti-arrow-right"></i></a>
 			                </div>
 			              </div>
 			            </div>
 		          	</c:forEach>
-		            
-		            
 		          </div>
 		          
 		          <!-- 페이지 -->
 		          <div class="row">
 		            <div class="col-lg-12">
-		                <nav class="blog-pagination justify-content-center d-flex">
-		                    <ul class="pagination">
-		                        <li class="page-item">
-		                            <a href="#" class="page-link" aria-label="Previous">
-		                                <span aria-hidden="true">
-		                                    <i class="ti-angle-left"></i>
-		                                </span>
-		                            </a>
-		                        </li>
-		                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-		                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-		                        <li class="page-item">
-		                            <a href="#" class="page-link" aria-label="Next">
-		                                <span aria-hidden="true">
-		                                    <i class="ti-angle-right"></i>
-		                                </span>
-		                            </a>
-		                        </li>
-		                    </ul>
-		                </nav>
+	                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination">
+                   		
+                   		<!-- [PREV] -->
+                       <li class="page-item">
+                         <a href="skFilm.do?currentPage=${ pi.currentPage - 1 }" class="page-link" aria-label="Previous" disabled>
+                           <span aria-hidden="true">
+                             <i class="ti-angle-left"></i>
+                           </span>
+                        </a>
+                      </li>
+                       
+                      <!-- [페이지] -->
+											<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+                     		<c:if test="${ p eq pi.currentPage }">
+													<c:url value="skFilm.do" var="page">
+														<c:param name="currentPage" value="${ p }"/>
+													</c:url>
+                     			<li class="page-item disabled"><a href="${ page }" class="page-link">${ p }</a></li>
+												</c:if>
+												<c:if test="${ p ne pi.currentPage }">
+													<c:url value="skFilm.do" var="page">
+														<c:param name="currentPage" value="${ p }"/>
+													</c:url>
+                     			<li class="page-item"><a href="${ page }" class="page-link">${ p }</a></li>
+												</c:if>
+                     		
+                      </c:forEach>
+                       
+                      <!-- [NEXT] -->
+                      <li class="page-item">
+												<a href="skFilm.do?currentPage=${ pi.currentPage + 1 }" class="page-link" aria-label="Next">
+                           <span aria-hidden="true">
+                             <i class="ti-angle-right"></i>
+                           </span>
+                        </a>
+                      </li>
+                    </ul>
+	                </nav>
 		            </div>
 		          </div>
 		        </div>
@@ -108,19 +120,34 @@
 		                  <li>
 		                    <a href="#" class="d-flex justify-content-between">
 		                      <p>영화</p>
-		                      <p>(03)</p>
+		                      <c:if test="${ listCount lt 10 }">
+			                      <p>(0${ listCount })</p>
+		                      </c:if>
+		                      <c:if test="${ listCount ge 10 }">
+			                      <p>(${ listCount })</p>
+		                      </c:if>
 		                    </a>
 		                  </li>
 		                  <li>
 		                    <a href="#" class="d-flex justify-content-between">
 		                      <p>리뷰</p>
-		                      <p>(09)</p>
+		                      <c:if test="${ listCount lt 10 }">
+			                      <p>(0${ listCount })</p>
+		                      </c:if>
+		                      <c:if test="${ listCount ge 10 }">
+			                      <p>(${ listCount })</p>
+		                      </c:if>
 		                    </a>
 		                  </li>
 		                  <li>
 		                    <a href="#" class="d-flex justify-content-between">
 		                      <p>자유게시판</p>
-		                      <p>(12)</p>
+		                      <c:if test="${ listCount lt 10 }">
+			                      <p>(0${ listCount })</p>
+		                      </c:if>
+		                      <c:if test="${ listCount ge 10 }">
+			                      <p>(${ listCount })</p>
+		                      </c:if>
 		                    </a>
 		                  </li>
 		                </ul>
