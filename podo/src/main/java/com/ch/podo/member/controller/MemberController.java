@@ -153,7 +153,10 @@ public class MemberController {
 		}
 	}
 	
-	
+	@RequestMapping("myPageForm.do")
+	public String myPage() {
+		return "member/myPage";
+	}
 	
 	
 	
