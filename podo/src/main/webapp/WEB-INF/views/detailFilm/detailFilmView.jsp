@@ -105,8 +105,8 @@
         <c:forEach items="${ rl }" var="r">
 	        <div class="review">
 	            <div>리뷰</div>
-	            <div>작성자 : ${ r.nickname}</div>
 	            <div>내용 : ${ r.content }</div>
+	            <div>작성자 : ${ r.nickname}</div>
 	            <div>좋아요 : ${ r.likeCount }</div>
 	        </div>
         </c:forEach>

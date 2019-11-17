@@ -41,6 +41,16 @@
 		where f.id=#{id}
 	</select>
 	
+	<!-- 영화 정보 수정 [시놉시스], [추가 정보], [예고편 링크] 수정하는 부분 -->
+	<update id="updateDetailFilm">
+		update tb_detail_film
+		set synopsys=#{synopsys}, trivia=#{trivia}, trailer=#{trailer}
+		where film_id=#{id};
+	</update>
+	
+	
+	
+	
 </mapper>
 
 
