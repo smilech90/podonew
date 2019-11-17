@@ -101,10 +101,10 @@
             </div>
         </div>
         <hr>
+	    <div><a href="#">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
         <c:forEach items="${ rl }" var="r">
 	        <div class="review">
 	            <div>리뷰</div>
-	            <div>리뷰 작성하기 버튼</div>		<!-- 버튼 -->
 	            <div>작성자 : ${ r.nickname}</div>
 	            <div>내용 : ${ r.content }</div>
 	            <div>좋아요 : ${ r.likeCount }</div>
