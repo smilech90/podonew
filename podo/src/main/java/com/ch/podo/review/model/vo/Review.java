@@ -16,11 +16,14 @@ public class Review {
 	private int id;
 	private String image;				// 프로필 이미지
 	private String nickname;			// 사용자 닉네임
-	private String content;
-	private int inappropriateCount;
+	private String titleKor;			// 영화 한국 제목 -처란
+	private String name;				// 영화 장르 -처란
+	private String releaseYear;			// 영화 제작 년도 - 처란
+	private String content;				// 영화 리뷰 내용
+	private int inappropriateCount;		
 	private int spoilerCount;
 	private int likeCount;				// 리뷰 좋아요 갯수
-	private int spoilerCheck;
+	private String spoilerCheck;
 	private String status;
 	
 }

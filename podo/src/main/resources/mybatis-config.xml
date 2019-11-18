@@ -21,6 +21,7 @@
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/rating-review-mapper.xml"/>
+		<mapper resource="mappers/review-mapper.xml"/>
 		<mapper resource="mappers/film-mapper.xml"/>
 		<mapper resource="mappers/detailFilm-mapper.xml"/>
 	</mappers>

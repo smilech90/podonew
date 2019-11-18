@@ -47,7 +47,7 @@
 							<li class="nav-item"><a class="nav-link" href="film.do">영화</a></li>
 							<!-- 봉운 테스트 20191116 -->
 							<li class="nav-item"><a class="nav-link" href="detailFilm.do?id=4">영화 상세페이지로(임시, 조커영화 번호 1번)</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">리뷰</a>
+							<li class="nav-item"><a class="nav-link" href="reviewList.do">리뷰</a>
 							<li class="nav-item"><a class="nav-link" href="#">추천</a>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">게시판</a>

@@ -23,14 +23,14 @@
 		<c:forEach items="${ list }" var="ratingReivew">
 			<tr>
 				<td>${ ratingReivew.id }</td>
-				<td><a href="vdetail.do?id=${ratingReivew.id}">${ ratingReivew.titleKor }</a></td>
+				<td><a href="vdetail.do?id=${ratingReivew.id}">영화이름</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br>
-	<h3>${ title }</h3>
+	<h3>${title }</h3>
 
-	 <div id="mychart2">
+	<div id="mychart2">
    <canvas id="myChart">캔버스</canvas>
    
    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
