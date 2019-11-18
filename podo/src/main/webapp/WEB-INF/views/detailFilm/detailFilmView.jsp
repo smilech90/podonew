@@ -9,7 +9,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript"></script>
-<title>Insert title here</title>
+<title>PoDo</title>
 </head>
 
 <style>
@@ -88,12 +88,6 @@
         border: 1px solid black;
         float:right;
     }
-    #movie_synobsis{
-    	
-    }
-    #movie_plusInfo{
-
-    }
     #modify_all{
         width: 30%;
         float:right;
@@ -132,6 +126,7 @@
 
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
+            <form action="bupdate.do" method="get">
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
@@ -141,7 +136,7 @@
    	                	<div>감독 : ${ df.director }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div id="movie_synobsis">배우 : ${ df.actor }</div>
+                    	<div>배우 : ${ df.actor }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
                     	<div>시놉시스 : ${ df.synopsys }</div>
@@ -152,10 +147,11 @@
                     </div>
                     
                     <div class="cover">
-                    	전체정보 수정
+                    	<button type="submit">전체정보 수정</button>
                     </div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
                     		<!-- updateForm 에서 수정하고 저장 누르면 다시 이 페이지 -->
                 </div>
+            </form>
             </div>
         </div>
         <hr>

@@ -45,7 +45,7 @@
 						<ul class="nav navbar-nav menu_nav justify-content-center">
 							<li class="nav-item"><a class="nav-link" href="home.do">메인</a></li> 
 							<li class="nav-item"><a class="nav-link" href="film.do">영화</a></li>
-							<!-- 봉운 테스트 20191116 -->
+<!-- 봉운 테스트 20191116 -->
 							<li class="nav-item"><a class="nav-link" href="detailFilm.do?id=4">영화 상세페이지로(임시, 조커영화 번호 1번)</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">리뷰</a>
 							<li class="nav-item"><a class="nav-link" href="#">추천</a>
