@@ -22,7 +22,7 @@ public class RatingReviewController {
 		
 		ArrayList<RatingReview> list = ratingReviewService.selectRatingReviewList();
 		
-		mv.addObject("list",list).addObject("title",list.get(0).getTitleKor()).setViewName("ratingReview/ratingReviewList");
+		mv.addObject("list",list).setViewName("ratingReview/ratingReviewList");
 		
 		
 		System.out.println(list);
