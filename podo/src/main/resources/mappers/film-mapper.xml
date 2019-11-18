@@ -14,6 +14,20 @@
 		<result property="genre" column="name"/>
 	</resultMap>
 	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from tb_film
+	</select>
+	
+	<select id="selectKeywordFilmListCount" resultType="_int">
+		select count(*)
+		from tb_film f
+		join tb_genre g
+		on (f.genre_id = g.id)
+		where title_kor like '%'||#{keyword}||'%'
+		   or title_eng like '%' ||#{keyword}||'%'
+	</select>
+	
 	<select id="selectKeywordFilmList" resultMap="filmResultSet">
 		select f.*, g.name
 		from tb_film f
