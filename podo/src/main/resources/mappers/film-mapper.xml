@@ -14,6 +14,20 @@
 		<result property="genre" column="name"/>
 	</resultMap>
 	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from tb_film
+	</select>
+	
+	<select id="selectKeywordFilmListCount" resultType="_int">
+		select count(*)
+		from tb_film f
+		join tb_genre g
+		on (f.genre_id = g.id)
+		where title_kor like '%'||#{keyword}||'%'
+		   or title_eng like '%' ||#{keyword}||'%'
+	</select>
+	
 	<select id="selectKeywordFilmList" resultMap="filmResultSet">
 		select f.*, g.name
 		from tb_film f
@@ -28,9 +42,21 @@
 		from tb_film f
 		join tb_genre g
 		on (f.genre_id = g.id)
-		where release_year = #{ releaseYear }
-		  and production_country = #{ productionCountry }
-		  and f.genre_id = #{ genre }
+		where 1 = 1
+		<if test="releaseYear != ''">
+			and release_year = #{ releaseYear }
+		</if>
+		<if test="productionCountry != ''">
+			and production_country = #{ productionCountry }
+		</if>
+		<if test="genre != ''">
+			and f.genre_id = #{ genre }
+		</if>
+	</select>
+	
+	<select id="selectAllGenreList" resultType="Genre">
+		select *
+		from tb_genre
 	</select>
 	
 </mapper>

@@ -11,15 +11,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Film {
-	
+public class Genre {
 	private int id;
-	private String titleKor;
-	private String titleEng;
-	private String director;
-	private String releaseYear;
-	private String productionCountry;
-	private String productionStatus;
-	private String genre;
-	
+	private String name;
 }
