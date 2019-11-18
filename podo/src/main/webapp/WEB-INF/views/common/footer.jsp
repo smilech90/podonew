@@ -1,93 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<body>
-		<!--================ Start Footer Area =================-->
-  <footer class="footer-area section-padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3  col-md-6 col-sm-6">
-          <div class="single-footer-widget">
-            <h6>About Us</h6>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-              magna aliqua.
-            </p>
-          </div>
-        </div>
-        <div class="col-lg-4  col-md-6 col-sm-6">
-          <div class="single-footer-widget">
-            <h6>Newsletter</h6>
-            <p>Stay update with our latest</p>
-            <div class="" id="mc_embed_signup">
+<head>
+<style>
+	div{
+		box-sizing: border-box;
+	}
+	#footer-wrapper{width: 100%;}
+	.footer-1>a{
+		color: navy;
+		text-decoration: none;
+		font-weight: 700;
+		margin: 10px;
+		line-height: 25px;
+	}
+	.footer-2>p{
+		margin: 0;
+		text-align: center;
+		font-weight: 500;
+	}
+</style>
 
-              <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                method="get" class="form-inline">
-
-                <div class="d-flex flex-row">
-
-                  <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-                    required="" type="email">
-
-
-                  <button class="click-btn btn btn-default"><span class="lnr lnr-arrow-right"></span></button>
-                  <div style="position: absolute; left: -5000px;">
-                    <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-                  </div>
-
-                  <!-- <div class="col-lg-4 col-md-4">
-                        <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-                      </div>  -->
-                </div>
-                <div class="info"></div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3  col-md-6 col-sm-6">
-          <div class="single-footer-widget mail-chimp">
-            <h6 class="mb-20">Instragram Feed</h6>
-            <ul class="instafeed d-flex flex-wrap">
-              <li><img src="resources/bootstrap/img/instagram/i1.jpg" alt=""></li>
-              <li><img src="resources/bootstrap/img/instagram/i2.jpg" alt=""></li>
-              <li><img src="resources/bootstrap/img/instagram/i3.jpg" alt=""></li>
-              <li><img src="resources/bootstrap/img/instagram/i4.jpg" alt=""></li>
-              <li><img src="resources/bootstrap/img/instagram/i5.jpg" alt=""></li>
-              <li><img src="resources/bootstrap/img/instagram/i6.jpg" alt=""></li>
-              <li><img src="resources/bootstrap/img/instagram/i7.jpg" alt=""></li>
-              <li><img src="resources/bootstrap/img/instagram/i8.jpg" alt=""></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-6 col-sm-6">
-          <div class="single-footer-widget">
-            <h6>Follow Us</h6>
-            <p>Let us be social</p>
-            <div class="footer-social d-flex align-items-center">
-              <a href="#">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#">
-                <i class="fab fa-dribbble"></i>
-              </a>
-              <a href="#">
-                <i class="fab fa-behance"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-        <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-      </div>
-    </div>
-  </footer>
-  <!--================ End Footer Area =================-->
-  
-	</body>
+	<link rel="icon" href="resources/bootstrap/img/Fevicon.png" type="image/png">
+	<link rel="stylesheet" href="resources/bootstrap/vendors/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="resources/bootstrap/vendors/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="resources/bootstrap/vendors/themify-icons/themify-icons.css">
+	<link rel="stylesheet" href="resources/bootstrap/vendors/linericon/style.css">
+	<link rel="stylesheet" href="resources/bootstrap/vendors/owl-carousel/owl.theme.default.min.css">
+	<link rel="stylesheet" href="resources/bootstrap/vendors/owl-carousel/owl.carousel.min.css">
+	<link rel="stylesheet" href="resources/bootstrap/css/style.css">
+	
+	<script src="resources/bootstrap/vendors/jquery/jquery-3.2.1.min.js"></script>
+	<script src="resources/bootstrap/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="resources/bootstrap/vendors/owl-carousel/owl.carousel.min.js"></script>
+	<script src="resources/bootstrap/js/jquery.ajaxchimp.min.js"></script>
+	<script src="resources/bootstrap/js/mail-script.js"></script>
+	<script src="resources/bootstrap/js/main.js"></script>
+	
+</head>
+<body>
+	<!--================ Start Footer Area =================-->
+	<div id="footer-wrapper">
+		<div class="footer-1" align="center">
+			<a href="termsOfUse.do">이용약관 </a> | 
+			<a href="">개인정보취급방침</a> | 
+			<a href="">이용가이드</a> | 
+			<a href="">이용문의 및 DB제보</a>
+		</div>
+		<br>
+		<div class="footer-2">
+			<p>업무 제휴 문의 : kh@podo.com</p>
+			<p>
+			PODO | 서울 강남 제2014-01호 | 대표자 : 최봉운 | 책임자 : 김철환, 임창수, 최유정, 한혜경, 홍윤진
+			</p>
+			<p>Copyright &copy; 2019 PODO ALL RIGHTS RESERVED.</p>
+			<br>
+		</div>
+	</div>
+</body>
 </html>
