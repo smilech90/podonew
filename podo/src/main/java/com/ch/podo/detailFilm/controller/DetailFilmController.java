@@ -29,6 +29,20 @@ public class DetailFilmController {
 		return mv; 
 	}
 	
+	// 수정 페이지로 이동
+	@RequestMapping("detailFilmUpdate.do")
+	public ModelAndView detailFilmUpdateView(int id, ModelAndView mv) {
+		
+		DetailFilm df = dfService.selectDetailFilm(id);
+		
+		ArrayList<Review> rl = dfService.selectReivewList(id);
+		
+		mv.addObject("df",df).addObject("rl",rl).setViewName("detailFilm/detailFilmUpdate");
+		
+		return mv;
+		
+	}
+	
 	
 	
 }
