@@ -89,7 +89,7 @@
         float:right;
     }
     #movie_synobsis{
-
+    	
     }
     #movie_plusInfo{
 
@@ -100,6 +100,10 @@
     }
 </style>
 <body>
+	<!-- 헤더  -->
+	<jsp:include page="../common/header.jsp"/>
+    
+    <!-- 본문 -->
     <div id="body">
     	<div class="video-background">
             <div class="video-foreground">
@@ -111,31 +115,46 @@
             <div class="movie_poster_cover">    <!-- 왼쪽 영화 포스터 -->
 
                 <div class="icon" id="collection">   <!-- 콜렉션 -->
-                    <img id="plus" src="images/plus.jpg" style="width:30px; height:30px;">
+                    <img id="plus" src="resources/detailFilmImage/plus.jpg" onclick="#" style="width:30px; height:30px;">
                 </div>
 
                 <div class="icon" id="likeBtn">      <!-- 좋아요 -->
-                    <img id="heart" src="images/heart.jpg" style="width:30px; height:30px;">
+                    <img id="heart" src="resources/detailFilmImage/heart.jpg" onclick="#" style="width:30px; height:30px;">
                 </div>
 
                 <div class="icon" id="modifyBtn">    <!-- 수  정 -->
-                    <img id="memo" src="images/modifyBtn.jpg" style="width:30px; height:30px;">
+                    <img id="memo" src="resources/detailFilmImage/modifyBtn.jpg" onclick="#" style="width:30px; height:30px;">
                 </div>
 
                 <div id="movie_poster"> <!-- 포스터 -->
-                    <img id="poster" src="images/joker_poster.jpg" style="width:100%; height:100%;">
+                    <img id="poster" src="resources/detailFilmImage/joker_poster.jpg" onclick="#" style="width:100%; height:100%;">
                 </div>
 
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
                 <div id="movie_detail_info">
-                    <span>${ df.titleKor }(${ df.titleEng })</span> <span>${ df.trailer }</span>
-                    <div>${ df.director }</div>
-                    <div>${ df.actor }</div>
-                    <div>${ df.synopsys }</div>
-                    <div>${ df.trivia }</div>
-                    <div>전체정보 수정</div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
-                    						<!-- updateForm 에서 수정하고 저장 누르면 다시 이 페이지 -->
+                	<div class="cover" id="title_cover">
+	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
+	                    <span id="movie_clip">${ df.trailer }</span>                	
+                	</div>
+                    <div class="cover" id="sysnobsis_cover">
+   	                	<div>감독 : ${ df.director }</div>
+                    </div>
+                    <div class="cover" id="sysnobsis_cover">
+                    	<div id="movie_synobsis">배우 : ${ df.actor }</div>
+                    </div>
+                    <div class="cover" id="sysnobsis_cover">
+                    	<div>시놉시스 : ${ df.synopsys }</div>
+                    </div>
+                    
+                    <div class="cover" id="plusInfo_cover">
+                    	<div>트리비아 : ${ df.trivia }</div>
+                    </div>
+                    
+                    <div class="cover">
+                    	전체정보 수정
+                    </div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
+                    		<!-- updateForm 에서 수정하고 저장 누르면 다시 이 페이지 -->
                 </div>
             </div>
         </div>
@@ -150,6 +169,7 @@
 	        </div>
         </c:forEach>
     </div>
+    <br>
     
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script async src="https://www.youtube.com/iframe_api"></script>
@@ -187,6 +207,6 @@
 				
 	</script>
     
-    
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
