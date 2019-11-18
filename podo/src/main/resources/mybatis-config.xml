@@ -14,6 +14,7 @@
 		<typeAlias type="com.ch.podo.review.model.vo.Review" alias="Review"/>
 		<typeAlias type="com.ch.podo.detailFilm.model.vo.DetailFilm" alias="DetailFilm"/>
 		<typeAlias type="com.ch.podo.film.model.vo.Genre" alias="Genre"/>
+		<typeAlias type="com.ch.podo.like.model.vo.Like" alias="Like"/>
 	</typeAliases>
 	
 	<mappers>
