@@ -96,7 +96,8 @@
                     <div>${ df.actor }</div>
                     <div>${ df.synopsys }</div>
                     <div>${ df.trivia }</div>
-                    <div>전체정보 수정</div>	<!-- 버튼 -->
+                    <div>전체정보 수정</div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
+                    						<!-- updateForm 에서 수정하고 저장 누르면 다시 이 페이지 -->
                 </div>
             </div>
         </div>
