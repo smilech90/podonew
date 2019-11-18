@@ -14,6 +14,13 @@
 		<result property="genre" column="name"/>
 	</resultMap>
 	
+	<resultMap type="Like" id="likeResultSet">
+		<id property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="targetId" column="target_id"/>
+		<result property="userId" column="user_id"/>
+	</resultMap>
+	
 	<select id="getListCount" resultType="_int">
 		select count(*)
 		from tb_film
@@ -25,7 +32,7 @@
 		join tb_genre g
 		on (f.genre_id = g.id)
 		where title_kor like '%'||#{keyword}||'%'
-		   or title_eng like '%' ||#{keyword}||'%'
+		   or title_eng like '%'||#{keyword}||'%'
 	</select>
 	
 	<select id="selectKeywordFilmList" resultMap="filmResultSet">
@@ -34,29 +41,62 @@
 		join tb_genre g
 		on (f.genre_id = g.id)
 		where title_kor like '%'||#{keyword}||'%'
-		   or title_eng like '%' ||#{keyword}||'%'
+		   or title_eng like '%'||#{keyword}||'%'
 	</select>
 	
 	<select id="selectFilterFilmList" resultMap="filmResultSet">
 		select f.*, g.name
 		from tb_film f
-		join tb_genre g
-		on (f.genre_id = g.id)
+		join tb_genre g on (f.genre_id = g.id)
 		where 1 = 1
-		<if test="releaseYear != ''">
+		<if test='releaseYear != ""'>
 			and release_year = #{ releaseYear }
 		</if>
-		<if test="productionCountry != ''">
+		<if test='productionCountry != ""'>
 			and production_country = #{ productionCountry }
 		</if>
-		<if test="genre != ''">
+		<if test='genre != ""'>
 			and f.genre_id = #{ genre }
+		</if>
+	</select>
+	
+	<select id="selectFilterFilmMap" resultMap="filmResultSet">
+		select f.*, g.name, l.user_id
+		from tb_film f
+		join tb_genre g on (f.genre_id = g.id)
+    join tb_like l on (l.target_id = f.id)
+		where user_id = #{ mid }
+		<if test='film.releaseYear != ""'>
+			and release_year = #{ film.releaseYear }
+		</if>
+		<if test='film.productionCountry != ""'>
+			and production_country = #{ film.productionCountry }
+		</if>
+		<if test='film.genre != ""'>
+			and f.genre_id = #{ film.genre }
 		</if>
 	</select>
 	
 	<select id="selectAllGenreList" resultType="Genre">
 		select *
 		from tb_genre
+	</select>
+	
+	<insert id="insertLikeFilm">
+		insert into tb_like
+		values (seq_like_id.nextval, #{type}, #{targetId}, #{userId})
+	</insert>
+	
+	<delete id="deleteLikeFilm">
+		delete from tb_like
+		where user_id = #{userId}
+			and target_id = #{targetId}
+	</delete>
+	
+	<select id="selectLikedFilmMap" resultMap="likeResultSet">
+		select *
+		from tb_like
+		where user_id = #{id}
 	</select>
 	
 </mapper>
