@@ -26,6 +26,14 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 	public ArrayList<Review> selectReivewList(int id) {
 		return dfDao.selectReivewList(id);
 	}
+
+	// 영화 상세정보 추가 입력
+	@Override
+	public int detailFilmInsert(DetailFilm df, int uId) {
+
+		return dfDao.detailFilmInsert(df, uId);
+
+	}
 	
 	
 
