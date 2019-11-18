@@ -18,10 +18,22 @@
         height:100%;
     }
     #body{
-        width:70%;
+        width:60%;
         height:100%;
         margin-left: auto;
         margin-right: auto;
+    }
+    .video-background {
+		background: #000;
+        width: 100%;
+        height:25%;
+	}
+	
+	.video-foreground, .video-background iframe {
+		pointer-events: none;
+	}
+    #muteYouTubeVideoPlayer{
+        width:100%;
     }
     .movie_info{
         width:100%;
@@ -65,10 +77,36 @@
         border: 1px solid black;
         height: 40%;
     }
+    .cover{
+        border: 1px solid black;
+    }
+    #title_cover{
+        font-size:50px;
+    }
+    #movie_clip{
+        font-size:30px;
+        border: 1px solid black;
+        float:right;
+    }
+    #movie_synobsis{
 
+    }
+    #movie_plusInfo{
+
+    }
+    #modify_all{
+        width: 30%;
+        float:right;
+    }
 </style>
 <body>
     <div id="body">
+    	<div class="video-background">
+            <div class="video-foreground">
+                <div id="muteYouTubeVideoPlayer"></div>
+            </div>
+        </div>
+    
         <div class="movie_info">
             <div class="movie_poster_cover">    <!-- 왼쪽 영화 포스터 -->
 
@@ -112,5 +150,43 @@
 	        </div>
         </c:forEach>
     </div>
+    
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script async src="https://www.youtube.com/iframe_api"></script>
+	<script type="text/javascript">
+		var player;
+		
+        function onYouTubePlayerAPIReady(){
+			player = new YT.Player('muteYouTubeVideoPlayer', {
+				videoId : 'x60mB0zXZ38',
+				playerVars : {
+					autoplay : 1, 		// Auto-play the video on load
+					controls : 0, 		// Show pause/play buttons in player
+					rel : 0,
+
+					start : 75,         // 원하는 예고편 시작 지점
+					end : 135,          // 원하는 예고편 끝나는 지점
+
+					showinfo : 0,
+					showinfo : 0, 		// Hide the video title
+					modestbranding : 1, // Hide the Youtube Logo
+					loop : 1, 			// Run the video in a loop
+					playlist : 'x60mB0zXZ38',
+					fs : 0, 			// Hide the full screen button
+					cc_load_policy : 0, // Hide closed captions
+					iv_load_policy : 3, // Hide the Video Annotations
+					autohide : 1		// Hide video controls when playing
+				},
+                events:{
+					onReady:function(e){
+						e.target.mute();
+					}
+				}
+			});
+		}
+				
+	</script>
+    
+    
 </body>
 </html>

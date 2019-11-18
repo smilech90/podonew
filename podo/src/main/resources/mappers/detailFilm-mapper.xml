@@ -31,10 +31,11 @@
 		      left join tb_detail_film df on(df.film_id = f.id)
 		      left join tb_film_actor fa on(df.id = fa.dfilm_id)
 		      left join tb_actor a on(fa.actor_id = a.id)
-		      where f.id=4
+		      where f.id=#{id}
 		      and df.status='Y'
-		      order by insertdate desc)m
+		      order by insertdate)m
 		where rownum =1
+		
 	</select>
 	
 	<!-- 영화에 달린 리뷰들 보기 -->
@@ -52,8 +53,8 @@
 		insert into tb_detail_film
 		values(seq_dfilm_id, #{synopsys},#{trivia},#{trailer},null,'Y',#{writer},#{id})
 	</insert>
-	
-	<!-- 관리자가 [되돌리기] 버튼을 누르면 update로 status 'N'으로 수정 -->
+	 
+	<!-- 관리자가 [되돌리기] 버튼을 누르면 update로 status 'N'으로 수정  -->
 	<update id="updateDetailFilm">
 		update tb_detail_film
 		set status='N'
@@ -61,8 +62,6 @@
 		and status='Y'
 		order by insertdate desc
 	</update>
-	
-	
 	
 </mapper>
 
