@@ -14,7 +14,7 @@
 <style>
     body{
         width:100%;
-        height:100%;
+        height:100px;
     }
     #body{
         width:60%;
@@ -22,9 +22,8 @@
         margin-left: auto;
         margin-right: auto;
     }
-    .movie_info{
+    .movie_info2{
         width:100%;
-        height:40%;
         float:left;
         border:1px solid black;
     }
@@ -93,7 +92,7 @@
     <!-- 본문 -->
     <div id="body">
 
-        <div class="movie_info">
+        <div class="movie_info2">
             <div class="movie_poster_cover">    <!-- 왼쪽 영화 포스터 -->
 
                 <div class="icon" id="collection">   <!-- 콜렉션 -->
@@ -114,8 +113,9 @@
 
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
-            <form action="bupdate.do" method="get">
+            <form action="detailFilmInsert.do" method="get">
             <input type="hidden" name="id" value="${ df.id }">
+            <input type="hidden" name="uId" value="${ loginUser.id }">            
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
@@ -128,11 +128,11 @@
                     	<div>배우 : ${ df.actor }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div id="synopsys">시놉시스 : <input type="text" name="synopsys" value="${ synopsys }"></div>
+                    	<div id="synopsys">시놉시스 : <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.synopsys}</textarea></div>
                     </div>
                     
                     <div class="cover" id="plusInfo_cover">
-                    	<div id="trivia">트리비아 : <input type="text" name="trivia" value="${ trivia }"></div>
+                    	<div id="trivia">트리비아 : <textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.trivia}</textarea></div>
                     </div>
                     
                     <div class="cover">
@@ -146,7 +146,7 @@
         <hr>
     </div>
     <br>
- 
-    <jsp:include page="../common/footer.jsp"/>
+
 </body>
+
 </html>

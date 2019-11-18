@@ -132,8 +132,6 @@
 
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
-            <form action="detailFilmUpdate.do" method="get">
-            <input type="hidden" name="id" value="${ df.id }">
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
@@ -154,7 +152,7 @@
                     </div>
                     
                     <div class="cover" id="modifyBtn">
-                    	<a href="detailFilmUpdate.do?=${ df.id }">정보 수정
+                    	<a href="detailFilmUpdate.do?id=${ df.id }">정보 수정
                     </div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
                     		<!-- updateForm 에서 수정하고 저장 누르면 다시 이 페이지 -->
                 </div>

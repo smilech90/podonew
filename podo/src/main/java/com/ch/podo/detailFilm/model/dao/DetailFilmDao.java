@@ -1,6 +1,7 @@
 package com.ch.podo.detailFilm.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,18 @@ public class DetailFilmDao {
 		System.out.println(list);
 		return list;
 	}
-
+	
+	// HashMap 수정 필요
+	public int detailFilmInsert(DetailFilm df, int uId) {
+		HashMap map= new HashMap();
+		
+		map.put("df", df);
+		map.put("uId", uId);
+		System.out.println(map);
+		
+		return sqlSession.insert("detailFilmmapper.insertDetailFilm", map);
+		
+	}
+	
+	
 }
