@@ -3,12 +3,21 @@
 <html>
 <head>
 <style>
-	.footer1>a{
-		text-decoration: none;
-		text-align: center;
+	div{
+		box-sizing: border-box;
 	}
-	.footer2>p{
+	#footer-wrapper{width: 100%;}
+	.footer-1>a{
+		color: navy;
+		text-decoration: none;
+		font-weight: 700;
+		margin: 10px;
+		line-height: 25px;
+	}
+	.footer-2>p{
+		margin: 0;
 		text-align: center;
+		font-weight: 500;
 	}
 </style>
 
@@ -32,19 +41,20 @@
 <body>
 	<!--================ Start Footer Area =================-->
 	<div id="footer-wrapper">
-		<div class="footer1">
-			<a href="">이용약관 </a> | 
+		<div class="footer-1" align="center">
+			<a href="termsOfUse.do">이용약관 </a> | 
 			<a href="">개인정보취급방침</a> | 
 			<a href="">이용가이드</a> | 
 			<a href="">이용문의 및 DB제보</a>
 		</div>
 		<br>
-		<div class="footer2">
+		<div class="footer-2">
 			<p>업무 제휴 문의 : kh@podo.com</p>
 			<p>
 			PODO | 서울 강남 제2014-01호 | 대표자 : 최봉운 | 책임자 : 김철환, 임창수, 최유정, 한혜경, 홍윤진
 			</p>
 			<p>Copyright &copy; 2019 PODO ALL RIGHTS RESERVED.</p>
+			<br>
 		</div>
 	</div>
 </body>
