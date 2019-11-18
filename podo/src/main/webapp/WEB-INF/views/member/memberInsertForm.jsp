@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PoDo_회원가입</title>
 <style>
 	.idguide{
 		display:none;
@@ -34,11 +34,14 @@
 				<span class="idguide idno">사용불가</span>
 				<input type="hidden" id="idCheck" value="0"><br>
 			<input type="password" id="userPwd" name="pwd" placeholder="비밀번호를 입력하세요."><br>
+			<input type="password" id="userPwd2"  placeholder="비밀번호를 입력하세요."><br>
 			<input type="text" id="userNickName" name="nickName" placeholder="닉네임을 입력하세요.">
 				<span class="nickguide nickok">사용가능</span>
 				<span class="nickguide nickno">사용불가</span>
 				<input type="hidden" id="nickCheck" value="0"><br>
-			<input type="file" id="image" name="uploadFile"><br>
+			* 프로필 사진 미등록 시 기본이미지가 적용됩니다.<br>
+			<input type="file" id="imgInp" name="uploadFile"><br>
+			<img src="resources/memberProfileImage/podoImage.png" id="preview" width="70px" height="70px"><br>
 			<button type="submit" onclick="return validate();">Join</button>
 			<button type="button" onclick="location.href='home.do';">Cancel</button>
 		</form>
@@ -56,7 +59,13 @@
 				alert("비밀번호를 입력해주세요.");
 				$("#userPwd").focus();
 				return false;
-				
+			}else if($("#userPwd").val() != $("#userPwd2").val()){
+				alert("비밀번호가 틀립니다.");
+				$("#userPwd").val("");
+				$("#userPwd2").val("");
+				$("#userPwd").focus();
+				return false;
+			
 			}else if($("#userNickName").val().length == 0){	
 				alert("닉네임을 입력해주세요.")
 				$("#userNickName").focus();
@@ -148,6 +157,20 @@
 				});
 			});
 		});
+		
+		 function readURL(input) {
+		        if (input.files && input.files[0]) {
+		            var reader = new FileReader();
+		            reader.onload = function(e) {
+		                $('#preview').attr('src', e.target.result);
+		            }
+		            reader.readAsDataURL(input.files[0]);
+		        }
+		    }
+
+		    $("#imgInp").change(function() {
+		        readURL(this);
+		    });
 	</script>
 </body>
 </html>

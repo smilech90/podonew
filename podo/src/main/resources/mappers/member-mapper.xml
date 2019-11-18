@@ -40,6 +40,18 @@
 			and status='Y'
 	</select>
 	
-
+	<update id="updateMember">
+		update tb_member 
+		
+		<if test="updatePwd != null">	<!-- 비밀번호 변경O -->
+		set image=#{image}, email=#{email}, pwd=#{pwd}, nickname=#{nickName}, modify_date=sysdate
+		</if>
+		
+		<if test="updatePwd == null"> <!-- 비밀번호 변경X -->
+		set image=#{image}, email=#{email}, nickname=#{nickName}, modify_date=sysdate
+		</if>
+		
+		where id=#{id} and status='Y'
+	</update>
 	
 </mapper>
