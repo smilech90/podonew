@@ -47,13 +47,14 @@ public class DetailFilmController {
 	@RequestMapping("detailFilmInsert.do")
 	public ModelAndView detailFilmInsert(DetailFilm df, int uId, ModelAndView mv) {
 		
+		System.out.println(df);
+		
 		int result = dfService.detailFilmInsert(df, uId);
 		
 		mv.addObject("id", df.getId()).setViewName("redirect:detailFilm.do");
 		
 		return mv;
 
-		
 	}
 	
 	
