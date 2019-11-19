@@ -69,8 +69,8 @@
     #title_cover{
         font-size:50px;
     }
-    #movie_clip{
-        font-size:30px;
+    .movie_clip{
+        font-size:15px;
         border: 1px solid black;
         float:right;
     }
@@ -108,25 +108,26 @@
                 </div>
 
                 <div id="movie_poster"> <!-- 포스터 -->
-                    <img id="poster" src="resources/detailFilmImage/joker_poster.jpg" onclick="#" style="width:100%; height:100%;">
+                    <img id="poster" src="resources/detailFilmImage/${i.changeName}" onclick="#" style="width:100%; height:100%;">
                 </div>
 
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
-            <form action="detailFilmInsert.do" method="get">
+            <form action="detailFilmInsert.do" method="post">
             <input type="hidden" name="id" value="${ df.id }">
-            <input type="hidden" name="detailId" value="${ df.detailId }"> 
-            <input type="hidden" name="uId" value="${ loginUser.id }">            
+            <input type="hidden" name="detailId" value="${ df.detailId }">
+            <input type="hidden" name="filmImage" value="${ i.changeName }">            
+            <input type="hidden" name="uId" value="${ loginUser.id }">
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
-	                    <span id="movie_clip">${ df.trailer }</span>                	
+	                    <textarea class="movie_clip" name="trailer" rows="2" cols="40">${ df.trailer }</textarea>
                 	</div>
-                    <div class="cover" id="sysnobsis_cover">          
-   	                	<div>감독 : ${ df.director }</div>
+                    <div class="cover" id="sysnobsis_cover">
+   	                	<div name="director">감독 : ${ df.director }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div>배우 : ${ df.actor }</div>
+                    	<div id="synopsys">배우 <textarea id="text_actor" name="actor" placeholder="정보를 입력해주세요" rows="1" cols="90">${ df.actor }</textarea></div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
                     	<div id="synopsys">시놉시스 <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.synopsys}</textarea></div>
@@ -137,7 +138,7 @@
                     </div>
                     
                     <div class="cover">
-                    	<button type="submit" id="modifyBtn">전체정보 수정</button>
+                    	<button type="submit" id="modifyBtn">내용 저장</button>
                     </div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
                     		<!-- updateForm 에서 수정하고 저장 누르면 다시 이 페이지 -->
                 </div>

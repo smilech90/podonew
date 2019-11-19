@@ -84,7 +84,7 @@
         font-size:50px;
     }
     #movie_clip{
-        font-size:30px;
+        font-size:15px;
         border: 1px solid black;
         float:right;
     }
@@ -125,9 +125,9 @@
                 <div class="icon" id="modifyBtn">    <!-- 수  정 -->
                     <img id="memo" src="resources/detailFilmImage/modifyBtn.jpg" onclick="#" style="width:30px; height:30px;">
                 </div>
-
                 <div id="movie_poster"> <!-- 포스터 -->
-                    <img id="poster" src="resources/detailFilmImage/joker.jpg" onclick="#" style="width:100%; height:100%;">
+                	
+                    <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
                 </div>
 
             </div>
@@ -151,10 +151,11 @@
                     	<div id="trivia">트리비아 : ${ df.trivia }</div>
                     </div>
                     
-                    <div class="cover" id="modifyBtn">
-                    	<a href="detailFilmUpdate.do?id=${ df.id }">정보 수정
-                    </div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
-                    		<!-- updateForm 에서 수정하고 저장 누르면 다시 이 페이지 -->
+                    <c:if test="${ loginUser.id ne null }">
+	                    <div class="cover" id="modifyBtn">
+	                    	<a href="detailFilmUpdate.do?id=${ df.id }">정보 수정
+	                    </div>
+	                </c:if>
                 </div>
             </form>
             </div>

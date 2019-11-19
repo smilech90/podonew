@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ch.podo.detailFilm.model.dao.DetailFilmDao;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
+import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.review.model.vo.Review;
 
 @Service("dfService")
@@ -32,9 +33,20 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 	public int detailFilmInsert(DetailFilm df, int uId) {
 
 		return dfDao.detailFilmInsert(df, uId);
-
 	}
 	
+	// 영화 상세정보 추가 입력, 포스터
+	@Override
+	public int filmImageInsert(String filmImage, int detailId) {
+		
+		return dfDao.filmImageInsert(filmImage, detailId);
+	}
 	
+	// 영화 상세정보 영화 포스터 불러오기
+	@Override
+	public Image selectFilmImage(int detailId) {
+		
+		return dfDao.selectFilmImage(detailId);
+	}
 
 }
