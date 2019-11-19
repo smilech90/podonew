@@ -43,7 +43,7 @@
 	<div id="footer-wrapper">
 		<div class="footer-1" align="center">
 			<a href="termsOfUse.do">이용약관 </a> | 
-			<a href="">개인정보취급방침</a> | 
+			<a href="privacyPolicy.do">개인정보취급방침</a> | 
 			<a href="">이용가이드</a> | 
 			<a href="">이용문의 및 DB제보</a>
 		</div>
