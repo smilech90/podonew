@@ -3,7 +3,6 @@ package com.ch.podo.film.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,8 +19,11 @@ import com.ch.podo.common.Pagination;
 import com.ch.podo.film.model.service.FilmService;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
+import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.like.model.vo.Like;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.ratingFilm.model.service.RatingFilmService;
+import com.ch.podo.ratingFilm.model.vo.RatingFilm;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
@@ -30,6 +32,12 @@ public class FilmController {
 	
 	@Autowired
 	private FilmService filmService;
+
+	@Autowired
+	private LikeService likeService;
+
+	@Autowired
+	private RatingFilmService ratingFilmService;
 	
 	@RequestMapping("skFilm.do")
 	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
@@ -65,7 +73,10 @@ public class FilmController {
 		ArrayList<Film> filmList = filmService.selectFilterFilmList(film);
 		map.put("film", filmList);
 
-		HashMap<Integer, Film> likeMap = (HashMap<Integer, Film>)filmService.selectLikedFilmMap(loginUser.getId());
+		HashMap<Integer, Film> likeMap = new HashMap<>();
+		if (loginUser != null) {
+			likeMap = (HashMap<Integer, Film>)filmService.selectLikedFilmMap(loginUser.getId());
+		}
 		map.put("like", likeMap);
 		
 		response.setContentType("application/json; charset=utf-8");
@@ -73,22 +84,56 @@ public class FilmController {
 		gson.toJson(map, response.getWriter());
 	}
 	
-	@RequestMapping("filmLike.do")
-	public void filmLike(HttpServletResponse response, HttpSession session, String fid, int flag)
+	@RequestMapping("likeFilm.do")
+	public void likeFilm(HttpServletResponse response, HttpSession session, String fid, int flag)
 			throws JsonIOException, IOException {
 		Member mem = (Member)session.getAttribute("loginUser");
 		
 		Like like = new Like();
-		like.setType(1);
 		like.setTargetId(Integer.parseInt(fid));
 		like.setUserId(mem.getId());
 		
 		int result = 0;
 		if (flag > 0) {
-			result = filmService.insertLikeFilm(like);
+			result = likeService.insertLikeFilm(like);
 		} else {
-			result = filmService.deleteLikeFilm(like);
+			result = likeService.deleteLikeFilm(like);
 		}
+		
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new Gson();
+		gson.toJson(result, response.getWriter());
+	}
+	
+	@RequestMapping("rateFilm.do")
+	public void rateFilm(HttpServletResponse response, HttpSession session, String fid, String star)
+			throws JsonIOException, IOException {
+		Member mem = (Member)session.getAttribute("loginUser");
+		
+		RatingFilm rate = new RatingFilm();
+		rate.setStar(Integer.parseInt(star));
+		rate.setUserId(mem.getId());
+		rate.setFilmId(Integer.parseInt(fid));
+
+		RatingFilm flag = ratingFilmService.selectRatingFilm(rate);
+		int result = 0;
+
+		// 이미 기존에 있는 별점을 다시 눌렀을 경우 취소되면서 삭제
+		if (flag != null && Integer.parseInt(star) == flag.getStar()) {
+			result = ratingFilmService.deleteRateFilm(rate);
+			System.out.println("delete 실행");
+		} else {
+			// 기존에 별점이 없다면 삽입
+			if (flag == null) {
+				result = ratingFilmService.insertRateFilm(rate);
+				System.out.println("insert 실행");
+			// 이미 기존에 별점이 있다면 수정
+			} else {
+				result = ratingFilmService.updateLikeFilm(rate);
+				System.out.println("update실행");
+			}
+		}
+		
 		
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new Gson();
