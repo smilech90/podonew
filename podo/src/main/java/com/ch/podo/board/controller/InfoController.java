@@ -7,8 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class InfoController {
 	
-	/*
-	@RequestMapping("termsOfUse.do")
+	@RequestMapping("termsofuse.do")
 	public ModelAndView termsOfUse(ModelAndView mv) {
 		
 		mv.setViewName("board/termsOfUseForm");
@@ -16,12 +15,22 @@ public class InfoController {
 		return mv;
 		
 	}
-	*/
+	
 	
 	@RequestMapping("privacyPolicy.do")
 	public ModelAndView privacyPolicy(ModelAndView mv) {
 		
 		mv.setViewName("board/privacyPolicyForm");
+		
+		return mv;
+		
+	}
+	
+	
+	@RequestMapping("faq.do")
+	public ModelAndView faq(ModelAndView mv) {
+		
+		mv.setViewName("board/faqForm");
 		
 		return mv;
 		
