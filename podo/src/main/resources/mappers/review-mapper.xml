@@ -31,9 +31,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectReviewList" resultMap="reviewListSet">
 		select *
 		from tb_review r
-		left join tb_member m on(member_id = r.id)
-		left join tb_film f on(film_id = f.id)
-		left join tb_detail_film df on(df.film_id = f.id)
+		left join tb_film f on(r.film_id = f.id)
+        left join tb_member m on(r.member_id = m.id)
+		left join tb_detail_film df on(r.film_id = df.id)<!-- 수정된거 did로 바꿔야함 봉운이 did용 -->
 		left join tb_film_image fi on(dfilm_id = fi.id)
 		left join tb_genre g on(genre_id = g.id)
 	</select>
