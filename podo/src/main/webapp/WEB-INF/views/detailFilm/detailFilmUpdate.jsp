@@ -11,11 +11,10 @@
     <script type="text/javascript"></script>
 <title>PoDo</title>
 </head>
-
 <style>
     body{
         width:100%;
-        height:100%;
+        height:100px;
     }
     #body{
         width:60%;
@@ -23,21 +22,8 @@
         margin-left: auto;
         margin-right: auto;
     }
-    .video-background {
-		background: #000;
-        width: 100%;
-        height:25%;
-	}
-	
-	.video-foreground, .video-background iframe {
-		pointer-events: none;
-	}
-    #muteYouTubeVideoPlayer{
+    .movie_info2{
         width:100%;
-    }
-    .movie_info{
-        width:100%;
-        height:40%;
         float:left;
         border:1px solid black;
     }
@@ -105,13 +91,8 @@
     
     <!-- 본문 -->
     <div id="body">
-    	<div class="video-background">
-            <div class="video-foreground">
-                <div id="muteYouTubeVideoPlayer"></div>
-            </div>
-        </div>
-    
-        <div class="movie_info">
+
+        <div class="movie_info2">
             <div class="movie_poster_cover">    <!-- 왼쪽 영화 포스터 -->
 
                 <div class="icon" id="collection">   <!-- 콜렉션 -->
@@ -132,6 +113,9 @@
 
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
+            <form action="detailFilmInsert.do" method="get">
+            <input type="hidden" name="id" value="${ df.id }">
+            <input type="hidden" name="uId" value="${ loginUser.id }">            
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
@@ -144,15 +128,15 @@
                     	<div>배우 : ${ df.actor }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div id="synopsys">시놉시스 : ${ df.synopsys }</div>
+                    	<div id="synopsys">시놉시스 <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.synopsys}</textarea></div>
                     </div>
                     
                     <div class="cover" id="plusInfo_cover">
-                    	<div id="trivia">트리비아 : ${ df.trivia }</div>
+                    	<div id="trivia">트리비아 <textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.trivia}</textarea></div>
                     </div>
                     
-                    <div class="cover" id="modifyBtn">
-                    	<a href="detailFilmUpdate.do?id=${ df.id }">정보 수정
+                    <div class="cover">
+                    	<button type="submit" id="modifyBtn">전체정보 수정</button>
                     </div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
                     		<!-- updateForm 에서 수정하고 저장 누르면 다시 이 페이지 -->
                 </div>
@@ -160,54 +144,9 @@
             </div>
         </div>
         <hr>
-	    <div><a href="#">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
-        <c:forEach items="${ rl }" var="r">
-	        <div class="review">
-	            <div>리뷰</div>
-	            <div>내용 : ${ r.content }</div>
-	            <div>작성자 : ${ r.nickname}</div>
-	            <div>좋아요 : ${ r.likeCount }</div>
-	        </div>
-        </c:forEach>
     </div>
     <br>
-    
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script async src="https://www.youtube.com/iframe_api"></script>
-	<script type="text/javascript">
-		var player;
-		
-        function onYouTubePlayerAPIReady(){
-			player = new YT.Player('muteYouTubeVideoPlayer', {
-				videoId : 'x60mB0zXZ38',
-				playerVars : {
-					autoplay : 1, 		// Auto-play the video on load
-					controls : 0, 		// Show pause/play buttons in player
-					rel : 0,
 
-					start : 75,         // 원하는 예고편 시작 지점
-					end : 135,          // 원하는 예고편 끝나는 지점
-
-					showinfo : 0,
-					showinfo : 0, 		// Hide the video title
-					modestbranding : 1, // Hide the Youtube Logo
-					loop : 1, 			// Run the video in a loop
-					playlist : 'x60mB0zXZ38',
-					fs : 0, 			// Hide the full screen button
-					cc_load_policy : 0, // Hide closed captions
-					iv_load_policy : 3, // Hide the Video Annotations
-					autohide : 1		// Hide video controls when playing
-				},
-                events:{
-					onReady:function(e){
-						e.target.mute();
-					}
-				}
-			});
-		}
-				
-	</script>
-    
-    <jsp:include page="../common/footer.jsp"/>
 </body>
+
 </html>

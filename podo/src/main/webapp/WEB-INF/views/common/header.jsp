@@ -45,9 +45,9 @@
 						<ul class="nav navbar-nav menu_nav justify-content-center">
 							<li class="nav-item"><a class="nav-link" href="home.do">메인</a></li> 
 							<li class="nav-item"><a class="nav-link" href="film.do">영화</a></li>
-							<!-- 봉운 테스트 20191116 -->
+<!-- 봉운 테스트 20191116 -->
 							<li class="nav-item"><a class="nav-link" href="detailFilm.do?id=4">영화 상세페이지로(임시, 조커영화 번호 1번)</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">리뷰</a>
+							<li class="nav-item"><a class="nav-link" href="reviewList.do">리뷰</a>
 							<li class="nav-item"><a class="nav-link" href="#">추천</a>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">게시판</a>
@@ -57,7 +57,7 @@
 							</li>
 							<c:if test="${ loginUser ne null }">
 								<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>
-								<li class="nav-item"><a id="logout" class="nav-link" href="myPageForm.do">마이페이지</a>
+								<li class="nav-item"><a id="logout" class="nav-link" href="myPage.do?id=${ loginUser.id }">마이페이지</a>
 							</c:if>
 							<c:if test="${ loginUser eq null }">
 								<li class="nav-item"><a id="login-modal" class="nav-link" href="#" data-toggle="modal">로그인</a>
