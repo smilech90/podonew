@@ -115,24 +115,25 @@
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
             <form action="detailFilmInsert.do" method="get">
             <input type="hidden" name="id" value="${ df.id }">
+            <input type="hidden" name="detailId" value="${ df.detailId }"> 
             <input type="hidden" name="uId" value="${ loginUser.id }">            
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
 	                    <span id="movie_clip">${ df.trailer }</span>                	
                 	</div>
-                    <div class="cover" id="sysnobsis_cover">
+                    <div class="cover" id="sysnobsis_cover">          
    	                	<div>감독 : ${ df.director }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
                     	<div>배우 : ${ df.actor }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div id="synopsys">시놉시스 : <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.synopsys}</textarea></div>
+                    	<div id="synopsys">시놉시스 <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.synopsys}</textarea></div>
                     </div>
                     
                     <div class="cover" id="plusInfo_cover">
-                    	<div id="trivia">트리비아 : <textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.trivia}</textarea></div>
+                    	<div id="trivia">트리비아 <textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.trivia}</textarea></div>
                     </div>
                     
                     <div class="cover">

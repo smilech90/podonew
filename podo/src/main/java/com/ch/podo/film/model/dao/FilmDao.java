@@ -13,6 +13,7 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
 import com.ch.podo.like.model.vo.Like;
+import com.ch.podo.ratingFilm.model.vo.RatingFilm;
 
 @Repository("filmDao")
 public class FilmDao {
@@ -44,18 +45,6 @@ public class FilmDao {
 
 	public ArrayList<Genre> selectAllGenreList() {
 		return (ArrayList)sqlSession.selectList("filmMapper.selectAllGenreList");
-	}
-
-	public int insertLikeFilm(Like like) {
-		return sqlSession.insert("filmMapper.insertLikeFilm", like);
-	}
-
-	public int deleteLikeFilm(Like like) {
-		return sqlSession.delete("filmMapper.deleteLikeFilm", like);
-	}
-	
-	public Map<Integer, Film> selectLikedFilmMap(int id) {
-		return (Map)sqlSession.selectMap("filmMapper.selectLikedFilmMap", id, "targetId");
 	}
 
 }
