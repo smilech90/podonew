@@ -5,6 +5,7 @@
 	
 	<resultMap id="detailFilmResultSet" type="DetailFilm">
 		<id property="id" column="id"/>
+		<result property="detailId" column="dId"/>
 		<result property="titleKor" column="title_kor"/>
 		<result property="titleEng" column="title_eng"/>
 		<result property="director" column="director"/>
@@ -29,7 +30,7 @@
 		from (select *
 		      from tb_film f
 		      left join tb_detail_film df on(df.film_id = f.id)
-		      left join tb_film_actor fa on(df.id = fa.dfilm_id)
+		      left join tb_film_actor fa on(df.did = fa.dfilm_id)
 		      left join tb_actor a on(fa.actor_id = a.id)
 		      where f.id=#{id}
 		      and df.status='Y'
@@ -63,6 +64,12 @@
 		and status='Y'
 		order by insertdate desc
 	</update>
+	
+	<!-- 영화 정보 수정 [배우] 수정하는 부분 insert로 DB에 추가 Dfilm_id 는 어떻게 알지?? -->
+	<insert id="insertFilmActor">
+		insert into tb_film_actor
+		values(#{actor_id}, #{dFilm_id})
+	</insert>
 	
 </mapper>
 

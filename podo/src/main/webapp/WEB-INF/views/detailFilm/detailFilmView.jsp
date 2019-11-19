@@ -127,7 +127,7 @@
                 </div>
 
                 <div id="movie_poster"> <!-- 포스터 -->
-                    <img id="poster" src="resources/detailFilmImage/joker_poster.jpg" onclick="#" style="width:100%; height:100%;">
+                    <img id="poster" src="resources/detailFilmImage/joker.jpg" onclick="#" style="width:100%; height:100%;">
                 </div>
 
             </div>
@@ -135,7 +135,7 @@
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
-	                    <span id="movie_clip">${ df.trailer }</span>                	
+	                    <span id="movie_clip">예고편 : ${ df.trailer }</span>
                 	</div>
                     <div class="cover" id="sysnobsis_cover">
    	                	<div>감독 : ${ df.director }</div>
