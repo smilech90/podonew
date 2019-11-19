@@ -14,11 +14,10 @@ public class RatingReviewDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public ArrayList<RatingReview> selectRatingReviewList() {
+
+	public RatingReview selectRatingReviewDetailView(int id) {
 		
-		ArrayList<RatingReview> list = (ArrayList)sqlSession.selectList("ratingReviewMapper.selectRatingReviewList");
-			
-		return list;
+		return sqlSession.selectOne("ratingReviewMapper.selectRatingReviewDetailView",id);
 	}
 	
 }

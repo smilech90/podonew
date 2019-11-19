@@ -20,5 +20,9 @@ public class RatingReview {
 	private int ratingScript;
 	private int ratingDirect;
 	private String titleKor;
+	private String nickName;
+	private String content;
+	private String userImage;
+	private String posterImage;
 
 }

@@ -17,15 +17,15 @@ public class RatingReviewController {
 	@Autowired
 	private RatingReviewService ratingReviewService;
 	
-	@RequestMapping("ratingReview.do")
-	public ModelAndView ratingReview(ModelAndView mv) {
+	@RequestMapping("ratingDetailReview.do")
+	public ModelAndView selectRatingReviewDetailView(int id,ModelAndView mv) {
 		
-		ArrayList<RatingReview> list = ratingReviewService.selectRatingReviewList();
+		RatingReview rr = ratingReviewService.selectRatingReviewDetailView(id);
 		
-		mv.addObject("list",list).setViewName("ratingReview/ratingReviewList");
+		mv.addObject("rr",rr).setViewName("ratingReview/ratingDetailReview");
 		
 		
-		System.out.println(list);
+		System.out.println(rr);
 		
 		return mv;
 	}

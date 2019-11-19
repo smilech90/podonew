@@ -43,9 +43,9 @@ public class FilmController {
 	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
 																				@RequestParam(value="currentPage", defaultValue = "1") int currentPage) {
 		int listCount = filmService.selectKeywordFilmListCount(keyword);
-		System.out.println("listCount : " + listCount);
+		// System.out.println("listCount : " + listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		System.out.println("pi : " + pi);
+		// System.out.println("pi : " + pi);
 		
 		ArrayList<Film> list = filmService.selectKeywordFilmList(keyword, pi);
 		mv.addObject("listCount", listCount)
@@ -75,9 +75,15 @@ public class FilmController {
 
 		HashMap<Integer, Film> likeMap = new HashMap<>();
 		if (loginUser != null) {
-			likeMap = (HashMap<Integer, Film>)filmService.selectLikedFilmMap(loginUser.getId());
+			likeMap = (HashMap<Integer, Film>)likeService.selectLikedFilmMap(loginUser.getId());
 		}
 		map.put("like", likeMap);
+		
+		HashMap<Integer, RatingFilm> ratingMap = new HashMap<>();
+		if (loginUser != null) {
+			ratingMap = (HashMap<Integer, RatingFilm>)ratingFilmService.selectRatedFilm(loginUser.getId());
+		}
+		map.put("rate", ratingMap);
 		
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new Gson();

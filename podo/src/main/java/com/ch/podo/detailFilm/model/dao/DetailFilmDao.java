@@ -19,14 +19,14 @@ public class DetailFilmDao {
 	public DetailFilm selectDetailFilm(int id) {
 		
 		DetailFilm df = sqlSession.selectOne("detailFilmmapper.selectDetailFilm", id);
-		System.out.println(df);
+		
+		System.out.println("df : " + df);
 		return df;
 	}
 	
 	public ArrayList<Review> selectReivewList(int id){
 		
 		ArrayList<Review> list = (ArrayList)sqlSession.selectList("detailFilmmapper.selectReivewList", id);
-		System.out.println(list);
 		return list;
 	}
 	
@@ -36,8 +36,6 @@ public class DetailFilmDao {
 		
 		map.put("df", df);
 		map.put("uId", uId);
-		System.out.println(map);
-		
 		return sqlSession.insert("detailFilmmapper.insertDetailFilm", map);
 		
 	}

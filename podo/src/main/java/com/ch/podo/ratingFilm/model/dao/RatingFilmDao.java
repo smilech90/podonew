@@ -1,5 +1,7 @@
 package com.ch.podo.ratingFilm.model.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,6 +28,10 @@ public class RatingFilmDao {
 
 	public RatingFilm selectRatingFilm(RatingFilm rate) {
 		return sqlSession.selectOne("ratingFilmMapper.selectRatingFilm", rate);
+	}
+
+	public Map<Integer, RatingFilm> selectRatedFilm(int id) {
+		return (Map)sqlSession.selectMap("ratingFilmMapper.selectRatedFilm", id, "filmId");
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.ch.podo.ratingFilm.model.service;
 
+import java.util.Map;
+
 import com.ch.podo.ratingFilm.model.vo.RatingFilm;
 
 public interface RatingFilmService {
@@ -15,5 +17,8 @@ public interface RatingFilmService {
 	
 	// 4. 영화 별점 평가 조회 서비스
 	RatingFilm selectRatingFilm(RatingFilm rate);
+	
+	// 5. 로그인된 사용자의 기존 평가 정보 조회 서비스
+	Map<Integer, RatingFilm> selectRatedFilm(int id);
 	
 }

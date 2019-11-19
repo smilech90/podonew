@@ -17,71 +17,67 @@
 		margin-left:auto;
 		margin-right:auto;
 	}
-	.reviewArea{
-
-		width: 100%;
-		height: 100%;
-		
-	}
-	.leftImage{
-		width: 20%;
-		height:100%;
-		
-		float: left;
-	}
-	.rightContentArea{
-		width: 80%;
-		height:100%;
-		
-		float: right;
-	}
-	.img1{
-	 	
-		width:80%;
-		height: 80%;
-		float: left
-	}
-	.reviewTitle{
-		width:100%;
-		height:20%;
-		float:right;
-	}
-	.reviewName{
-		
-		width:40%;
-		height:20%;
-		float:left;
-	}
-	.reviewRelsaseYear{
-		width:60%;
-		float:right;
-	}
-	.reviewNickname{
-		
-		height:20%;
-		width:40%;
 	
+	.pTitle{
+		font-size: 20px;
+		font-weight: bold;
+		color: black;
 	}
-	.insertDate{
-		font-size: 10px;
-		width: 60%;
-		float:left;
+	.blog__slide__img{
+		margin-left:auto;
+		margin-right:auto;
+		width:300px;
+		height: 200px;
 	}
-	.reviewContent{
-		height: 40%;
-		width: 100%;
-		float:right;
-	}
-
 </style>
 </head>
 <body>
 
 	<jsp:include page="../common/header.jsp"/>
-	<div id="body">
-	<h1 align="center">리뷰 리스트 <button onclick="location.href='ratingReview.do';">레이팅보기</button></h1>
 	
-	<c:forEach items="${ list }" var="review">
+	
+	
+	
+	
+	<div id="body">
+	<h1 align="center">리뷰 리스트</h1>
+	 	<c:forEach items="${ list }" var="review">
+	  <div class="container">
+          <div class="card blog__slide text-center">
+            <div class="blog__slide__img">
+              <img class="card-img rounded-0" src="resources/bootstrap/img/blog/blog-slider/blog-slide1.png" alt="">
+            </div>
+            <div class="blog__slide__content">
+              <p class="pTitle"> ${review.titleKor }</p>
+              <a class="blog__slide__label">${ review.name }</a>
+              <h3><a href="ratingDetailReview.do?id=${review.id}">${ review.content } <button onclick="location.href='ratingDetailReview.do?id=${review.id}';">상세내용 보기</button></a></h3>
+              <p>${review.nickname }</p>
+            </div>
+          </div>
+      </div>
+	</c:forEach> 
+	<%-- ${list.get(2).titleKor} --%>
+	
+	
+<%--  이건 3개씩나오는거	 <c:forEach items="${ list }" var="review">
+      <div class="container">
+        <div class="owl-carousel owl-theme blog-slider">
+          <div class="card blog__slide text-center">
+            <div class="blog__slide__img">
+              <img class="card-img rounded-0" src="img/blog/blog-slider/blog-slide1.png" alt="">
+            </div>
+            <div class="blog__slide__content">
+              <a class="blog__slide__label" href="#">${ review.name }</a>
+              <h3><a href="#">${ review.content }</a></h3>
+              <p>2 days ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </c:forEach> --%>
+	
+	
+	<%-- <c:forEach items="${ list }" var="review">
 	<div class="reviewArea">
 		<div class="leftImage">
 				<img src="resources/bootstrap/img/logo.png" alt="" class="img1">
@@ -107,11 +103,16 @@
 		</div>
 	
 	</div>
-	</c:forEach>
+	</c:forEach> --%>
 	<br>
 
 	</div>
 	
-	<jsp:include page="../common/footer.jsp"/>
+	
+	
+	
+	
+	
+<%-- 	<jsp:include page="../common/footer.jsp"/> --%>
 </body>
 </html>
