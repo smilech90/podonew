@@ -1,5 +1,7 @@
 package com.ch.podo.ratingFilm.model.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class RatingFilmServiceImpl implements RatingFilmService {
 	@Override
 	public RatingFilm selectRatingFilm(RatingFilm rate) {
 		return ratingFilmDao.selectRatingFilm(rate);
+	}
+
+	@Override
+	public Map<Integer, RatingFilm> selectRatedFilm(int id) {
+		return ratingFilmDao.selectRatedFilm(id);
 	}
 	
 }

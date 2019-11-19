@@ -46,10 +46,5 @@ public class FilmDao {
 	public ArrayList<Genre> selectAllGenreList() {
 		return (ArrayList)sqlSession.selectList("filmMapper.selectAllGenreList");
 	}
-	
-	public Map<Integer, Film> selectLikedFilmMap(int id) {
-		return (Map)sqlSession.selectMap("filmMapper.selectLikedFilmMap", id, "targetId");
-	}
-
 
 }

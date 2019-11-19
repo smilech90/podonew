@@ -27,6 +27,7 @@
 		<mapper resource="mappers/film-mapper.xml"/>
 		<mapper resource="mappers/detailFilm-mapper.xml"/>
 		<mapper resource="mappers/ratingFilm-mapper.xml"/>
+		<mapper resource="mappers/like-mapper.xml"/>
 	</mappers>
 	
 </configuration>

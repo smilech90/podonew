@@ -3,6 +3,14 @@
 
 <mapper namespace="ratingFilmMapper">
 	
+	<resultMap type="RatingFilm" id="ratingResultSet">
+		<id property="id" column="id"/>
+		<result property="star" column="star"/>
+		<result property="saw" column="saw"/>
+		<result property="userId" column="member_id"/>
+		<result property="filmId" column="film_id"/>
+	</resultMap>
+	
 	<insert id="insertRateFilm">
 		insert into tb_rating_film
 		values (seq_rating_film_id.nextval, #{star}, 'Y', #{userId}, #{filmId})
@@ -21,11 +29,17 @@
 			and film_id = #{filmId}
 	</delete>
 	
-	<select id="selectRatingFilm" resultType="RatingFilm">
+	<select id="selectRatingFilm" resultMap="ratingResultSet">
 		select *
 		from tb_rating_film
 		where member_id = #{userId}
 			and film_id = #{filmId}
+	</select>
+
+	<select id="selectRatedFilm" resultMap="ratingResultSet">
+		select *
+		from tb_rating_film
+		where member_id = #{id}
 	</select>
 	
 </mapper>

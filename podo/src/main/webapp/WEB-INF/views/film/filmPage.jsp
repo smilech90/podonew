@@ -171,9 +171,6 @@
 				var releaseYear = $("select[name=releaseYear]").val();
 				var productionCountry = $("select[name=productionCountry]").val();
 				var genre = $("select[name=genre]").val();
-				// console.log(releaseYear);
-				// console.log(productionCountry);
-				// console.log(genre);
 				
 				$.ajax({
 					url:"sfFilm.do",
@@ -181,8 +178,6 @@
 							   productionCountry : productionCountry,
 							   genre : genre },
 					success:function(data){
-						// console.log("ajax 통신 성공");
-						// console.log(data);
 						
 						$tbody = $("#search-film-result tbody");
 						$tbody.html("");
@@ -192,7 +187,9 @@
 						if (data.film.length > 0){
 							
 							var like = data.like;
-							// console.log(like);
+							var rate = data.rate;
+							console.log(rate);
+							
 							var i=1;
 							var j=1;
 							
@@ -215,42 +212,49 @@
 									$likeTd = $("<td></td>").html("<button class='btn btn-secondary btn-like-film'>LIKE</button>");
 								}
 								
-									
+								
 								var star1 = "style='width: 30px; z-index: 5;'";
 								var star2 = "style='width: 60px; z-index: 4;'";
 								var star3 = "style='width: 90px; z-index: 3;'";
 								var star4 = "style='width: 120px; z-index: 2;'";
 								var star5 = "style='width: 150px; z-index: 1;'";
-									
-									
+								
 								var	str = "<span class='star-input'>"
-			 													+ "<span class='input'>"
-	   														+ "<input type='radio' name='star-input" + j + "' value='1' id='p" + i + "'>"
-							    							+ "<label for='p" + i + "' " + star1 + ">1</label>";
-							    							i++;
+												+ "<span class='input'>"
+												+ "<input type='radio' name='star-input" + j + "' value='1' id='p" + i + "'>"
+			    							+ "<label for='p" + i + "' " + star1 + ">1</label>";
+			    							i++;
 						    							
-		    				str +=  "<input type='radio' name='star-input" + j + "' value='2' id='p" + i +"'>"
-		    							+ "<label for='p" + i + "' " + star2 + ">2</label>";
-		    							i++;
-		    						
-		    				str	+= "<input type='radio' name='star-input" + j + "' value='3' id='p"+ i + "'>"
-		    							+ "<label for='p" + i + "' " + star3 + ">3</label>";
-		    							i++;
-		    							
-								str += "<input type='radio' name='star-input" + j + "' value='4' id='p" + i + "'>"
-								    	+ "<label for='p" + i + "' " + star4 + ">4</label>";
-								    	i++;
-								    	
-								str	+= "<input type='radio' name='star-input" + j + "' value='5' id='p" + i + "'>"
-								    	+ "<label for='p" + i + "' " + star5 + ">5</label>"
-								  		+ "</span>"
-									  	+ "<output for='star-input'><b>0</b>점</output>"
-											+ "</span>";
-											i++;
-											j++;
+				    				str += "<input type='radio' name='star-input" + j + "' value='2' id='p" + i +"'>"
+			    							+ "<label for='p" + i + "' " + star2 + ">2</label>";
+			    							i++;
+				    						
+				    				str	+= "<input type='radio' name='star-input" + j + "' value='3' id='p"+ i + "'>"
+			    							+ "<label for='p" + i + "' " + star3 + ">3</label>";
+			    							i++;
+				    							
+										str += "<input type='radio' name='star-input" + j + "' value='4' id='p" + i + "'>"
+									    	+ "<label for='p" + i + "' " + star4 + ">4</label>";
+									    	i++;
+										    	
+										str	+= "<input type='radio' name='star-input" + j + "' value='5' id='p" + i + "'>"
+									    	+ "<label for='p" + i + "' " + star5 + ">5</label>"
+									  		+ "</span>"
+										  	+ "<output for='star-input'><b style='display: none;'>0</b></output>"
+												+ "</span>";
+												i++;
+												j++;
 												
 								$starTd = $("<td></td>").html(str);
-															
+
+								if (rate[value.id] != null) {
+									var star = parseInt(rate[value.id].star);
+									var $rated = $($starTd).find("input");
+									var $checked = $($rated).eq(star - 1);
+									$($checked).prop("checked", true);
+									$($checked).parent().siblings("output").find("b").text(star);
+								}
+								
 								$tr.append($korTd);
 								$tr.append($idTd);
 								$tr.append($engTd);
@@ -321,7 +325,6 @@
 						}
 					},
 					error:function(){
-						console.log("서버와의 통신 실패");
 						alert("로그인 해주세요!");
 					}
 				});
@@ -329,32 +332,7 @@
 			
 			$(function(){
 		  	$(document)
-		  	/* .on("focusin", ".star-input>.input", function(e){
-		    	//var $this = $(this);
-		    	
-		    	e.preventDefault();
-		    	e.stopPropagation();
-		    	//console.log($(this));
-		    //	console.log(e.target);
-		    	$($(this)[0]).addClass("focus");
-			 	}) *//* 
-			 	.on("blur", ".star-input>.input", function(){
-		    	var $this = $(this);
-		    	setTimeout(function(){
-	      		if ($($this).closest(".star-input").find(":focus").length === 0) {
-	      			$($this).closest(".star-input").find(".input").removeClass("focus");
-		     	 	}
-		   		}, 100);
-		    }) */
-		    /* .on("change", ".star-input :radio", function(){
-		    	var $this = $(this);
-		    	// $($this).parent().siblings("output").find("b").text($($this).next().text());
-		    //	console.log($($this).closest(".input"));
-		    	//console.log($($this).closest(".input").siblings("output").find("b").text());
-		  	}) */
 		    .on("mouseover", ".star-input label", function(){
-		    	//var $this = $(this);
-		    	// console.log($(this));
 		    	$(this).parent().siblings("output").find("b").text($(this).text());
 		    })
 		    .on("mouseleave", ".star-input>.input", function(){
@@ -379,21 +357,11 @@
 						data:{"fid":fid, "star":star},
 						type:"post",
 						dataType:"json",
-						success:function(data){
-							console.log("통신 성공");
-							if (data > 0) {
-								console.log("평가 성공");
-							}
-							console.log(data);
-						},
 						error:function(){
-							console.log("통신 실패");
 							alert("로그인 해주세요!");
 						}
 		  		});
-		  		
 		  	});
-		  	
 			});
 
 		</script>

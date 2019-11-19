@@ -50,9 +50,4 @@ public class FilmServiceImpl implements FilmService {
 		return filmDao.selectFilterFilmMap(map);
 	}
 
-	@Override
-	public Map<Integer, Film> selectLikedFilmMap(int id) {
-		return filmDao.selectLikedFilmMap(id);
-	}
-
 }
