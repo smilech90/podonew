@@ -128,11 +128,11 @@
                     	<div>배우 : ${ df.actor }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div id="synopsys">시놉시스 : <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.synopsys}</textarea></div>
+                    	<div id="synopsys">시놉시스 <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.synopsys}</textarea></div>
                     </div>
                     
                     <div class="cover" id="plusInfo_cover">
-                    	<div id="trivia">트리비아 : <textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.trivia}</textarea></div>
+                    	<div id="trivia">트리비아 <textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.trivia}</textarea></div>
                     </div>
                     
                     <div class="cover">

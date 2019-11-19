@@ -33,7 +33,7 @@
 		      left join tb_actor a on(fa.actor_id = a.id)
 		      where f.id=#{id}
 		      and df.status='Y'
-		      order by insertdate)m
+		      order by insertdate desc)m
 		where rownum =1
 		
 	</select>
@@ -49,9 +49,10 @@
 	
 	<!-- 영화 정보 수정 [시놉시스], [추가 정보], [예고편 링크] 수정하는 부분 insert로 DB에 추가 회원 번호/세션 정보/ 는 어떻게 알지? -->
 	<!-- 입력날짜 최신순 입력 -->
-	<insert id="insertDetailFilm">
+	<insert id="insertDetailFilm" parameterType="hashMap">
 		insert into tb_detail_film
-		values(seq_dfilm_id, #{df.synopsys},#{df.trivia},#{df.trailer},null,'Y',#{uId},#{df.id},sysdate)
+		values(seq_dfilm_id.nextval, #{df.synopsys}, #{df.trivia}, #{df.trailer}, null, 'Y', sysdate, #{uId}, #{df.id})
+		
 	</insert>
 	 
 	<!-- 관리자가 [되돌리기] 버튼을 누르면 update로 status 'N'으로 수정  -->
