@@ -8,6 +8,7 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
 import com.ch.podo.like.model.vo.Like;
+import com.ch.podo.ratingFilm.model.vo.RatingFilm;
 
 public interface FilmService {
 
@@ -27,16 +28,8 @@ public interface FilmService {
 	ArrayList<Film> selectFilterFilmList(Film film);
 	ArrayList<Film> selectFilterFilmMap(Map<String, Object> map);
 	
-	// 6. 영화 좋아요 서비스
-	int insertLikeFilm(Like like);
-	
-	// 7. 영화 좋아요 취소 서비스
-	int deleteLikeFilm(Like like);
-	
-	// 8. 사용자가 좋아요 누른 영화 목록 조회
+	// 6. 사용자가 좋아요 누른 영화 목록 조회
 	Map<Integer, Film> selectLikedFilmMap(int id);
-	
-	
 	
 
 }
