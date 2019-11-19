@@ -1,5 +1,10 @@
 package com.ch.podo.ratingFilm.controller;
 
-public class RatingFilmController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class RatingFilmController {
+	
+	
+	
 }

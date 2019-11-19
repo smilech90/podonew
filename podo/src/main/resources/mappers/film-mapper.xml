@@ -84,7 +84,7 @@
 	
 	<insert id="insertLikeFilm">
 		insert into tb_like
-		values (seq_like_id.nextval, #{type}, #{targetId}, #{userId})
+		values (seq_like_id.nextval, 1, #{targetId}, #{userId})
 	</insert>
 	
 	<delete id="deleteLikeFilm">
