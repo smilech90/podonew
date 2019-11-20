@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.like.model.dao.LikeDao;
 import com.ch.podo.like.model.vo.Like;
 
@@ -26,7 +25,7 @@ public class LikeServiceImpl implements LikeService{
 	}
 
 	@Override
-	public Map<Integer, Film> selectLikedFilmMap(int id) {
+	public Map<Integer, Like> selectLikedFilmMap(int id) {
 		return likeDao.selectLikedFilmMap(id);
 	}
 	
