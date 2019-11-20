@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,44 +13,45 @@
 	<section class="blog-post-area section-margin">
 		<div class="container">
 		
-			<div class="row list-row">
+<%-- 				<c:set var="size" value="${ fn:length(size) }" /> --%>
 				<c:choose>
 					<c:when test="${ empty loginUser }">
-						<div class="container">
-						  <div class="row justify-content-md-center">
-						  	<a id="rec-login-modal" class="button" href="#" data-toggle="modal">로그인</a>
-						  </div>
+						<div class="row">
+							<div class="container">
+							  <div class="row justify-content-md-center">
+							  	<a id="rec-login-modal" class="button" href="#" data-toggle="modal">로그인</a>
+							  </div>
+							</div>
 						</div>
 					</c:when>
-					<c:when test="${ not empty loginUser and list ne null }">
-			      <c:forEach items="${ list }" var="f">
-							<div class="col-md-12">
-								<div class="single-recent-blog-post card-view">
-									<div class="thumb">
-										<img class="card-img rounded-0" src="http://placehold.it/1100x300" alt="">
-										<ul class="thumb-info">
-											<li><a href="#"><i class="ti-user"></i>${ f.director }</a></li>
-											<li><a href="#"><i class="ti-themify-favicon"></i>${ f.releaseYear }</a></li>
-										</ul>
+					<c:when test="${ not empty loginUser and not empty list and count gt 10 }">
+						<div class="row list-row">
+				      <c:forEach items="${ list }" var="f">
+								<div class="col-md-12">
+									<div class="single-recent-blog-post card-view">
+										<div class="thumb">
+											<img class="card-img rounded-0" src="http://placehold.it/1100x300" alt="">
+											<ul class="thumb-info">
+												<li><a href="#"><i class="ti-user"></i>${ f.director }</a></li>
+												<li><a href="#"><i class="ti-themify-favicon"></i>${ f.releaseYear }</a></li>
+											</ul>
+										</div>
+										<div class="details mt-20">
+											<a href="detailFilm.do?id=${ f.id }">
+	                    <h3>${ f.titleKor }</h3>
+											</a>
+			                <p>${ f.titleEng } / ${ f.productionCountry } / ${ f.genre }</p>
+			                <a class="button" href="detailFilm.do?id=${ f.id }">More Info<i class="ti-arrow-right"></i></a>
+			              </div>
 									</div>
-									<div class="details mt-20">
-										<a href="detailFilm.do?id=${ f.id }">
-                    <h3>${ f.titleKor }</h3>
-										</a>
-		                <p>${ f.titleEng } / ${ f.productionCountry } / ${ f.genre }</p>
-		                <a class="button" href="detailFilm.do?id=${ f.id }">More Info<i class="ti-arrow-right"></i></a>
-		              </div>
 								</div>
-							</div>
-			     	</c:forEach>
-			     	
-						<!-- 페이징 처리 -->
+				     	</c:forEach>
+						</div>
+						<!-- [더보기] -->
 						<div class="row">
 							<div class="col-lg-12">
 								<nav class="blog-pagination justify-content-center d-flex">
 									<ul class="pagination">
-									
-										<!-- [더보기] -->
 										<li class="page-item">
 											<a class="page-link" id="more-recommendation">더보기</a>
 										</li>
@@ -63,8 +64,6 @@
 						10개 이상의 영화를 좋아해주세요!
 					</c:otherwise>
 				</c:choose>
-			</div>
-
 			
 		</div>
 	</section>
@@ -76,7 +75,7 @@
 		var page = 1;
 		
 		$(document).on("click", "#more-recommendation", function(){
-			page = parseInt(page);			
+			page = parseInt(page);
 			if (page < 3) {
 				ajaxMore();
 				if (page == 2) {

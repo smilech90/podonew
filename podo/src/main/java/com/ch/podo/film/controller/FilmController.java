@@ -97,6 +97,7 @@ public class FilmController {
 	public void likeFilm(HttpServletResponse response, HttpSession session, String fid, int flag)
 			throws JsonIOException, IOException {
 		Member mem = (Member)session.getAttribute("loginUser");
+		// System.out.println("loginUser : " + mem);
 		
 		Like like = new Like();
 		like.setTargetId(Integer.parseInt(fid));
@@ -156,22 +157,26 @@ public class FilmController {
 													@RequestParam(value="page", defaultValue = "1") int page) {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		System.out.println("loginUser : " + loginUser);
 		
-		int listCount = 1;
-		if (loginUser != null) {
-			listCount = filmService.selectLikedFilmCount(loginUser.getId());
-		}
-		PageInfo pi = Pagination.getPageInfo(page, listCount);
-		pi.setPageLimit(3);
-		pi.setBoardLimit(5);
+		// int listCount = 1;
+		// if (loginUser != null) {
+		// 	listCount = filmService.selectLikedFilmCount(loginUser.getId());
+		// }
+		// System.out.println("listCount : " + listCount);
+		// PageInfo pi = Pagination.getPageInfo(page, listCount);
+		// pi.setPageLimit(3);
+		// pi.setBoardLimit(5);
 		
 		
 		ArrayList<Film> list = null;
 		if (loginUser != null) {
-			list = filmService.selectLikedFilmList(loginUser.getId(), pi);
+			// list = filmService.selectLikedFilmList(loginUser.getId(), pi);
+			list = filmService.selectPreferredGenreFilmList(loginUser.getId());
 		}
-		// System.out.println("liked film list : " + list);
+		System.out.println("preferred genre list : " + list);
 		
+		// mv.addObject("list", list).addObject("page", page).addObject("count", listCount).setViewName("film/rec");
 		mv.addObject("list", list).addObject("page", page).setViewName("film/rec");
 		
 		return mv;
