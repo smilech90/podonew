@@ -36,8 +36,10 @@
 	
 	</insert>
 	
-	<update id="">
-	
+	<update id="updateCount">
+		update board
+		set bcount = bcount + 1
+		where bid=#{id}
 	</update>
 	
 	

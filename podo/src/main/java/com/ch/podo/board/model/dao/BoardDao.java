@@ -40,4 +40,14 @@ public class BoardDao {
 		
 	}
 	
+	
+	public int updateCount(int id) {
+		return sqlSession.selectOne("boardMapper.updateCount", id);
+	}
+	
+	
+	public Board selectBoard(int id) {
+		return sqlSession.selectOne("boardMapper.selectBoard", id);
+	}
+	
 }

@@ -56,11 +56,7 @@
 							<li class="nav-item"><a class="nav-link" href="detailFilm.do?id=4">영화 상세페이지로(임시, 조커영화 번호 1번)</a></li>
 							<li class="nav-item"><a class="nav-link" href="reviewList.do">리뷰</a>
 							<li class="nav-item"><a class="nav-link" href="#">추천</a>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">게시판</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="#">자유 게시판</a></li>
-								</ul>
+							<li class="nav-item"><a class="nav-link" href="blist.do">게시판</a>
 							</li>
 							<c:if test="${ loginUser ne null }">
 								<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>

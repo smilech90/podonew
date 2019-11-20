@@ -53,9 +53,10 @@ public class BoardController {
 	
 	
 	@RequestMapping("binsert.do")
-	public String insertBoard(Board b, Image i, HttpServletRequest request, Model model, @RequestParam(value="", required=false) MultipartFile file) {
+	public String insertBoard(Board b, Image i, HttpServletRequest request, Model model, 
+								@RequestParam(value="", required=false) MultipartFile file) {
 		
-		if(!file.getOriginalFilename().contentEquals("")) {
+		if(!file.getOriginalFilename().equals("")) {
 			String renameFileName = saveFile(file, request);
 			
 			i.setOriginalName(file.getOriginalFilename());
@@ -65,10 +66,10 @@ public class BoardController {
 		int result = boardService.insertBoard(b);
 		
 		if(result > 0) {
-			return "";
+			return "redirect:";
 		}else {
 			model.addAttribute("", "");
-			return "";
+			return "common/";
 		}
 		
 	}
@@ -77,7 +78,7 @@ public class BoardController {
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "";
+		String savePath = root + "/boardFiles";
 		
 		File folder = new File(savePath);
 		
@@ -104,6 +105,22 @@ public class BoardController {
 		}
 		
 		return renameFileName;
+		
+	}
+	
+	
+	@RequestMapping("bdetail.do")
+	public ModelAndView boardDetail(int id, ModelAndView mv) {
+		Board b = boardService.selectBoard(id);
+		
+		if(b != null) {
+			mv.addObject("b", b).setViewName("board/");
+		}else {
+			mv.addObject("", "");
+			mv.setViewName("");
+		}
+		
+		return mv;
 		
 	}
 	
