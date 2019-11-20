@@ -33,6 +33,9 @@
 		margin-left:auto;
 		margin-right:auto;
 	}
+	.insertRating{
+		width:179px;
+	}
 	#mychart2{
 		margin-left:auto;
 		margin-right:auto;
@@ -67,23 +70,23 @@
             <div class="main_blog_details">
                 <img class="img-fluid" src="resources/detailFilmImage/defaultImg.png" alt="">
             <%-- 이게원래써야함    <img class="img-fluid" src="resources/detailFilmImage/ ${ rr.posterImage }" alt=""> --%>
-               <h4 align="center">${rr.titleKor }</h4>
+               <h4 align="center">${r.titleKor}</h4>
                 <div class="user_details">
                     <div class="float-left">
                       <div class="media">
                       <div class="media-body">
-                        <h5>${rr.nickName }</h5>
-                        <p>${ rr.createDate }에 작성</p>
+                        <h5>${r.nickName }</h5>
+                        <p>${ r.createDate }에 작성</p>
                       </div>
                       <div class="d-flex">
-                        <img width="42" height="42" src="resources/memberProfileImage/${ rr.userImage }" alt="">
+                        <img width="42" height="42" src="resources/memberProfileImage/${ r.userImage }" alt="">
                       </div>
                     </div>
                   	</div>
                   <div class="float-right mt-sm-0 mt-3">
                     <div class="media">
                       <div class="media-body">
-                        <h5>${rr.nickName }</h5>
+                        <h5>${r.nickName }</h5>
                         <p>여기가 별점남기는곳입니다!!</p>
                       </div>
                       <div class="d-flex">
@@ -111,75 +114,84 @@
        data: {
            labels: ["음악", "영상", "연기", "대중성", "각본","연출"],
            datasets: [{
-               label: ["${ rr.titleKor }"], 
+               label: ["${ ratingReivew.titleKor }"], 
             backgroundColor: "rgb(165,102,255)",
             pointBackground:"rgba(179,181,198,1)",
             pointBorderColor:"#fff",
             pointBorderBackgroundColor:"#fff",
 
                data: [
-            	   ${rr.ratingSound},${rr.ratingVisual},${rr.ratingActing},${rr.ratingPop},${rr.ratingScript},${rr.ratingDirect}
+            	   ${r.ratingSound},${r.ratingVisual},${r.ratingActing},${r.ratingPop},${r.ratingScript},${r.ratingDirect}
             	   ]
     
            }]
        },
 
        // Configuration options go here
-             options: {
-                 
-                 scale: {
-                      angleLines: {
-                          display: false
-                      },
-                      ticks: {
-                          suggestedMin: 0,
-                          suggestedMax: 10,
-                      }
-                  },
-                  tooltips:{
-                     callbacks: {
-                          label: function(tooltipItem, data) {
-                              
-                              return data.labels[tooltipItem.index]  + " : "+ Math.round(tooltipItem.yLabel * 100) / 100 +"점";
-                          }
-                      }
-                  }
-              }
+       options: {
+           
+           scale: {
+                angleLines: {
+                    display: false
+                },
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 10,
+                }
+            },
+            tooltips:{
+               callbacks: {
+                    label: function(tooltipItem, data) {
+                        
+                        return data.labels[tooltipItem.index]  + " : "+ Math.round(tooltipItem.yLabel * 100) / 100 +"점";
+                    }
+                }
+            }
+        }
     });
    </script>
    </div>
    
-    <form action="vinsert.do" method="post" enctype="mutipart/form-data" id="movieform">
+    <form action="reviewWrite.do" method="post" enctype="mutipart/form-data" id="movieform">
       <table align="center" id="vv">
          <tr>
             <td>영화제목</td>
-            <td><input type="text" name="title" id="vtitle"  value="${ rr.titleKor }"  readonly></td>
+            <td><input type="text" name="title" id="vtitle" value="${ r.titleKor }" ></td>
          </tr>
          <tr>
             <td>음악</td>
-            <td><input type="text" name="ratingSound" class="insertRating" id="ratingSound" value="${rr.ratingSound }" readonly></td>
+            <td><input type="number" name="ratingSound" class="insertRating" id="ratingSound" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingSound }"></td>
          </tr>
          <tr>   
             <td>영상</td>
-            <td><input type="text" name="ratingVisual" class="insertRating" id="ratingVisual" value="${rr.ratingVisual }" readonly></td>
+            <td><input type="number" name="ratingVisual" class="insertRating" id="ratingVisual" placeholder="10점까지 입력가능"  min="0" max="10"  value="${rr.ratingVisual }"></td>
          </tr>
          <tr>
             <td>연기</td>
-            <td><input type="text" name="ratingActing" class="insertRating" id="ratingActing" value="${rr.ratingActing }" readonly></td>
+            <td><input type="number" name="ratingActing" class="insertRating" id="ratingActing" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingActing }" ></td>
          </tr>
          <tr>
             <td>대중성</td>
-            <td><input type="text" name="ratingPop" class="insertRating" id="ratingPop" value="${rr.ratingPop }" readonly></td>
+            <td><input type="number" name="ratingPop" class="insertRating" id="ratingPop" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingPop }"></td>
          </tr>
          <tr>
             <td>각본</td>
-            <td><input type="text" name="ratingScript" class="insertRating" id="ratingScript" value="${rr.ratingScript }" readonly></td>
+            <td><input type="number" name="ratingScript" class="insertRating" id="ratingScript" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingScript }" ></td>
          </tr>
          <tr>
             <td>연출</td>
-            <td><input type="text" name="ratingDirect" class="insertRating" id="ratingDirect" value="${rr.ratingDirect }" readonly></td>
+            <td><input type="number" name="ratingDirect" class="insertRating" id="ratingDirect" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingDirect }"></td>
          </tr>
-         
+         <tr>
+         	<td>내용</td>
+         	<td><textarea rows="4" cols="22" name="content"></textarea></td>
+         </tr>
+         <tr>
+             <td colspan="2" align="center">
+               <button type="submit" id="ok1">영화평점등록하기</button>
+               <button type="button" onclick="location.href='reviewList.do';">목록으로</button>
+            </td>
+         </tr>
 
       </table>
    </form>
@@ -192,41 +204,30 @@
       </div>
   </section>
 
-<%-- 				${ rr.id }
-				${rr.titleKor}
-			<br>
-			
-	<div id="mychart2">
-   <canvas id="myChart">캔버스</canvas>
-   
-   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-   
-   
-   
+
    <script>
-   var ctx = document.getElementById('myChart');
-   var chart = new Chart(ctx, {
-       // The type of chart we want to create
-       type: 'radar',
+      $('.insertRating').on('input',function(){
+         var ctx = document.getElementById('myChart');
+         var chart = new Chart(ctx, {
+             // The type of chart we want to create
+             type: 'radar',
 
-       // The data for our dataset
-       data: {
-           labels: ["음악", "영상", "연기", "대중성", "각본","연출"],
-           datasets: [{
-               label: ["${ ratingReivew.titleKor }"], 
-            backgroundColor: "rgb(165,102,255)",
-            pointBackground:"rgba(179,181,198,1)",
-            pointBorderColor:"#fff",
-            pointBorderBackgroundColor:"#fff",
+             // The data for our dataset
+             data: {
+                 labels: ["음악", "영상", "연기", "대중성", "각본","연출"],
+                 datasets: [{
+              
+                     backgroundColor: "rgb(165,102,255)",
+                     pointBackground:"rgba(179,181,198,1)",
+                     pointBorderColor:"#fff",
+                     pointBorderBackgroundColor:"#fff", 
+             
+                    data: [$('#ratingSound').val(),$('#ratingVisual').val(),$('#ratingActing').val(),$('#ratingPop').val(),$('#ratingScript').val(),$('#ratingDirect').val()]
+   
+               }]
+             },
 
-               data: [
-            	   ${rr.ratingSound},${rr.ratingVisual},${rr.ratingActing},${rr.ratingPop},${rr.ratingScript},${rr.ratingDirect}
-            	   ]
-    
-           }]
-       },
-
-       // Configuration options go here
+             // Configuration options go here
              options: {
                  
                  scale: {
@@ -247,13 +248,11 @@
                       }
                   }
               }
-    });
+          });
+   })
+ 
+
    </script>
-   </div> --%>
-			
-	
-	<br>
-	
 
 	</div>
 </body>

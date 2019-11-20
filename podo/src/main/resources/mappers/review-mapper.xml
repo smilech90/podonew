@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<resultMap id="reviewListSet" type="Review">
 		<id property="id" column="id"/>
-		<result property="image" column="image"/>
+		<result property="userImage" column="image"/>
 		<result property="nickname" column="nickname"/>
 		<result property="titleKor" column="TITLE_KOR"/>
 		<result property="name" column="name"/>
@@ -26,9 +26,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="likeCount" column="LIKE_COUNT"/>
 		<result property="spoilerCheck" column="SPOILER_CHECK"/>
 		<result property="status" column="status"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+	 	<result property="createDate" column="CREATE_DATE"/>
 	</resultMap>
 	
-	<select id="selectReviewList" resultMap="reviewListSet">
+	<select id="selectReviewList" resultMap="reviewListSet">	
 		select *
 		from tb_review r
 		left join tb_film f on(r.film_id = f.id)
@@ -36,6 +38,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join tb_detail_film df on(r.film_id = df.id)<!-- 수정된거 did로 바꿔야함 봉운이 did용 -->
 		left join tb_film_image fi on(dfilm_id = fi.id)
 		left join tb_genre g on(genre_id = g.id)
+		where r.status='Y'
+        order by r.id desc
 	</select>
+	
+	<insert id="reviewWrite">
+		INSERT INTO TB_REVIEW
+		VALUES(SEQ_REVIEW_ID.NEXTVAL, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, sysdate , sysdate , #{id},#{id})
+	</insert>
+	
+	<update id="deleteReview">
+	update tb_review
+	set status='N'
+	where id=#{id}
+	</update>
 
 </mapper>

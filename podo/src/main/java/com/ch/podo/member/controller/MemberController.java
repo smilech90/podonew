@@ -63,6 +63,7 @@ public class MemberController {
 			
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:" + referer);
+			
 		} else {
 			mv.addObject("msg", "로그인 실패").setViewName("error/errorPage");
 		}
@@ -169,28 +170,26 @@ public class MemberController {
 	public ModelAndView updateMember(Member mem, HttpSession session, ModelAndView mv, HttpServletRequest request,
 									@RequestParam(value="uploadFile", required=false) MultipartFile file) {
 		
-		System.out.println("변경전 : " + mem);
-		
-		if(!file.getOriginalFilename().equals("")) {	
-			String renameFileName = saveFile(file, request);	
+		// 정보수정만 한 경우
+		if(mem.getUpdatePwd().equals("")) {
 			
-			mem.setImage(renameFileName);
-		}else {
-			mem.setImage("podoImage.png");
-		}
-		
-		String encPwd = "";
-		if(!mem.getUpdatePwd().equals(null)) {	// 패스워드 변경을 하면 암호화 된 패스워드를 pwd에 대입
-			encPwd = bcryptPasswordEncoder.encode(mem.getUpdatePwd());
+			if(!file.getOriginalFilename().equals("")) {	
+				String renameFileName = saveFile(file, request);	
+				mem.setImage(renameFileName);
+			}else {
+				mem.setImage("podoImage.png");
+			}
+			
+		  // 비밀번호만 변경 한 경우
+		} else {	// 패스워드 변경을 하면 암호화 된 패스워드를 pwd에 대입
+			String encPwd = bcryptPasswordEncoder.encode(mem.getUpdatePwd());
 			mem.setPwd(encPwd);
-		}else { // 변경을 하지 않으면 updatePwd에 null대입 (updatePwd로 mapper에서 조건걸거임)
-			mem.setUpdatePwd(null);
-		}
+		}	// 정보수정만 한 경우 updatePwd는 null
 		
-		System.out.println("변경후 : " + mem);
 		int result = memberService.updateMember(mem);
 		
-		
+		mem.setStatus("Y");
+		System.out.println("수정 후 : " + mem);
 		if(result > 0) {	// 업데이트 성공
 			session.setAttribute("loginUser", mem);
 			mv.addObject("msg", "회원정보 수정 성공").setViewName("member/myPage");
@@ -199,23 +198,6 @@ public class MemberController {
 		}
 		
 		return mv;
-		
-		/*
-		 * AOP만들기 위한 !
-		if(result > 0) {	// 업데이트 성공 시 수정된 mem객체 select
-			Member loginUser = memberService.selectUpdateMember(mem);
-			
-			if(loginUser != null) {	// select 성공 시 session에 담아주기
-				session.setAttribute("loginUser", loginUser);
-				mv.addObject("msg", "회원정보 수정 성공").setViewName("member/myPage");
-			}else {	// select 실패 시 
-				mv.addObject("msg", "회원정보 재 조회 실패").setViewName("member/memberUpdateForm");
-			}
-		}else {
-			mv.addObject("msg", "회원정보 수정 실패").setViewName("member/memberUpdateForm");
-		}
-		
-		*/
 	}
 	
 	

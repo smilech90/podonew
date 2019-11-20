@@ -57,4 +57,8 @@ public class FilmDao {
 		return (ArrayList)sqlSession.selectList("filmMapper.selectLikedFilmList", id, rowBounds);
 	}
 
+	public ArrayList<Film> selectPreferredGenreFilmList(int id) {
+		return (ArrayList)sqlSession.selectList("filmMapper.selectPreferredGenreFilmList", id);
+	}
+
 }

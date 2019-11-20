@@ -13,7 +13,6 @@ import com.ch.podo.ratingReview.model.vo.RatingReview;
 @Controller
 public class RatingReviewController {
 	
-	
 	@Autowired
 	private RatingReviewService ratingReviewService;
 	
@@ -25,7 +24,7 @@ public class RatingReviewController {
 		mv.addObject("rr",rr).setViewName("ratingReview/ratingDetailReview");
 		
 		
-		System.out.println(rr);
+		System.out.println(rr.getUserImage());
 		
 		return mv;
 	}

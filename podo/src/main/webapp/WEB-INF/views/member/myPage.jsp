@@ -105,6 +105,12 @@
 					<form action="updateMember.do" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="id" value="${ loginUser.id }">
 						<input type="hidden" name="pwd" value="${ loginUser.pwd }">
+						<input type="hidden" name="enrollDate" value="${ loginUser.enrollDate }">
+						<input type="hidden" name="modifyDate" value="${ loginUser.modifyDate }">
+						<input type="hidden" name="googleId" value="${ loginUser.googleId}">
+						<input type="hidden" name="kakaoId" value="${ loginUser.kakaoId }">
+						<input type="hidden" name="autho" value="${ loginUser.autho }">
+						<input type="hidden" name="updatePwd" value="">
 						<div class="form-group">
 							<label for="userId">Email address</label>
 							<input type="email" class="form-control" id="userId" name="email" value="${ loginUser.email }" readonly>
@@ -152,7 +158,13 @@
 				<div class="modal-body">
 					<form action="updateMember.do" method="post">
 						<input type="hidden" name="id" value="${ loginUser.id }">
-						<input type="hidden" name="pwd" value="${ loginUser.pwd }">
+						<input type="hidden" name="image" value="${ loginUser.image }">
+						<input type="hidden" name="nickName" value="${ loginUser.nickName }">
+						<input type="hidden" name="enrollDate" value="${ loginUser.enrollDate }">
+						<input type="hidden" name="modifyDate" value="${ loginUser.modifyDate }">
+						<input type="hidden" name="googleId" value="${ loginUser.googleId}">
+						<input type="hidden" name="kakaoId" value="${ loginUser.kakaoId }">
+						<input type="hidden" name="autho" value="${ loginUser.autho }">
 						<div class="form-group">
 							<label for="userId">Email address</label>
 							<input type="email" class="form-control" id="userId" name="email" value="${ loginUser.email }" readonly>
@@ -160,10 +172,10 @@
 						<div class="form-group">
 							<label for="originPwd">변경 전 비밀번호</label>
 							<input type="password" class="form-control" id="originPwd" name="originPwd">
-							<label for="newPwd">변경 후 비밀번호</label>
-							<input type="password" class="form-control" id="newPwd" name="newPwd">
-							<label for="newPwd2">변경 후 비밀번호 확인</label>
-							<input type="password" class="form-control" id="newPwd2">
+							<label for="updatePwd">변경 후 비밀번호</label>
+							<input type="password" class="form-control" id="updatePwd" name="updatePwd">
+							<label for="updatePwd2">변경 후 비밀번호 확인</label>
+							<input type="password" class="form-control" id="updatePwd2">
 						</div>
 						<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -201,15 +213,6 @@
 			}else{	
 				return true;
 			}
-			
-			// 닉네임 중복체크
-			if($("#nickCheck").val() == 0){	// 닉네임 사용불가
-				alert("닉네임을 확인해 주세요.");
-				$("#nickName").focus();
-				return false;
-			}else{	// 닉네임사용가능
-				return true;
-			}
 		}
 		
 		$(function(){
@@ -245,8 +248,6 @@
 		});
 		
 		
-		
-		
 		// 비밀번호 변경 모달창
 		$(function(){
 			$("#updatePwd-modal").on("click", function(){
@@ -257,12 +258,12 @@
 		
 		
 		// 비밀번호 변경 시 변경 후 비밀번호 일치 여부		
-		function validate(){
-			if($("#newPwd").val() != $("#newPwd2").val()){
+		function pwdValidate(){
+			if($("#updatePwd").val() != $("#updatePwd2").val()){
 				alert("비밀번호가 일치하지 않습니다.");
-				$("#newPwd").val("");
-				$("#newPwd2").val("");
-				$("#newPwd").focus();
+				$("#updatePwd").val("");
+				$("#updatePwd2").val("");
+				$("#updatePwd").focus();
 				return false;
 			}
 		}

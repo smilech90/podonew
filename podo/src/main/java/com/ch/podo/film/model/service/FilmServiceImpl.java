@@ -57,4 +57,9 @@ public class FilmServiceImpl implements FilmService {
 		return filmDao.selectLikedFilmList(id, pi);
 	}
 
+	@Override
+	public ArrayList<Film> selectPreferredGenreFilmList(int id) {
+		return filmDao.selectPreferredGenreFilmList(id);
+	}
+
 }
