@@ -43,9 +43,9 @@ public class FilmController {
 	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
 																				@RequestParam(value="currentPage", defaultValue = "1") int currentPage) {
 		int listCount = filmService.selectKeywordFilmListCount(keyword);
-		// System.out.println("listCount : " + listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		// System.out.println("pi : " + pi);
+		pi.setPageLimit(3);
+		pi.setBoardLimit(6);
 		
 		ArrayList<Film> list = filmService.selectKeywordFilmList(keyword, pi);
 		mv.addObject("listCount", listCount)
@@ -70,15 +70,18 @@ public class FilmController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
+		// 옵션으로 검색된 영화 목록
 		ArrayList<Film> filmList = filmService.selectFilterFilmList(film);
 		map.put("film", filmList);
-
-		HashMap<Integer, Film> likeMap = new HashMap<>();
+		
+		// 사용자가 좋아요한 영화 목록
+		HashMap<Integer, Like> likeMap = new HashMap<>();
 		if (loginUser != null) {
-			likeMap = (HashMap<Integer, Film>)likeService.selectLikedFilmMap(loginUser.getId());
+			likeMap = (HashMap<Integer, Like>)likeService.selectLikedFilmMap(loginUser.getId());
 		}
 		map.put("like", likeMap);
 		
+		// 사용자가 평가한 영화 목록
 		HashMap<Integer, RatingFilm> ratingMap = new HashMap<>();
 		if (loginUser != null) {
 			ratingMap = (HashMap<Integer, RatingFilm>)ratingFilmService.selectRatedFilm(loginUser.getId());
@@ -94,10 +97,14 @@ public class FilmController {
 	public void likeFilm(HttpServletResponse response, HttpSession session, String fid, int flag)
 			throws JsonIOException, IOException {
 		Member mem = (Member)session.getAttribute("loginUser");
+		// System.out.println("loginUser : " + mem);
 		
 		Like like = new Like();
 		like.setTargetId(Integer.parseInt(fid));
 		like.setUserId(mem.getId());
+		
+		// System.out.println("fid : " + fid);
+		// System.out.println("flag : " + flag);
 		
 		int result = 0;
 		if (flag > 0) {
@@ -120,7 +127,7 @@ public class FilmController {
 		rate.setStar(Integer.parseInt(star));
 		rate.setUserId(mem.getId());
 		rate.setFilmId(Integer.parseInt(fid));
-
+		
 		RatingFilm flag = ratingFilmService.selectRatingFilm(rate);
 		int result = 0;
 
@@ -140,11 +147,73 @@ public class FilmController {
 			}
 		}
 		
-		
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new Gson();
 		gson.toJson(result, response.getWriter());
 	}
 	
+	@RequestMapping("rec.do")
+	public ModelAndView rec(HttpSession session, ModelAndView mv,
+													@RequestParam(value="page", defaultValue = "1") int page) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		System.out.println("loginUser : " + loginUser);
+		
+		// int listCount = 1;
+		// if (loginUser != null) {
+		// 	listCount = filmService.selectLikedFilmCount(loginUser.getId());
+		// }
+		// System.out.println("listCount : " + listCount);
+		// PageInfo pi = Pagination.getPageInfo(page, listCount);
+		// pi.setPageLimit(3);
+		// pi.setBoardLimit(5);
+		
+		
+		ArrayList<Film> list = null;
+		if (loginUser != null) {
+			// list = filmService.selectLikedFilmList(loginUser.getId(), pi);
+			list = filmService.selectPreferredGenreFilmList(loginUser.getId());
+		}
+		System.out.println("preferred genre list : " + list);
+		
+		// mv.addObject("list", list).addObject("page", page).addObject("count", listCount).setViewName("film/rec");
+		mv.addObject("list", list).addObject("page", page).setViewName("film/rec");
+		
+		return mv;
+	}
+	
+	@RequestMapping("moreRec.do")
+	public void moreRec(HttpSession session, HttpServletResponse response,
+											@RequestParam(value="page", defaultValue = "1") int page)
+		throws JsonIOException, IOException {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+
+		HashMap<String, Object> map = new HashMap<>();
+		
+		// 페이지 계산
+		int listCount = 1;
+		if (loginUser != null) {
+			listCount = filmService.selectLikedFilmCount(loginUser.getId());
+		}
+		page++;
+		PageInfo pi = Pagination.getPageInfo(page, listCount);
+		pi.setPageLimit(3);
+		pi.setBoardLimit(5);
+		
+		map.put("page", page);
+		
+		// RowBounds 포함 좋아요한 영화 목록 조회 AJAX
+		ArrayList<Film> list = null;
+		if (loginUser != null) {
+			list = filmService.selectLikedFilmList(loginUser.getId(), pi);
+		}
+		// System.out.println("liked film list : " + list);
+		map.put("list", list);
+
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new Gson();
+		gson.toJson(map, response.getWriter());
+	}
 	
 }

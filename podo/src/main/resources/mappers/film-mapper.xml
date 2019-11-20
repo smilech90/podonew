@@ -14,6 +14,10 @@
 		<result property="genre" column="name"/>
 	</resultMap>
 	
+	<resultMap type="" id="">
+		
+	</resultMap>
+	
 	<select id="getListCount" resultType="_int">
 		select count(*)
 		from tb_film
@@ -22,8 +26,7 @@
 	<select id="selectKeywordFilmListCount" resultType="_int">
 		select count(*)
 		from tb_film f
-		join tb_genre g
-		on (f.genre_id = g.id)
+		join tb_genre g on (f.genre_id = g.id)
 		where title_kor like '%'||#{keyword}||'%'
 		   or title_eng like '%'||#{keyword}||'%'
 	</select>
@@ -31,8 +34,7 @@
 	<select id="selectKeywordFilmList" resultMap="filmResultSet">
 		select f.*, g.name
 		from tb_film f
-		join tb_genre g
-		on (f.genre_id = g.id)
+		join tb_genre g on (f.genre_id = g.id)
 		where title_kor like '%'||#{keyword}||'%'
 		   or title_eng like '%'||#{keyword}||'%'
 	</select>
@@ -73,6 +75,34 @@
 	<select id="selectAllGenreList" resultType="Genre">
 		select *
 		from tb_genre
+	</select>
+	
+	<select id="selectLikedFilmCount" resultType="_int">
+		select count(*)
+		from tb_film f
+		join tb_like l on (f.id = target_id)
+		where user_id = #{id}
+			and type = 1
+	</select>
+	
+	<select id="selectLikedFilmList" resultMap="filmResultSet">
+		select f.*, g.name
+		from tb_film f
+		join tb_like l on (f.id = target_id)
+		join tb_genre g on (f.genre_id = g.id)
+		where user_id = #{id}
+		  and type = 1
+    order by l.id asc
+	</select>
+	
+	<select id="selectPreferredGenreFilmList" resultMap="">
+		select genre, prefer, dense_rank() over (order by prefer desc) as rank
+		from (select g.name as genre, count(*) as prefer
+		      from tb_like l
+		      join tb_film f on (f.id = l.target_id)
+		      join tb_genre g on (f.genre_id = g.id)
+		      where user_id = #{id}
+		      group by g.name)
 	</select>
 	
 </mapper>
