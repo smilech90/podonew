@@ -44,7 +44,7 @@
 		update tb_member 
 		
 		<if test="updatePwd != null">	<!-- 비밀번호 변경O -->
-		set image=#{image}, email=#{email}, pwd=#{pwd}, nickname=#{nickName}, modify_date=sysdate
+		set pwd=#{pwd}, modify_date=sysdate
 		</if>
 		
 		<if test="updatePwd == null"> <!-- 비밀번호 변경X -->
