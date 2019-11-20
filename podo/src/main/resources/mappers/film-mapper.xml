@@ -75,4 +75,60 @@
 		from tb_genre
 	</select>
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="getFilmListCount" resultType="_int">
+		select count(*)
+		from tb_film
+	</select>
+	
+	<select id="selectFilmList" resultMap="filmResultSet">
+		select *
+		from tb_film
+		order by id
+	</select>
+	
+	
+	
+	
+	
+	
+	<insert id="insertFilm">
+		insert into tb_film
+		values(seq_id.nextval, #{title_kor}, #{title_eng}, #{director}, 
+			   #{release_year}, #{production_country}, #{production_status}, #{genre_id})
+	</insert>
+	
+	<select id="selectFilm" resultMap="filmResultSet">
+		select * 
+		from tb_film
+	</select>
+
+	<update id="deleteFilm"> <!-- 영화 삭제하려면 공개/비공개 컬럼 추가...!? -->
+		update tb_film
+		set status='N' <!-- 영화테이블엔 status가 없음,,, -->
+		where id=#{id}
+	</update>
+	
+	<update id="updateFilm">
+		update tb_film
+		set titleKor=#{title_kor}, titleEng=#{title_eng}, director=#{director},
+			releaseYear=#{release_year}, productionCountry=#{production_country},
+			productionStatus=#{production_status}, genreId=#{genre_id}
+		where id=#{id}
+	</update>
+	
+	
+	
+	
+	
+	
+	
 </mapper>
