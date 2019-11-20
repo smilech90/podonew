@@ -116,7 +116,7 @@
             <form action="detailFilmInsert.do" method="post">
             <input type="hidden" name="id" value="${ df.id }">
             <input type="hidden" name="detailId" value="${ df.detailId }">
-            <input type="hidden" name="filmImage" value="${ i.changeName }">            
+            <input type="hidden" name="filmImage" value="${ i.changeName }">
             <input type="hidden" name="uId" value="${ loginUser.id }">
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
