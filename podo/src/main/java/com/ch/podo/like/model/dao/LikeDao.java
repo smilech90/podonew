@@ -6,7 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.like.model.vo.Like;
 
 @Repository("likeDao")
@@ -23,7 +22,7 @@ public class LikeDao {
 		return sqlSession.delete("likeMapper.deleteLikeFilm", like);
 	}
 	
-	public Map<Integer, Film> selectLikedFilmMap(int id) {
+	public Map<Integer, Like> selectLikedFilmMap(int id) {
 		return (Map)sqlSession.selectMap("likeMapper.selectLikedFilmMap", id, "targetId");
 	}
 	

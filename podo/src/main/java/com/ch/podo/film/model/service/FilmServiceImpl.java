@@ -1,7 +1,6 @@
 package com.ch.podo.film.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.film.model.dao.FilmDao;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
-import com.ch.podo.like.model.vo.Like;
-import com.ch.podo.ratingFilm.model.vo.RatingFilm;
 
 @Service("filmService")
 public class FilmServiceImpl implements FilmService {
@@ -48,6 +45,16 @@ public class FilmServiceImpl implements FilmService {
 	@Override
 	public ArrayList<Film> selectFilterFilmMap(Map<String, Object> map) {
 		return filmDao.selectFilterFilmMap(map);
+	}
+
+	@Override
+	public int selectLikedFilmCount(int id) {
+		return filmDao.selectLikedFilmCount(id);
+	}
+
+	@Override
+	public ArrayList<Film> selectLikedFilmList(int id, PageInfo pi) {
+		return filmDao.selectLikedFilmList(id, pi);
 	}
 
 }
