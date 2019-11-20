@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
+import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.review.model.vo.Review;
 
 @Repository("dfDao")
@@ -37,7 +38,25 @@ public class DetailFilmDao {
 		map.put("df", df);
 		map.put("uId", uId);
 		return sqlSession.insert("detailFilmmapper.insertDetailFilm", map);
+	}
+	
+	// 포스터 이미지 불러오기
+	public Image selectFilmImage(int detailId) {
 		
+		Image i = sqlSession.selectOne("detailFilmmapper.selectFilmImage", detailId);
+		
+		return i;
+	}
+
+	// 포스터 이미지 수정
+	public int filmImageInsert(String filmImage, int detailId) {
+		
+		HashMap map= new HashMap();
+		
+		map.put("filmImage", filmImage);
+		map.put("detailId", detailId);
+		
+		return sqlSession.insert("detailFilmmapper.filmImageInsert", map);
 	}
 	
 	

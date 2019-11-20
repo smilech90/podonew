@@ -2,7 +2,6 @@ package com.ch.podo.like.model.service;
 
 import java.util.Map;
 
-import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.like.model.vo.Like;
 
 public interface LikeService {
@@ -14,6 +13,6 @@ public interface LikeService {
 	int deleteLikeFilm(Like like);
 
 	// 3. 사용자가 좋아요 누른 영화 목록 조회
-	Map<Integer, Film> selectLikedFilmMap(int id);
+	Map<Integer, Like> selectLikedFilmMap(int id);
 	
 }

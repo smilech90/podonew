@@ -24,10 +24,14 @@
 	<script src="resources/bootstrap/js/main.js"></script>
 	
 	<style>
+		
 		.search-form{
 			display: inline-block;
 			text-align: center;
 		}
+		
+		
+		
 	</style>
 
 </head>
@@ -47,17 +51,19 @@
 						<span class="icon-bar"></span>
 					</button>
 				
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+					<div class="navbar-collapse offset collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav justify-content-center">
 							<li class="nav-item"><a class="nav-link" href="home.do">메인</a></li> 
 							<li class="nav-item"><a class="nav-link" href="film.do">영화</a></li>
-<!-- 봉운 테스트 20191116 -->
-							<li class="nav-item"><a class="nav-link" href="detailFilm.do?id=4">영화 상세페이지로(임시, 조커영화 번호 1번)</a></li>
 							<li class="nav-item"><a class="nav-link" href="reviewList.do">리뷰</a>
+<<<<<<< HEAD
 							<li class="nav-item"><a class="nav-link" href="#">추천</a>
 							<li class="nav-item"><a class="nav-link" href="blist.do">게시판</a>
 							</li>
+=======
+							<li class="nav-item"><a class="nav-link" href="rec.do">추천</a>
+							<li class="nav-item"><a class="nav-link" href="#">게시판</a>
+>>>>>>> branch 'develop' of https://github.com/humormagnate/podo
 							<c:if test="${ loginUser ne null }">
 								<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>
 								<li class="nav-item"><a id="logout" class="nav-link" href="myPage.do?id=${ loginUser.id }">마이페이지</a>
@@ -67,12 +73,13 @@
 							</c:if>
 						</ul>
 					</div>
+					<form method="post" action="skFilm.do" class="form-inline my-4 my-lg-0">
+						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+						<button class="button button--active my-2 my-sm-0" type="submit">검색</button>
+					</form>
 				</div>
 				
-				<form method="post" action="skFilm.do" class="form-contact">
-					<input class="form-control" type="search" placeholder="Search" aria-label="Keyword" name="keyword">
-					<button class="button button--active button-contactForm" type="submit">검색</button>
-				</form>
+				
 			</nav>
 		</div>
 	</header>
@@ -121,7 +128,7 @@
 
 	<script>
 		$(function(){
-			$("#login-modal").on("click", function(){
+			$("#login-modal, #rec-login-modal").on("click", function(){
 				$('#loginModal').modal('toggle');
 			});
 		});

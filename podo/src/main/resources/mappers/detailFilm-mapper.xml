@@ -23,6 +23,11 @@
 		<result property="likeCount" column="like_count"/>
 	</resultMap>
 	
+	<resultMap id="filmImage" type="Image">
+		<id property="id" column="id"/>
+		<result property="changeName" column="change_name"/>
+	</resultMap>
+	
 	<!-- 영화 상세 정보 보기  -->
 	<!-- 입력 날짜 최신순 기준으로 rownum 1번, status='Y'인 정보 출력 -->
 	<select id="selectDetailFilm" resultMap="detailFilmResultSet">
@@ -53,9 +58,35 @@
 	<insert id="insertDetailFilm" parameterType="hashMap">
 		insert into tb_detail_film
 		values(seq_dfilm_id.nextval, #{df.synopsys}, #{df.trivia}, #{df.trailer}, null, 'Y', sysdate, #{uId}, #{df.id})
-		
 	</insert>
-	 
+	
+	
+	
+	
+<!-- 이런식으로 입력하니 detailId 가 예전 번호로 받아서 현재에 반영이 안됌ㅋㅋㅋㅋㅋㅋㅋ -->
+	<insert id="filmImageInsert" parameterType="hashMap">
+		insert into tb_film_image
+		values(seq_fimage_id.nextval, 1, 'path', #{filmImage}, #{detailId})
+	</insert>
+	
+	
+	<!-- 영화 상세정보 보기에서 포스터 불러오기 -->
+	<select id="selectFilmImage" resultMap="filmImage">
+		select rownum, i.*
+		from(select *
+		     from tb_film_image
+		     where dfilm_id=#{detailId}
+		     and type=1
+		     order by id desc)i
+		where rownum = 1
+	</select>
+	
+	<!-- 영화 정보 수정 [배우] 수정하는 부분 insert로 DB에 추가 Dfilm_id 는 어떻게 알지?? -->
+	<insert id="insertFilmActor">
+		insert into tb_film_actor
+		values(#{actor_id}, #{dFilm_id})
+	</insert>
+	
 	<!-- 관리자가 [되돌리기] 버튼을 누르면 update로 status 'N'으로 수정  -->
 	<update id="updateDetailFilm">
 		update tb_detail_film
@@ -64,12 +95,6 @@
 		and status='Y'
 		order by insertdate desc
 	</update>
-	
-	<!-- 영화 정보 수정 [배우] 수정하는 부분 insert로 DB에 추가 Dfilm_id 는 어떻게 알지?? -->
-	<insert id="insertFilmActor">
-		insert into tb_film_actor
-		values(#{actor_id}, #{dFilm_id})
-	</insert>
 	
 </mapper>
 

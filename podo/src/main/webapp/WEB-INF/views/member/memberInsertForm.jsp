@@ -50,8 +50,8 @@
 	<script>
 		function validate(){
 			// 미입력
-			if($("#userId").val().length == 0){	
-				alert("이메일을 입력해주세요.");
+			if($("#userId").val().length == 0 || $("#idCheck").val() == 0){	
+				alert("이메일을 확인해주세요.");
 				$("#userId").focus();
 				return false;
 				
@@ -59,6 +59,7 @@
 				alert("비밀번호를 입력해주세요.");
 				$("#userPwd").focus();
 				return false;
+				
 			}else if($("#userPwd").val() != $("#userPwd2").val()){
 				alert("비밀번호가 틀립니다.");
 				$("#userPwd").val("");
@@ -66,32 +67,14 @@
 				$("#userPwd").focus();
 				return false;
 			
-			}else if($("#userNickName").val().length == 0){	
-				alert("닉네임을 입력해주세요.")
+			}else if($("#userNickName").val().length == 0 || $("#nickCheck").val() == 0){	
+				alert("닉네임을 확인해주세요.")
 				$("#userNickName").focus();
 				return false;
-			}else{	
+				
+			}else{
 				return true;
 			}
-			
-			// 아이디 중복체크
-			if($("#idCheck").val() == 0){	// 아이디 사용불가
-				alert("이메일을 확인해 주세요.");
-				$("#userId").focus();
-				return false;
-			}else{	// 아이디 사용가능
-				return true;
-			}
-			
-			// 닉네임 중복체크
-			if($("#nickCheck").val() == 0){	// 닉네임 사용불가
-				alert("닉네임을 확인해 주세요.");
-				$("#nickName").focus();
-				return false;
-			}else{	// 닉네임사용가능
-				return true;
-			}
-			
 		}
 		
 		$(function(){

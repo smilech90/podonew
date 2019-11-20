@@ -29,6 +29,7 @@
 		width:300px;
 		height: 200px;
 	}
+
 </style>
 </head>
 <body>
@@ -41,6 +42,7 @@
 	
 	<div id="body">
 	<h1 align="center">리뷰 리스트</h1>
+	<button onclick="location.href='reviewWriteForm.do';"> 글쓰기 </button> 
 	 	<c:forEach items="${ list }" var="review">
 	  <div class="container">
           <div class="card blog__slide text-center">
@@ -50,12 +52,19 @@
             <div class="blog__slide__content">
               <p class="pTitle"> ${review.titleKor }</p>
               <a class="blog__slide__label">${ review.name }</a>
-              <h3><a href="ratingDetailReview.do?id=${review.id}">${ review.content } <button onclick="location.href='ratingDetailReview.do?id=${review.id}';">상세내용 보기</button></a></h3>
+              <h3><a href="ratingDetailReview.do?id=${review.id}"><p id="reviewContentFont">${ review.content }</p></a> </h3>
+              <button onclick="location.href='ratingDetailReview.do?id=${review.id}';"> 더보기 </button> 
+              
+              <p></p>
+              <button onclick="location.href='reviewUpdate.do?id=${review.id}';">수정하기</button> 
+          	  <button onclick="location.href='reviewDelete.do?id=${review.id}';">삭제하기</button>
               <p>${review.nickname }</p>
+              <p>${review.createDate }에 작성됨</p>
             </div>
           </div>
       </div>
 	</c:forEach> 
+	 <button onclick="location.href='star.do';">스타 보기</button>
 	<%-- ${list.get(2).titleKor} --%>
 	
 	
