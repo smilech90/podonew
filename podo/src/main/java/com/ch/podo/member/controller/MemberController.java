@@ -59,8 +59,10 @@ public class MemberController {
 					}
 				}
 			}
+			String referer = request.getHeader("Referer");
+			
 			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("redirect:home.do");
+			mv.setViewName("redirect:" + referer);
 		} else {
 			mv.addObject("msg", "로그인 실패").setViewName("error/errorPage");
 		}
