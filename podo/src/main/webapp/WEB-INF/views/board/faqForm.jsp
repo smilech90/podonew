@@ -25,6 +25,11 @@
 		color: white;
 		font-size: 15px;
 	}
+	.moreBtn{
+		width: 10px;
+		height: 10px;
+		float: right;
+	}
 </style>
 </head>
 <body>
@@ -36,7 +41,9 @@
 	<br>
 	
 	<div class="faq">
-		<div class="faq-q">Q. PODO는 어떤 사이트인가요?</div>
+		<div class="faq-q">
+			Q. PODO는 어떤 사이트인가요?
+		</div>
 		<p class="contents">
 			A. PODO는 유저들이 영화를 직접 평가하고 리뷰를 남기는 사이트 입니다.
 			<br>

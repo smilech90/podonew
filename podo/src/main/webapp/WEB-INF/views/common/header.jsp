@@ -22,6 +22,13 @@
 	<script src="resources/bootstrap/js/jquery.ajaxchimp.min.js"></script>
 	<script src="resources/bootstrap/js/mail-script.js"></script>
 	<script src="resources/bootstrap/js/main.js"></script>
+	
+	<style>
+		.search-form{
+			display: inline-block;
+			text-align: center;
+		}
+	</style>
 
 </head>
 <body>

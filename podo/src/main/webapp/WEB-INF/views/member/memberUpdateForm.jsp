@@ -4,26 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>PoDo_회원정보수정</title>
+	<meta charset="UTF-8">
+	<title>PoDo_회원정보수정</title>
 
-	<script>
-	
-	function Hi() {
-	     alert(${ msg });
-	}
-	
-	</script>
 <style>
 	#imgInp{display:none}
 </style>
 </head>
+
 <body>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	
-	<c:if test="${ msg ne null }">
-		body onload="Hi()"
-	</c:if>	
 	
 	<div>
 		<form action="updateMember.do" method="post" enctype="multipart/form-data">
@@ -55,21 +47,14 @@
 	<script>
 		// 이미지 삭제 버튼 클릭 시
 		function fileReset(){
-			alert("삭제");
 			$("#imgArea input").remove();
-			console.log("인풋삭제");
 			$("#preview").attr('src','resources/memberProfileImage/podoImage.png');
-			console.log("프리뷰수정");
-			//var newInput = "<input type=" + '"file"'+   "id=" + '"imgInp"' +  "name=" + '"uploadFile">';
 			var newInput = "<input type='file' id='imgInp' name='uploadFile'>";
 			$("#imgArea").append(newInput);
-			console.log("붙이기");
-			
 		}
 		
 		// 이미지 미리보기
 	    function readURL(input) {
-	    	console.log("들어가나?");
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();
 	            reader.onload = function(e) {
@@ -80,23 +65,16 @@
 	    };
 	    
 		// 이미지 변경 될 때 마다 이미지 미리보기 함수 실행
-		
 	    $(document).on("change","#imgInp", function() {
-	    	console.log("체인지들어가나?");
 	        readURL(this);
 	    });
 		
 		
 		// 이미지 버튼 클릭 시 인풋창 열리게 (안보이게 해둠)
-		
 		$("#uploadBtn").on('click', function(e){
-			console.log("버튼들어가나?");
 			e.preventDefault();
 			$("#imgInp").click();
 		});
-		
-		
-		
 		
 		
 	</script>

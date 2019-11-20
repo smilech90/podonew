@@ -9,6 +9,8 @@
 </head>
 <body>
 
+	<jsp:include page="../common/header.jsp"/>
+
 	<h1>
 		<p style="text-align: center; text-decoration: underline">개인정보
 			취급방침</p>
@@ -129,6 +131,8 @@
 
 
 	<p>본 방침은 2019년 12월 1일부터 적용됩니다.</p>
+	
+	<jsp:include page="../common/footer.jsp"/>
 
 
 </body>

@@ -15,9 +15,13 @@ public class RatingReviewServiceImpl implements RatingReviewService {
 	private RatingReviewDao ratingReviewDao;
 
 	@Override
-	public ArrayList<RatingReview> selectRatingReviewList() {
-		
-		return ratingReviewDao.selectRatingReviewList();
+	public RatingReview selectRatingReviewDetailView(int id) {
+
+		return ratingReviewDao.selectRatingReviewDetailView(id);
 	}
+
+
+
+
 
 }

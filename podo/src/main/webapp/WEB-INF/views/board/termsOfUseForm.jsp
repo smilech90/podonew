@@ -9,6 +9,9 @@
 </head>
 <body>
 
+	<jsp:include page="../common/header.jsp"/>
+
+
 	<h1>
 		<p style="text-align: center; text-decoration: underline">이용 약관</p>
 	</h1>
@@ -326,7 +329,8 @@
 		<p>① 사이트와 회원 간 제기된 소송에는 대한민국법을 준거법으로 합니다.</p>
 		<p>② 사이트와 회원간 발생한 분쟁에 관한 소송은 민사소송법 상의 관할법원에 제소합니다</p>
 	</ul>
-
+	
+	<jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>
