@@ -63,6 +63,7 @@ public class MemberController {
 			
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:" + referer);
+			
 		} else {
 			mv.addObject("msg", "로그인 실패").setViewName("error/errorPage");
 		}
@@ -169,11 +170,9 @@ public class MemberController {
 	public ModelAndView updateMember(Member mem, HttpSession session, ModelAndView mv, HttpServletRequest request,
 									@RequestParam(value="uploadFile", required=false) MultipartFile file) {
 		
-		System.out.println("변경전 : " + mem);
-		System.out.println("파일오리진네임 : " + file.getOriginalFilename());
-		// updatePwd가 null이면 정보수정만 한 경우 (비밀번호 수정일 경우 이미지 파일이 들어가면 안됨!!)
-		if(mem.getUpdatePwd().equals(null)) {
-				System.out.println("업데이트 이프문 널일때 안으로 들어왔다!");
+		// 정보수정만 한 경우
+		if(mem.getUpdatePwd().equals("")) {
+			
 			if(!file.getOriginalFilename().equals("")) {	
 				String renameFileName = saveFile(file, request);	
 				mem.setImage(renameFileName);
@@ -181,16 +180,16 @@ public class MemberController {
 				mem.setImage("podoImage.png");
 			}
 			
-			// 비밀번호 변경 한 경우
-		} else if(!mem.getUpdatePwd().equals(null)) {	// 패스워드 변경을 하면 암호화 된 패스워드를 pwd에 대입
+		  // 비밀번호만 변경 한 경우
+		} else {	// 패스워드 변경을 하면 암호화 된 패스워드를 pwd에 대입
 			String encPwd = bcryptPasswordEncoder.encode(mem.getUpdatePwd());
 			mem.setPwd(encPwd);
 		}	// 정보수정만 한 경우 updatePwd는 null
 		
-		System.out.println("변경후 : " + mem);
 		int result = memberService.updateMember(mem);
 		
-		
+		mem.setStatus("Y");
+		System.out.println("수정 후 : " + mem);
 		if(result > 0) {	// 업데이트 성공
 			session.setAttribute("loginUser", mem);
 			mv.addObject("msg", "회원정보 수정 성공").setViewName("member/myPage");
@@ -199,8 +198,6 @@ public class MemberController {
 		}
 		
 		return mv;
-		
-		
 	}
 	
 	

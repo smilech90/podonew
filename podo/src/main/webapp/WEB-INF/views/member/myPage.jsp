@@ -104,7 +104,13 @@
 				<div class="modal-body">
 					<form action="updateMember.do" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="id" value="${ loginUser.id }">
-						<input type="hidden" name="updatePwd" value="null">
+						<input type="hidden" name="pwd" value="${ loginUser.pwd }">
+						<input type="hidden" name="enrollDate" value="${ loginUser.enrollDate }">
+						<input type="hidden" name="modifyDate" value="${ loginUser.modifyDate }">
+						<input type="hidden" name="googleId" value="${ loginUser.googleId}">
+						<input type="hidden" name="kakaoId" value="${ loginUser.kakaoId }">
+						<input type="hidden" name="autho" value="${ loginUser.autho }">
+						<input type="hidden" name="updatePwd" value="">
 						<div class="form-group">
 							<label for="userId">Email address</label>
 							<input type="email" class="form-control" id="userId" name="email" value="${ loginUser.email }" readonly>
@@ -152,7 +158,13 @@
 				<div class="modal-body">
 					<form action="updateMember.do" method="post">
 						<input type="hidden" name="id" value="${ loginUser.id }">
-						<input type="hidden" name="pwd" value="${ loginUser.pwd }">
+						<input type="hidden" name="image" value="${ loginUser.image }">
+						<input type="hidden" name="nickName" value="${ loginUser.nickName }">
+						<input type="hidden" name="enrollDate" value="${ loginUser.enrollDate }">
+						<input type="hidden" name="modifyDate" value="${ loginUser.modifyDate }">
+						<input type="hidden" name="googleId" value="${ loginUser.googleId}">
+						<input type="hidden" name="kakaoId" value="${ loginUser.kakaoId }">
+						<input type="hidden" name="autho" value="${ loginUser.autho }">
 						<div class="form-group">
 							<label for="userId">Email address</label>
 							<input type="email" class="form-control" id="userId" name="email" value="${ loginUser.email }" readonly>
@@ -247,11 +259,11 @@
 		
 		// 비밀번호 변경 시 변경 후 비밀번호 일치 여부		
 		function pwdValidate(){
-			if($("#newPwd").val() != $("#updatePwd").val()){
+			if($("#updatePwd").val() != $("#updatePwd2").val()){
 				alert("비밀번호가 일치하지 않습니다.");
-				$("#newPwd").val("");
 				$("#updatePwd").val("");
-				$("#newPwd").focus();
+				$("#updatePwd2").val("");
+				$("#updatePwd").focus();
 				return false;
 			}
 		}

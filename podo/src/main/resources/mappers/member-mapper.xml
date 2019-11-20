@@ -43,14 +43,13 @@
 	<update id="updateMember">
 		update tb_member 
 		
-		<if test="updatePwd != null">	<!-- 비밀번호 변경O -->
-		set pwd=#{pwd}, modify_date=sysdate
+		<if test='updatePwd != ""'>	<!-- 비밀번호 변경O -->
+			set pwd=#{pwd}, modify_date=sysdate
 		</if>
 		
-		<if test="updatePwd == null"> <!-- 비밀번호 변경X -->
-		set image=#{image}, email=#{email}, nickname=#{nickName}, modify_date=sysdate
+		<if test='updatePwd == ""'> <!-- 비밀번호 변경X -->
+			set image=#{image}, email=#{email}, nickname=#{nickName}, modify_date=sysdate
 		</if>
-		
 		where id=#{id} and status='Y'
 	</update>
 	
