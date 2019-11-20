@@ -14,7 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="ratingDirect" column="RATING_DIRECT"/>
 		<result property="titleKor" column="TITLE_KOR"/>
 	 	<result property="userImage" column="IMAGE"/>
-		
+	 	<result property="modifyDate" column="MODIFY_DATE"/>
+	 	<result property="createDate" column="CREATE_DATE"/>
+		<!-- <result property="posterImage" column=""/> 요기도 컬럼 수정된거써야함 -->
 	</resultMap>
 	
 

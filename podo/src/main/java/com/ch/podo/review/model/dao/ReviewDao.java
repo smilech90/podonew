@@ -20,6 +20,16 @@ public class ReviewDao {
 		
 		return list;
 	}
+
+	public int deleteReview(int id) {
+		
+		return sqlSession.update("reviewMapper.deleteReview",id);
+	}
+
+	public int reviewWrite(Review r) {
+		
+		return sqlSession.insert("reviewMapper.reviewWrite",r);
+	}
 	
 	
 
