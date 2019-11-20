@@ -70,15 +70,15 @@
 	</insert>
 	
 	
-	
-	
-	
 	<!-- 영화 상세정보 보기에서 포스터 불러오기 -->
 	<select id="selectFilmImage" resultMap="filmImage">
-		select *
-		from tb_film_image
-		where dfilm_id=#{detailId}
-		and type=1
+		select rownum, i.*
+		from(select *
+		     from tb_film_image
+		     where dfilm_id=#{detailId}
+		     and type=1
+		     order by id desc)i
+		where rownum = 1
 	</select>
 	
 	<!-- 영화 정보 수정 [배우] 수정하는 부분 insert로 DB에 추가 Dfilm_id 는 어떻게 알지?? -->
