@@ -36,10 +36,12 @@ public interface FilmService {
 	// 1_2. 현재 페이지에 보여질 영화 리스트 조회용 서비스
 	ArrayList<Film> selectFilmList(PageInfo pi);
 	
+
 	/*
 	
 	// 2. 영화 등록하기 서비스
 	int insertFilm(Film f);
+	
 	
 	// 3. 영화 상세보기 서비스
 	Film selectFilm(int id);

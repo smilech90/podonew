@@ -1,16 +1,16 @@
 package com.ch.podo.film.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -163,7 +163,7 @@ public class FilmController {
 	
 	
 	// 관리자 영화 리스트
-	@RequestMapping("flist.ad")
+	@RequestMapping("flist.do")
 	public ModelAndView filmList(ModelAndView mv, 
 								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		
@@ -174,20 +174,21 @@ public class FilmController {
 		ArrayList<Film> list = filmService.selectFilmList(pi);
 		
 		mv.addObject("pi", pi).addObject("list", list)
-		  .setViewName("admin/flimListView");
+		  .setViewName("admin/filmListView");
 		
 		return mv;
 	}
 	
-	/*
+/*
 	
 	// 관리자 영화 등록
-	@RequestMapping("finsertForm.ad")
+	@RequestMapping("finsertForm.do")
 	public String filmInsertView() {
 		return "admin/filmInsertForm";
 	}
 	
-	@RequestMapping("finsert.ad")
+
+	@RequestMapping("finsert.do")
 	public String insertFilm(Film f, HttpServletRequest request, Model model,
 							  @RequestParam(value="uploadFile", required=false) MultipartFile file) {
 		
@@ -201,10 +202,9 @@ public class FilmController {
 		int result = filmService.insertFilm(f);
 		
 		if(result > 0) {
-			return "redirect:flist.ad";
+			return "redirect:flist.do";
 		}	
 	}
-	
 	
 	
 	
@@ -224,11 +224,9 @@ public class FilmController {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		
-		// 201911051717.PNG
 		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." 
 								+ originFileName.substring(originFileName.lastIndexOf(".")+1);
 		
-		// ~~~/resources/buploadFiles/201911051717.PNG
 		String renamePath = savePath + "/" + renameFileName;
 		
 		
@@ -242,6 +240,9 @@ public class FilmController {
 		
 		return renameFileName;
 	}
+	
+	
+	/*
 	
 	// 관리자 영화 정보 상세보기
 	@RequestMapping("fdetail.ad")

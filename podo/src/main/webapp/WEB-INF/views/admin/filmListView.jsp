@@ -12,7 +12,6 @@
 	
 	<h3 align="center">
 		총 게시글 갯수 : ${ pi.listCount } 페이지 : ${ pi.currentPage } / ${ pi.maxPage } 
-
 	</h3>
 	
 	<table align="center" border="1" cellspacing="0" width="700">
@@ -22,6 +21,8 @@
 			<th>영문제목</th>
 			<th>감독</th>
 			<th>제작년도</th>
+			<th>제작국가</th>
+			<th>개봉여부</th>
 		</tr>
 		<c:forEach items="${ list }" var="f">	
 			<tr>
@@ -30,18 +31,20 @@
 				<td>${ f.titleEng }</td>
 				<td>${ f.director }</td>
 				<td>${ f.releaseYear }</td>
+				<td>${ f.productionCountry }</td>
+				<td>${ f.productionStatus }</td>
 			</tr>
 		</c:forEach>
 		
 		<!-- 페이징 처리 -->
 		<tr align="center" height="20">
-			<td colspan="5">
+			<td colspan="7">
 				<!-- [이전] -->
 				<c:if test="${ pi.currentPage eq 1 }">
 					[이전] 
 				</c:if>
 				<c:if test="${ pi.currentPage ne 1 }">
-					<c:url value="flist.ad" var="before">
+					<c:url value="flist.do" var="before">
 						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
 					</c:url>
 					<a href="${ before }">[이전] </a>	
@@ -53,7 +56,7 @@
 						<font color="red" size="4"> [${ p }] </font>
 					</c:if>
 					<c:if test="${ p ne pi.currentPage }">
-						<c:url value="flist.ad" var="page">
+						<c:url value="flist.do" var="page">
 							<c:param name="currentPage" value="${ p }"/>
 						</c:url>
 						<a href="${ page }"> ${ p } </a>
@@ -65,7 +68,7 @@
 					 [다음]
 				</c:if>
 				<c:if test="${ pi.currentPage ne pi.maxPage }">
-					<c:url value="flist.ad" var="after">
+					<c:url value="flist.do" var="after">
 						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
 					</c:url>
 					<a href="${ after }"> [다음]</a>

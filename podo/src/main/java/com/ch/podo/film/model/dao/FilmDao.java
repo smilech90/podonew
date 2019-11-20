@@ -73,14 +73,12 @@ public class FilmDao {
 	
 	
 	/*
+
 	
 	public int insertFilm(Film f) {
 		return sqlSession.insert("filmMapper.insertFilm", f);
 	}
 	
-	public int updateCount(int id) {
-		return sqlSession.update("filmMapper.updateCount", id);
-	}
 	
 	public Film selectFilm(int id) {
 		return sqlSession.selectOne("filmMapper.selectFilm", id);
