@@ -167,6 +167,8 @@ public class MemberController {
 	public ModelAndView updateMember(Member mem, HttpSession session, ModelAndView mv, HttpServletRequest request,
 									@RequestParam(value="uploadFile", required=false) MultipartFile file) {
 		
+		System.out.println("변경전 : " + mem);
+		
 		if(!file.getOriginalFilename().equals("")) {	
 			String renameFileName = saveFile(file, request);	
 			
@@ -176,14 +178,16 @@ public class MemberController {
 		}
 		
 		String encPwd = "";
-		if(!mem.getUpdatePwd().equals("")) {	// 패스워드 변경을 하면 암호화 된 패스워드를 pwd에 대입
+		if(!mem.getUpdatePwd().equals(null)) {	// 패스워드 변경을 하면 암호화 된 패스워드를 pwd에 대입
 			encPwd = bcryptPasswordEncoder.encode(mem.getUpdatePwd());
 			mem.setPwd(encPwd);
 		}else { // 변경을 하지 않으면 updatePwd에 null대입 (updatePwd로 mapper에서 조건걸거임)
 			mem.setUpdatePwd(null);
 		}
 		
+		System.out.println("변경후 : " + mem);
 		int result = memberService.updateMember(mem);
+		
 		
 		if(result > 0) {	// 업데이트 성공
 			session.setAttribute("loginUser", mem);
