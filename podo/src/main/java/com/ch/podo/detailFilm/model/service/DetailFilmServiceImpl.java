@@ -18,14 +18,14 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 	
 	// 영화 상세 정보
 	@Override
-	public DetailFilm selectDetailFilm(int id) {	
-		return dfDao.selectDetailFilm(id);
+	public DetailFilm selectDetailFilm(int filmId) {
+		return dfDao.selectDetailFilm(filmId);
 	}
 
 	// 영화 리뷰리스트
 	@Override
-	public ArrayList<Review> selectReivewList(int id) {
-		return dfDao.selectReivewList(id);
+	public ArrayList<Review> selectReivewList(int filmId) {
+		return dfDao.selectReivewList(filmId);
 	}
 
 	// 영화 상세정보 추가 입력
@@ -37,16 +37,15 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 	
 	// 영화 상세정보 추가 입력, 포스터
 	@Override
-	public int filmImageInsert(String filmImage, int detailId) {
+	public int filmImageInsert(String filmImage, int id) {
 		
-		return dfDao.filmImageInsert(filmImage, detailId);
+		return dfDao.filmImageInsert(filmImage, id);
 	}
 	
 	// 영화 상세정보 영화 포스터 불러오기
 	@Override
-	public Image selectFilmImage(int detailId) {
-		
-		return dfDao.selectFilmImage(detailId);
+	public Image selectFilmImage(int id) {
+		return dfDao.selectFilmImage(id);
 	}
 
 }
