@@ -21,5 +21,6 @@ public class Film {
 	private String productionCountry;
 	private String productionStatus;
 	private String genre;
+	private double avgStarRating;
 	
 }

@@ -13,7 +13,7 @@
 	<section class="blog-post-area section-margin">
 		<div class="container">
 		
-<%-- 				<c:set var="size" value="${ fn:length(size) }" /> --%>
+				<c:set var="count" value="${ fn:length(list) }" />
 				<c:choose>
 					<c:when test="${ empty loginUser }">
 						<div class="row">
@@ -24,7 +24,7 @@
 							</div>
 						</div>
 					</c:when>
-					<c:when test="${ not empty loginUser and not empty list and count gt 10 }">
+					<c:when test="${ not empty loginUser and not empty list and count ge 10 }">
 						<div class="row list-row">
 				      <c:forEach items="${ list }" var="f">
 								<div class="col-md-12">

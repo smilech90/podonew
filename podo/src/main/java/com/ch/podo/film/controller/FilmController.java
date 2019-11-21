@@ -175,6 +175,7 @@ public class FilmController {
 			list = filmService.selectPreferredGenreFilmList(loginUser.getId());
 		}
 		System.out.println("preferred genre list : " + list);
+		System.out.println("preferred genre list.size() : " + list.size());
 		
 		// mv.addObject("list", list).addObject("page", page).addObject("count", listCount).setViewName("film/rec");
 		mv.addObject("list", list).addObject("page", page).setViewName("film/rec");

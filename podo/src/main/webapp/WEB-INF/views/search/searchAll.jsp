@@ -42,11 +42,11 @@
 			                  </ul>
 			                </div>
 			                <div class="details mt-20">
-			                  <a href="detailFilm.do?id=${ f.id }">
+			                  <a href="detailFilm.do?filmId=${ f.id }">
 			                    <h3>${ f.titleKor }</h3>
 			                  </a>
 			                  <p>${ f.titleEng } / ${ f.productionCountry } / ${ f.genre }</p>
-			                  <a class="button" href="detailFilm.do?id=${ f.id }">More Info<i class="ti-arrow-right"></i></a>
+			                  <a class="button" href="detailFilm.do?filmId=${ f.id }">More Info<i class="ti-arrow-right"></i></a>
 			                </div>
 			              </div>
 			            </div>
