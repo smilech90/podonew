@@ -194,9 +194,9 @@
          </tr>
 
       </table>
-   </form>
    </div>
                 <p>${rr.content }</p>
+   </form>
      
 
               </div>

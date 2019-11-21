@@ -28,5 +28,6 @@ public class RatingReview {
 	private Date createDate; 		//생성한 날짜
 	private String userImage;		//유저 이미지
 	private String posterImage;		//영화 포스터 이미지
+	private int star;				// 영화 별점
 
 }

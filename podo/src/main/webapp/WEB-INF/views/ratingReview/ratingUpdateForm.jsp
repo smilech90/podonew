@@ -21,7 +21,6 @@
   <script src="js/jquery.ajaxchimp.min.js"></script>
   <script src="js/mail-script.js"></script>
   <script src="js/main.js"></script>
-
 <title>Insert title here</title>
 <style>
 	body{
@@ -49,7 +48,7 @@
 		width:300px;
 		height:190px;
 	}
-			.star-input>.input,
+	.star-input>.input,
 			.star-input>.input>label:hover,
 			.star-input>.input>input:focus+label,
 			.star-input>.input>input:checked+label {
@@ -123,12 +122,12 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	<div id="body">
-		<h1 align="center">레이팅리뷰상세페이지</h1>
+		<h1 align="center">리뷰 수정 페이지</h1>
 		
 		<br>
 		
 		<h3 align="center">
-			<a href="reviewUpdateView.do?id=${rr.id}">수정하기</a>
+			
 		</h3>
 	  <section class="blog-post-area section-margin">
     <div class="container">
@@ -142,8 +141,8 @@
                     <div class="float-left">
                       <div class="media">
                       <div class="media-body">
-                        <h5>${rr.nickName }</h5>
-                        <p>${ rr.createDate }에 작성</p>
+                        <h5>${rr.nickName }님</h5>
+                        <p>${ rr.createDate }에 수정하려함</p>
                       </div>
                       <div class="d-flex">
                         <img width="42" height="42" src="resources/memberProfileImage/${ rr.userImage }" alt="">
@@ -152,25 +151,24 @@
                   	</div>
                   <div class="float-right mt-sm-0 mt-3">
                     <div class="media">
-  					  <div class="media-body">
-                        <h5>별점입니다</h5>
-	                    <span class="star-input">
-							<span class="input">
-							<input type="radio" name="star-input1" value="1" id="p1">
-								<label for="p1" style="width: 30px; z-index: 5;">1</label>
-							<input type="radio" name="star-input1" value="2" id="p2">
-								<label for="p2" style="width: 60px; z-index: 4;">2</label>
-							<input type="radio" name="star-input1" value="3" id="p3">
-								<label for="p3" style="width: 90px; z-index: 3;">3</label>
-							<input type="radio" name="star-input1" value="4" id="p4">
-								<label for="p4" style="width: 120px; z-index: 2;">4</label>
-							<input type="radio" name="star-input1" value="5" id="p5">
-								<label for="p5" style="width: 150px; z-index: 1;">5</label>
-							</span>
-							<output for="star-input"><b style="display: none;"></b></output>
+                      <div class="media-body">
+                        <h5>${rr.nickName }</h5>
+                        <span class="star-input">
+								<span class="input">
+								<input type="radio" name="star-input1" value="1" id="p1">
+									<label for="p1" style="width: 30px; z-index: 5;">1</label>
+								<input type="radio" name="star-input1" value="2" id="p2">
+									<label for="p2" style="width: 60px; z-index: 4;">2</label>
+								<input type="radio" name="star-input1" value="3" id="p3">
+									<label for="p3" style="width: 90px; z-index: 3;">3</label>
+								<input type="radio" name="star-input1" value="4" id="p4">
+									<label for="p4" style="width: 120px; z-index: 2;">4</label>
+								<input type="radio" name="star-input1" value="5" id="p5">
+									<label for="p5" style="width: 150px; z-index: 1;">5</label>
+								</span>
+								<output for="star-input"><b style="display: none;"></b></output>
 						</span>
-                        <p>${rr.star }점</p>
-                        
+                        <p>여기가 별점남기는곳입니다!!</p>
                       </div>
                       <div class="d-flex">
                         <img width="42" height="42" src="resources/bootstrap/img/blog/user-img.png" alt="">
@@ -235,93 +233,104 @@
    </script>
    </div>
    
-    <form action="vinsert.do" method="post" enctype="mutipart/form-data" id="movieform">
+    <form action="reviewUpdate.do" method="post" enctype="mutipart/form-data" id="movieform">
       <table align="center" id="vv">
+      	<input type="hidden" name="id" value="${rr.id }">
          <tr>
             <td>영화제목</td>
             <td><input type="text" name="title" id="vtitle"  value="${ rr.titleKor }"  readonly></td>
          </tr>
          <tr>
             <td>음악</td>
-            <td><input type="text" name="ratingSound" class="insertRating" id="ratingSound" value="${rr.ratingSound }" readonly></td>
+            <td><input type="number" name="ratingSound" class="insertRating" id="ratingSound" value="${rr.ratingSound }"></td>
          </tr>
          <tr>   
             <td>영상</td>
-            <td><input type="text" name="ratingVisual" class="insertRating" id="ratingVisual" value="${rr.ratingVisual }" readonly></td>
+            <td><input type="number" name="ratingVisual" class="insertRating" id="ratingVisual" value="${rr.ratingVisual }"></td>
          </tr>
          <tr>
             <td>연기</td>
-            <td><input type="text" name="ratingActing" class="insertRating" id="ratingActing" value="${rr.ratingActing }" readonly></td>
+            <td><input type="number" name="ratingActing" class="insertRating" id="ratingActing" value="${rr.ratingActing }"></td>
          </tr>
          <tr>
             <td>대중성</td>
-            <td><input type="text" name="ratingPop" class="insertRating" id="ratingPop" value="${rr.ratingPop }" readonly></td>
+            <td><input type="number" name="ratingPop" class="insertRating" id="ratingPop" value="${rr.ratingPop }"></td>
          </tr>
          <tr>
             <td>각본</td>
-            <td><input type="text" name="ratingScript" class="insertRating" id="ratingScript" value="${rr.ratingScript }" readonly></td>
+            <td><input type="number" name="ratingScript" class="insertRating" id="ratingScript" value="${rr.ratingScript }"></td>
          </tr>
          <tr>
             <td>연출</td>
-            <td><input type="text" name="ratingDirect" class="insertRating" id="ratingDirect" value="${rr.ratingDirect }" readonly></td>
+            <td><input type="number" name="ratingDirect" class="insertRating" id="ratingDirect" value="${rr.ratingDirect }" ></td>
          </tr>
-         
 
       </table>
-   </form>
    </div>
-                <p>${rr.content }</p>
+                <p><textarea rows="3" cols="75" name="content"  >${rr.content }</textarea></p>
+               <button type="submit" id="reviewupdate">리뷰수정하기</button>
+               <button type="button" onclick="location.href='reviewList.do';">목록으로</button>
+   </form>
      
 
               </div>
         </div>
       </div>
-  </section>
-
-
-			
+  </section>	
 	
 	<br>
 	
 
 	</div>
 	
-	<script>
-	
-	$(function(){
-	  	$(document)
-	    .on("mouseover", ".star-input label", function(){
-	    	$(this).parent().siblings("output").find("b").text($(this).text());
-	    })
-	    .on("mouseleave", ".star-input>.input", function(){
-    		var $checked = $(this).closest(".star-input").find(":checked");
-    		if ($checked.length === 0) {
-    			$(this).siblings("output").find("b").text("0");
-   		 	} else {
-   		 		$(this).siblings("output").find("b").text($checked.next().text());
-    		}
-	  	})
-	  	.on("click", ".star-input label", function(){
-			var fid = $(this).closest("tr").find("td").eq(1).text();
-	  		var star = $(this).text();
-	  		console.log("star : " + star);
-	  		console.log("fid : " + fid);
-	  		
-	  		var $checked = $(this).closest(".star-input").find(":checked");
-	  		console.log($checked);
-	  		
-	  		$.ajax({
-	  			url:"rateFilm.do",
-					data:{"fid":fid, "star":star},
-					type:"post",
-					dataType:"json",
-					error:function(){
-						alert("로그인 해주세요!");
-					}
-	  		});
-	  	});
-		});
+	 <script>
+      $('.insertRating').on('input',function(){
+         var ctx = document.getElementById('myChart');
+         var chart = new Chart(ctx, {
+             // The type of chart we want to create
+             type: 'radar',
 
-	</script>
+             // The data for our dataset
+             data: {
+                 labels: ["음악", "영상", "연기", "대중성", "각본","연출"],
+                 datasets: [{
+                	 label: ["${ rr.titleKor }"], 
+                     backgroundColor: "rgb(165,102,255)",
+                     pointBackground:"rgba(179,181,198,1)",
+                     pointBorderColor:"#fff",
+                     pointBorderBackgroundColor:"#fff", 
+             
+                    data: [$('#ratingSound').val(),$('#ratingVisual').val(),$('#ratingActing').val(),$('#ratingPop').val(),$('#ratingScript').val(),$('#ratingDirect').val()]
+   
+               }]
+             },
+
+             // Configuration options go here
+             options: {
+                 
+                 scale: {
+                      angleLines: {
+                          display: false
+                      },
+                      ticks: {
+                          suggestedMin: 0,
+                          suggestedMax: 10,
+                      }
+                  },
+                  tooltips:{
+                     callbacks: {
+                          label: function(tooltipItem, data) {
+                              
+                              return data.labels[tooltipItem.index]  + " : "+ Math.round(tooltipItem.yLabel * 100) / 100 +"점";
+                          }
+                      }
+                  }
+              }
+          });
+   })
+ 
+
+   </script>
+	
 </body>
 </html>

@@ -19,5 +19,11 @@ public class RatingReviewDao {
 		
 		return sqlSession.selectOne("ratingReviewMapper.selectRatingReviewDetailView",id);
 	}
+
+
+	public int reviewUpdate(RatingReview rr) {
+	
+		return sqlSession.update("ratingReviewMapper.reviewUpdate",rr);
+	}
 	
 }
