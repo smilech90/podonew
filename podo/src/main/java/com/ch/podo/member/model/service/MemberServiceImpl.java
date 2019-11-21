@@ -34,15 +34,20 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateMember(Member mem) {
-		// TODO Auto-generated method stub
 		return memberDao.updateMember(mem);
 	}
 
+	@Override
+	public int originPwdCheck(String originPwd, String email) {
+		return memberDao.originPwdCheck(originPwd, email);
+	}
+	
 	@Override
 	public int deleteMember(String id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 }

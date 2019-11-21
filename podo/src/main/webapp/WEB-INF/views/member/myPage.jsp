@@ -18,6 +18,14 @@
 	}
 	.nickok{color:blue;}
 	.nickno{color:red;}
+	.originguide{
+		display:none;
+		font-size:12px;
+		top:12px;
+		right:10px;
+	}
+	.oriok{color:blue;}
+	.orino{color:red;}
 </style>
 </head>
 <body>
@@ -120,7 +128,7 @@
 							<input type="text" class="form-control" id="userNickName" name="nickName" value="${ loginUser.nickName }">
 							<span class="nickguide nickok">사용가능</span>
 							<span class="nickguide nickno">사용불가</span>
-							<input type="hidden" id="nickCheck" value="0"><br>
+							<input type="hidden" id="originPwdCheck" value="0"><br>
 						</div>
 						
 						<div class="form-group">
@@ -172,6 +180,9 @@
 						<div class="form-group">
 							<label for="originPwd">변경 전 비밀번호</label>
 							<input type="password" class="form-control" id="originPwd" name="originPwd">
+							<span class="originguide oriok">사용가능</span>
+							<span class="originguide orino">사용불가</span>
+							<input type="hidden" id="nickCheck" value="0"><br>
 							<label for="updatePwd">변경 후 비밀번호</label>
 							<input type="password" class="form-control" id="updatePwd" name="updatePwd">
 							<label for="updatePwd2">변경 후 비밀번호 확인</label>
@@ -247,13 +258,56 @@
 			});
 		});
 		
-		
 		// 비밀번호 변경 모달창
 		$(function(){
 			$("#updatePwd-modal").on("click", function(){
 				$('#updatePwdModal').modal('toggle');
 			});
 		});
+		
+		
+		
+		
+		
+		
+		// 변경 전 비밀번호 일치 여부
+		$(function(){
+			$("#originPwd").on("keyup", function(){
+				var originPwd = $("#originPwd").val();
+				var email = "${loginUser.email}";
+				
+				if(originPwd.length < 1){
+					$(".originguide").hide();
+					$(".originPwd").val(0);
+					return;
+				}
+			
+				$.ajax({
+					url:"originPwdCheck.do",
+					data:{originPwd:originPwd,
+							email:email},
+					type:"post",
+					success:function(data){
+						console.log(data);
+						if(data == "success"){
+							$(".orino").hide();
+							$(".oriok").show();
+							$("#originPwdCheck").val(1);
+						}else{
+							$(".oriok").hide();
+							$(".orino").show();
+							$("#originPwdCheck").val(0);
+						}
+					},error:function(){
+						console.log("비밀번호 변경전 ajax 통신 실패");
+					}
+				});
+			});
+		});
+		
+		
+		
+		
 		
 		
 		

@@ -1,5 +1,7 @@
 package com.ch.podo.member.model.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,5 +33,13 @@ public class MemberDao {
 	
 	public int updateMember(Member mem) {
 		return sqlSession.update("memberMapper.updateMember", mem);
+	}
+	
+	public int originPwdCheck(String originPwd, String email) {
+		HashMap hMap = new HashMap();
+		hMap.put("originPwd", originPwd);
+		hMap.put("email", email);
+		
+		return sqlSession.selectOne("memberMapper.originPwdCheck", hMap);
 	}
 }

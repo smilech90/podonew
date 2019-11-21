@@ -187,9 +187,8 @@ public class MemberController {
 		}	// 정보수정만 한 경우 updatePwd는 null
 		
 		int result = memberService.updateMember(mem);
-		
 		mem.setStatus("Y");
-		System.out.println("수정 후 : " + mem);
+		
 		if(result > 0) {	// 업데이트 성공
 			session.setAttribute("loginUser", mem);
 			mv.addObject("msg", "회원정보 수정 성공").setViewName("member/myPage");
@@ -201,6 +200,16 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping("originPwdCheck.do")
+	public String originPwdCheck(String originPwd, String email) {
+		int result = memberService.originPwdCheck(originPwd, email);
+		
+		if(result > 0) {	// 비밀번호 일치
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 	
 	
 	
