@@ -35,11 +35,4 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.updateMember", mem);
 	}
 	
-	public int originPwdCheck(String originPwd, String email) {
-		HashMap hMap = new HashMap();
-		hMap.put("originPwd", originPwd);
-		hMap.put("email", email);
-		
-		return sqlSession.selectOne("memberMapper.originPwdCheck", hMap);
-	}
 }

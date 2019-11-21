@@ -199,12 +199,16 @@ public class MemberController {
 		return mv;
 	}
 	
-	
+	@ResponseBody
 	@RequestMapping("originPwdCheck.do")
-	public String originPwdCheck(String originPwd, String email) {
-		int result = memberService.originPwdCheck(originPwd, email);
+	public String originPwdCheck(String originPwd, String email, String pwd, Member mem) {
+		System.out.println("컨트롤러 pwd : " + originPwd );
+		System.out.println("컨트롤러 email : " + email );
 		
-		if(result > 0) {	// 비밀번호 일치
+		mem.setEmail(email);
+		Member loginUser = memberService.selectLoginMember(mem);
+		
+		if (loginUser != null && bcryptPasswordEncoder.matches(originPwd, loginUser.getPwd())) {	// 비밀번호 일치
 			return "success";
 		}else {
 			return "fail";

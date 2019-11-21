@@ -53,10 +53,4 @@
 		where id=#{id} and status='Y'
 	</update>
 	
-	<select id="originPwdCheck" resultType="_int">
-		select count(*)
-		from tb_member
-		where email=#{email} and pwd=#{originPwd}
-	</select>
-	
 </mapper>

@@ -19,9 +19,6 @@ public interface MemberService {
 	// 4. 회원 정보 수정
 	int updateMember(Member mem);
 	
-	// 4_1. 비밀번호 변경 시 기존 비밀번호와 일치 여부 확인 서비스
-	int originPwdCheck(String originPwd, String email);
-	
 	// 5. 회원 탈퇴
 	int deleteMember(String id);
 }
