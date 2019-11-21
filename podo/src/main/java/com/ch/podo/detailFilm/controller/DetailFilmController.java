@@ -41,11 +41,10 @@ public class DetailFilmController {
 	public ModelAndView detailFilmUpdateView(int filmId, ModelAndView mv) {
 		
 		// 영화 상세정보
-		DetailFilm df = dfService.selectDetailFilm(filmId);
+		DetailFilm df = dfService.selectDetailFilm(filmId);	
 		
 		// 포스터 이미지
 		Image i = dfService.selectFilmImage(df.getId()); 
-		
 		ArrayList<Review> rl = dfService.selectReivewList(filmId);
 		mv.addObject("df",df).addObject("rl",rl).addObject("i",i).setViewName("detailFilm/detailFilmUpdate");
 		
@@ -56,6 +55,7 @@ public class DetailFilmController {
 	@RequestMapping("detailFilmInsert.do")
 	public ModelAndView detailFilmInsert(DetailFilm df, int uId, String filmImage, ModelAndView mv) {
 		
+		// 이미지 저장용 select 한번 더
 		
 		int result = dfService.detailFilmInsert(df, uId);
 		int result2 = dfService.filmImageInsert(filmImage, df.getId());

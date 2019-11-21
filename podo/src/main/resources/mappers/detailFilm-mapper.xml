@@ -60,12 +60,10 @@
 	</insert>
 	
 	
-	
-	
 <!-- 이런식으로 입력하니 detailId 가 예전 번호로 받아서 현재에 반영이 안됌ㅋㅋㅋㅋㅋㅋㅋ -->
 	<insert id="filmImageInsert" parameterType="hashMap">
 		insert into tb_film_image
-		values(seq_fimage_id.nextval, 1, 'path', #{filmImage}, #{id})
+		values(seq_fimage_id.nextval, 1, 'path', #{filmImage}, seq_dfilm_id.currval)
 	</insert>
 	
 	
