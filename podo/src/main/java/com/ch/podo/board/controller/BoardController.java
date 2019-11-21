@@ -144,6 +144,7 @@ public class BoardController {
 	}
 	
 	
+	// 업로드되어있는 파일 삭제용 메소드
 	public void deleteFile(String renameFileName, HttpServletRequest request) {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -154,6 +155,37 @@ public class BoardController {
 		if(f.exists()) {
 			f.delete();
 		}
+		
+	}
+	
+	
+	@RequestMapping("bupdateView.do")
+	public ModelAndView boardUpdateView(int id, ModelAndView mv) {
+		
+		Board b = boardService.selectBoard(id);
+		
+		mv.addObject("b", b).setViewName("board/boardUpdateForm");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping("bupdate.do")
+	public ModelAndView boardUpdate(Board b, HttpServletRequest request, ModelAndView mv,
+									@RequestParam(value="reloadFile", required=false) MultipartFile file) {
+		
+		
+		String renameFileName = saveFile(file, request);
+		
+		int result = boardService.updateBoard(b);
+		
+		if(result > 0) {
+			mv.addObject("id", b.getId()).setViewName("redirect:bdetail.do");
+		}else {
+			mv.addObject("");
+		}
+		
+		return mv;
 		
 	}
 	

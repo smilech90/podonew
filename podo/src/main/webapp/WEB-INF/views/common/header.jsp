@@ -23,14 +23,6 @@
 	<script src="resources/bootstrap/js/mail-script.js"></script>
 	<script src="resources/bootstrap/js/main.js"></script>
 	
-	<style>
-		
-		.search-form{
-			display: inline-block;
-			text-align: center;
-		}
-		
-	</style>
 
 </head>
 <body>
@@ -65,13 +57,11 @@
 							</c:if>
 						</ul>
 					</div>
-				</div>
-				<div class="search-form">
 					<form method="post" action="skFilm.do" class="form-inline my-5 my-lg-0" id="search-area">
 						<input class="form-control mr-sm-5" type="search" placeholder="Search" aria-label="Search" name="keyword">
 						<button class="button button--active my-2 my-sm-0" type="submit">검색</button>
 					</form>
-				</div>				
+				</div>
 			</nav>
 		</div>
 	</header>
