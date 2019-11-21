@@ -17,17 +17,17 @@ public class DetailFilmDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public DetailFilm selectDetailFilm(int id) {
+	public DetailFilm selectDetailFilm(int filmId) {
 		
-		DetailFilm df = sqlSession.selectOne("detailFilmmapper.selectDetailFilm", id);
+		DetailFilm df = sqlSession.selectOne("detailFilmmapper.selectDetailFilm", filmId);
 		
 		System.out.println("df : " + df);
 		return df;
 	}
 	
-	public ArrayList<Review> selectReivewList(int id){
+	public ArrayList<Review> selectReivewList(int filmId){
 		
-		ArrayList<Review> list = (ArrayList)sqlSession.selectList("detailFilmmapper.selectReivewList", id);
+		ArrayList<Review> list = (ArrayList)sqlSession.selectList("detailFilmmapper.selectReivewList", filmId);
 		return list;
 	}
 	
@@ -41,20 +41,20 @@ public class DetailFilmDao {
 	}
 	
 	// 포스터 이미지 불러오기
-	public Image selectFilmImage(int detailId) {
+	public Image selectFilmImage(int id) {
 		
-		Image i = sqlSession.selectOne("detailFilmmapper.selectFilmImage", detailId);
+		Image i = sqlSession.selectOne("detailFilmmapper.selectFilmImage", id);
 		
 		return i;
 	}
 
 	// 포스터 이미지 수정
-	public int filmImageInsert(String filmImage, int detailId) {
+	public int filmImageInsert(String filmImage, int id) {
 		
 		HashMap map= new HashMap();
 		
 		map.put("filmImage", filmImage);
-		map.put("detailId", detailId);
+		map.put("id", id);
 		
 		return sqlSession.insert("detailFilmmapper.filmImageInsert", map);
 	}

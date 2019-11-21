@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>PoDo_회원가입</title>
 <style>
+	#imgInp{display:none}
 	.idguide{
 		display:none;
 		font-size:12px;
@@ -39,9 +40,19 @@
 				<span class="nickguide nickok">사용가능</span>
 				<span class="nickguide nickno">사용불가</span>
 				<input type="hidden" id="nickCheck" value="0"><br>
-			* 프로필 사진 미등록 시 기본이미지가 적용됩니다.<br>
-			<input type="file" id="imgInp" name="uploadFile"><br>
-			<img src="resources/memberProfileImage/podoImage.png" id="preview" width="70px" height="70px"><br>
+			<div class="form-group">
+				<label for="userId">Profile</label><br>
+				* 이미지를 삭제하면 기본이미지로 등록됩니다.<br>
+			<img id="preview" src="resources/memberProfileImage/podoImage.png" width="70px" height="70px"><br>
+			<button type="button" id="uploadBtn">이미지 변경</button>
+			<button type="button" onclick="fileReset();">이미지 삭제</button><br>
+			<div id="imgArea"><input type='file' id='imgInp' name='uploadFile'></div><br>
+			</div>
+			
+			
+			
+			
+			
 			<button type="submit" onclick="return validate();">Join</button>
 			<button type="button" onclick="location.href='home.do';">Cancel</button>
 		</form>
@@ -141,19 +152,35 @@
 			});
 		});
 		
-		 function readURL(input) {
-		        if (input.files && input.files[0]) {
-		            var reader = new FileReader();
-		            reader.onload = function(e) {
-		                $('#preview').attr('src', e.target.result);
-		            }
-		            reader.readAsDataURL(input.files[0]);
-		        }
-		    }
-
-		    $("#imgInp").change(function() {
-		        readURL(this);
-		    });
+		// 이미지 삭제 버튼 클릭 시
+		function fileReset(){
+			$("#imgArea input").remove();
+			$("#preview").attr('src','resources/memberProfileImage/podoImage.png');
+			var newInput = "<input type='file' id='imgInp' name='uploadFile'>";
+			$("#imgArea").append(newInput);
+		}
+		
+		// 이미지 미리보기
+	    function readURL(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+	            reader.onload = function(e) {
+	                $('#preview').attr('src', e.target.result);
+	            }
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    };
+	    
+		// 이미지 변경 될 때 마다 이미지 미리보기 함수 실행
+	    $(document).on("change","#imgInp", function() {
+	        readURL(this);
+	    });
+		
+		// 이미지 버튼 클릭 시 인풋창 열리게 (안보이게 해둠)
+		$("#uploadBtn").on('click', function(e){
+			e.preventDefault();
+			$("#imgInp").click();
+		});
 	</script>
 </body>
 </html>

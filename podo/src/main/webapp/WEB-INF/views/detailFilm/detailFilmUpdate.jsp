@@ -114,8 +114,8 @@
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
             <form action="detailFilmInsert.do" method="post">
-            <input type="hidden" name="id" value="${ df.id }">
-            <input type="hidden" name="detailId" value="${ df.detailId }">
+            <input type="hidden" name="id" value="${ df.id }">	<!-- 영화 상세 정보 번호 -->
+            <input type="hidden" name="filmId" value="${ df.filmId }"> <!-- 영화 번호  -->
             
             <input type="hidden" name="filmImage" value="${ i.changeName }">
             <input type="hidden" name="uId" value="${ loginUser.id }">
