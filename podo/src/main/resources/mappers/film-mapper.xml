@@ -92,4 +92,15 @@
     order by l.id asc
 	</select>
 	
+
+<!-- <select id="selectPreferredGenreFilmList" resultMap="">
+		select genre, prefer, dense_rank() over (order by prefer desc) as rank
+		from (select g.name as genre, count(*) as prefer
+		      from tb_like l
+		      join tb_film f on (f.id = l.target_id)
+		      join tb_genre g on (f.genre_id = g.id)
+		      where user_id = #{id}
+		      group by g.name)
+	</select> -->
+	
 </mapper>
