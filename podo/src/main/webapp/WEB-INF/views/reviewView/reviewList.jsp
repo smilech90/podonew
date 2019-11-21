@@ -56,7 +56,6 @@
               <button onclick="location.href='ratingDetailReview.do?id=${review.id}';"> 더보기 </button> 
               
               <p></p>
-              <button onclick="location.href='reviewUpdate.do?id=${review.id}';">수정하기</button> 
           	  <button onclick="location.href='reviewDelete.do?id=${review.id}';">삭제하기</button>
               <p>${review.nickname }</p>
               <p>${review.createDate }에 작성됨</p>
@@ -122,6 +121,6 @@
 	
 	
 	
-<%-- 	<jsp:include page="../common/footer.jsp"/> --%>
+ 	<jsp:include page="../common/footer.jsp"/> 
 </body>
 </html>

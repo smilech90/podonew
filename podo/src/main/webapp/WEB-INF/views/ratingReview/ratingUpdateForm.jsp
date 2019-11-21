@@ -33,9 +33,6 @@
 		margin-left:auto;
 		margin-right:auto;
 	}
-	.insertRating{
-		width:179px;
-	}
 	#mychart2{
 		margin-left:auto;
 		margin-right:auto;
@@ -51,17 +48,86 @@
 		width:300px;
 		height:190px;
 	}
+	.star-input>.input,
+			.star-input>.input>label:hover,
+			.star-input>.input>input:focus+label,
+			.star-input>.input>input:checked+label {
+				display: inline-block;
+				vertical-align: middle;
+				background: url('resources/common/img/rating-star.png') no-repeat;
+			}
+			
+			.star-input {
+				display: inline-block;
+				white-space: nowrap;
+				width: 225px;
+				height: 40px;
+				padding: 25px;
+				line-height: 30px;
+			}
+			
+			.star-input>.input {
+				display: inline-block;
+				width: 150px;
+				background-size: 150px;
+				height: 28px;
+				white-space: nowrap;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.star-input>.input>input {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				opacity: 0;
+			}
+			
+			star-input>.input.focus {
+				outline: 1px dotted #ddd;
+			}
+			
+			.star-input>.input>label {
+				width: 30px;
+				height: 0;
+				padding: 28px 0 0 0;
+				overflow: hidden;
+				float: left;
+				cursor: pointer;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			.star-input>.input>label:hover,
+			.star-input>.input>input:focus+label,
+			.star-input>.input>input:checked+label {
+				background-size: 150px;
+				background-position: 0 bottom;
+			}
+			
+			.star-input>.input>label:hover ~label{
+				background-image: none;
+			}
+		
+			.star-input>output {
+				display: inline-block;
+				width: 60px;
+				font-size: 18px;
+				text-align: right;
+				vertical-align: middle;
+			}
 </style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	<div id="body">
-		<h1 align="center">레이팅리뷰상세페이지</h1>
+		<h1 align="center">리뷰 수정 페이지</h1>
 		
 		<br>
 		
 		<h3 align="center">
-			<button onclick="location.href='reviewinsertForm.do';">글쓰기</button>
+			
 		</h3>
 	  <section class="blog-post-area section-margin">
     <div class="container">
@@ -70,23 +136,38 @@
             <div class="main_blog_details">
                 <img class="img-fluid" src="resources/detailFilmImage/defaultImg.png" alt="">
             <%-- 이게원래써야함    <img class="img-fluid" src="resources/detailFilmImage/ ${ rr.posterImage }" alt=""> --%>
-               <h4 align="center">${r.titleKor}</h4>
+               <h4 align="center">${rr.titleKor }</h4>
                 <div class="user_details">
                     <div class="float-left">
                       <div class="media">
                       <div class="media-body">
-                        <h5>${r.nickName }</h5>
-                        <p>${ r.createDate }에 작성</p>
+                        <h5>${rr.nickName }님</h5>
+                        <p>${ rr.createDate }에 수정하려함</p>
                       </div>
                       <div class="d-flex">
-                        <img width="42" height="42" src="resources/memberProfileImage/${ r.userImage }" alt="">
+                        <img width="42" height="42" src="resources/memberProfileImage/${ rr.userImage }" alt="">
                       </div>
                     </div>
                   	</div>
                   <div class="float-right mt-sm-0 mt-3">
                     <div class="media">
                       <div class="media-body">
-                        <h5>${r.nickName }</h5>
+                        <h5>${rr.nickName }</h5>
+                        <span class="star-input">
+								<span class="input">
+								<input type="radio" name="star-input1" value="1" id="p1">
+									<label for="p1" style="width: 30px; z-index: 5;">1</label>
+								<input type="radio" name="star-input1" value="2" id="p2">
+									<label for="p2" style="width: 60px; z-index: 4;">2</label>
+								<input type="radio" name="star-input1" value="3" id="p3">
+									<label for="p3" style="width: 90px; z-index: 3;">3</label>
+								<input type="radio" name="star-input1" value="4" id="p4">
+									<label for="p4" style="width: 120px; z-index: 2;">4</label>
+								<input type="radio" name="star-input1" value="5" id="p5">
+									<label for="p5" style="width: 150px; z-index: 1;">5</label>
+								</span>
+								<output for="star-input"><b style="display: none;"></b></output>
+						</span>
                         <p>여기가 별점남기는곳입니다!!</p>
                       </div>
                       <div class="d-flex">
@@ -114,98 +195,95 @@
        data: {
            labels: ["음악", "영상", "연기", "대중성", "각본","연출"],
            datasets: [{
-               label: ["${ ratingReivew.titleKor }"], 
+               label: ["${ rr.titleKor }"], 
             backgroundColor: "rgb(165,102,255)",
             pointBackground:"rgba(179,181,198,1)",
             pointBorderColor:"#fff",
             pointBorderBackgroundColor:"#fff",
 
                data: [
-            	   ${r.ratingSound},${r.ratingVisual},${r.ratingActing},${r.ratingPop},${r.ratingScript},${r.ratingDirect}
+            	   ${rr.ratingSound},${rr.ratingVisual},${rr.ratingActing},${rr.ratingPop},${rr.ratingScript},${rr.ratingDirect}
             	   ]
     
            }]
        },
 
        // Configuration options go here
-       options: {
-           
-           scale: {
-                angleLines: {
-                    display: false
-                },
-                ticks: {
-                    suggestedMin: 0,
-                    suggestedMax: 10,
-                }
-            },
-            tooltips:{
-               callbacks: {
-                    label: function(tooltipItem, data) {
-                        
-                        return data.labels[tooltipItem.index]  + " : "+ Math.round(tooltipItem.yLabel * 100) / 100 +"점";
-                    }
-                }
-            }
-        }
+             options: {
+                 
+                 scale: {
+                      angleLines: {
+                          display: false
+                      },
+                      ticks: {
+                          suggestedMin: 0,
+                          suggestedMax: 10,
+                      }
+                  },
+                  tooltips:{
+                     callbacks: {
+                          label: function(tooltipItem, data) {
+                              
+                              return data.labels[tooltipItem.index]  + " : "+ Math.round(tooltipItem.yLabel * 100) / 100 +"점";
+                          }
+                      }
+                  }
+              }
     });
    </script>
    </div>
    
-    <form action="reviewWrite.do" method="post" enctype="mutipart/form-data" id="movieform">
+    <form action="reviewUpdate.do" method="post" enctype="mutipart/form-data" id="movieform">
       <table align="center" id="vv">
+      	<input type="hidden" name="id" value="${rr.id }">
          <tr>
             <td>영화제목</td>
-            <td><input type="text" name="title" id="vtitle" value="${df.titleKor}" ></td>
+            <td><input type="text" name="title" id="vtitle"  value="${ rr.titleKor }"  readonly></td>
          </tr>
          <tr>
             <td>음악</td>
-            <td><input type="number" name="ratingSound" class="insertRating" id="ratingSound" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingSound }"></td>
+            <td><input type="number" name="ratingSound" class="insertRating" id="ratingSound" value="${rr.ratingSound }"></td>
          </tr>
          <tr>   
             <td>영상</td>
-            <td><input type="number" name="ratingVisual" class="insertRating" id="ratingVisual" placeholder="10점까지 입력가능"  min="0" max="10"  value="${rr.ratingVisual }"></td>
+            <td><input type="number" name="ratingVisual" class="insertRating" id="ratingVisual" value="${rr.ratingVisual }"></td>
          </tr>
          <tr>
             <td>연기</td>
-            <td><input type="number" name="ratingActing" class="insertRating" id="ratingActing" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingActing }" ></td>
+            <td><input type="number" name="ratingActing" class="insertRating" id="ratingActing" value="${rr.ratingActing }"></td>
          </tr>
          <tr>
             <td>대중성</td>
-            <td><input type="number" name="ratingPop" class="insertRating" id="ratingPop" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingPop }"></td>
+            <td><input type="number" name="ratingPop" class="insertRating" id="ratingPop" value="${rr.ratingPop }"></td>
          </tr>
          <tr>
             <td>각본</td>
-            <td><input type="number" name="ratingScript" class="insertRating" id="ratingScript" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingScript }" ></td>
+            <td><input type="number" name="ratingScript" class="insertRating" id="ratingScript" value="${rr.ratingScript }"></td>
          </tr>
          <tr>
             <td>연출</td>
-            <td><input type="number" name="ratingDirect" class="insertRating" id="ratingDirect" placeholder="10점까지 입력가능"  min="0" max="10" value="${rr.ratingDirect }"></td>
-         </tr>
-         <tr>
-         	<td>내용</td>
-         	<td><textarea rows="4" cols="22" name="content"></textarea></td>
-         </tr>
-         <tr>
-             <td colspan="2" align="center">
-               <button type="submit" id="ok1">영화평점등록하기</button>
-               <button type="button" onclick="location.href='reviewList.do';">목록으로</button>
-            </td>
+            <td><input type="number" name="ratingDirect" class="insertRating" id="ratingDirect" value="${rr.ratingDirect }" ></td>
          </tr>
 
       </table>
    </div>
-                <p>${rr.content }</p>
+                <p><textarea rows="3" cols="75" name="content"  >${rr.content }</textarea></p>
+               <button type="submit" id="reviewupdate">리뷰수정하기</button>
+               <button type="button" onclick="location.href='reviewList.do';">목록으로</button>
    </form>
      
 
               </div>
         </div>
       </div>
-  </section>
+  </section>	
+	
+	<br>
+	
 
-
-   <script>
+	</div>
+	
+	 <script>
       $('.insertRating').on('input',function(){
          var ctx = document.getElementById('myChart');
          var chart = new Chart(ctx, {
@@ -216,7 +294,7 @@
              data: {
                  labels: ["음악", "영상", "연기", "대중성", "각본","연출"],
                  datasets: [{
-              
+                	 label: ["${ rr.titleKor }"], 
                      backgroundColor: "rgb(165,102,255)",
                      pointBackground:"rgba(179,181,198,1)",
                      pointBorderColor:"#fff",
@@ -253,7 +331,6 @@
  
 
    </script>
-
-	</div>
+	
 </body>
 </html>

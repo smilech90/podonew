@@ -1,6 +1,5 @@
 package com.ch.podo.review.controller;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.review.model.service.ReviewService;
 import com.ch.podo.review.model.vo.Review;
 
@@ -36,9 +36,14 @@ public class ReviewController {
 	
 	//글 쓰기 폼 가기
 	@RequestMapping("reviewWriteForm.do")
-	public String reviewWriteView() {
+	public ModelAndView reviewWriteView(int filmId, ModelAndView mv) {
 		
-		return "reviewView/reviewWriteForm";
+		Film f = reviewService.selectFilm(filmId);
+		
+		
+		mv.addObject("f",f).setViewName("reviewView/reviewWriteForm");
+		
+		return mv;
 	}
 	
 	// 글 쓰기(별점은 어떻게 가져올지 아직 ..)
