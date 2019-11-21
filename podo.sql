@@ -454,11 +454,9 @@ VALUES(SEQ_MEMBER_ID.NEXTVAL, DEFAULT, 'test@test.test', '$2a$10$Qniqrgu.rkuttWz
 INSERT INTO TB_ACTOR
 VALUES(SEQ_ACTOR_ID.NEXTVAL, '호아킨 피닉스', 'NULL');
 
--- 영화 상세정보 20191121  수정
+-- 영화 상세정보 20191121 봉운 수정
 INSERT INTO TB_DETAIL_FILM
 VALUES(SEQ_DFILM_ID.NEXTVAL, '이것은 시놉시스', '이것은 트리비아', 'https://www.youtube.com/watch?v=x60mB0zXZ38', null, DEFAULT, DEFAULT, 21, 4);
-
-UPDATE
 
 -- 영화상세정보 <->  배우
 INSERT INTO TB_FILM_ACTOR
