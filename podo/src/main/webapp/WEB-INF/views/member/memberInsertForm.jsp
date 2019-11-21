@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>PoDo_회원가입</title>
 <style>
+	#imgInp{display:none}
 	.idguide{
 		display:none;
 		font-size:12px;
@@ -47,6 +48,11 @@
 			<button type="button" onclick="fileReset();">이미지 삭제</button><br>
 			<div id="imgArea"><input type='file' id='imgInp' name='uploadFile'></div><br>
 			</div>
+			
+			
+			
+			
+			
 			<button type="submit" onclick="return validate();">Join</button>
 			<button type="button" onclick="location.href='home.do';">Cancel</button>
 		</form>
