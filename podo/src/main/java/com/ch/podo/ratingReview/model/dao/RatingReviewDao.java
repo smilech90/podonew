@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.podo.ratingReview.model.vo.RatingReview;
+import com.ch.podo.review.model.vo.Review;
 
 @Repository("ratingReviewDao")
 public class RatingReviewDao {
@@ -25,5 +26,8 @@ public class RatingReviewDao {
 	
 		return sqlSession.update("ratingReviewMapper.reviewUpdate",rr);
 	}
+
+
+
 	
 }

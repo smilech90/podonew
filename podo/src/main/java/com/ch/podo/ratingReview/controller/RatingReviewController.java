@@ -48,8 +48,12 @@ public class RatingReviewController {
 	// 수정 하는 리퀘스트매핑
 	@RequestMapping("reviewUpdate.do")
 	public ModelAndView reviewUpdate(RatingReview rr, ModelAndView mv) {
-		
+		//레이팅 6개
 		int result = ratingReviewService.reviewUpdate(rr);
+		//id, 레이팅6개 점수 뿌리기
+		
+		//리뷰 내용 수정
+		
 		
 		if(result>0) {
 			mv.addObject("id", rr.getId()).setViewName("redirect:ratingDetailReview.do");

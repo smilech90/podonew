@@ -1,8 +1,7 @@
 package com.ch.podo.ratingReview.model.service;
 
-import java.util.ArrayList;
-
 import com.ch.podo.ratingReview.model.vo.RatingReview;
+import com.ch.podo.review.model.vo.Review;
 
 public interface RatingReviewService {
 	
@@ -15,5 +14,6 @@ public interface RatingReviewService {
 	// 리뷰 6개 점수 수정용 서비스
 	int reviewUpdate(RatingReview rr);
 	
+
 
 }
