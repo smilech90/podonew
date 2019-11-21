@@ -26,7 +26,7 @@ public class DetailFilmController {
 		// id, detailId, titleKor, titleEng, director, actor, trailer, synopsys, trivia
 		
 		// 포스터 이미지
-		Image i = dfService.selectFilmImage(df.getDetailId());
+		Image i = dfService.selectFilmImage(df.getId());
 		
 		// 리뷰 리스트
 		ArrayList<Review> rl = dfService.selectReivewList(id);
@@ -43,7 +43,7 @@ public class DetailFilmController {
 		DetailFilm df = dfService.selectDetailFilm(id);
 		
 		// 포스터 이미지
-		Image i = dfService.selectFilmImage(df.getDetailId());
+		Image i = dfService.selectFilmImage(df.getId()); 
 		
 		ArrayList<Review> rl = dfService.selectReivewList(id);
 		mv.addObject("df",df).addObject("rl",rl).addObject("i",i).setViewName("detailFilm/detailFilmUpdate");
@@ -57,7 +57,7 @@ public class DetailFilmController {
 		
 		
 		int result = dfService.detailFilmInsert(df, uId);
-		int result2 = dfService.filmImageInsert(filmImage, df.getDetailId());
+		int result2 = dfService.filmImageInsert(filmImage, df.getId());
 		
 		// 배우 검색 창 구현 -> 배우 검색 -> 배우 선택해서 확인 -> 배우 번호/ df.detailId랑 tb_film_actor에 insert
 		

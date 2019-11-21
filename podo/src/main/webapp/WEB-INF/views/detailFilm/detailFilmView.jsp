@@ -110,7 +110,7 @@
                 <div id="muteYouTubeVideoPlayer"></div>
             </div>
         </div>
-    
+    	<hr>
         <div class="movie_info">
         	<!-- 왼쪽 영화 포스터 -->
             <div class="movie_poster_cover">
@@ -162,7 +162,7 @@
             </form>
             </div>
         </div>
-        <hr>
+        <br>
 	    <div><a href="#">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
         <c:forEach items="${ rl }" var="r">
 	        <div class="review">
