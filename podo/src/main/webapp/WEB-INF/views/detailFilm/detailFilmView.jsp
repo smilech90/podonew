@@ -155,7 +155,7 @@
                     
                     <c:if test="${ loginUser.id ne null }">
 	                    <div class="cover" id="modifyBtn">
-	                    	<a href="detailFilmUpdate.do?id=${ df.id }">정보 수정
+	                    	<a href="detailFilmUpdate.do?filmId=${ df.filmId }">정보 수정
 	                    </div>
 	                </c:if>
                 </div>
