@@ -18,6 +18,14 @@
 	}
 	.nickok{color:blue;}
 	.nickno{color:red;}
+	.originguide{
+		display:none;
+		font-size:12px;
+		top:12px;
+		right:10px;
+	}
+	.oriok{color:blue;}
+	.orino{color:red;}
 </style>
 </head>
 <body>
@@ -158,6 +166,7 @@
 				<div class="modal-body">
 					<form action="updateMember.do" method="post">
 						<input type="hidden" name="id" value="${ loginUser.id }">
+						<input type="hidden" name="pwd" value="${ loginUser.pwd }">
 						<input type="hidden" name="image" value="${ loginUser.image }">
 						<input type="hidden" name="nickName" value="${ loginUser.nickName }">
 						<input type="hidden" name="enrollDate" value="${ loginUser.enrollDate }">
@@ -172,6 +181,9 @@
 						<div class="form-group">
 							<label for="originPwd">변경 전 비밀번호</label>
 							<input type="password" class="form-control" id="originPwd" name="originPwd">
+							<span class="originguide oriok">일치</span>
+							<span class="originguide orino">불일치</span>
+							<input type="hidden" id="originPwdCheck" value="0"><br>
 							<label for="updatePwd">변경 후 비밀번호</label>
 							<input type="password" class="form-control" id="updatePwd" name="updatePwd">
 							<label for="updatePwd2">변경 후 비밀번호 확인</label>
@@ -204,6 +216,7 @@
 			});
 		});
 		
+		// 회원정보 업데이트 버튼 클릭 시 
 		function validate(){
 			// 미입력
 			if($("#userNickName").val().length == 0){	
@@ -215,13 +228,14 @@
 			}
 		}
 		
+		// 닉네임 중복 체크
 		$(function(){
 			$("#userNickName").on("keyup", function(){
 				var nickName = $("#userNickName").val();
 				
 				if(nickName.length < 1){
 					$(".nickguide").hide();
-					$(".nickCheck").val(0);
+					$("#nickCheck").val(0);
 					return;
 				}
 			
@@ -247,7 +261,6 @@
 			});
 		});
 		
-		
 		// 비밀번호 변경 모달창
 		$(function(){
 			$("#updatePwd-modal").on("click", function(){
@@ -255,16 +268,69 @@
 			});
 		});
 		
+		// 변경 전 비밀번호 일치 여부
+		$(function(){
+			$("#originPwd").on("keyup", function(){
+				var originPwd = $("#originPwd").val();
+				var email = "${loginUser.email}";
+				var pwd = "{loginUser.pwd}";
+				
+				console.log(originPwd);
+				console.log(email);
+				
+				if(originPwd.length < 1){
+					$(".originguide").hide();
+					$("#originPwdCheck").val(0);
+					return;
+				}
+			
+				$.ajax({
+					url:"originPwdCheck.do",
+					data:{originPwd:originPwd,
+							email:email,
+							pwd:pwd},
+					type:"post",
+					success:function(data){
+						console.log(data);
+						if(data == "success"){
+							$(".orino").hide();
+							$(".oriok").show();
+							$("#originPwdCheck").val(1);
+						}else{
+							$(".oriok").hide();
+							$(".orino").show();
+							$("#originPwdCheck").val(0);
+						}
+					},error:function(){
+						console.log("비밀번호 변경전 ajax 통신 실패");
+					}
+				});
+			});
+		});
 		
-		
-		// 비밀번호 변경 시 변경 후 비밀번호 일치 여부		
+		// 비밀번호 변경 버튼 클릭 시 변경 후 비밀번호 일치 여부		
 		function pwdValidate(){
-			if($("#updatePwd").val() != $("#updatePwd2").val()){
+			// 미입력
+			if($("#updatePwd").val().length == 0 || $("#updatePwd2").val().length == 0 || $("#originPwdCheck").val().length == 0){	
+				alert("비밀번호를 입력해주세요.")
+				$("#userNickName").focus();
+				return false;
+				
+			}else if($("#updatePwd").val() != $("#updatePwd2").val()){
 				alert("비밀번호가 일치하지 않습니다.");
 				$("#updatePwd").val("");
 				$("#updatePwd2").val("");
 				$("#updatePwd").focus();
 				return false;
+				
+			}else if($("#originPwdCheck").val() == 0){
+				alert("변경 전 비밀번호가 일치하지 않습니다.");
+				$("#originPwd").val("");
+				$("#originPwd").focus();
+				return false;
+				
+			}else{
+				return true;
 			}
 		}
 		

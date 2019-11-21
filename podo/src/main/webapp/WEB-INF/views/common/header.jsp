@@ -55,7 +55,7 @@
 							<li class="nav-item"><a class="nav-link" href="film.do">영화</a></li>
 							<li class="nav-item"><a class="nav-link" href="reviewList.do">리뷰</a>
 							<li class="nav-item"><a class="nav-link" href="rec.do">추천</a>
-							<li class="nav-item"><a class="nav-link" href="#">게시판</a>
+							<li class="nav-item"><a class="nav-link" href="blist.do">게시판</a>
 							<c:if test="${ loginUser ne null }">
 								<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>
 								<li class="nav-item"><a id="logout" class="nav-link" href="myPage.do?id=${ loginUser.id }">마이페이지</a>
