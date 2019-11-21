@@ -61,7 +61,7 @@
 	
 	<insert id="filmImageInsert" parameterType="hashMap">
 		insert into tb_film_image
-		values(seq_fimage_id.nextval, 1, 'path', #{filmImage}, seq_dfilm_id.currval)
+		values(seq_fimage_id.nextval, 1, #{filmImage}, seq_dfilm_id.currval)
 	</insert>
 	
 	

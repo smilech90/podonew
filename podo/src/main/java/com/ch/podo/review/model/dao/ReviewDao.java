@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ch.podo.detailFilm.model.vo.DetailFilm;
+import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.review.model.vo.Review;
 
 @Repository("reviewDao")
@@ -29,6 +31,14 @@ public class ReviewDao {
 	public int reviewWrite(Review r) {
 		
 		return sqlSession.insert("reviewMapper.reviewWrite",r);
+	}
+
+	public Film selectFilm(int filmId) {
+		
+		Film f = sqlSession.selectOne("reviewMapper.selectFilm", filmId);
+		
+		System.out.println("f : " + f);
+		return f;
 	}
 	
 	

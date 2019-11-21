@@ -156,7 +156,7 @@
       <table align="center" id="vv">
          <tr>
             <td>영화제목</td>
-            <td><input type="text" name="title" id="vtitle" value="${ r.titleKor }" ></td>
+            <td><input type="text" name="title" id="vtitle" value="${df.titleKor}" ></td>
          </tr>
          <tr>
             <td>음악</td>
