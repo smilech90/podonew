@@ -18,6 +18,8 @@
 		<id property="id" column="film_id"/>
 		<result property="titleKor" column="title_kor"/>
 		<result property="avgStarRating" column="avg_star"/>
+		<result property="releaseYear" column="release_year"/>
+		<result property="genreId" column="genre_id"/>
 		<result property="genre" column="name"/>
 	</resultMap>
 	
@@ -100,7 +102,7 @@
 	
 	<select id="selectPreferredGenreFilmList" resultMap="recommendFilm">
 		<![CDATA[
-			select film_id, title_kor, avg_star, genre_id, name
+			select film_id, title_kor, avg_star, release_year, genre_id, name
 			from (select * from vi_film_avg_star) a
 			where a.genre_id in (select r.genre
 			                    from (select genre, prefer, row_number() over (order by prefer desc) as rank
@@ -113,7 +115,7 @@
 			                    where r.rank = 1)
 			  and rownum <= 5
 			union
-			select film_id, title_kor, avg_star, genre_id, name
+			select film_id, title_kor, avg_star, release_year, genre_id, name
 			from (select * from vi_film_avg_star) a
 			where a.genre_id in (select r.genre
 			                    from (select genre, prefer, row_number() over (order by prefer desc) as rank
@@ -126,7 +128,7 @@
 			                    where r.rank = 2)
 			  and rownum <= 5
 			union
-			select film_id, title_kor, avg_star, genre_id, name
+			select film_id, title_kor, avg_star, release_year, genre_id, name
 			from (select * from vi_film_avg_star) a
 			where a.genre_id in (select r.genre
 			                    from (select genre, prefer, row_number() over (order by prefer desc) as rank

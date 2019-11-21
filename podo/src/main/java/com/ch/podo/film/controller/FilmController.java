@@ -3,6 +3,7 @@ package com.ch.podo.film.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -159,6 +160,10 @@ public class FilmController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		System.out.println("loginUser : " + loginUser);
 		
+		if (loginUser == null) {
+			mv.addObject("msg", "로그인 해주세요!").setViewName("error/errorPage");
+			return mv;
+		}
 		// int listCount = 1;
 		// if (loginUser != null) {
 		// 	listCount = filmService.selectLikedFilmCount(loginUser.getId());
@@ -174,11 +179,38 @@ public class FilmController {
 			// list = filmService.selectLikedFilmList(loginUser.getId(), pi);
 			list = filmService.selectPreferredGenreFilmList(loginUser.getId());
 		}
-		System.out.println("preferred genre list : " + list);
-		System.out.println("preferred genre list.size() : " + list.size());
+		
+		HashMap<Integer, ArrayList<Film>> map = new HashMap<>();
+		ArrayList<Film> rec = new ArrayList<>();
+		ArrayList<Film> rec2 = new ArrayList<>();
+		ArrayList<Film> rec3 = new ArrayList<>();
+		ArrayList<Integer> genre = new ArrayList<>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			if ((i + 1) != list.size()
+					&& (list.get(i).getGenreId() ^ list.get(i + 1).getGenreId()) == 0) {
+				System.out.println((list.get(i).getGenreId() ^ list.get(i + 1).getGenreId()) == 0);
+				rec.add(list.get(i));
+			} else {
+				genre.add(list.get(i).getGenreId());
+				rec.add(list.get(i));
+				map.put(list.get(i).getGenreId(), rec);
+				rec = new ArrayList<Film>();
+			}
+		}
+		rec.clear();
+		// System.out.println(genre);
+		// System.out.println(map.get(genre.get(0)));
+		// System.out.println(map.get(genre.get(1)));
+		// System.out.println(map.get(genre.get(2)));
 		
 		// mv.addObject("list", list).addObject("page", page).addObject("count", listCount).setViewName("film/rec");
-		mv.addObject("list", list).addObject("page", page).setViewName("film/rec");
+		mv.addObject("genre1", map.get(genre.get(0)))
+			.addObject("genre2", map.get(genre.get(1)))
+			.addObject("genre3", map.get(genre.get(2)))
+			.addObject("page", page)
+			.addObject("list", list)
+			.setViewName("film/rec");
 		
 		return mv;
 	}
