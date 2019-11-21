@@ -26,10 +26,17 @@
 	}
 	.oriok{color:blue;}
 	.orino{color:red;}
+	
+
 </style>
 </head>
 <body>
+
 	<jsp:include page="../common/header.jsp"/>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
 	<section class="blog-post-area section-margin">
 		<div class="container">
@@ -56,46 +63,34 @@
 									<!-- 	<a href="memberUpdateForm.do" class="btn-reply text-uppercase" style="background:purple; color:white;">정보수정</a>  -->
 								</div>
 							</div>
+							<br><br>
+							<div style='border:1px solid lightgray'></div><br>
+							
+							<!-- 하단 탭 부분 -->
+							<div role="tabpanel">
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs" role="tablist" id="tabs">
+									<li role="presentation" class="active"><a href="#review" aria-controls="review" role="tab" data-toggle="tab" >리뷰</a></li>
+									<li role="presentation"><a href="#collection" aria-controls="collection" role="tab" data-toggle="tab">컬렉션</a></li>
+									<li role="presentation"><a href="#like" aria-controls="like" role="tab" data-toggle="tab">좋아요</a></li>
+									<li role="presentation"><a href="#qu" aria-controls="qu" role="tab" data-toggle="tab">문의</a></li>
+								</ul>
+								
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<div role="tabpanel" class="tab-pane active" id="review">안녕<br>안녕</div>
+									<div role="tabpanel" class="tab-pane" id="collection">혜은이 바보</div>
+									<div role="tabpanel" class="tab-pane" id="like">좋아요지롱</div>
+									<div role="tabpanel" class="tab-pane" id="qu">문의사항이지랑</div>
+								</div>
+							</div>
+							<!-- 탭 부분 끝 -->
 						</div>	
-					</div>
-				</div>
-			
-				<!-- 카테고리 -->
-				<div class="col-lg-4 sidebar-widgets">
-					<div class="widget-wrap">
-						<div class="single-sidebar-widget post-category-widget">
-							<h4 class="single-sidebar-widget__title">${ loginUser.nickName }의 CATEGORY</h4>
-							<ul class="cat-list mt-20">
-								<li>
-									<a href="#" class="d-flex justify-content-between">
-										<p>리뷰</p>
-									</a>
-								</li>
-								<li>
-									<a href="#" class="d-flex justify-content-between">
-										<p>콜렉션</p>
-									</a>
-								</li>
-								<li>
-									<a href="#" class="d-flex justify-content-between">
-										<p>좋아요</p>
-									</a>
-								</li>
-								<li>
-									<a href="#" class="d-flex justify-content-between">
-										<p>문의</p>
-									</a>
-								</li>
-							</ul>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-  
-  
-  
   
 	<!-- 정보수정 모달 -->
 	<hr style="margin: 0;">
@@ -150,7 +145,6 @@
 		</div>
 	</div>
 
-
 	<!-- 비밀번호 변경 모달 -->
 	<hr style="margin: 0;">
 	<div class="modal fade" id="updatePwdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -201,7 +195,15 @@
 	</div>
 	
 
+
 	<script>
+		$(function(){
+			$('li').click(function () {
+				$('li').removeAttr('class', 'active');
+				$(this).attr('class', 'active');
+			})
+	
+		});
 		// 회원정보 수정, 비밀번호 변경 시 알럴트창
 		$(function(){
 			if("${msg.equals('')}"){
@@ -364,5 +366,8 @@
 			$("#imgInp").click();
 		});
 	</script>
+	
+		
+	
 </body>
 </html>

@@ -202,9 +202,8 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("originPwdCheck.do")
 	public String originPwdCheck(String originPwd, String email, String pwd, Member mem) {
-		System.out.println("컨트롤러 pwd : " + originPwd );
-		System.out.println("컨트롤러 email : " + email );
 		
+		// 비밀번호 암호문 비교를 위해 login객체 재 조회
 		mem.setEmail(email);
 		Member loginUser = memberService.selectLoginMember(mem);
 		

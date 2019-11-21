@@ -32,8 +32,6 @@ public class ReviewController {
 		
 		return mv;
 		
-		
-		
 	}
 	
 	//글 쓰기 폼 가기
