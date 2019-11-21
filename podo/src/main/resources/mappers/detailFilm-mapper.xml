@@ -61,7 +61,7 @@
 	
 	<insert id="filmImageInsert" parameterType="hashMap">
 		insert into tb_film_image
-		values(seq_fimage_id.nextval, 1, 'path', #{filmImage}, seq_dfilm_id.currval)
+		values(seq_fimage_id.nextval, 1, #{filmImage}, seq_dfilm_id.currval)
 	</insert>
 	
 	
@@ -82,13 +82,18 @@
 		values(#{actor_id}, #{dFilm_id})
 	</insert>
 	
+	<!-- 되돌리기 버튼 작업 중 -->
 	<!-- 관리자가 [되돌리기] 버튼을 누르면 update로 status 'N'으로 수정  -->
 	<update id="updateDetailFilm">
 		update tb_detail_film
 		set status='N'
-		where id=#{filmId}
+		where id=#{id}
 		and status='Y'
 		order by insertdate desc
+		
+		update tb_detail_film
+		set status='N'
+		where id=78;
 	</update>
 	
 </mapper>

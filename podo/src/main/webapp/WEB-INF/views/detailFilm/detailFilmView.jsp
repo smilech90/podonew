@@ -65,7 +65,7 @@
     #likeBtn{
         top:90%;
     }
-    #modifyBtn{
+    #modifyBtn, #rollbackBtn{
         top:90%;
         left:90%;
     }
@@ -152,6 +152,12 @@
                     <div class="cover" id="plusInfo_cover">
                     	<div id="trivia">트리비아 : ${ df.trivia }</div>
                     </div>
+                    
+                    <c:if test="${ loginUser.id ne null }">
+                    	<div class="cover" id="rollbackBtn">
+                    		<a href="#">되돌리기</a>
+                    	</div>
+                    </c:if>
                     
                     <c:if test="${ loginUser.id ne null }">
 	                    <div class="cover" id="modifyBtn">
