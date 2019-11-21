@@ -67,13 +67,13 @@
 							</c:if>
 						</ul>
 					</div>
-					<form method="post" action="skFilm.do" class="form-inline my-4 my-lg-0">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+				</div>
+				<div class="search-form">
+					<form method="post" action="skFilm.do" class="form-inline my-5 my-lg-0" id="search-area">
+						<input class="form-control mr-sm-5" type="search" placeholder="Search" aria-label="Search" name="keyword">
 						<button class="button button--active my-2 my-sm-0" type="submit">검색</button>
 					</form>
-				</div>
-				
-				
+				</div>				
 			</nav>
 		</div>
 	</header>
