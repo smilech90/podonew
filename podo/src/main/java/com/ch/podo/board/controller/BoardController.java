@@ -56,6 +56,7 @@ public class BoardController {
 	public ModelAndView insertBoard(Board b, Image i, HttpServletRequest request, ModelAndView mv, 
 								@RequestParam(value="", required=false) MultipartFile file) {
 		
+				
 		if(!file.getOriginalFilename().equals("")) {
 			String renameFileName = saveFile(file, request);
 			
@@ -66,7 +67,6 @@ public class BoardController {
 		int result = boardService.insertBoard(b);
 		
 		if(result > 0) {
-			mv.addObject("alert", "게시글 등록");
 			mv.setViewName("blist.do");
 		}else {
 			mv.addObject("alert", "게시글 작성 실패");
@@ -131,7 +131,7 @@ public class BoardController {
 	@RequestMapping("bdelete.do")
 	public String boardDelete(int id, HttpServletRequest request) {
 		
-		Board b = boardService.selectUpdateBoard(id);
+//		Board b = boardService.selectUpdateBoard(id);
 				
 		int result = boardService.deleteBoard(id);
 		
@@ -175,7 +175,6 @@ public class BoardController {
 									@RequestParam(value="reloadFile", required=false) MultipartFile file) {
 		
 		
-		String renameFileName = saveFile(file, request);
 		
 		int result = boardService.updateBoard(b);
 		

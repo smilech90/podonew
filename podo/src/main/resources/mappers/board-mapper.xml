@@ -19,6 +19,8 @@
 	</resultMap>
 	
 	
+	
+	
 	<select id="getBoardCount" resultType="_int">
 		select count(*)
 		from tb_board
@@ -33,7 +35,8 @@
 	</select>
 	
 	<insert id="insertBoard">
-	
+		insert into tb_board
+		values
 	</insert>
 	
 	<update id="updateCount">
@@ -55,8 +58,7 @@
 	</update>
 	
 	<update id="updateBoard">
-		update tb_board
-		set title=#{title}, content=#{content}
+		
 	</update>
 	
 	
