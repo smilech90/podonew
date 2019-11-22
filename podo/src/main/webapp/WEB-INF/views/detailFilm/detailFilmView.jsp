@@ -39,7 +39,7 @@
         width:100%;
         height:40%;
         float:left;
-        border:1px solid black;
+        border:0px solid black;
     }
     .movie_poster_cover{
         width:30%;
@@ -47,7 +47,7 @@
         position:relative;
         float:left;
         left:20px;
-        border:1px solid blue;
+        border:0px solid blue;
     }
     .movie_info_cover{
         width: 60%;
@@ -74,18 +74,18 @@
     }
     .review{
         width: 100%;
-        border: 1px solid black;
+        border: 0px solid black;
         height: 40%;
     }
     .cover{
-        border: 1px solid black;
+        border: 0px solid black;
     }
     #title_cover{
         font-size:50px;
     }
     #movie_clip{
         font-size:15px;
-        border: 1px solid black;
+        border: 0px solid black;
         float:right;
     }
     #modify_all{
@@ -97,6 +97,9 @@
     }
     #synopsys{
     	border: 0px solid black;
+    }
+    .df_review_list{
+    	
     }
 </style>
 <body>
@@ -174,17 +177,18 @@
             </form>
             </div>
         </div>
-        <br>
-	    <div><a href="reviewWriteForm.do?filmId=${df.filmId}&loginUserId=${loginUser.id}">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
-        <c:forEach items="${ rl }" var="r">
-	        <div class="review">
-	            <div>리뷰</div>
-	            <div>내용 : ${ r.content }</div>
-	            <div>작성자 : ${ r.nickname}</div>
-	            <div>좋아요 : ${ r.likeCount }</div>
-	        </div>
-        </c:forEach>
-    </div>
+        <div class="df_review_list">
+		    <div><a href="reviewWriteForm.do?filmId=${df.filmId}&loginUserId=${loginUser.id}">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
+	        <c:forEach items="${ rl }" var="r">
+		        <div class="review">
+		            <div>리뷰</div>
+		            <div>내용 : ${ r.content }</div>
+		            <div>작성자 : ${ r.nickname}</div>
+		            <div>좋아요 : ${ r.likeCount }</div>
+		        </div>
+	        </c:forEach>
+	    	</div>
+    	</div>
     <br>
     
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
