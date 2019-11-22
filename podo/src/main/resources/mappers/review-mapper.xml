@@ -31,8 +31,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	<result property="filmId" column="FILM_ID"/>
 	 	<result property="memberId" column="MEMBER_ID"/>
 	 	<result property="posterImage" column="change_name"/>
+	</resultMap>
+	
+	
+	<resultMap id="ratingReviewSet" type="Review">
+		<id property="ratingReviewId" column="id"/>
+		<result property="ratingSound" column="RATING_SOUND"/>
+		<result property="ratingVisual" column="RATING_VISUAL"/>
+		<result property="ratingActing" column="RATING_ACTING"/>
+		<result property="ratingPop" column="RATING_POP"/>
+		<result property="ratingScript" column="RATING_SCRIPT"/>
+		<result property="ratingDirect" column="RATING_DIRECT"/>
+		<result property="titleKor" column="TITLE_KOR"/>
+	 	<result property="userImage" column="IMAGE"/>
+	 	<result property="modifyDate" column="MODIFY_DATE"/>
+	 	<result property="createDate" column="CREATE_DATE"/>
+	 	<result property="star" column="star"/>
+	 	<result property="content" column="content"/>
 	 	
-	 	
+		<!-- <result property="posterImage" column=""/> 요기도 컬럼 수정된거써야함 -->
 	</resultMap>
 
 	<resultMap type="Film" id="filmResultSet">
@@ -98,6 +115,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from tb_member
         where id=#{id}
 	</select>
-
 	
+	<!-- 합친부분 -->
+	<select id="selectRatingReviewDetailView" resultMap="reviewListSet">
+		select *
+		from  TB_REVIEW r
+		left join tb_rating_review rr on (rr.review_id = r.id)
+		left join TB_FILM f on (r.film_id = f.id)
+        left join tb_member m on(r.member_id = m.id)
+        left join tb_rating_film rf on(r.film_id=rf.id)
+        where r.id=#{r.id}
+	</select>
+
+	<update id="reviewUpdate">
+		update tb_rating_review
+		set rating_Sound=#{ratingSound},rating_Visual=#{ratingVisual},rating_Acting=#{ratingActing},rating_Pop=#{ratingPop},rating_Script=#{ratingScript},rating_Direct=#{ratingDirect}
+		where id=#{id}
+	</update>
 </mapper>

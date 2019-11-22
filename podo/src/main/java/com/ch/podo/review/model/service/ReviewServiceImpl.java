@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.ratingReview.model.vo.RatingReview;
 import com.ch.podo.review.model.dao.ReviewDao;
-import com.ch.podo.review.model.vo.Review;
+import com.ch.podo.review.model.dto.Review;
+
+
 
 @Service("reviewService")
 public class ReviewServiceImpl implements ReviewService{
@@ -44,6 +47,25 @@ public class ReviewServiceImpl implements ReviewService{
 	public Member selectMember(int loginUserId) {
 		
 		return reviewDao.selectMember(loginUserId);
+	}
+	
+	// 합친거
+	
+	@Override
+	public Review selectRatingReviewDetailView(int id) {
+
+		return reviewDao.selectRatingReviewDetailView(id);
+	}
+
+	@Override
+	public Review selectUpdateReview(int id) {
+		return reviewDao.selectRatingReviewDetailView(id);
+	}
+
+	@Override
+	public int reviewUpdate(Review rr) {
+		
+		return reviewDao.reviewUpdate(rr);
 	}
 
 }
