@@ -10,12 +10,10 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	
-	<h1 align="center">회원리스트</h1>
+	<h1 align="center">신고리스트</h1>
 	
 	<h3 align="center">
 		총 게시글 갯수 : ${ pi.listCount } 페이지 : ${ pi.currentPage } / ${ pi.maxPage } 
-		<button onclick="location.href='rlist.do';">신고관리</button>
-		<button onclick="location.href='black.do';">블랙관리</button>
 	</h3>
 	
 	
@@ -23,23 +21,21 @@
 	
 	<table align="center" border="1" cellspacing="0" width="700">
 		<tr>
-			<th>No</th>
-			<th>회원아이디</th>
-			<th>닉네임</th>
-			<th>가입일</th>
-			<th>신고수</th>
-			<th>블랙여부</th>
-			<th>상태</th>
+			<th>신고번호</th>
+			<th>신고대상자번호</th>
+			<th>타입</th>
+			<th>대상번호</th>
+			<th>신고내용</th>
+			<th>신고자번호</th>
 		</tr>
-		<c:forEach items="${ list }" var="m">	
+		<c:forEach items="${ list }" var="r">	
 			<tr>
-				<td>${ m.id }</td>
-				<td>${ m.email }</td>
-				<td>${ m.nickName }</td>
-				<td>${ m.enrollDate }</td>
-				<td></td>
-				<td></td>
-				<td>${ m.status }</td>
+				<td>${ r.id }</td>
+				<td>${ r.reportedId }</td>
+				<td>${ r.type }</td>
+				<td>${ r.targetId }</td>
+				<td>${ r.content }</td>
+				<td>${ r.reportId }</td>
 
 			</tr>
 		</c:forEach>
@@ -52,7 +48,7 @@
 					[이전] 
 				</c:if>
 				<c:if test="${ pi.currentPage ne 1 }">
-					<c:url value="mlist.do" var="before">
+					<c:url value="rlist.do" var="before">
 						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
 					</c:url>
 					<a href="${ before }">[이전] </a>	
@@ -64,7 +60,7 @@
 						<font color="red" size="4"> [${ p }] </font>
 					</c:if>
 					<c:if test="${ p ne pi.currentPage }">
-						<c:url value="mlist.do" var="page">
+						<c:url value="rlist.do" var="page">
 							<c:param name="currentPage" value="${ p }"/>
 						</c:url>
 						<a href="${ page }"> ${ p } </a>
@@ -76,7 +72,7 @@
 					 [다음]
 				</c:if>
 				<c:if test="${ pi.currentPage ne pi.maxPage }">
-					<c:url value="mlist.do" var="after">
+					<c:url value="rlist.do" var="after">
 						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
 					</c:url>
 					<a href="${ after }"> [다음]</a>
@@ -84,6 +80,5 @@
 			</td>
 		</tr>
 	</table>
-
 </body>
 </html>

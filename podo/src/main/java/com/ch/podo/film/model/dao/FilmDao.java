@@ -72,26 +72,15 @@ public class FilmDao {
 	}
 	
 	
-	/*
-
-	
 	public int insertFilm(Film f) {
 		return sqlSession.insert("filmMapper.insertFilm", f);
 	}
 	
-	
+
 	public Film selectFilm(int id) {
 		return sqlSession.selectOne("filmMapper.selectFilm", id);
 	}
 	
-	public int deleteFilm(int id) {
-		return sqlSession.update("filmMapper.deleteFilm", id);
-	}
-	
-	public int updateFilm(Film f) {
-		return sqlSession.update("filmMapper.updateFilm", f);
-	}
-	
-	*/
+
 
 }

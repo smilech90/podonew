@@ -52,10 +52,7 @@ public class FilmServiceImpl implements FilmService {
 
 	
 	
-	
-	
-	
-	
+
 	
 	@Override
 	public int getFilmListCount() {
@@ -68,45 +65,18 @@ public class FilmServiceImpl implements FilmService {
 	}
 	
 	
-
-	/*
-
 	@Override
 	public int insertFilm(Film f) {
 		return filmDao.insertFilm(f);
 	}
 
-	
 	@Override
 	public Film selectFilm(int id) {
 		
-		int result = filmDao.updateCount(id);
-		
-		if(result > 0) {
 			return filmDao.selectFilm(id);
-		}else {			
-			return null;
-		}
 		
 	}
-
-	@Override
-	public Film selectUpdateFilm(int id) {
-		return filmDao.selectFilm(id);
-	}
-
-	@Override
-	public int deleteFilm(int id) {
-		return filmDao.deleteFilm(id);
-	}
-
-	@Override
-	public int updateFilm(Film f) {
-		return filmDao.updateFilm(f);
-	}
 	
-	
-	*/
 
 
 }

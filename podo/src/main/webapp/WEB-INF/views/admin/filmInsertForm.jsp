@@ -51,7 +51,7 @@
 			</tr>
 			<tr>
 				<td>제작년도</td>
-				<td><input type="date" name="releaseYear"></td>
+				<td><input type="month" name="releaseYear"></td>
 			</tr>
 			<tr>
 				<td>제작국가</td>
@@ -63,18 +63,6 @@
 					<input type="radio" name="productionStatus" value="개봉">개봉 
 					<input type="radio" name="productionStatus" value="개봉예정">개봉예정
 				</td>
-			</tr>
-			<tr>
-				<td>줄거리</td>
-				<td><textarea cols="50" rows="7" name="content"></textarea></td>
-			</tr>
-			<tr>
-				<td>영화포스터</td>
-				<td><input type="file" name="uploadFile"></td>
-			</tr>
-			<tr>
-				<td>영화티져영상</td>
-				<td><input type="url" name="teaser"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">

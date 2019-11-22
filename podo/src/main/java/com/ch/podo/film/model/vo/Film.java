@@ -22,4 +22,7 @@ public class Film {
 	private String productionStatus;
 	private String genre;
 	
+	private String originalFileName;
+	private String renameFileName;
+	
 }

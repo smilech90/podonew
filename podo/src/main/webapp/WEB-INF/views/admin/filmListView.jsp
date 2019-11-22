@@ -14,31 +14,35 @@
 		총 게시글 갯수 : ${ pi.listCount } 페이지 : ${ pi.currentPage } / ${ pi.maxPage } 
 	</h3>
 	
+	<button onclick="location.href='finsertForm.do';">새영화등록</button>
+	
 	<table align="center" border="1" cellspacing="0" width="700">
 		<tr>
 			<th>번호</th>
-			<th>제목</th>
-			<th>영문제목</th>
+			<th colspan="2">제목(국문/영문)</th>
 			<th>감독</th>
 			<th>제작년도</th>
 			<th>제작국가</th>
 			<th>개봉여부</th>
+			<th>장르</th>>
 		</tr>
 		<c:forEach items="${ list }" var="f">	
 			<tr>
 				<td>${ f.id }</td>
-				<td>${ f.titleKor }</td>
-				<td>${ f.titleEng }</td>
+				<td colspan="2">
+					<a href="fdetail.do?id=${ f.id }">${ f.titleKor } ${ f.titleEng }</a>
+				</td>
 				<td>${ f.director }</td>
 				<td>${ f.releaseYear }</td>
 				<td>${ f.productionCountry }</td>
 				<td>${ f.productionStatus }</td>
+				<td>${ f.genre }</td>
 			</tr>
 		</c:forEach>
 		
 		<!-- 페이징 처리 -->
 		<tr align="center" height="20">
-			<td colspan="7">
+			<td colspan="8">
 				<!-- [이전] -->
 				<c:if test="${ pi.currentPage eq 1 }">
 					[이전] 

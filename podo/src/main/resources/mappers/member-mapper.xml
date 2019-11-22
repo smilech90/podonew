@@ -54,4 +54,22 @@
 		where id=#{id} and status='Y'
 	</update>
 	
+	
+	
+	
+	
+	<select id="getMemberListCount" resultType="_int">
+		select count(*)
+		from tb_member
+		where status='Y'
+	</select>
+	
+	<select id="selectMemberList" resultMap="memberResultSet">
+		select *
+		from tb_member
+		order by id desc
+	</select>
+	
+	
+	
 </mapper>
