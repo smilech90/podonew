@@ -27,9 +27,9 @@
 	.oriok{color:blue;}
 	.orino{color:red;}
 	.modal-dialog{z-index:2000;}
-	/* 탭메뉴  */
+	/* --------------------- 탭메뉴시작 ---------------------  */
 	#container {
-		width:730px;
+		/* width:800px; */
 		margin:0 auto;
 		/* text-align:center */;
 	}
@@ -50,8 +50,9 @@
 		text-align: center;
 		text-decoration: none;
 		padding: 14px 16px;
-		font-size: 17px;
+		font-size: 18px;
 		transition:0.3s;
+		
 	}
 	/* Style the tab content */
 	.tabcontent {
@@ -77,7 +78,7 @@
 	<section class="blog-post-area section-margin">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-lg-12">
 					<div class="comments-area">
 						<h4>마이페이지</h4>
 						<div class="comment-list">
@@ -96,41 +97,93 @@
 								<div class="reply-btn">
 									<a id="update-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); text-align:center;color:white;">정보수정</a>
 									<a id="updatePwd-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); color:white;">비밀번호 변경</a>
-									<!-- 	<a href="memberUpdateForm.do" class="btn-reply text-uppercase" style="background:purple; color:white;">정보수정</a>  -->
 								</div>
 							</div>
 							<br><br>	
 							<div style='border:1px solid lightgray'></div><br>
 							
-							<div id="container">
-								<ul class="tab">
-									<li class="current" data-tab="tab1"><a href="#">Review</a></li>
-									<li data-tab="tab2"><a href="#">Collection</a></li>
-									<li data-tab="tab3"><a href="#">Like</a></li>
-									<li data-tab="tab4"><a href="#">Question</a></li>
-								</ul>
-						
-								<div id="tab1" class="tabcontent current"><br>
-									<h3>Review</h3><br>
-									<p>리뷰입니당.</p>
-								</div>
-						
-								<div id="tab2" class="tabcontent"><br>
-									<h3>Collection</h3><br>
-									<p>컬렉입니당.</p>
-								</div>
-						
-								<div id="tab3" class="tabcontent"><br>
-									<h3>Like</h3><br>
-									<p>라이크임당.</p>
-								</div>
-						
-								<div id="tab4" class="tabcontent"><br>
-									<h3>Question</h3><br>
-									<p>문의지롱</p>
+							<!------------------------- 탭 메뉴 시작 ----------------------->
+							<div class="col-lg-12">
+								<div id="container">
+									<ul class="tab">
+										<li class="current" data-tab="tab1"><a href="#">Review</a></li>
+										<li data-tab="tab2"><a href="#">Collection</a></li>
+										<li data-tab="tab3"><a href="#">Like</a></li>
+										<li data-tab="tab4"><a href="#">Question</a></li>
+									</ul>
+							
+									<div id="tab1" class="tabcontent current"><br>
+										<!-------------------------- 리뷰 탭메뉴 바디 ------------------------>
+										<section class="blog-post-area section-margin">
+											<div class="container">
+												<div class="row">	
+													<div class="col-lg-12">
+													
+														<div class="single-recent-blog-post">
+															<div class="thumb">
+																<img class="img-fluid" src="resources/detailFilmImage/안녕베일리.jpg" width="200px" alt="">
+															</div>
+															
+															<div class="details mt-20">
+																<a href="blog-single.html">
+																	<h3>Woman claims husband wants to name baby girl
+																	 after his ex-lover sparking.</h3>
+																</a>
+																<p class="tag-list-inline">Tag: <a href="#">travel</a>, <a href="#">life style</a>, <a href="#">technology</a>, <a href="#">fashion</a></p>
+																<p>Over yielding doesn't so moved green saw meat hath fish he him from given yielding lesser cattle were fruitful lights. Given let have, lesser their made him above gathered dominion sixth. Creeping deep said can't called second. Air created seed heaven sixth created living</p>
+																<a class="button" href="#">Read More <i class="ti-arrow-right"></i></a>
+															</div>
+														</div>
+														<!-------------------------- 페이징바 시작 ------------------------>
+														<div class="row">
+															<div class="col-lg-12">
+																<nav class="blog-pagination justify-content-center d-flex">
+																	<ul class="pagination">
+																		<li class="page-item">
+																			<a href="#" class="page-link" aria-label="Previous">
+																				<span aria-hidden="true">
+																					<i class="ti-angle-left"></i>
+																				</span>
+																			</a>
+																		</li>
+																		<li class="page-item active"><a href="#" class="page-link">1</a></li>
+																		<li class="page-item"><a href="#" class="page-link">2</a></li>
+																		<li class="page-item">
+																			<a href="#" class="page-link" aria-label="Next">
+																				<span aria-hidden="true">
+																					<i class="ti-angle-right"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</nav>
+															</div>
+														</div>
+														<!-------------------------- 페이징바 끝 -------------------------->
+													</div>
+												</div>
+											</div>
+										</section>
+									</div>
+							
+									<div id="tab2" class="tabcontent"><br>
+										<h3>Collection</h3><br>
+										<p>컬렉입니당.</p>
+									</div>
+							
+									<div id="tab3" class="tabcontent"><br>
+										<h3>Like</h3><br>
+										<p>라이크임당.</p>
+									</div>
+							
+									<div id="tab4" class="tabcontent"><br>
+										<h3>Question</h3><br>
+										<p>문의지롱</p>
+									</div>
 								</div>
 							</div>
-						</div>	
+							<!-------------------------- 탭 메뉴 끝 ------------------------>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -241,13 +294,18 @@
 	
 
 
+
+	
+
+
 	<script>
-	/* 
-		$(function(){
+	 
+		/* $(function(){
 			$("#container ul>li").on("click", function(){
 				var tabMenu = $(this).text();
 				var strId = "${loginUser.id}";
 				var strUrl = "";
+				
 				if(tabMenu.equals("Review")){
 					strUrl="myPageSelectReview.do";
 				}else if(tabMenu.equals("Collection")){
@@ -273,8 +331,8 @@
 					
 				});
 			});
-		});
-	 	*/
+		}); */
+	 	
 		// 탭메뉴 관련 
 		$(function() {
 			$('ul.tab li').click(function() {
