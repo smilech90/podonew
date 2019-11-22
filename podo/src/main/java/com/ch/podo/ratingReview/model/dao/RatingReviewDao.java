@@ -16,10 +16,10 @@ public class RatingReviewDao {
 	private SqlSessionTemplate sqlSession;
 
 	/*
-	 * public RatingReview selectRatingReviewDetailView(int id) {
-	 * 
-	 * return
-	 * sqlSession.selectOne("ratingReviewMapper.selectRatingReviewDetailView",id); }
+	  public RatingReview selectRatingReviewDetailView(int id) {
+	  
+	  return
+	  sqlSession.selectOne("ratingReviewMapper.selectRatingReviewDetailView",id); }
 	 * 
 	 * 
 	 * public int reviewUpdate(RatingReview rr) {
@@ -27,6 +27,6 @@ public class RatingReviewDao {
 	 * return sqlSession.update("ratingReviewMapper.reviewUpdate",rr); }
 	 * 
 	 */
-
+	
 	
 }

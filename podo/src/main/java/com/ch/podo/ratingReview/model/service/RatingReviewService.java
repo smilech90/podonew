@@ -4,6 +4,8 @@ import com.ch.podo.ratingReview.model.vo.RatingReview;
 
 
 public interface RatingReviewService {
+
+	RatingReview selectUpdateReview(int id);
 	
 	/*
 	 * // 영화 방사형그래프 상세리뷰 보기 RatingReview selectRatingReviewDetailView(int id);

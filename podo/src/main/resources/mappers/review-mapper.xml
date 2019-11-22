@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="spoilerCheck" column="spoiler_check"/>
 		<result property="status" column="STATUS"/>
 	</resultMap>
+	
 	<resultMap id="reviewListSet" type="Review">
 		<id property="id" column="id"/>
 		<result property="userImage" column="image"/>
@@ -117,14 +118,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 합친부분 -->
-	<select id="selectRatingReviewDetailView" resultMap="reviewListSet">
+	<select id="selectRatingReviewDetailView" resultMap="ratingReviewSet">
 		select *
 		from  TB_REVIEW r
 		left join tb_rating_review rr on (rr.review_id = r.id)
 		left join TB_FILM f on (r.film_id = f.id)
         left join tb_member m on(r.member_id = m.id)
         left join tb_rating_film rf on(r.film_id=rf.id)
-        where r.id=#{r.id}
+        where r.id=#{id}
 	</select>
 
 	<update id="reviewUpdate">

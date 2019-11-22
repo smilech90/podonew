@@ -101,6 +101,7 @@ public class ReviewController {
 		
 		Review r = reviewService.selectRatingReviewDetailView(id);
 		
+		System.out.println(r);
 		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
 		
 		

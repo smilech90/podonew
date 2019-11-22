@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update tb_rating_review
 		set rating_Sound=#{ratingSound},rating_Visual=#{ratingVisual},rating_Acting=#{ratingActing},rating_Pop=#{ratingPop},rating_Script=#{ratingScript},rating_Direct=#{ratingDirect}
 		where id=#{id}
-	</update> -->
+		</update> -->
  
 
 

@@ -62,6 +62,7 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectRatingReviewDetailView(id);
 	}
 
+
 	@Override
 	public int reviewUpdate(Review rr) {
 		
