@@ -178,7 +178,7 @@
 								$releaseTd = $("<td></td>").text(value.releaseYear);
 								$countryTd = $("<td></td>").text(value.productionCountry);
 								$genreTd = $("<td></td>").text(value.genre);
-								$posterTd = $("<td></td>").html("<img src='http://placehold.it/107x152'>");
+								$posterTd = $("<td></td>").html("<img src='resources/detailFilmImage/podoposter.jpg' style='width: 107px; height: 152px; object-fit: cover;'>");
 								
 								// 좋아요한 영화인지 검사
 								if (like[value.id] != null) {

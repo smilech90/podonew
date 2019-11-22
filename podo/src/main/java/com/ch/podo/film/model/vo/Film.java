@@ -23,5 +23,6 @@ public class Film {
 	private int genreId;
 	private String genre;
 	private double avgStarRating;
+	private String poster;
 	
 }

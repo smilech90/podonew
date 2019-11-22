@@ -21,6 +21,7 @@
 		<result property="releaseYear" column="release_year"/>
 		<result property="genreId" column="genre_id"/>
 		<result property="genre" column="name"/>
+		<result property="poster" column="poster"/>
 	</resultMap>
 	
 	<select id="getListCount" resultType="_int">

@@ -13,7 +13,7 @@
 	<section class="blog-post-area section-margin">
 		<div class="container">
 		
-				<c:set var="count" value="${ fn:length(list) }" />
+<%-- 				<c:set var="count" value="${ fn:length(list) }" /> --%>
 				<c:choose>
 					<c:when test="${ empty loginUser }">
 						<div class="row">
@@ -24,7 +24,7 @@
 							</div>
 						</div>
 					</c:when>
-					<c:when test="${ not empty loginUser and not empty list and count ge 10 }">
+					<c:when test="${ not empty loginUser and not empty genre1 and count ge 10 }">
 						<h1>${ genre1.get(0).genre }</h1>
 				    <section>
 				      <div class="container">
@@ -34,7 +34,14 @@
 					        	
 					          <div class="card blog__slide text-center">
 					            <div class="blog__slide__img">
-					              <img class="card-img rounded-0" src="resources/bootstrap/img/blog/blog-slider/blog-slide1.png" alt="">
+					            	<c:choose>
+					            		<c:when test="${ not empty f.poster }">
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/${ f.poster }" alt="">
+					            		</c:when>
+					            		<c:otherwise>
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/podoposter.jpg" alt="">
+					            		</c:otherwise>
+					            	</c:choose>
 					            </div>
 					            <div class="blog__slide__content">
 					              <a class="blog__slide__label" href="#">${ f.avgStarRating }</a>
@@ -57,7 +64,14 @@
 					        	
 					          <div class="card blog__slide text-center">
 					            <div class="blog__slide__img">
-					              <img class="card-img rounded-0" src="resources/bootstrap/img/blog/blog-slider/blog-slide1.png" alt="">
+					            	<c:choose>
+					            		<c:when test="${ not empty f.poster }">
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/${ f.poster }" alt="">
+					            		</c:when>
+					            		<c:otherwise>
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/podoposter.jpg" alt="">
+					            		</c:otherwise>
+					            	</c:choose>
 					            </div>
 					            <div class="blog__slide__content">
 					              <a class="blog__slide__label" href="#">${ f.avgStarRating }</a>
@@ -80,7 +94,14 @@
 					        	
 					          <div class="card blog__slide text-center">
 					            <div class="blog__slide__img">
-					              <img class="card-img rounded-0" src="resources/bootstrap/img/blog/blog-slider/blog-slide1.png" alt="">
+					            	<c:choose>
+					            		<c:when test="${ not empty f.poster }">
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/${ f.poster }" alt="">
+					            		</c:when>
+					            		<c:otherwise>
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/podoposter.jpg" alt="">
+					            		</c:otherwise>
+					            	</c:choose>
 					            </div>
 					            <div class="blog__slide__content">
 					              <a class="blog__slide__label" href="#">${ f.avgStarRating }</a>

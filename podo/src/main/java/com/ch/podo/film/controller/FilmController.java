@@ -8,6 +8,8 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +41,8 @@ public class FilmController {
 
 	@Autowired
 	private RatingFilmService ratingFilmService;
+	
+	private Logger logger = LoggerFactory.getLogger(FilmController.class);
 	
 	@RequestMapping("skFilm.do")
 	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
@@ -98,14 +102,10 @@ public class FilmController {
 	public void likeFilm(HttpServletResponse response, HttpSession session, String fid, int flag)
 			throws JsonIOException, IOException {
 		Member mem = (Member)session.getAttribute("loginUser");
-		// System.out.println("loginUser : " + mem);
 		
 		Like like = new Like();
 		like.setTargetId(Integer.parseInt(fid));
 		like.setUserId(mem.getId());
-		
-		// System.out.println("fid : " + fid);
-		// System.out.println("flag : " + flag);
 		
 		int result = 0;
 		if (flag > 0) {
@@ -135,16 +135,16 @@ public class FilmController {
 		// 이미 기존에 있는 별점을 다시 눌렀을 경우 취소되면서 삭제
 		if (flag != null && Integer.parseInt(star) == flag.getStar()) {
 			result = ratingFilmService.deleteRateFilm(rate);
-			System.out.println("delete 실행");
+			logger.info("delete 실행");
 		} else {
 			// 기존에 별점이 없다면 삽입
 			if (flag == null) {
 				result = ratingFilmService.insertRateFilm(rate);
-				System.out.println("insert 실행");
+				logger.info("insert 실행");
 			// 이미 기존에 별점이 있다면 수정
 			} else {
 				result = ratingFilmService.updateLikeFilm(rate);
-				System.out.println("update실행");
+				logger.info("update실행");
 			}
 		}
 		
@@ -158,38 +158,27 @@ public class FilmController {
 													@RequestParam(value="page", defaultValue = "1") int page) {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		System.out.println("loginUser : " + loginUser);
 		
 		if (loginUser == null) {
 			mv.addObject("msg", "로그인 해주세요!").setViewName("error/errorPage");
 			return mv;
 		}
-		// int listCount = 1;
-		// if (loginUser != null) {
-		// 	listCount = filmService.selectLikedFilmCount(loginUser.getId());
-		// }
-		// System.out.println("listCount : " + listCount);
-		// PageInfo pi = Pagination.getPageInfo(page, listCount);
-		// pi.setPageLimit(3);
-		// pi.setBoardLimit(5);
-		
 		
 		ArrayList<Film> list = null;
+		int liked = 0;
 		if (loginUser != null) {
-			// list = filmService.selectLikedFilmList(loginUser.getId(), pi);
 			list = filmService.selectPreferredGenreFilmList(loginUser.getId());
+			liked = filmService.selectLikedFilmCount(loginUser.getId());
 		}
 		
 		HashMap<Integer, ArrayList<Film>> map = new HashMap<>();
 		ArrayList<Film> rec = new ArrayList<>();
-		ArrayList<Film> rec2 = new ArrayList<>();
-		ArrayList<Film> rec3 = new ArrayList<>();
 		ArrayList<Integer> genre = new ArrayList<>();
 		
 		for (int i = 0; i < list.size(); i++) {
 			if ((i + 1) != list.size()
-					&& (list.get(i).getGenreId() ^ list.get(i + 1).getGenreId()) == 0) {
-				System.out.println((list.get(i).getGenreId() ^ list.get(i + 1).getGenreId()) == 0);
+					&& (list.get(i).getGenreId() == list.get(i + 1).getGenreId())) {
+				// System.out.println((list.get(i).getGenreId() == list.get(i + 1).getGenreId()));
 				rec.add(list.get(i));
 			} else {
 				genre.add(list.get(i).getGenreId());
@@ -198,18 +187,13 @@ public class FilmController {
 				rec = new ArrayList<Film>();
 			}
 		}
-		rec.clear();
-		// System.out.println(genre);
-		// System.out.println(map.get(genre.get(0)));
-		// System.out.println(map.get(genre.get(1)));
-		// System.out.println(map.get(genre.get(2)));
+		rec = null;
 		
-		// mv.addObject("list", list).addObject("page", page).addObject("count", listCount).setViewName("film/rec");
 		mv.addObject("genre1", map.get(genre.get(0)))
 			.addObject("genre2", map.get(genre.get(1)))
 			.addObject("genre3", map.get(genre.get(2)))
 			.addObject("page", page)
-			.addObject("list", list)
+			.addObject("count", liked)
 			.setViewName("film/rec");
 		
 		return mv;
@@ -241,7 +225,6 @@ public class FilmController {
 		if (loginUser != null) {
 			list = filmService.selectLikedFilmList(loginUser.getId(), pi);
 		}
-		// System.out.println("liked film list : " + list);
 		map.put("list", list);
 
 		response.setContentType("application/json; charset=utf-8");
