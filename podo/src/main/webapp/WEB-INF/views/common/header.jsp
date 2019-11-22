@@ -16,6 +16,9 @@
 	<link rel="stylesheet" href="resources/bootstrap/vendors/owl-carousel/owl.carousel.min.css">
 	<link rel="stylesheet" href="resources/bootstrap/css/style.css">
 	
+	<!-- 폰트 -->
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700&display=swap" rel="stylesheet">
+	
 	<script src="resources/bootstrap/vendors/jquery/jquery-3.2.1.min.js"></script>
 	<script src="resources/bootstrap/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 	<script src="resources/bootstrap/vendors/owl-carousel/owl.carousel.min.js"></script>
