@@ -142,7 +142,7 @@
                     <div class="float-left">
                       <div class="media">
                       <div class="media-body">
-                        <h5>${rr.nickName }</h5>
+                        <h5>${rr.nickName }님</h5>
                         <p>${ rr.createDate }에 작성</p>
                       </div>
                       <div class="d-flex">

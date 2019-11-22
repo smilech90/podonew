@@ -24,5 +24,9 @@ public class Film {
 	private String genre;
 	private double avgStarRating;
 	private String poster;
+	private String name;	// 장르 추가 -처란
+	
+	private String originalFileName;
+	private String renameFileName;
 	
 }

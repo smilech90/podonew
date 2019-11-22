@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.image.model.vo.Image;
-import com.ch.podo.review.model.vo.Review;
+import com.ch.podo.review.model.dto.Review;
 
 public interface DetailFilmService {
 	
