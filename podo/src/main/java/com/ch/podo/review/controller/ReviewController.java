@@ -29,7 +29,7 @@ public class ReviewController {
 		
 		mv.addObject("list",list).setViewName("reviewView/reviewList");
 		
-		//System.out.println("리뷰리스트 : "  + list);
+		System.out.println("리뷰리스트 : "  + list);
 		
 		return mv;
 		
@@ -42,6 +42,8 @@ public class ReviewController {
 		Film f = reviewService.selectFilm(filmId);
 		
 		Member m = reviewService.selectMember(loginUserId);
+		
+		
 		
 		mv.addObject("f",f).addObject("m", m).setViewName("reviewView/reviewWriteForm");
 		

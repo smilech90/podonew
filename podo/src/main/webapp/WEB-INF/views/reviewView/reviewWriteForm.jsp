@@ -68,8 +68,7 @@
       <div class="row">
         <div class="col-lg-8">
             <div class="main_blog_details">
-                <img class="img-fluid" src="resources/detailFilmImage/defaultImg.png" alt="">
-            <%-- 이게원래써야함    <img class="img-fluid" src="resources/detailFilmImage/ ${ rr.posterImage }" alt=""> --%>
+				<img class="img-fluid" src="resources/detailFilmImage/ ${ f.poster }" alt=""> 
                <h4 align="center">${f.titleKor}<p>장르 : ${f.genre } </p></h4>
                
                 <div class="user_details">
