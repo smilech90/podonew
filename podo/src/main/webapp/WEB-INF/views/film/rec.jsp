@@ -13,7 +13,7 @@
 	<section class="blog-post-area section-margin">
 		<div class="container">
 		
-				<c:set var="count" value="${ fn:length(list) }" />
+<%-- 				<c:set var="count" value="${ fn:length(list) }" /> --%>
 				<c:choose>
 					<c:when test="${ empty loginUser }">
 						<div class="row">
@@ -24,9 +24,119 @@
 							</div>
 						</div>
 					</c:when>
-					<c:when test="${ not empty loginUser and not empty list and count ge 10 }">
-						<div class="row list-row">
-				      <c:forEach items="${ list }" var="f">
+					<c:when test="${ not empty loginUser and not empty genre1 and count ge 10 }">
+						<h1>${ genre1.get(0).genre }</h1>
+				    <section>
+				      <div class="container">
+				        <div class="owl-carousel owl-theme blog-slider">
+				      		<c:forEach items="${ genre1 }" var="f">
+					      	<!--================ Blog slider start =================-->
+					        	
+					          <div class="card blog__slide text-center">
+					            <div class="blog__slide__img">
+					            	<c:choose>
+					            		<c:when test="${ not empty f.poster }">
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/${ f.poster }" alt="">
+					            		</c:when>
+					            		<c:otherwise>
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/podoposter.jpg" alt="">
+					            		</c:otherwise>
+					            	</c:choose>
+					            </div>
+					            <div class="blog__slide__content">
+					              <a class="blog__slide__label" href="#">${ f.avgStarRating }</a>
+					              <h3><a href="#">${ f.titleKor }</a></h3>
+					              <p>${ f.releaseYear }</p>
+					            </div>
+					          </div>
+				          	
+							    <!--================ Blog slider end =================-->
+				     			</c:forEach>
+				        </div>
+				      </div>
+	   	  		</section>
+						<h1>${ genre2.get(0).genre }</h1>
+				    <section>
+				      <div class="container">
+				        <div class="owl-carousel owl-theme blog-slider">
+				      		<c:forEach items="${ genre2 }" var="f">
+					      	<!--================ Blog slider start =================-->
+					        	
+					          <div class="card blog__slide text-center">
+					            <div class="blog__slide__img">
+					            	<c:choose>
+					            		<c:when test="${ not empty f.poster }">
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/${ f.poster }" alt="">
+					            		</c:when>
+					            		<c:otherwise>
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/podoposter.jpg" alt="">
+					            		</c:otherwise>
+					            	</c:choose>
+					            </div>
+					            <div class="blog__slide__content">
+					              <a class="blog__slide__label" href="#">${ f.avgStarRating }</a>
+					              <h3><a href="#">${ f.titleKor }</a></h3>
+					              <p>${ f.releaseYear }</p>
+					            </div>
+					          </div>
+				          	
+							    <!--================ Blog slider end =================-->
+				     			</c:forEach>
+				        </div>
+				      </div>
+	   	  		</section>
+						<h1>${ genre3.get(0).genre }</h1>
+				    <section>
+				      <div class="container">
+				        <div class="owl-carousel owl-theme blog-slider">
+				      		<c:forEach items="${ genre3 }" var="f">
+					      	<!--================ Blog slider start =================-->
+					        	
+					          <div class="card blog__slide text-center">
+					            <div class="blog__slide__img">
+					            	<c:choose>
+					            		<c:when test="${ not empty f.poster }">
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/${ f.poster }" alt="">
+					            		</c:when>
+					            		<c:otherwise>
+							              <img class="card-img rounded-0" src="resources/detailFilmImage/podoposter.jpg" alt="">
+					            		</c:otherwise>
+					            	</c:choose>
+					            </div>
+					            <div class="blog__slide__content">
+					              <a class="blog__slide__label" href="#">${ f.avgStarRating }</a>
+					              <h3><a href="#">${ f.titleKor }</a></h3>
+					              <p>${ f.releaseYear }</p>
+					            </div>
+					          </div>
+				          	
+							    <!--================ Blog slider end =================-->
+				     			</c:forEach>
+				        </div>
+				      </div>
+	   	  		</section>
+	   	  		
+						<!-- [더보기] -->
+						<!-- 
+						<div class="row">
+							<div class="col-lg-12">
+								<nav class="blog-pagination justify-content-center d-flex">
+									<ul class="pagination">
+										<li class="page-item">
+											<a class="page-link" id="more-recommendation">더보기</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						 -->
+					</c:when>
+					<c:otherwise>
+						10개 이상의 영화를 좋아해주세요!
+					</c:otherwise>
+				</c:choose>
+				
+				      	<%-- 
 								<div class="col-md-12">
 									<div class="single-recent-blog-post card-view">
 										<div class="thumb">
@@ -45,25 +155,7 @@
 			              </div>
 									</div>
 								</div>
-				     	</c:forEach>
-						</div>
-						<!-- [더보기] -->
-						<div class="row">
-							<div class="col-lg-12">
-								<nav class="blog-pagination justify-content-center d-flex">
-									<ul class="pagination">
-										<li class="page-item">
-											<a class="page-link" id="more-recommendation">더보기</a>
-										</li>
-									</ul>
-								</nav>
-							</div>
-						</div>
-					</c:when>
-					<c:otherwise>
-						10개 이상의 영화를 좋아해주세요!
-					</c:otherwise>
-				</c:choose>
+								 --%>
 			
 		</div>
 	</section>
@@ -72,6 +164,7 @@
 	
 	<script>
 		
+		/*
 		var page = 1;
 		
 		$(document).on("click", "#more-recommendation", function(){
@@ -137,6 +230,7 @@
 				}
 			});
 		}
+		*/
 		
 	</script>
 	
