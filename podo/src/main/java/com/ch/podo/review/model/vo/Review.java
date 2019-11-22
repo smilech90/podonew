@@ -31,5 +31,6 @@ public class Review {
 	private String status;
 	private int filmId;				// 영화 번호 
 	private int memberId;			// 사용자 번호
+	private String posterImage;		//영화 포스터 이미지
 	
 }

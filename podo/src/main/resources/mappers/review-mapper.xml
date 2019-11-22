@@ -30,6 +30,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	<result property="createDate" column="CREATE_DATE"/>
 	 	<result property="filmId" column="FILM_ID"/>
 	 	<result property="memberId" column="MEMBER_ID"/>
+	 	<result property="posterImage" column="change_name"/>
+	 	
+	 	
 	</resultMap>
 
 	<resultMap type="Film" id="filmResultSet">
@@ -58,11 +61,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<select id="selectReviewList" resultMap="reviewListSet">	
-		select *
+        select *
 		from tb_review r
 		left join tb_film f on(r.film_id = f.id)
         left join tb_member m on(r.member_id = m.id)
-		left join tb_detail_film df on(r.film_id = df.id)<!-- 수정된거 did로 바꿔야함 봉운이 did용 -->
+		left join tb_detail_film df on(r.film_id = df.id)
 		left join tb_film_image fi on(dfilm_id = fi.id)
 		left join tb_genre g on(genre_id = g.id)
 		where r.status='Y'
