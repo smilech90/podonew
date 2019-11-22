@@ -10,8 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.review.model.dto.Review;
 import com.ch.podo.review.model.service.ReviewService;
-import com.ch.podo.review.model.vo.Review;
+
 
 
 @Controller
@@ -88,6 +89,60 @@ public class ReviewController {
 		}
 		
 	}
+	
+	
+	
+	
+	// 여기서부터 합친기 본
+	
+	//글 리뷰 리스트 조회용
+	@RequestMapping("ratingDetailReview.do")
+	public ModelAndView selectRatingReviewDetailView(int id,ModelAndView mv) {
+		
+		Review r = reviewService.selectRatingReviewDetailView(id);
+		
+		System.out.println(r);
+		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
+		
+		
+
+		
+		return mv;
+	}
+	
+	// 글 수정 폼으로 가게해주는 리퀘스트매핑
+	@RequestMapping("reviewUpdateView.do")
+	public ModelAndView boardUpdateView(int id, ModelAndView mv) {
+		
+		Review r = reviewService.selectUpdateReview(id);
+		
+
+		
+		
+		mv.addObject("r",r).setViewName("ratingReview/ratingUpdateForm");
+		return mv;
+		
+	}
+	
+	// 수정 하는 리퀘스트매핑
+	@RequestMapping("reviewUpdate.do")
+	public ModelAndView reviewUpdate(Review r, ModelAndView mv) {
+		//레이팅 6개
+		int result = reviewService.reviewUpdate(r);
+		//id, 레이팅6개 점수 뿌리기
+		
+		//리뷰 내용 수정
+		
+		
+		if(result>0) {
+			mv.addObject("id", r.getRatingReviewId()).setViewName("redirect:ratingDetailReview.do");
+		}else {
+			mv.addObject("msg", "게시판 수정 실패").setViewName("error/errorPage");
+		}
+		return mv;
+	}
+	
+	
 	
 
 }
