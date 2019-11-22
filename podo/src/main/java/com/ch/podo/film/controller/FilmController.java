@@ -3,7 +3,6 @@ package com.ch.podo.film.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -231,5 +230,26 @@ public class FilmController {
 		Gson gson = new Gson();
 		gson.toJson(map, response.getWriter());
 	}
+	
+	
+	
+	// 관리자 영화 리스트
+	@RequestMapping("flist.do")
+	public ModelAndView filmList(ModelAndView mv, 
+								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		
+		int listCount = filmService.getFilmListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Film> list = filmService.selectFilmList(pi);
+		
+		mv.addObject("pi", pi).addObject("list", list)
+		  .setViewName("admin/filmListView");
+		
+		return mv;
+	}
+	
+
 	
 }

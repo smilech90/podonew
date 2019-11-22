@@ -25,4 +25,7 @@ public class Film {
 	private double avgStarRating;
 	private String poster;
 	
+	private String originalFileName;
+	private String renameFileName;
+	
 }

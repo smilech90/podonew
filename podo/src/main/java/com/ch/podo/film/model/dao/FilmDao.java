@@ -43,6 +43,42 @@ public class FilmDao {
 	public ArrayList<Genre> selectAllGenreList() {
 		return (ArrayList)sqlSession.selectList("filmMapper.selectAllGenreList");
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int getFilmListCount() {
+		return sqlSession.selectOne("filmMapper.getFilmListCount");
+	}
+	
+	public ArrayList<Film> selectFilmList(PageInfo pi){
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		ArrayList<Film> list = (ArrayList)sqlSession.selectList("filmMapper.selectFilmList",null, rowBounds);
+		
+		return list;
+	}
+	
+	
+	public int insertFilm(Film f) {
+		return sqlSession.insert("filmMapper.insertFilm", f);
+	}
+	
+
+	public Film selectFilm(int id) {
+		return sqlSession.selectOne("filmMapper.selectFilm", id);
+	}
+	
+
 
 	public int selectLikedFilmCount(int id) {
 		return sqlSession.selectOne("filmMapper.selectLikedFilmCount", id);
