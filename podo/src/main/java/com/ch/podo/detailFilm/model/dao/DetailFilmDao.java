@@ -60,9 +60,9 @@ public class DetailFilmDao {
 	}
 	
 	// 상세정보 롤백
-	public int detailFilmRollback(int id) {
+	public int detailFilmRollback(int filmId) {
 		
-		return sqlSession.update("detailFilmmapper.updateDetailFilm", id);
+		return sqlSession.update("detailFilmmapper.updateDetailFilm", filmId);
 		
 	}
 }

@@ -155,7 +155,7 @@
                     
                     <c:if test="${ loginUser.id ne null }">
                     	<div class="cover" id="rollbackBtn">
-                    		<a href="detailFilmRollback.do?id=${df.id}&filmId=${df.filmId}">되돌리기</a>
+                    		<a href="detailFilmRollback.do?filmId=${df.filmId}">되돌리기</a>
                     	</div>
                     </c:if>
                     

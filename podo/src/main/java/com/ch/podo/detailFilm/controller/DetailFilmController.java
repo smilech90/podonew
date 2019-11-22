@@ -70,9 +70,9 @@ public class DetailFilmController {
 	
 	// 영화 디테일 정보 Rollback
 	@RequestMapping("detailFilmRollback.do")
-	public ModelAndView detailFilmRollback(int id, int filmId, ModelAndView mv) {
+	public ModelAndView detailFilmRollback(int filmId, ModelAndView mv) {
 											// Detail_film 번호
-		int result = dfService.detailFilmRollback(id);
+		int result = dfService.detailFilmRollback(filmId);
 		
 		DetailFilm df = dfService.selectDetailFilm(filmId);	
 		mv.addObject("filmId", df.getFilmId()).setViewName("redirect:detailFilm.do");

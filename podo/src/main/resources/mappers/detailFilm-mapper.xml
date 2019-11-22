@@ -92,7 +92,7 @@
 		               	  left join tb_detail_film df on(df.film_id = f.id)
 		                  left join tb_film_actor fa on(df.id = fa.dfilm_id)
 		                  left join tb_actor a on(fa.actor_id = a.id)
-		                  where f.id = 4
+		                  where f.id = #{filmid}
 		                  and df.status='Y'
 		                  order by df.insertdate desc) m
 		            where rownum = 1)
