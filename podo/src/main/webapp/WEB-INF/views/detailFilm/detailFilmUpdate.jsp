@@ -128,7 +128,8 @@
    	                	<div name="director">감독 : ${ df.director }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div id="synopsys">배우 <textarea id="text_actor" name="actor" placeholder="정보를 입력해주세요" rows="1" cols="90">${ df.actor }</textarea></div>
+                    	<div id="synopsys">배우 : ${ df.actor }</div>
+                    	<div id="synopsys"><button id="addActor"></button></div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
                     	<div id="synopsys">시놉시스 <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.synopsys}</textarea></div>
