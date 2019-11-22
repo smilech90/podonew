@@ -23,8 +23,8 @@ public class DetailFilmController {
 		
 		// 영화 상세정보 
 		DetailFilm df = dfService.selectDetailFilm(filmId);
-		// id,        filmId, titleKor, titleEng, director, actor, trailer, synopsys, trivia
-		// 영화 상세번호, 영화 번호, 영화 제목, 영화 영어제목, 감독,      배우,    예고편,   시놉시스,    트리비아 
+		// id,        filmId, titleKor, titleEng, director, actor, trailer, synopsys, trivia, nickName
+		// 영화 상세번호, 영화 번호, 영화 제목, 영화 영어제목, 감독,      배우,    예고편,   시놉시스,    트리비아, 글쓴이 닉네임 
 		
 		// 포스터 이미지
 		Image i = dfService.selectFilmImage(df.getId());

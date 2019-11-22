@@ -139,18 +139,24 @@
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
 	                    <span id="movie_clip">예고편 : ${ df.trailer }</span>
                 	</div>
-                    <div class="cover" id="sysnobsis_cover">
+                    <div class="cover" id="director_cover">
    	                	<div>감독 : ${ df.director }</div>
                     </div>
-                    <div class="cover" id="sysnobsis_cover">
+                    
+                    <div class="cover" id="actor_cover">
                     	<div>배우 : ${ df.actor }</div>
                     </div>
+                    
                     <div class="cover" id="sysnobsis_cover">
                     	<div id="synopsys">시놉시스 : ${ df.synopsys }</div>
                     </div>
                     
                     <div class="cover" id="plusInfo_cover">
                     	<div id="trivia">트리비아 : ${ df.trivia }</div>
+                    </div>
+                    
+                    <div class="cover" id="nickName_cover">
+                    	<div id="trivia">작성자 : ${ df.nickName }</div>
                     </div>
                     
                     <c:if test="${ loginUser.id ne null }">
@@ -223,7 +229,6 @@
 				}
 			});
 		}
-				
 	</script>
     
     <jsp:include page="../common/footer.jsp"/>
