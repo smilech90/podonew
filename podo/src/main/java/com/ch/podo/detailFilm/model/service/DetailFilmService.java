@@ -23,5 +23,7 @@ public interface DetailFilmService {
 	// 2_2. 영화 포스터 수정 입력 -- (영화 포스터 이미지, 영화 상세번호)
 	int filmImageInsert(String filmImage, int id);
 
+	// 2_3. 영화 데이터 롤백 버튼 --(영화 번호)
+	int detailFilmRollback(int filmId);
 	
 }

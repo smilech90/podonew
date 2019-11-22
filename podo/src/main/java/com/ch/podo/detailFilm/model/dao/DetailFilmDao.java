@@ -21,7 +21,6 @@ public class DetailFilmDao {
 		
 		DetailFilm df = sqlSession.selectOne("detailFilmmapper.selectDetailFilm", filmId);
 		
-		System.out.println("df : " + df);
 		return df;
 	}
 	
@@ -59,5 +58,26 @@ public class DetailFilmDao {
 		return sqlSession.insert("detailFilmmapper.filmImageInsert", map);
 	}
 	
-	
+	// 상세정보 롤백
+	public int detailFilmRollback(int filmId) {
+		
+		return sqlSession.update("detailFilmmapper.updateDetailFilm", filmId);
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

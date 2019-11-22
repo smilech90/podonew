@@ -48,4 +48,9 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 		return dfDao.selectFilmImage(id);
 	}
 
+	@Override
+	public int detailFilmRollback(int filmId) {
+		return dfDao.detailFilmRollback(filmId);
+	}
+
 }
