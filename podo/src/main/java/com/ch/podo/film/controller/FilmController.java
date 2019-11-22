@@ -1,22 +1,19 @@
 package com.ch.podo.film.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.apache.tomcat.jni.File;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.board.model.vo.PageInfo;
@@ -44,13 +41,15 @@ public class FilmController {
 	@Autowired
 	private RatingFilmService ratingFilmService;
 	
+	private Logger logger = LoggerFactory.getLogger(FilmController.class);
+	
 	@RequestMapping("skFilm.do")
 	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
 																				@RequestParam(value="currentPage", defaultValue = "1") int currentPage) {
 		int listCount = filmService.selectKeywordFilmListCount(keyword);
-		// System.out.println("listCount : " + listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		// System.out.println("pi : " + pi);
+		pi.setPageLimit(3);
+		pi.setBoardLimit(6);
 		
 		ArrayList<Film> list = filmService.selectKeywordFilmList(keyword, pi);
 		mv.addObject("listCount", listCount)
@@ -75,15 +74,18 @@ public class FilmController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
+		// 옵션으로 검색된 영화 목록
 		ArrayList<Film> filmList = filmService.selectFilterFilmList(film);
 		map.put("film", filmList);
-
-		HashMap<Integer, Film> likeMap = new HashMap<>();
+		
+		// 사용자가 좋아요한 영화 목록
+		HashMap<Integer, Like> likeMap = new HashMap<>();
 		if (loginUser != null) {
-			likeMap = (HashMap<Integer, Film>)likeService.selectLikedFilmMap(loginUser.getId());
+			likeMap = (HashMap<Integer, Like>)likeService.selectLikedFilmMap(loginUser.getId());
 		}
 		map.put("like", likeMap);
 		
+		// 사용자가 평가한 영화 목록
 		HashMap<Integer, RatingFilm> ratingMap = new HashMap<>();
 		if (loginUser != null) {
 			ratingMap = (HashMap<Integer, RatingFilm>)ratingFilmService.selectRatedFilm(loginUser.getId());
@@ -125,32 +127,109 @@ public class FilmController {
 		rate.setStar(Integer.parseInt(star));
 		rate.setUserId(mem.getId());
 		rate.setFilmId(Integer.parseInt(fid));
-
+		
 		RatingFilm flag = ratingFilmService.selectRatingFilm(rate);
 		int result = 0;
 
 		// 이미 기존에 있는 별점을 다시 눌렀을 경우 취소되면서 삭제
 		if (flag != null && Integer.parseInt(star) == flag.getStar()) {
 			result = ratingFilmService.deleteRateFilm(rate);
-			System.out.println("delete 실행");
+			logger.info("delete 실행");
 		} else {
 			// 기존에 별점이 없다면 삽입
 			if (flag == null) {
 				result = ratingFilmService.insertRateFilm(rate);
-				System.out.println("insert 실행");
+				logger.info("insert 실행");
 			// 이미 기존에 별점이 있다면 수정
 			} else {
 				result = ratingFilmService.updateLikeFilm(rate);
-				System.out.println("update실행");
+				logger.info("update실행");
 			}
 		}
-		
 		
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new Gson();
 		gson.toJson(result, response.getWriter());
 	}
 	
+	@RequestMapping("rec.do")
+	public ModelAndView rec(HttpSession session, ModelAndView mv,
+													@RequestParam(value="page", defaultValue = "1") int page) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		if (loginUser == null) {
+			mv.addObject("msg", "로그인 해주세요!").setViewName("error/errorPage");
+			return mv;
+		}
+		
+		ArrayList<Film> list = null;
+		int liked = 0;
+		if (loginUser != null) {
+			list = filmService.selectPreferredGenreFilmList(loginUser.getId());
+			liked = filmService.selectLikedFilmCount(loginUser.getId());
+		}
+		
+		HashMap<Integer, ArrayList<Film>> map = new HashMap<>();
+		ArrayList<Film> rec = new ArrayList<>();
+		ArrayList<Integer> genre = new ArrayList<>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			if ((i + 1) != list.size()
+					&& (list.get(i).getGenreId() == list.get(i + 1).getGenreId())) {
+				// System.out.println((list.get(i).getGenreId() == list.get(i + 1).getGenreId()));
+				rec.add(list.get(i));
+			} else {
+				genre.add(list.get(i).getGenreId());
+				rec.add(list.get(i));
+				map.put(list.get(i).getGenreId(), rec);
+				rec = new ArrayList<Film>();
+			}
+		}
+		rec = null;
+		
+		mv.addObject("genre1", map.get(genre.get(0)))
+			.addObject("genre2", map.get(genre.get(1)))
+			.addObject("genre3", map.get(genre.get(2)))
+			.addObject("page", page)
+			.addObject("count", liked)
+			.setViewName("film/rec");
+		
+		return mv;
+	}
+	
+	@RequestMapping("moreRec.do")
+	public void moreRec(HttpSession session, HttpServletResponse response,
+											@RequestParam(value="page", defaultValue = "1") int page)
+		throws JsonIOException, IOException {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+
+		HashMap<String, Object> map = new HashMap<>();
+		
+		// 페이지 계산
+		int listCount = 1;
+		if (loginUser != null) {
+			listCount = filmService.selectLikedFilmCount(loginUser.getId());
+		}
+		page++;
+		PageInfo pi = Pagination.getPageInfo(page, listCount);
+		pi.setPageLimit(3);
+		pi.setBoardLimit(5);
+		
+		map.put("page", page);
+		
+		// RowBounds 포함 좋아요한 영화 목록 조회 AJAX
+		ArrayList<Film> list = null;
+		if (loginUser != null) {
+			list = filmService.selectLikedFilmList(loginUser.getId(), pi);
+		}
+		map.put("list", list);
+
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new Gson();
+		gson.toJson(map, response.getWriter());
+	}
 	
 	
 	

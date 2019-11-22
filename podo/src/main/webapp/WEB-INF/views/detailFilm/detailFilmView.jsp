@@ -65,7 +65,7 @@
     #likeBtn{
         top:90%;
     }
-    #modifyBtn{
+    #modifyBtn, #rollbackBtn{
         top:90%;
         left:90%;
     }
@@ -110,10 +110,11 @@
                 <div id="muteYouTubeVideoPlayer"></div>
             </div>
         </div>
-    
+    	<hr>
         <div class="movie_info">
-            <div class="movie_poster_cover">    <!-- 왼쪽 영화 포스터 -->
-
+        	<!-- 왼쪽 영화 포스터 -->
+            <div class="movie_poster_cover">
+            
                 <div class="icon" id="collection">   <!-- 콜렉션 -->
                     <img id="plus" src="resources/detailFilmImage/plus.jpg" onclick="#" style="width:30px; height:30px;">
                 </div>
@@ -125,13 +126,14 @@
                 <div class="icon" id="modifyBtn">    <!-- 수  정 -->
                     <img id="memo" src="resources/detailFilmImage/modifyBtn.jpg" onclick="#" style="width:30px; height:30px;">
                 </div>
-                <div id="movie_poster"> <!-- 포스터 -->
-                	
+                
+                <div id="movie_poster"> <!-- 포스터 -->	
                     <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
                 </div>
 
             </div>
-            <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
+            <!-- 오른쪽 영화 정보 -->
+            <div class="movie_info_cover">
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
@@ -152,15 +154,21 @@
                     </div>
                     
                     <c:if test="${ loginUser.id ne null }">
+                    	<div class="cover" id="rollbackBtn">
+                    		<a href="#">되돌리기</a>
+                    	</div>
+                    </c:if>
+                    
+                    <c:if test="${ loginUser.id ne null }">
 	                    <div class="cover" id="modifyBtn">
-	                    	<a href="detailFilmUpdate.do?id=${ df.id }">정보 수정
+	                    	<a href="detailFilmUpdate.do?filmId=${ df.filmId }">정보 수정
 	                    </div>
 	                </c:if>
                 </div>
             </form>
             </div>
         </div>
-        <hr>
+        <br>
 	    <div><a href="#">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
         <c:forEach items="${ rl }" var="r">
 	        <div class="review">
@@ -176,11 +184,20 @@
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script async src="https://www.youtube.com/iframe_api"></script>
 	<script type="text/javascript">
+		
+		// 예고편 절단
+		var trailer = "${df.trailer}";
+		var trSplit = trailer.split('=');
+		var trailer1 = trSplit[1];
+		
 		var player;
 		
         function onYouTubePlayerAPIReady(){
+				console.log(trailer1);
 			player = new YT.Player('muteYouTubeVideoPlayer', {
-				videoId : 'x60mB0zXZ38',
+				
+				//videoId : 'x60mB0zXZ38',
+				videoId : trailer1,
 				playerVars : {
 					autoplay : 1, 		// Auto-play the video on load
 					controls : 0, 		// Show pause/play buttons in player
@@ -193,7 +210,7 @@
 					showinfo : 0, 		// Hide the video title
 					modestbranding : 1, // Hide the Youtube Logo
 					loop : 1, 			// Run the video in a loop
-					playlist : 'x60mB0zXZ38',
+					playlist : trailer1,
 					fs : 0, 			// Hide the full screen button
 					cc_load_policy : 0, // Hide closed captions
 					iv_load_policy : 3, // Hide the Video Annotations

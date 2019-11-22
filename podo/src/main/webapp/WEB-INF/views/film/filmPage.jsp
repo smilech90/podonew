@@ -76,32 +76,7 @@
 			.star-input>.input>label:hover ~label{
 				background-image: none;
 			}
-			/*
-			.star-input>.input>label[for="p1"] {
-				width: 30px;
-				z-index: 5;
-			}
 			
-			.star-input>.input>label[for="p2"] {
-				width: 60px;
-				z-index: 4;
-			}
-			
-			.star-input>.input>label[for="p3"] {
-				width: 90px;
-				z-index: 3;
-			}
-			
-			.star-input>.input>label[for="p4"] {
-				width: 120px;
-				z-index: 2;
-			}
-			
-			.star-input>.input>label[for="p5"] {
-				width: 150px;
-				z-index: 1;
-			}
-			*/
 			.star-input>output {
 				display: inline-block;
 				width: 60px;
@@ -203,7 +178,7 @@
 								$releaseTd = $("<td></td>").text(value.releaseYear);
 								$countryTd = $("<td></td>").text(value.productionCountry);
 								$genreTd = $("<td></td>").text(value.genre);
-								$posterTd = $("<td></td>").html("<img src='http://placehold.it/107x152'>");
+								$posterTd = $("<td></td>").html("<img src='resources/detailFilmImage/podoposter.jpg' style='width: 107px; height: 152px; object-fit: cover;'>");
 								
 								// 좋아요한 영화인지 검사
 								if (like[value.id] != null) {

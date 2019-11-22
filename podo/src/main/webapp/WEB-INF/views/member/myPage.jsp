@@ -18,10 +18,25 @@
 	}
 	.nickok{color:blue;}
 	.nickno{color:red;}
+	.originguide{
+		display:none;
+		font-size:12px;
+		top:12px;
+		right:10px;
+	}
+	.oriok{color:blue;}
+	.orino{color:red;}
+	
+
 </style>
 </head>
 <body>
+
 	<jsp:include page="../common/header.jsp"/>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
 	<section class="blog-post-area section-margin">
 		<div class="container">
@@ -48,46 +63,34 @@
 									<!-- 	<a href="memberUpdateForm.do" class="btn-reply text-uppercase" style="background:purple; color:white;">정보수정</a>  -->
 								</div>
 							</div>
+							<br><br>
+							<div style='border:1px solid lightgray'></div><br>
+							
+							<!-- 하단 탭 부분 -->
+							<div role="tabpanel">
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs" role="tablist" id="tabs">
+									<li role="presentation" class="active"><a href="#review" aria-controls="review" role="tab" data-toggle="tab" >리뷰</a></li>
+									<li role="presentation"><a href="#collection" aria-controls="collection" role="tab" data-toggle="tab">컬렉션</a></li>
+									<li role="presentation"><a href="#like" aria-controls="like" role="tab" data-toggle="tab">좋아요</a></li>
+									<li role="presentation"><a href="#qu" aria-controls="qu" role="tab" data-toggle="tab">문의</a></li>
+								</ul>
+								
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<div role="tabpanel" class="tab-pane active" id="review">안녕<br>안녕</div>
+									<div role="tabpanel" class="tab-pane" id="collection">혜은이 바보</div>
+									<div role="tabpanel" class="tab-pane" id="like">좋아요지롱</div>
+									<div role="tabpanel" class="tab-pane" id="qu">문의사항이지랑</div>
+								</div>
+							</div>
+							<!-- 탭 부분 끝 -->
 						</div>	
-					</div>
-				</div>
-			
-				<!-- 카테고리 -->
-				<div class="col-lg-4 sidebar-widgets">
-					<div class="widget-wrap">
-						<div class="single-sidebar-widget post-category-widget">
-							<h4 class="single-sidebar-widget__title">${ loginUser.nickName }의 CATEGORY</h4>
-							<ul class="cat-list mt-20">
-								<li>
-									<a href="#" class="d-flex justify-content-between">
-										<p>리뷰</p>
-									</a>
-								</li>
-								<li>
-									<a href="#" class="d-flex justify-content-between">
-										<p>콜렉션</p>
-									</a>
-								</li>
-								<li>
-									<a href="#" class="d-flex justify-content-between">
-										<p>좋아요</p>
-									</a>
-								</li>
-								<li>
-									<a href="#" class="d-flex justify-content-between">
-										<p>문의</p>
-									</a>
-								</li>
-							</ul>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-  
-  
-  
   
 	<!-- 정보수정 모달 -->
 	<hr style="margin: 0;">
@@ -105,6 +108,12 @@
 					<form action="updateMember.do" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="id" value="${ loginUser.id }">
 						<input type="hidden" name="pwd" value="${ loginUser.pwd }">
+						<input type="hidden" name="enrollDate" value="${ loginUser.enrollDate }">
+						<input type="hidden" name="modifyDate" value="${ loginUser.modifyDate }">
+						<input type="hidden" name="googleId" value="${ loginUser.googleId}">
+						<input type="hidden" name="kakaoId" value="${ loginUser.kakaoId }">
+						<input type="hidden" name="autho" value="${ loginUser.autho }">
+						<input type="hidden" name="updatePwd" value="">
 						<div class="form-group">
 							<label for="userId">Email address</label>
 							<input type="email" class="form-control" id="userId" name="email" value="${ loginUser.email }" readonly>
@@ -136,7 +145,6 @@
 		</div>
 	</div>
 
-
 	<!-- 비밀번호 변경 모달 -->
 	<hr style="margin: 0;">
 	<div class="modal fade" id="updatePwdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -153,6 +161,13 @@
 					<form action="updateMember.do" method="post">
 						<input type="hidden" name="id" value="${ loginUser.id }">
 						<input type="hidden" name="pwd" value="${ loginUser.pwd }">
+						<input type="hidden" name="image" value="${ loginUser.image }">
+						<input type="hidden" name="nickName" value="${ loginUser.nickName }">
+						<input type="hidden" name="enrollDate" value="${ loginUser.enrollDate }">
+						<input type="hidden" name="modifyDate" value="${ loginUser.modifyDate }">
+						<input type="hidden" name="googleId" value="${ loginUser.googleId}">
+						<input type="hidden" name="kakaoId" value="${ loginUser.kakaoId }">
+						<input type="hidden" name="autho" value="${ loginUser.autho }">
 						<div class="form-group">
 							<label for="userId">Email address</label>
 							<input type="email" class="form-control" id="userId" name="email" value="${ loginUser.email }" readonly>
@@ -160,10 +175,13 @@
 						<div class="form-group">
 							<label for="originPwd">변경 전 비밀번호</label>
 							<input type="password" class="form-control" id="originPwd" name="originPwd">
-							<label for="newPwd">변경 후 비밀번호</label>
-							<input type="password" class="form-control" id="newPwd" name="newPwd">
-							<label for="newPwd2">변경 후 비밀번호 확인</label>
-							<input type="password" class="form-control" id="newPwd2">
+							<span class="originguide oriok">일치</span>
+							<span class="originguide orino">불일치</span>
+							<input type="hidden" id="originPwdCheck" value="0"><br>
+							<label for="updatePwd">변경 후 비밀번호</label>
+							<input type="password" class="form-control" id="updatePwd" name="updatePwd">
+							<label for="updatePwd2">변경 후 비밀번호 확인</label>
+							<input type="password" class="form-control" id="updatePwd2">
 						</div>
 						<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -177,7 +195,15 @@
 	</div>
 	
 
+
 	<script>
+		$(function(){
+			$('li').click(function () {
+				$('li').removeAttr('class', 'active');
+				$(this).attr('class', 'active');
+			})
+	
+		});
 		// 회원정보 수정, 비밀번호 변경 시 알럴트창
 		$(function(){
 			if("${msg.equals('')}"){
@@ -192,6 +218,7 @@
 			});
 		});
 		
+		// 회원정보 업데이트 버튼 클릭 시 
 		function validate(){
 			// 미입력
 			if($("#userNickName").val().length == 0){	
@@ -201,24 +228,16 @@
 			}else{	
 				return true;
 			}
-			
-			// 닉네임 중복체크
-			if($("#nickCheck").val() == 0){	// 닉네임 사용불가
-				alert("닉네임을 확인해 주세요.");
-				$("#nickName").focus();
-				return false;
-			}else{	// 닉네임사용가능
-				return true;
-			}
 		}
 		
+		// 닉네임 중복 체크
 		$(function(){
 			$("#userNickName").on("keyup", function(){
 				var nickName = $("#userNickName").val();
 				
 				if(nickName.length < 1){
 					$(".nickguide").hide();
-					$(".nickCheck").val(0);
+					$("#nickCheck").val(0);
 					return;
 				}
 			
@@ -244,9 +263,6 @@
 			});
 		});
 		
-		
-		
-		
 		// 비밀번호 변경 모달창
 		$(function(){
 			$("#updatePwd-modal").on("click", function(){
@@ -254,16 +270,69 @@
 			});
 		});
 		
+		// 변경 전 비밀번호 일치 여부
+		$(function(){
+			$("#originPwd").on("keyup", function(){
+				var originPwd = $("#originPwd").val();
+				var email = "${loginUser.email}";
+				var pwd = "{loginUser.pwd}";
+				
+				console.log(originPwd);
+				console.log(email);
+				
+				if(originPwd.length < 1){
+					$(".originguide").hide();
+					$("#originPwdCheck").val(0);
+					return;
+				}
+			
+				$.ajax({
+					url:"originPwdCheck.do",
+					data:{originPwd:originPwd,
+							email:email,
+							pwd:pwd},
+					type:"post",
+					success:function(data){
+						console.log(data);
+						if(data == "success"){
+							$(".orino").hide();
+							$(".oriok").show();
+							$("#originPwdCheck").val(1);
+						}else{
+							$(".oriok").hide();
+							$(".orino").show();
+							$("#originPwdCheck").val(0);
+						}
+					},error:function(){
+						console.log("비밀번호 변경전 ajax 통신 실패");
+					}
+				});
+			});
+		});
 		
-		
-		// 비밀번호 변경 시 변경 후 비밀번호 일치 여부		
-		function validate(){
-			if($("#newPwd").val() != $("#newPwd2").val()){
-				alert("비밀번호가 일치하지 않습니다.");
-				$("#newPwd").val("");
-				$("#newPwd2").val("");
-				$("#newPwd").focus();
+		// 비밀번호 변경 버튼 클릭 시 변경 후 비밀번호 일치 여부		
+		function pwdValidate(){
+			// 미입력
+			if($("#updatePwd").val().length == 0 || $("#updatePwd2").val().length == 0 || $("#originPwdCheck").val().length == 0){	
+				alert("비밀번호를 입력해주세요.")
+				$("#userNickName").focus();
 				return false;
+				
+			}else if($("#updatePwd").val() != $("#updatePwd2").val()){
+				alert("비밀번호가 일치하지 않습니다.");
+				$("#updatePwd").val("");
+				$("#updatePwd2").val("");
+				$("#updatePwd").focus();
+				return false;
+				
+			}else if($("#originPwdCheck").val() == 0){
+				alert("변경 전 비밀번호가 일치하지 않습니다.");
+				$("#originPwd").val("");
+				$("#originPwd").focus();
+				return false;
+				
+			}else{
+				return true;
 			}
 		}
 		
@@ -297,5 +366,8 @@
 			$("#imgInp").click();
 		});
 	</script>
+	
+		
+	
 </body>
 </html>

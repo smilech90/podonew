@@ -14,7 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="ratingDirect" column="RATING_DIRECT"/>
 		<result property="titleKor" column="TITLE_KOR"/>
 	 	<result property="userImage" column="IMAGE"/>
-		
+	 	<result property="modifyDate" column="MODIFY_DATE"/>
+	 	<result property="createDate" column="CREATE_DATE"/>
+	 	<result property="star" column="star"/>
+	 	<result property="content" column="content"/>
+	 	
+		<!-- <result property="posterImage" column=""/> 요기도 컬럼 수정된거써야함 -->
 	</resultMap>
 	
 
@@ -25,9 +30,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join tb_rating_review rr on (rr.review_id = r.id)
 		left join TB_FILM f on (r.film_id = f.id)
         left join tb_member m on(r.member_id = m.id)
+        left join tb_rating_film rf on(r.film_id=rf.id)
         where r.id=#{r.id}
 	</select>
 
+	<update id="reviewUpdate">
+		update tb_rating_review
+		set rating_Sound=#{ratingSound},rating_Visual=#{ratingVisual},rating_Acting=#{ratingActing},rating_Pop=#{ratingPop},rating_Script=#{ratingScript},rating_Direct=#{ratingDirect}
+		where id=#{id}
+	</update>
 
 
 

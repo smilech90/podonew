@@ -20,7 +20,10 @@ public class Film {
 	private String releaseYear;
 	private String productionCountry;
 	private String productionStatus;
+	private int genreId;
 	private String genre;
+	private double avgStarRating;
+	private String poster;
 	
 	private String originalFileName;
 	private String renameFileName;

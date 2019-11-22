@@ -1,7 +1,6 @@
 package com.ch.podo.film.model.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
-import com.ch.podo.like.model.vo.Like;
-import com.ch.podo.ratingFilm.model.vo.RatingFilm;
 
 @Repository("filmDao")
 public class FilmDao {
@@ -82,5 +79,19 @@ public class FilmDao {
 	}
 	
 
+
+	public int selectLikedFilmCount(int id) {
+		return sqlSession.selectOne("filmMapper.selectLikedFilmCount", id);
+	}
+
+	public ArrayList<Film> selectLikedFilmList(int id, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("filmMapper.selectLikedFilmList", id, rowBounds);
+	}
+
+	public ArrayList<Film> selectPreferredGenreFilmList(int id) {
+		return (ArrayList)sqlSession.selectList("filmMapper.selectPreferredGenreFilmList", id);
+	}
 
 }

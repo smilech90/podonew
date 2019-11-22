@@ -37,7 +37,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateMember(Member mem) {
-		// TODO Auto-generated method stub
 		return memberDao.updateMember(mem);
 	}
 
@@ -56,6 +55,7 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> selectMemberList(PageInfo pi) {
 		return memberDao.selectMemberList(pi);
 	}
+
 
 
 }

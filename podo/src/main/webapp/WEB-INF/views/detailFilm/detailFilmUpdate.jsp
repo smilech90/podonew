@@ -114,14 +114,15 @@
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
             <form action="detailFilmInsert.do" method="post">
-            <input type="hidden" name="id" value="${ df.id }">
-            <input type="hidden" name="detailId" value="${ df.detailId }">
-            <input type="hidden" name="filmImage" value="${ i.changeName }">            
+            <input type="hidden" name="id" value="${ df.id }">	<!-- 영화 상세 정보 번호 -->
+            <input type="hidden" name="filmId" value="${ df.filmId }"> <!-- 영화 번호  -->
+            
+            <input type="hidden" name="filmImage" value="${ i.changeName }">
             <input type="hidden" name="uId" value="${ loginUser.id }">
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
-	                    <textarea class="movie_clip" name="trailer" rows="2" cols="40">${ df.trailer }</textarea>
+	                    <textarea class="movie_clip" name="trailer" placeholder="유튜브 링크를 연결해주세요!" rows="2" cols="40">${ df.trailer }</textarea>
                 	</div>
                     <div class="cover" id="sysnobsis_cover">
    	                	<div name="director">감독 : ${ df.director }</div>

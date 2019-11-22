@@ -25,6 +25,15 @@ public interface FilmService {
 	ArrayList<Film> selectFilterFilmList(Film film);
 	ArrayList<Film> selectFilterFilmMap(Map<String, Object> map);
 	
+	// 6. 사용자가 좋아요 누른 영화 목록 개수 조회
+	int selectLikedFilmCount(int id);
+
+	// 7. 사용자가 좋아요 누른 영화 목록 조회
+	ArrayList<Film> selectLikedFilmList(int id, PageInfo pi);
+	
+	// 8. 좋아요를 기반으로 한 선호 장르 List 데이터 조회
+	ArrayList<Film> selectPreferredGenreFilmList(int id);
+	
 	
 
 	// 관리자
