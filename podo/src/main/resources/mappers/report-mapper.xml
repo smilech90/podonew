@@ -7,8 +7,9 @@
 		<result property="type" column="type"/>
 		<result property="targetId" column="target_id"/>
 		<result property="content" column="content"/>
-		<result property="reportId" column="report_id"/>
-		<result property="reportedId" column="reported_id"/>
+		<result property="reportName" column="report"/>
+		<result property="reportedName" column="reported"/>
+		
 	</resultMap>
 	
 	
@@ -18,9 +19,13 @@
 	</select>
 	
 	<select id="selectReportList" resultMap="reportResultSet">
-		select *
-		from tb_report
-		order by id desc
+		select r.id, mr.nickname as reported, rm.nickname as report, type, content, target_id
+		from tb_report r
+		join tb_member mr on (r.reported_id = mr.id)
+		join tb_member rm on (r.report_id = rm.id)
 	</select>
+	
+	
+	
 	
 </mapper>
