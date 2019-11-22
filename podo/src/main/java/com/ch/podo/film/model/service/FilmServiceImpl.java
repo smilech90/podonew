@@ -48,6 +48,29 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
+	public int getFilmListCount() {
+		return filmDao.getFilmListCount();
+	}
+
+	@Override
+	public ArrayList<Film> selectFilmList(PageInfo pi) {
+		return filmDao.selectFilmList(pi);
+	}
+	
+	
+	@Override
+	public int insertFilm(Film f) {
+		return filmDao.insertFilm(f);
+	}
+
+	@Override
+	public Film selectFilm(int id) {
+		
+			return filmDao.selectFilm(id);
+		
+	}
+
+	@Override
 	public int selectLikedFilmCount(int id) {
 		return filmDao.selectLikedFilmCount(id);
 	}

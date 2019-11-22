@@ -83,6 +83,31 @@
 		from tb_genre
 	</select>
 	
+	<select id="getFilmListCount" resultType="_int">
+		select count(*)
+		from tb_film
+	</select>
+	
+	<select id="selectFilmList" resultMap="filmResultSet">
+		select *
+		from tb_film
+		order by id
+	</select>
+	
+
+	<insert id="insertFilm">
+		insert into tb_film
+		values(seq_id.nextval, #{title_kor}, #{title_eng}, #{director}, 
+			   #{release_year}, #{production_country}, #{production_status}, #{genre_id})
+	</insert>
+	
+
+	<select id="selectFilm" resultMap="filmResultSet">
+		select * 
+		from tb_film
+		where id=#{id}
+	</select>
+	
 	<select id="selectLikedFilmCount" resultType="_int">
 		select count(*)
 		from tb_film f
