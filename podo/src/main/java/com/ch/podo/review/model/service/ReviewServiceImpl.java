@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ch.podo.film.model.vo.Film;
+import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dao.ReviewDao;
 import com.ch.podo.review.model.vo.Review;
 
@@ -37,6 +38,12 @@ public class ReviewServiceImpl implements ReviewService{
 	public Film selectFilm(int filmId) {
 		
 		return reviewDao.selectFilm(filmId);
+	}
+
+	@Override
+	public Member selectMember(int loginUserId) {
+		
+		return reviewDao.selectMember(loginUserId);
 	}
 
 }

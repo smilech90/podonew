@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.film.model.vo.Film;
+import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.service.ReviewService;
 import com.ch.podo.review.model.vo.Review;
 
@@ -28,7 +29,7 @@ public class ReviewController {
 		
 		mv.addObject("list",list).setViewName("reviewView/reviewList");
 		
-		//System.out.println("리뷰리스트 : "  + list);
+		System.out.println("리뷰리스트 : "  + list);
 		
 		return mv;
 		
@@ -36,12 +37,15 @@ public class ReviewController {
 	
 	//글 쓰기 폼 가기
 	@RequestMapping("reviewWriteForm.do")
-	public ModelAndView reviewWriteView(int filmId, ModelAndView mv) {
+	public ModelAndView reviewWriteView(int loginUserId,int filmId, ModelAndView mv) {
 		
 		Film f = reviewService.selectFilm(filmId);
 		
+		Member m = reviewService.selectMember(loginUserId);
 		
-		mv.addObject("f",f).setViewName("reviewView/reviewWriteForm");
+		
+		
+		mv.addObject("f",f).addObject("m", m).setViewName("reviewView/reviewWriteForm");
 		
 		return mv;
 	}

@@ -3,6 +3,7 @@ package com.ch.podo.review.model.service;
 import java.util.ArrayList;
 
 import com.ch.podo.film.model.vo.Film;
+import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.vo.Review;
 
 public interface ReviewService {
@@ -18,4 +19,7 @@ public interface ReviewService {
 	
 	//영화 제목 가져오는거
 	Film selectFilm(int filmId);
+	
+	//유저 가져오는거
+	Member selectMember(int loginUserId);
 }
