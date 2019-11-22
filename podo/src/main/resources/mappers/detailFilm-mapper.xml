@@ -64,7 +64,6 @@
 		values(seq_fimage_id.nextval, 1, #{filmImage}, seq_dfilm_id.currval)
 	</insert>
 	
-	
 	<!-- 영화 상세정보 보기에서 포스터 불러오기 -->
 	<select id="selectFilmImage" resultMap="filmImage">
 		select rownum, i.*
@@ -87,13 +86,16 @@
 	<update id="updateDetailFilm">
 		update tb_detail_film
 		set status='N'
-		where id=#{id}
-		and status='Y'
-		order by insertdate desc
-		
-		update tb_detail_film
-		set status='N'
-		where id=78;
+		where id = (select  m.id
+		            from (select df.id, df.film_id, title_kor, title_eng, director, a.name, trailer, synopsys, trivia
+		                  from tb_film f
+		               	  left join tb_detail_film df on(df.film_id = f.id)
+		                  left join tb_film_actor fa on(df.id = fa.dfilm_id)
+		                  left join tb_actor a on(fa.actor_id = a.id)
+		                  where f.id = 4
+		                  and df.status='Y'
+		                  order by df.insertdate desc) m
+		            where rownum = 1)
 	</update>
 	
 </mapper>

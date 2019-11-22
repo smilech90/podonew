@@ -59,5 +59,26 @@ public class DetailFilmDao {
 		return sqlSession.insert("detailFilmmapper.filmImageInsert", map);
 	}
 	
-	
+	// 상세정보 롤백
+	public int detailFilmRollback(int id) {
+		
+		return sqlSession.update("detailFilmmapper.updateDetailFilm", id);
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
