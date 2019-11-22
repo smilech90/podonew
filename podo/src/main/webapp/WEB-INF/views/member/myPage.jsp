@@ -99,15 +99,15 @@
 									<!-- 	<a href="memberUpdateForm.do" class="btn-reply text-uppercase" style="background:purple; color:white;">정보수정</a>  -->
 								</div>
 							</div>
-							<br><br>
+							<br><br>	
 							<div style='border:1px solid lightgray'></div><br>
 							
 							<div id="container">
 								<ul class="tab">
-									<li class="current" data-tab="tab1"><a href="myPageSelectReview.do?id=${ loginUser.id }">Review</a></li>
-									<li data-tab="tab2"><a href="myPageSelectCollection.do?id=${ loginUser.id }">Collection</a></li>
-									<li data-tab="tab3"><a href="myPageSelectLike.do?id=${ loginUser.id }">Like</a></li>
-									<li data-tab="tab4"><a href="myPageSelectQuestion.do?id=${ loginUser.id }">Question</a></li>
+									<li class="current" data-tab="tab1"><a href="#">Review</a></li>
+									<li data-tab="tab2"><a href="#">Collection</a></li>
+									<li data-tab="tab3"><a href="#">Like</a></li>
+									<li data-tab="tab4"><a href="#">Question</a></li>
 								</ul>
 						
 								<div id="tab1" class="tabcontent current"><br>
@@ -242,6 +242,40 @@
 
 
 	<script>
+	/* 
+		$(function(){
+			$("#container ul>li").on("click", function(){
+				var tabMenu = $(this).text();
+				var strId = "${loginUser.id}";
+				var strUrl = "";
+				if(tabMenu.equals("Review")){
+					strUrl="myPageSelectReview.do";
+				}else if(tabMenu.equals("Collection")){
+					strUrl="myPageSelectCollection.do";
+				}else if(tabMenu.equals("Like")){
+					strUrl="myPageSelectLike.do";
+				}else if(tabMenu.equals("Question")){
+					strUrl="myPageSelectQuestion.do";
+				}
+				
+				$.ajax({
+					url:strUrl,
+					data:{id:strId},
+					type:"post",
+					success:function(data){
+						console.log(data);
+						if(date==success){
+							
+						}
+					},error:function(){
+						console.log("탭메뉴 ajax 통신 실패");
+					}
+					
+				});
+			});
+		});
+	 	*/
+		// 탭메뉴 관련 
 		$(function() {
 			$('ul.tab li').click(function() {
 				var activeTab = $(this).attr('data-tab');
