@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>PoDo_MyPage</title>
 
 <style>
 	#imgInp{display:none}
@@ -27,48 +27,47 @@
 	.oriok{color:blue;}
 	.orino{color:red;}
 	.modal-dialog{z-index:2000;}
-	
-	
-	body{
-  margin-top: 100px;
-  font-family: 'Trebuchet MS', serif;
-  line-height: 1.6
-}
-.container{
-  width: 500px;
-  margin: 0 auto;
-}
- 
- 
- 
-ul.tabs{
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-}
-ul.tabs li{
-  background: none;
-  color: #222;
-  display: inline-block;
-  padding: 10px 15px;
-  cursor: pointer;
-}
- 
-ul.tabs li.current{
-  background: #ededed;
-  color: #222;
-}
- 
-.tab-content{
-  display: none;
-  background: #ededed;
-  padding: 15px;
-}
- 
-.tab-content.current{
-  display: inherit;
-}
-
+	/* 탭메뉴  */
+	#container {
+		width:730px;
+		margin:0 auto;
+		/* text-align:center */;
+	}
+	.tab {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+	}
+	/* Float the list items side by side */
+	.tab li {
+		float: left;
+	}
+	/* Style the links inside the list items */
+	.tab li a {
+		display: inline-block;
+		color: #000;
+		text-align: center;
+		text-decoration: none;
+		padding: 14px 16px;
+		font-size: 17px;
+		transition:0.3s;
+	}
+	/* Style the tab content */
+	.tabcontent {
+		display: none;
+		background-color:rgb(230, 204, 255);
+		padding: 6px 12px;
+		color:#fff;
+	}
+	ul.tab li.current{
+		background-color: rgb(230, 204, 255);
+		color: #222;
+	}
+	.tabcontent.current {
+		display: block;
+	}
+	/* --------------------- 탭메뉴 끝 ---------------------  */
 </style>
 </head>
 <body>
@@ -95,53 +94,42 @@ ul.tabs li.current{
 									</div>
 								</div>
 								<div class="reply-btn">
-									<a id="update-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:purple; color:white;">정보수정</a>
-									<a id="updatePwd-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:purple; color:white;">비밀번호 변경</a>
+									<a id="update-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); text-align:center;color:white;">정보수정</a>
+									<a id="updatePwd-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); color:white;">비밀번호 변경</a>
 									<!-- 	<a href="memberUpdateForm.do" class="btn-reply text-uppercase" style="background:purple; color:white;">정보수정</a>  -->
 								</div>
 							</div>
 							<br><br>
 							<div style='border:1px solid lightgray'></div><br>
 							
-							<div class="container">
- 
-  <ul class="tabs">
-    <li class="tab-link current" data-tab="tab-1">메뉴_하나</li>
-    <li class="tab-link" data-tab="tab-2">메뉴_둘</li>
-    <li class="tab-link" data-tab="tab-3">메뉴_셋</li>
-  </ul>
- 
-  <div id="tab-1" class="tab-content current">
----- ---- -------- ---- ---- ---- ---- ---- ---- -------- ---- ---- ---- ---- 
-  </div>
-  <div id="tab-2" class="tab-content">
----- ---- ★------ ---- ---- ---- ------ ---- ★-- ---- ----- ----
-  </div>
-  <div id="tab-3" class="tab-content">
----- ★-- -------- ---- ---- ---- -★- ---- ---- ------- ---- --★ -------- ★-- -------
-  </div>
- 
-</div>
-							
-							<!-- 하단 탭 부분 -->
-							<div role="tabpanel">
-								<!-- Nav tabs -->
-								<ul class="nav nav-tabs" role="tablist" id="tabs">
-									<li role="presentation" class="active"><a href="#review" aria-controls="review" role="tab" data-toggle="tab" >리뷰</a></li>
-									<li role="presentation"><a href="#collection" aria-controls="collection" role="tab" data-toggle="tab">컬렉션</a></li>
-									<li role="presentation"><a href="#like" aria-controls="like" role="tab" data-toggle="tab">좋아요</a></li>
-									<li role="presentation"><a href="#qu" aria-controls="qu" role="tab" data-toggle="tab">문의</a></li>
+							<div id="container">
+								<ul class="tab">
+									<li class="current" data-tab="tab1"><a href="myPageSelectReview.do?id=${ loginUser.id }">Review</a></li>
+									<li data-tab="tab2"><a href="myPageSelectCollection.do?id=${ loginUser.id }">Collection</a></li>
+									<li data-tab="tab3"><a href="myPageSelectLike.do?id=${ loginUser.id }">Like</a></li>
+									<li data-tab="tab4"><a href="myPageSelectQuestion.do?id=${ loginUser.id }">Question</a></li>
 								</ul>
-								
-								<!-- Tab panes -->
-								<div class="tab-content">
-									<div role="tabpanel" class="tab-pane active" id="review">안녕<br>안녕</div>
-									<div role="tabpanel" class="tab-pane" id="collection">혜은이 바보</div>
-									<div role="tabpanel" class="tab-pane" id="like">좋아요지롱</div>
-									<div role="tabpanel" class="tab-pane" id="qu">문의사항이지랑</div>
+						
+								<div id="tab1" class="tabcontent current"><br>
+									<h3>Review</h3><br>
+									<p>리뷰입니당.</p>
+								</div>
+						
+								<div id="tab2" class="tabcontent"><br>
+									<h3>Collection</h3><br>
+									<p>컬렉입니당.</p>
+								</div>
+						
+								<div id="tab3" class="tabcontent"><br>
+									<h3>Like</h3><br>
+									<p>라이크임당.</p>
+								</div>
+						
+								<div id="tab4" class="tabcontent"><br>
+									<h3>Question</h3><br>
+									<p>문의지롱</p>
 								</div>
 							</div>
-							<!-- 탭 부분 끝 -->
 						</div>	
 					</div>
 				</div>
@@ -254,27 +242,16 @@ ul.tabs li.current{
 
 
 	<script>
-	$(document).ready(function(){
-		   
-		  $('ul.tabs li').click(function(){
-		    var tab_id = $(this).attr('data-tab');
-		 
-		    $('ul.tabs li').removeClass('current');
-		    $('.tab-content').removeClass('current');
-		 
-		    $(this).addClass('current');
-		    $("#"+tab_id).addClass('current');
-		  })
-		 
-		})
-
-		$(function(){
-			$('li').click(function () {
-				$('li').removeAttr('class', 'active');
-				$(this).attr('class', 'active');
+		$(function() {
+			$('ul.tab li').click(function() {
+				var activeTab = $(this).attr('data-tab');
+				$('ul.tab li').removeClass('current');
+				$('.tabcontent').removeClass('current');
+				$(this).addClass('current');
+				$('#' + activeTab).addClass('current');
 			})
-	
 		});
+
 		// 회원정보 수정, 비밀번호 변경 시 알럴트창
 		$(function(){
 			if("${msg.equals('')}"){
