@@ -59,14 +59,12 @@
 				<textarea class="form-control" name="content" cols="20" rows="7"></textarea>
 			</div>
 		</div>
+		
 		<!-- 파일 업로드 하는 부분 -->
 		<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">첨부파일</label>
-			<div class="col-sm-4" id="board-content-img">
-				<img id="boardImg" width="300" height="200">
-			</div>
-			<div id="board-file-area">
-				<input type="file" id="boardUploadImg" name="boardUploadImg" onchange="loadImg(this, 1);">
+			<div class="col-sm-4" id="board-file-area">
+				<input type="file" id="board-upload-file" name="board-upload-file">
 			</div>
 		</div>
 		
@@ -79,32 +77,6 @@
 		</div>
 	</form>
 	
-	<script>
-		$(function(){
-			$("#board-file-area").hide();
-			
-			$("#board-content-img").click(function(){
-				$("#boardUploadImg").click();
-			});
-		});
-		
-		// 파일 미리보기
-		function loadImg(value, num){
-			
-			if(value.files && value.files[0]){
-				var reader = new FileReader();
-				
-				reader.onload = function(e){
-					switch(num){
-					case 1 : $("#boardImg").attr("src", e.target.result);
-					break;
-					}
-				}
-				
-				reader.readAsDataURL(value.files[0]);
-			}
-		}
-	</script>
 	
 	<jsp:include page="../common/footer.jsp"/>
 </body>
