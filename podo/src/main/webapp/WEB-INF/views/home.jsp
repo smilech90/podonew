@@ -8,7 +8,7 @@
 	<body>
 		<jsp:include page="common/header.jsp"/>
 		<main class="site-main">
-	    <!--================Hero Banner start =================-->  
+	    <!--================Hero Banner start =================-->
 	    <section class="mb-30px">
 	      <div class="container">
 	        <div class="hero-banner">
@@ -20,9 +20,9 @@
 	        </div>
 	      </div>
 	    </section>
-	    <!--================Hero Banner end =================-->  
-	
-	    <!--================ Blog slider start =================-->  
+	    <!--================Hero Banner end =================-->
+			
+	    <!--================ Blog slider start =================-->
 	    <section>
 	      <div class="container">
 	        <div class="owl-carousel owl-theme blog-slider">
