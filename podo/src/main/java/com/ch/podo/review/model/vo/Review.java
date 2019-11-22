@@ -29,5 +29,7 @@ public class Review {
 	private int likeCount;				// 리뷰 좋아요 갯수
 	private String spoilerCheck;
 	private String status;
+	private int filmId;				// 영화 번호 
+	private int memberId;			// 사용자 번호
 	
 }
