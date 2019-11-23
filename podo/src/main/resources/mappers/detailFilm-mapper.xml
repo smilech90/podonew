@@ -102,6 +102,21 @@
 		            where rownum = 1)
 	</update>
 	
+	<!-- 콜렉션 mapping 값 -->
+	<!-- 번호, 제목, 내용, 좋아요갯수, 신고갯수, 스포일러카운트, 생성일자, 수정일자, 상태값, 공개여부, 작성자번호 -->
+	<insert id="insertCollection">
+		insert into tb_collection
+		values(seq_collection_id.nextval, '샘플 제목', '샘플 내용', default, default, default, sysdate, sysdate, default, default, #{userId})
+	</insert>
+	
+	<!-- 생성한 콜렉션에 영화 추가 -->
+	<!-- 콜렉션 번호, 영화 번호 -->
+	<insert id="insertFilm_Collection">
+		insert into tb_film_collection
+		values(#{collectionId}, #{filmId});
+	</insert>
+	
+	
 </mapper>
 
 
