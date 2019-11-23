@@ -74,7 +74,7 @@
     }
     .review{
         width: 100%;
-        border: 0px solid black;
+        border: 1px solid black;
         height: 40%;
     }
     .cover{
@@ -98,8 +98,13 @@
     #synopsys{
     	border: 0px solid black;
     }
-    .df_review_list{
-    	
+    .df_r_spoilerCheck{
+    	color:red;
+	    cursor:pointer;
+    	display : block;
+    }
+    .df_r_content{
+    	display : none;
     }
 </style>
 <body>
@@ -181,10 +186,20 @@
 		    <div><a href="reviewWriteForm.do?filmId=${df.filmId}&loginUserId=${loginUser.id}">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
 	        <c:forEach items="${ rl }" var="r">
 		        <div class="review">
-		            <div>리뷰</div>
-		            <div>내용 : ${ r.content }</div>
-		            <div>작성자 : ${ r.nickname}</div>
-		            <div>좋아요 : ${ r.likeCount }</div>
+			        <c:if test="${ r.spoilerCheck eq 'Y' }">
+			            <div>리뷰</div>
+			            <div class="df_r_spoContent">
+				            <div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
+				            <div class="df_r_content">내용 : ${ r.content }</div>
+			            </div>
+			        </c:if>
+			        <c:if test="${ r.spoilerCheck eq 'N' }">
+			            <div>리뷰</div>
+			            <div>내용 : ${ r.content }</div>
+			        </c:if>
+			        
+			            <div>작성자 : ${ r.nickname}</div>
+			            <div>좋아요 : ${ r.likeCount }</div>
 		        </div>
 	        </c:forEach>
 	    	</div>
@@ -203,7 +218,6 @@
 		var player;
 		
         function onYouTubePlayerAPIReady(){
-				console.log(trailer1);
 			player = new YT.Player('muteYouTubeVideoPlayer', {
 				
 				//videoId : 'x60mB0zXZ38',
@@ -233,7 +247,16 @@
 				}
 			});
 		}
+        
 	</script>
+	<script>
+		$(document).ready(function(){
+			$(".df_r_spoContent").on("click",function(){
+				$(this).children(".df_r_spoilerCheck").css("display","none");
+	        	$(this).children(".df_r_content").css("display","block");
+			});
+		});
+    </script>
     
     <jsp:include page="../common/footer.jsp"/>
 </body>

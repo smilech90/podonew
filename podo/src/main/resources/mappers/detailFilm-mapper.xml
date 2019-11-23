@@ -22,6 +22,7 @@
 		<result property="nickname" column="nickname"/>
 		<result property="content" column="content"/>
 		<result property="likeCount" column="like_count"/>
+		<result property="spoilerCheck" column="spoiler_check"/>
 	</resultMap>
 	
 	<resultMap id="filmImage" type="Image">
@@ -52,6 +53,7 @@
 		left join tb_review r on(f.id = r.film_id)
 		left join tb_member m on(r.member_id = m.id)
 		where f.id=#{filmId}
+		order by r.id desc
 	</select>
 	
 	<!-- 영화 정보 수정 [시놉시스], [추가 정보], [예고편 링크] 수정하는 부분 insert로 DB에 추가 회원 번호/세션 정보/ 는 어떻게 알지? -->
