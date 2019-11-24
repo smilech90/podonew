@@ -1,9 +1,13 @@
 package com.ch.podo.film.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,13 +18,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
+import com.ch.podo.common.PodoRenamePolicy;
+import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.service.FilmService;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
+import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.like.model.vo.Like;
 import com.ch.podo.member.model.vo.Member;
@@ -43,13 +51,20 @@ public class FilmController {
 	
 	private Logger logger = LoggerFactory.getLogger(FilmController.class);
 	
+	/**
+	 * 키워드 검색
+	 * @param mv
+	 * @param keyword
+	 * @param currentPage
+	 * @return
+	 * @author Changsu Im
+	 */
 	@RequestMapping("skFilm.do")
 	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
 																				@RequestParam(value="currentPage", defaultValue = "1") int currentPage) {
 		int listCount = filmService.selectKeywordFilmListCount(keyword);
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		pi.setPageLimit(3);
-		pi.setBoardLimit(6);
+		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 3, 6);
+		// System.out.println("pi : " + pi);
 		
 		ArrayList<Film> list = filmService.selectKeywordFilmList(keyword, pi);
 		mv.addObject("listCount", listCount)
@@ -60,6 +75,12 @@ public class FilmController {
 		return mv;
 	}
 	
+	/**
+	 * 필름 페이지 이동
+	 * @param model
+	 * @return
+	 * @author Changsu Im
+	 */
 	@RequestMapping("film.do")
 	public String filmPage(Model model) {
 		ArrayList<Genre> genre = filmService.selectAllGenreList();
@@ -67,6 +88,15 @@ public class FilmController {
 		return "film/filmPage";
 	}
 	
+	/**
+	 * 영화 찾기 페이지에서 필터 검색
+	 * @param response
+	 * @param session
+	 * @param film
+	 * @throws JsonIOException
+	 * @throws IOException
+	 * @author Changsu Im
+	 */
 	@RequestMapping("sfFilm.do")
 	public void searchFilterFilm(HttpServletResponse response, HttpSession session, Film film)
 			throws JsonIOException, IOException {
@@ -74,9 +104,13 @@ public class FilmController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
+		// System.out.println("film : " + film);
+		
 		// 옵션으로 검색된 영화 목록
 		ArrayList<Film> filmList = filmService.selectFilterFilmList(film);
 		map.put("film", filmList);
+		
+		// System.out.println("filmList : " + filmList);
 		
 		// 사용자가 좋아요한 영화 목록
 		HashMap<Integer, Like> likeMap = new HashMap<>();
@@ -97,6 +131,16 @@ public class FilmController {
 		gson.toJson(map, response.getWriter());
 	}
 	
+	/**
+	 * 영화 페이지에서 좋아요 서비스
+	 * @param response
+	 * @param session
+	 * @param fid
+	 * @param flag
+	 * @throws JsonIOException
+	 * @throws IOException
+	 * @author Changsu Im
+	 */
 	@RequestMapping("likeFilm.do")
 	public void likeFilm(HttpServletResponse response, HttpSession session, String fid, int flag)
 			throws JsonIOException, IOException {
@@ -118,6 +162,16 @@ public class FilmController {
 		gson.toJson(result, response.getWriter());
 	}
 	
+	/**
+	 * 영화 페이지에서 별점 서비스
+	 * @param response
+	 * @param session
+	 * @param fid
+	 * @param star
+	 * @throws JsonIOException
+	 * @throws IOException
+	 * @author Changsu Im
+	 */
 	@RequestMapping("rateFilm.do")
 	public void rateFilm(HttpServletResponse response, HttpSession session, String fid, String star)
 			throws JsonIOException, IOException {
@@ -152,6 +206,14 @@ public class FilmController {
 		gson.toJson(result, response.getWriter());
 	}
 	
+	/**
+	 * 영화 추천 페이지 이동시 쿼리문으로 추천 영화 불러오기
+	 * @param session
+	 * @param mv
+	 * @param page
+	 * @return
+	 * @author Changsu Im
+	 */
 	@RequestMapping("rec.do")
 	public ModelAndView rec(HttpSession session, ModelAndView mv,
 													@RequestParam(value="page", defaultValue = "1") int page) {
@@ -170,17 +232,19 @@ public class FilmController {
 			liked = filmService.selectLikedFilmCount(loginUser.getId());
 		}
 		
-		HashMap<Integer, ArrayList<Film>> map = new HashMap<>();
+		// System.out.println("list : " + list);
+		// System.out.println("liked : " + liked);
+		
+		HashMap<String, ArrayList<Film>> map = new HashMap<>();
 		ArrayList<Film> rec = new ArrayList<>();
-		ArrayList<Integer> genre = new ArrayList<>();
+		ArrayList<String> genreId = new ArrayList<>();
 		
 		for (int i = 0; i < list.size(); i++) {
 			if ((i + 1) != list.size()
-					&& (list.get(i).getGenreId() == list.get(i + 1).getGenreId())) {
-				// System.out.println((list.get(i).getGenreId() == list.get(i + 1).getGenreId()));
+					&& (list.get(i).getGenreId().equals(list.get(i + 1).getGenreId()))) {
 				rec.add(list.get(i));
 			} else {
-				genre.add(list.get(i).getGenreId());
+				genreId.add(list.get(i).getGenreId());
 				rec.add(list.get(i));
 				map.put(list.get(i).getGenreId(), rec);
 				rec = new ArrayList<Film>();
@@ -188,9 +252,9 @@ public class FilmController {
 		}
 		rec = null;
 		
-		mv.addObject("genre1", map.get(genre.get(0)))
-			.addObject("genre2", map.get(genre.get(1)))
-			.addObject("genre3", map.get(genre.get(2)))
+		mv.addObject("genre1", map.get(genreId.get(0)))
+			.addObject("genre2", map.get(genreId.get(1)))
+			.addObject("genre3", map.get(genreId.get(2)))
 			.addObject("page", page)
 			.addObject("count", liked)
 			.setViewName("film/rec");
@@ -198,6 +262,16 @@ public class FilmController {
 		return mv;
 	}
 	
+	/**
+	 * 영화 추천 페이지에서 더보기 누를 경우 다음 RowBounds 불러오기
+	 * @deprecated
+	 * @param session
+	 * @param response
+	 * @param page
+	 * @throws JsonIOException
+	 * @throws IOException
+	 * @author Changsu Im
+	 */
 	@RequestMapping("moreRec.do")
 	public void moreRec(HttpSession session, HttpServletResponse response,
 											@RequestParam(value="page", defaultValue = "1") int page)
@@ -231,9 +305,13 @@ public class FilmController {
 		gson.toJson(map, response.getWriter());
 	}
 	
-	
-	
-	// 관리자 영화 리스트
+	/**
+	 * 관리자 페이지에서 전체 영화 목록
+	 * @param mv
+	 * @param currentPage
+	 * @return
+	 * @author Changsu Im, Yujeong Choi
+	 */
 	@RequestMapping("flist.do")
 	public ModelAndView filmList(ModelAndView mv, 
 								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
@@ -244,12 +322,59 @@ public class FilmController {
 		
 		ArrayList<Film> list = filmService.selectFilmList(pi);
 		
-		mv.addObject("pi", pi).addObject("list", list)
+		mv.addObject("pi", pi)
+			.addObject("list", list)
 		  .setViewName("admin/filmListView");
 		
 		return mv;
 	}
 	
+	/**
+	 * 영화 등록페이지로 이동
+	 * @param mv
+	 * @return
+	 * @author Changsu Im
+	 */
+	@RequestMapping("finsertForm.do")
+	public ModelAndView finsertForm(ModelAndView mv) {
+		
+		ArrayList<Genre> genre = filmService.selectAllGenreList();
+		mv.addObject("genre", genre)
+			.setViewName("admin/filmInsertForm");
+		
+		return mv;
+	}
+	
+	/**
+	 * 실제로 영화 등록하는 기능
+	 * @param mv
+	 * @param film
+	 * @param df
+	 * @param img
+	 * @param request
+	 * @param file
+	 * @return
+	 * @author Changsu Im
+	 */
+	@RequestMapping("finsert.do")
+	public ModelAndView finsert(ModelAndView mv, Film film, DetailFilm df, Image img, HttpServletRequest request,
+															@RequestParam(value = "uploadFile", required = false) MultipartFile file) {
+		System.out.println("film : " + film);
+		
+		if (!file.getOriginalFilename().equals("")) {
+			String renameFileName = new PodoRenamePolicy().rename(file, request);
+			img.setChangeName(renameFileName);
+		}
+		
+		int result1 = filmService.insertFilm(film);
+//		int result2 = filmService.insertFilmImage(img);
+//		if (result1 > 0 && result2 > 0) {
+//			mv.setViewName("redirect:flist.do");
+//		} else {
+//			mv.setViewName("error/errorPage");
+//		}
 
+		return mv;
+	}
 	
 }

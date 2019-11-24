@@ -21,21 +21,19 @@
 	
 	<table align="center" border="1" cellspacing="0" width="700">
 		<tr>
-			<th>신고번호</th>
-			<th>신고대상자번호</th>
+			<th>NO</th>
+			<th>신고대상자</th>
 			<th>타입</th>
-			<th>대상번호</th>
 			<th>신고내용</th>
-			<th>신고자번호</th>
+			<th>신고자</th>
 		</tr>
 		<c:forEach items="${ list }" var="r">	
 			<tr>
 				<td>${ r.id }</td>
-				<td>${ r.reportedId }</td>
+				<td>${ r.reportedName }</td>
 				<td>${ r.type }</td>
-				<td>${ r.targetId }</td>
 				<td>${ r.content }</td>
-				<td>${ r.reportId }</td>
+				<td>${ r.reportName }</td>
 
 			</tr>
 		</c:forEach>
