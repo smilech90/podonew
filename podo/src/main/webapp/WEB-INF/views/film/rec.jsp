@@ -9,7 +9,19 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
-
+	
+	<section class="recommendation-banner">
+		<div class="container" style="border: solid 1px; height:150px;">
+			<span class="title">영화 추천</span>
+			<br>
+			<c:if test="${ not empty loginUser }">
+				<span class="title">${ loginUser.nickName }님을 위한 포도의 추천 영화</span>
+			</c:if>
+			<c:if test="${ empty loginUser }">
+			</c:if>
+		</div>
+	</section>
+	
 	<section class="blog-post-area section-margin">
 		<div class="container">
 		

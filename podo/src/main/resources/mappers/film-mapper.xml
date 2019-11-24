@@ -50,14 +50,14 @@
 		from tb_film f
 		join tb_genre g on (f.genre_id = g.id)
 		where 1 = 1
-		<if test='releaseYear != ""'>
+		<if test='releaseYear != "all"'>
 			and release_year = #{ releaseYear }
 		</if>
-		<if test='productionCountry != ""'>
+		<if test='productionCountry != "all"'>
 			and production_country = #{ productionCountry }
 		</if>
-		<if test='genre != ""'>
-			and f.genre_id = #{ genre }
+		<if test='genreId != "all"'>
+			and f.genre_id = #{ genreId }
 		</if>
 	</select>
 	
@@ -67,14 +67,14 @@
 		join tb_genre g on (f.genre_id = g.id)
     join tb_like l on (l.target_id = f.id)
 		where user_id = #{ mid }
-		<if test='film.releaseYear != ""'>
+		<if test='film.releaseYear != "all"'>
 			and release_year = #{ film.releaseYear }
 		</if>
-		<if test='film.productionCountry != ""'>
+		<if test='film.productionCountry != "all"'>
 			and production_country = #{ film.productionCountry }
 		</if>
-		<if test='film.genre != ""'>
-			and f.genre_id = #{ film.genre }
+		<if test='film.genreId != "all"'>
+			and f.genre_id = #{ film.genreId }
 		</if>
 	</select>
 	

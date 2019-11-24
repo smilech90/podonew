@@ -55,7 +55,7 @@
 			</td>
 		</tr>
 	</table>
-	
+	<jsp:include page="../common/footer.jsp"/>
 	
 </body>
 </html>

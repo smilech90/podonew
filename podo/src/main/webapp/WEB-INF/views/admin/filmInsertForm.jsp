@@ -18,23 +18,24 @@
 			<tr>
 				<td>장르</td>
 				<td>
-					<input type="checkbox" name="genre" value="드라마">드라마 
-					<input type="checkbox" name="genre" value="액션">액션 
-					<input type="checkbox" name="genre" value="다큐멘터리">다큐멘터리 
-					<input type="checkbox" name="genre" value="스릴러">스릴러 
-					<input type="checkbox" name="genre" value="미스터리">미스터리 
-					<input type="checkbox" name="genre" value="범죄">범죄 
-					<input type="checkbox" name="genre" value="공포">공포 
-					<input type="checkbox" name="genre" value="뮤지컬">뮤지컬 
-					<input type="checkbox" name="genre" value="로맨스">로맨스 
-					<input type="checkbox" name="genre" value="SF">SF 
-					<input type="checkbox" name="genre" value="판타지">판타지 
-					<input type="checkbox" name="genre" value="모험">모험 
-					<input type="checkbox" name="genre" value="코미디">코미디 
-					<input type="checkbox" name="genre" value="가족">가족 
-					<input type="checkbox" name="genre" value="서부극">서부극 
-					<input type="checkbox" name="genre" value="애니메이션">애니메이션 
-					<input type="checkbox" name="genre" value="전쟁">전쟁 
+					<select name="genreId">
+						<option value="">장르별</option>
+						<c:forEach items="${ genre }" var="g">
+							<option value="${ g.id }">${ g.name }</option>
+						</c:forEach>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>포스터</td>
+				<td>
+					<div class="form-group">
+						* 이미지를 삭제하면 기본이미지로 등록됩니다.<br>
+						<img id="preview" src="resources/detailFilmImage/podoposter.jpg" style="width: 107px; height: 152px; object-fit: cover; cursor: pointer;"><br>
+						<button type="button" id="uploadBtn">이미지 변경</button>
+						<button type="button" onclick="fileReset();">이미지 삭제</button><br>
+						<div id="imgArea"><input type='file' id='imgInp' name='poster'></div><br>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -51,7 +52,7 @@
 			</tr>
 			<tr>
 				<td>제작년도</td>
-				<td><input type="month" name="releaseYear"></td>
+				<td><input type="text" name="releaseYear"></td>
 			</tr>
 			<tr>
 				<td>제작국가</td>
@@ -60,8 +61,10 @@
 			<tr>
 				<td>개봉상태</td>
 				<td>
-					<input type="radio" name="productionStatus" value="개봉">개봉 
-					<input type="radio" name="productionStatus" value="개봉예정">개봉예정
+					<input type="radio" id="released" name="productionStatus" value="개봉">
+					<label for="released">개봉</label>
+					<input type="radio" id="releasing" name="productionStatus" value="개봉예정">
+					<label for="releasing">개봉예정</label>
 				</td>
 			</tr>
 			<tr>
@@ -72,7 +75,42 @@
 			</tr>
 		</table>
 	</form>
+	
+	<script>
+		
+		// Author : 혜경한
+		// 이미지 삭제 버튼 클릭 시
+		function fileReset() {
+			$("#imgArea input").remove();
+			$("#preview").attr({'src':'resources/detailFilmImage/podoposter.jpg',
+													'style':'width: 107px; height: 152px; object-fit: cover; cursor: pointer;'});
+			var newInput = "<input type='file' id='imgInp' name='poster'>";
+			$("#imgArea").append(newInput);
+		}
+		
+		// 이미지 미리보기
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#preview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		};
 
+		// 이미지 변경 될 때 마다 이미지 미리보기 함수 실행
+		$(document).on("change", "#imgInp", function() {
+			readURL(this);
+		});
 
+		// 이미지 버튼 클릭 시 인풋창 열리게 (안보이게 해둠)
+		$("#uploadBtn, #preview").on('click', function(e) {
+			e.preventDefault();
+			$("#imgInp").click();
+		});
+	</script>
+	<jsp:include page="../common/footer.jsp"/>
+	
 </body>
 </html>
