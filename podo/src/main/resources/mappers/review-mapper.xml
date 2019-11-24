@@ -87,6 +87,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="autho" column="autho"/>
 	</resultMap>
 	
+	<resultMap type="Review" id="myPageSelectReviewListResultSet">
+		<id property="id" column="id"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="content" column="content"/>
+		<result property="titleKor" column="TITLE_KOR"/>
+		<result property="filmId" column="f_id"/>
+		<result property="status" column="status"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="posterImage" column="change_name"/>
+	</resultMap>
+	
 	<select id="selectReviewList" resultMap="reviewListSet">	
         select *
 		from tb_review r
@@ -146,4 +157,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set rating_Sound=#{ratingSound},rating_Visual=#{ratingVisual},rating_Acting=#{ratingActing},rating_Pop=#{ratingPop},rating_Script=#{ratingScript},rating_Direct=#{ratingDirect}
 		where id=#{id}
 	</update>
+	
+	<select id="myPageReviewListCount" resultType="_int">
+		select count(*)
+		from tb_review
+		where member_id=#{id}
+	</select>
+	
+	<select id="myPageSelectReviewList" resultMap="myPageSelectReviewListResultSet">
+		select member_id, content, title_kor, f.id as f_id, status, modify_date
+		from tb_review 
+		join tb_film f on(film_id = f.id)
+		join (select film_id, change_name
+		from tb_detail_film df
+		join tb_film_image i on(i.dfilm_id = df.id))b on(b.film_id=f.id)
+		where member_id=#{id} and
+		      status='Y'
+		order by modify_date desc;
+	</select>
 </mapper>

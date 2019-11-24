@@ -1,16 +1,24 @@
 package com.ch.podo.detailFilm.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.detailFilm.model.service.DetailFilmService;
+import com.ch.podo.detailFilm.model.vo.Actor;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.review.model.dto.Review;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 
 @Controller
 public class DetailFilmController {
@@ -29,10 +37,13 @@ public class DetailFilmController {
 		// 포스터 이미지
 		Image i = dfService.selectFilmImage(df.getId());
 		
+		// 배우 리스트
+		ArrayList<Actor> al = dfService.selectActorList(filmId);
+		
 		// 리뷰 리스트
 		ArrayList<Review> rl = dfService.selectReivewList(filmId);
 		
-		mv.addObject("df",df).addObject("rl",rl).addObject("i",i).setViewName("detailFilm/detailFilmView");
+		mv.addObject("df",df).addObject("rl",rl).addObject("i",i).addObject("al",al).setViewName("detailFilm/detailFilmView");
 		return mv; 
 	}
 	
@@ -45,10 +56,28 @@ public class DetailFilmController {
 		
 		// 포스터 이미지
 		Image i = dfService.selectFilmImage(df.getId()); 
-		ArrayList<Review> rl = dfService.selectReivewList(filmId);
-		mv.addObject("df",df).addObject("rl",rl).addObject("i",i).setViewName("detailFilm/detailFilmUpdate");
+		
+		// 배우 리스트
+		ArrayList<Actor> al = dfService.selectActorList(filmId);
+		
+		System.out.println("df : "+df);
+		System.out.println("i : "+i);
+		System.out.println("al : "+al);
+		
+		mv.addObject("df",df).addObject("al",al).addObject("i",i).setViewName("detailFilm/detailFilmUpdate");
 		
 		return mv;
+	}
+	
+	// 배우 검색
+	@ResponseBody
+	@RequestMapping(value="searchActorList.do", produces="application/json; charset=UTF-8")
+	public String selectFilmActor(String searchName) {
+		
+		ArrayList<Actor> al = dfService.searchActorList(searchName);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return gson.toJson(al);
 	}
 	
 	// 수정 정보 insert
@@ -56,7 +85,6 @@ public class DetailFilmController {
 	public ModelAndView detailFilmInsert(DetailFilm df, int uId, String filmImage, ModelAndView mv) {
 		
 		// 이미지 저장용 select 한번 더
-		
 		int result = dfService.detailFilmInsert(df, uId);
 		int result2 = dfService.filmImageInsert(filmImage, df.getId());
 		
