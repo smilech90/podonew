@@ -114,24 +114,23 @@
 							
 									<div id="tab1" class="tabcontent current"><br>
 										<!-------------------------- 리뷰 탭메뉴 바디 ------------------------>
-										<section class="blog-post-area section-margin">
+										<section class="blog-post-area section-margin mt-4">
 											<div class="container">
-												<div class="row">	
+												<div class="row">
 													<div class="col-lg-12">
-													
-														<div class="single-recent-blog-post">
-															<div class="thumb">
-																<img class="img-fluid" src="resources/detailFilmImage/안녕베일리.jpg" width="200px" alt="">
-															</div>
-															
+														<div class="single-recent-blog-post" style="height:300px">
 															<div class="details mt-20">
-																<a href="blog-single.html">
-																	<h3>Woman claims husband wants to name baby girl
-																	 after his ex-lover sparking.</h3>
-																</a>
-																<p class="tag-list-inline">Tag: <a href="#">travel</a>, <a href="#">life style</a>, <a href="#">technology</a>, <a href="#">fashion</a></p>
-																<p>Over yielding doesn't so moved green saw meat hath fish he him from given yielding lesser cattle were fruitful lights. Given let have, lesser their made him above gathered dominion sixth. Creeping deep said can't called second. Air created seed heaven sixth created living</p>
-																<a class="button" href="#">Read More <i class="ti-arrow-right"></i></a>
+																<div class="thumb" style="float:left">
+																	<div class="col-lg-12" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
+																		<img class="img-fluid" src="resources/detailFilmImage/안녕베일리.jpg" width="100%" height="100%">
+																	</div>
+																</div>
+																<div style="float:left">
+																	<div style="float:left">
+																		<a href="#"><h3>안녕베일리</h3><br></a>
+																		<p> 베일리야안녕</p>
+																	</div>
+																</div>
 															</div>
 														</div>
 														<!-------------------------- 페이징바 시작 ------------------------>
