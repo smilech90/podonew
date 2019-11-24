@@ -240,7 +240,22 @@ public class MemberController {
 	}
 	
 	
-	
+	// 관리자 블랙 리스트 조회
+	@RequestMapping("blackList.do")
+	public ModelAndView blackList(ModelAndView mv, 
+								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		
+		int listCount = memberService.getBlackListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Member> list = memberService.selectBlackList(pi);
+		
+		mv.addObject("pi", pi).addObject("list", list)
+		  .setViewName("admin/blackListView");
+		
+		return mv;
+	}
 	
 	
 	
