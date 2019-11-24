@@ -11,7 +11,6 @@
     <script type="text/javascript"></script>
 <title>PoDo</title>
 </head>
-
 <style>
     body{
         width:100%;
@@ -149,11 +148,11 @@
                     <div class="cover" id="director_cover">
    	                	<div>감독 : ${ df.director }</div>
                     </div>
-                    
-                    <div class="cover" id="actor_cover">
-                    	<div>배우 : ${ df.actor }</div>
-                    </div>
-                    
+			        <c:forEach items="${ al }" var="a">
+	                    <div class="cover" id="actor_cover">
+		                   	<div>배우 : ${ a.actorName }</div>
+	    	            </div>
+			        </c:forEach>
                     <div class="cover" id="sysnobsis_cover">
                     	<div id="synopsys">시놉시스 : ${ df.synopsys }</div>
                     </div>
@@ -308,7 +307,6 @@
 			});
 		});
     </script>
-    
     
     <jsp:include page="../common/footer.jsp"/>
 </body>

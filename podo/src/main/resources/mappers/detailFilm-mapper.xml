@@ -34,7 +34,7 @@
 	<resultMap id="selectFilmActorResultSet" type="Actor">
 		<id property="id" column="id"/>
 		<result property="actorName" column="name"/>
-		<result property="actorImage" column="profile_img"/>
+		<result property="profileImage" column="profile_img"/>
 	</resultMap>
 		
 	<!-- 영화 상세 정보 보기  -->
@@ -133,14 +133,22 @@
 		values(#{collectionId}, #{filmId});
 	</insert>
 	
-	
-	<!-- 영화 정보 수정시 배우 리스트  -->
+	<!-- 영화 배우 리스트 -->
 	<select id="selectFilmActor" resultMap="selectFilmActorResultSet">
 		select a.id, a.name, a.profile_img
 		from tb_film_actor fa
 		join tb_actor a on(fa.actor_id=a.id)
 		join tb_detail_film df on(fa.dfilm_id=df.id)
 		where df.film_id=#{filmId}
+	</select>
+	
+	
+	<!-- 검색 배우 리스트  -->
+	<select id="searchActorList" resultMap="selectFilmActorResultSet">
+		select a.name, a.profile_img
+		from tb_film_actor fa
+		join tb_actor a on(fa.actor_id=a.id)
+		where name like '%'||#{searchName}||'%'
 	</select>
 	
 </mapper>
