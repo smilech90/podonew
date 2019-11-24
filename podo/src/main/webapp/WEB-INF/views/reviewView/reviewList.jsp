@@ -62,7 +62,7 @@
               
               <p></p>
           	  <button onclick="location.href='reviewDelete.do?id=${review.id}';">삭제하기</button>
-              <p>${review.nickname }</p>
+              <p>${review.nickName }님이 작성</p>
               <p>${review.createDate }에 작성됨</p>
             </div>
           </div>

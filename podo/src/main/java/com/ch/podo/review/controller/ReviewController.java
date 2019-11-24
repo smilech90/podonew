@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.common.Pagination;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dto.Review;
@@ -101,7 +105,7 @@ public class ReviewController {
 		
 		Review r = reviewService.selectRatingReviewDetailView(id);
 		
-		System.out.println(r);
+		System.out.println("글 리뷰 리스트 조회용: " + r);
 		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
 		
 		
@@ -134,6 +138,7 @@ public class ReviewController {
 		//리뷰 내용 수정
 		
 		
+		
 		if(result>0) {
 			mv.addObject("id", r.getRatingReviewId()).setViewName("redirect:ratingDetailReview.do");
 		}else {
@@ -143,6 +148,22 @@ public class ReviewController {
 	}
 	
 	
+	// 마이페이지 리뷰조회
+	@ResponseBody
+	@RequestMapping("myPageSelectReview.do")
+	public String myPageSelectReview(String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		
+		int listCount = reviewService.myPageReviewListCount(id);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Review> list = reviewService.myPageSelectReviewList(id,pi);
+		
+		System.out.println(list);
+		
+		return "success";
+	}
+
 	
 
 }

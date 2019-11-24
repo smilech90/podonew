@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	
 	<!-- css -->
-	<link rel="icon" href="resources/bootstrap/img/Fevicon.png" type="image/png">
+	<link rel="icon" href="resources/bootstrap/img/favicon.png" type="image/png">
 	<link rel="stylesheet" href="resources/bootstrap/vendors/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" href="resources/bootstrap/vendors/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="resources/bootstrap/vendors/themify-icons/themify-icons.css">
@@ -43,7 +43,7 @@
 	      
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<a class="navbar-brand logo_h" href="home.do">
-						<img src="resources/bootstrap/img/logo.png" alt="" style="width: 80px; height: 80px; object-fit: cover;">
+						<img src="resources/bootstrap/img/logo/logo-transparent-text-lg.png" alt="" style="width: 80px; height: 80px; object-fit: cover;">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -53,7 +53,6 @@
 					
 					<div class="navbar-collapse offset collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav justify-content-center">
-							<li class="nav-item"><a class="nav-link" href="home.do">메인</a></li> 
 							<li class="nav-item"><a class="nav-link" href="film.do">영화</a></li>
 							<li class="nav-item"><a class="nav-link" href="reviewList.do">리뷰</a>
 							<li class="nav-item"><a class="nav-link" href="rec.do">추천</a>

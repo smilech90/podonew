@@ -128,21 +128,21 @@
 		<br>
 		
 		<h3 align="center">
-			<a href="reviewUpdateView.do?id=${r.id}">수정하기</a>
+			<a href="reviewUpdateView.do?id=${r.ratingReviewId}">수정하기</a>
 		</h3>
 	  <section class="blog-post-area section-margin">
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
             <div class="main_blog_details">
-                <img class="img-fluid" src="resources/detailFilmImage/defaultImg.png" alt="">
-            <%-- 이게원래써야함    <img class="img-fluid" src="resources/detailFilmImage/ ${ rr.posterImage }" alt=""> --%>
+              <img class="img-fluid" src="resources/detailFilmImage/${r.posterImage }" alt=""> 
+        <%--     <img class="img-fluid" src="resources/detailFilmImage/${rr.posterImage }" alt=""> --%>
                <h4 align="center">${r.titleKor }</h4>
                 <div class="user_details">
                     <div class="float-left">
                       <div class="media">
                       <div class="media-body">
-                        <h5>${rr.nickName }님</h5>
+                        <h5>${r.nickName }님</h5>
                         <p>${ r.createDate }에 작성</p>
                       </div>
                       <div class="d-flex">
