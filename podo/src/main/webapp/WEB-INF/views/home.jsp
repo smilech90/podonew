@@ -25,6 +25,11 @@
 				height: 360px;
 				object-fit: contain;
 			}
+			#homePoster{
+				width: 200px;
+				height: 200px;
+				margin-left: 80px;
+			}
 			
 		</style>
 	</head>
@@ -68,12 +73,45 @@
 	              <h3><a href="#">${ film.titleKor }</a></h3>
 	              <p>${ film.releaseYear }</p>
 	            </div>
+	            
 	          </div>
      			</c:forEach>
     			</div>
 	      
 			</div>
 		</section>
+		
+		    <section class="blog-post-area section-margin">
+			<div class="container">
+			
+	        	<p align="center">리뷰 리스트</p>
+        <div class="owl-carousel owl-theme blog-slider">
+      		<c:forEach items="${ reviewList }" var="rs">
+	      	<!--================ Blog slider start =================-->
+	          <div class="card blog__slide text-center">
+	            <div class="blog__slide__img">
+	            	<c:choose>
+	            		<c:when test="${ not empty rs.posterImage }">
+			              <img class="card-img rounded-0" src="resources/detailFilmImage/${ rs.posterImage }" alt="" id="homePoster">
+	            		</c:when>
+	            		<c:otherwise>
+			              <img class="card-img rounded-0" src="resources/detailFilmImage/podoposter.jpg" alt="" id="homePoster">
+	            		</c:otherwise>
+	            	</c:choose>
+	            </div>
+	            <div class="blog__slide__content">
+	              <h3><a href="#">${ rs.content }</a></h3>
+	              <p>${ rs.nickName }님 작성</p>
+	              <p>${rs.modifyDate }에 작성</p>
+	            </div>
+	            
+	          </div>
+     			</c:forEach>
+    			</div>
+	      
+			</div>
+		</section>
+		
     <!--================ Blog slider end =================-->  
     
     <div class="row">

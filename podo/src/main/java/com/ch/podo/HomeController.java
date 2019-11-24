@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.film.model.service.FilmService;
 import com.ch.podo.film.model.vo.Film;
+import com.ch.podo.review.model.dto.Review;
+import com.ch.podo.review.model.service.ReviewService;
 
 @Controller
 public class HomeController {
@@ -16,14 +18,18 @@ public class HomeController {
 	@Autowired
 	private FilmService f;
 	
+	@Autowired
+	private ReviewService rs;
+	
 	@RequestMapping("home.do")
 	public ModelAndView home(ModelAndView mv)
 			throws Exception {
 		
 		ArrayList<Film> list = f.selectNewFilms();
-
-		mv.addObject("list", list)
-			.setViewName("home");
+		ArrayList<Review> reviewList = rs.selectReviewList();
+		
+	
+		mv.addObject("list", list).addObject("reviewList", reviewList).setViewName("home");
 
 		return mv;
 	}
