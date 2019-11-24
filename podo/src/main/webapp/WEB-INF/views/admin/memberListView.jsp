@@ -15,13 +15,13 @@
 	<h3 align="center">
 		총 게시글 갯수 : ${ pi.listCount } 페이지 : ${ pi.currentPage } / ${ pi.maxPage } 
 		<button onclick="location.href='rlist.do';">신고관리</button>
-		<button onclick="location.href='black.do';">블랙관리</button>
+		<button onclick="location.href='blackList.do';">블랙관리</button>
 	</h3>
 	
 	
 
 	
-	<table align="center" border="1" cellspacing="0" width="700">
+	<table border="1" style="width:700px;margin:0 auto;">
 		<tr>
 			<th>No</th>
 			<th>회원아이디</th>
@@ -37,8 +37,8 @@
 				<td>${ m.email }</td>
 				<td>${ m.nickName }</td>
 				<td>${ m.enrollDate }</td>
-				<td></td>
-				<td></td>
+				<td>${ m.reportCount }</td>
+				<td>${ m.block }</td>
 				<td>${ m.status }</td>
 
 			</tr>

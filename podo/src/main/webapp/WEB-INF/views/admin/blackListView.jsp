@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +30,12 @@
 		</tr>
 		<c:forEach items="${ list }" var="b">	
 			<tr>
-				<td><input type="checkbox" value="black"></td>
+				<td><input type="checkbox" value="${b.id}" class="checkbox_target" /></td>
 				<td>${ b.id }</td>
 				<td>${ b.email }</td>
 				<td>${ b.blackName }</td>
-				<td>${ b.blackDate }</td>
-				<td></td>
+				<td><fmt:formatDate value="${b.blackDate}" pattern="yyyy.MM.dd HH:mm:ss" /></td>
+				<td><a href="javascript:;" class="btn_unblock" data-id="${b.id}">해제</a></td><!-- data-id : li, el태그에는 data X / 자바스크립트에서 접근할 수 있음-->
 			</tr>
 		</c:forEach>
 		
@@ -78,8 +79,71 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="7" align="right"><button type="">해제</button></td>
+			<td colspan="7" align="right"><a href="javascript:;" id="btn_multi_unblock">해제</a></td>
 		</tr>
 	</table>
+<script>
+$(function() {
+	$('.btn_unblock').click(function() {
+		var param = {
+			blockIds: [$(this).data('id')]
+		};
+		
+		$.ajax({
+			url: '/podo/v1/blacklist/unblock.do',
+			type: 'post',
+			contentType: 'application/json',
+			data: JSON.stringify(param),
+			success: function(data){
+				console.log(data);
+				
+				if (JSON.parse(data)) {
+					location.reload();
+				} else {
+					alert('block 해제에 실패했습니다.');
+				}
+			},
+			error: function(){
+				console.log("아이디 ajax 통신 실패");
+			}
+		});
+	});
+	
+	var $checkboxTarget = $('.checkbox_target');
+	var checkedIds = [];
+	$('#btn_multi_unblock').click(function() {
+		$checkboxTarget.each(function() {
+			var $this = $(this);
+			if ($this.is(':checked')) {
+				checkedIds.push($this.val());
+			}
+		});
+		
+		var param = {
+			blockIds: checkedIds
+				
+		};
+		
+		$.ajax({
+			url: '/podo/v1/blacklist/unblock.do', // API버전
+			type: 'post',
+			contentType: 'application/json',
+			data: JSON.stringify(param),
+			success: function(data){
+				console.log(data);
+				
+ 				if (JSON.parse(data)) {
+					location.reload();
+				} else {
+					alert('block 해제에 실패했습니다.');
+				}
+			},
+			error: function(){
+				console.log("아이디 ajax 통신 실패");
+			}
+		});
+	});
+});
+</script>
 </body>
 </html>
