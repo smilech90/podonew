@@ -105,7 +105,7 @@ public class ReviewController {
 		
 		Review r = reviewService.selectRatingReviewDetailView(id);
 		
-		System.out.println(r);
+		System.out.println("글 리뷰 리스트 조회용: " + r);
 		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
 		
 		
@@ -136,6 +136,7 @@ public class ReviewController {
 		//id, 레이팅6개 점수 뿌리기
 		
 		//리뷰 내용 수정
+		
 		
 		
 		if(result>0) {

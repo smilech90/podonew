@@ -31,8 +31,32 @@
 			<tr>
 				<td>${ r.id }</td>
 				<td>${ r.reportedName }</td>
-				<td>${ r.type }</td>
-				<td>${ r.content }</td>
+				<td>
+					<c:choose>
+					    <c:when test="${  r.type == 1}">
+							리뷰
+					    </c:when>
+					    <c:when test="${  r.type == 2}">
+							댓글
+					    </c:when>
+					    <c:when test="${  r.type == 3}">
+							자유게시판
+					    </c:when>
+					    <c:when test="${  r.type == 4}">
+							컬렉션
+					    </c:when>
+					</c:choose>
+				</td>
+				<td>
+					<c:choose>
+					    <c:when test="${  r.content == 1}">
+							부적절한 내용
+					    </c:when>
+					    <c:when test="${  r.content == 2}">
+							스포일러
+					    </c:when>
+					</c:choose>
+				</td>
 				<td>${ r.reportName }</td>
 
 			</tr>

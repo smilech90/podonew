@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap id="reviewListSet" type="Review">
 		<id property="id" column="id"/>
 		<result property="userImage" column="image"/>
-		<result property="nickname" column="nickname"/>
+		<result property="nickName" column="nickname"/>
 		<result property="titleKor" column="TITLE_KOR"/>
 		<result property="name" column="name"/>
 		<result property="releaseYear" column="RELEASE_YEAR"/>
@@ -32,11 +32,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	<result property="filmId" column="FILM_ID"/>
 	 	<result property="memberId" column="MEMBER_ID"/>
 	 	<result property="posterImage" column="change_name"/>
+	 	<result property="ratingSound" column="RATING_SOUND"/>
+		<result property="ratingVisual" column="RATING_VISUAL"/>
+		<result property="ratingActing" column="RATING_ACTING"/>
+		<result property="ratingPop" column="RATING_POP"/>
+		<result property="ratingScript" column="RATING_SCRIPT"/>
+		<result property="ratingDirect" column="RATING_DIRECT"/>
+		<result property="star" column="star"/>
 	</resultMap>
 	
 	
 	<resultMap id="ratingReviewSet" type="Review">
 		<id property="ratingReviewId" column="id"/>
+		<result property="nickName" column="nickname"/>
+		<result property="name" column="name"/>
 		<result property="ratingSound" column="RATING_SOUND"/>
 		<result property="ratingVisual" column="RATING_VISUAL"/>
 		<result property="ratingActing" column="RATING_ACTING"/>
@@ -49,8 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	<result property="createDate" column="CREATE_DATE"/>
 	 	<result property="star" column="star"/>
 	 	<result property="content" column="content"/>
-	 	
-		<!-- <result property="posterImage" column=""/> 요기도 컬럼 수정된거써야함 -->
+	 	<result property="posterImage" column="change_name"/>
 	</resultMap>
 
 	<resultMap type="Film" id="filmResultSet">
@@ -97,7 +105,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         left join tb_member m on(r.member_id = m.id)
 		left join tb_detail_film df on(r.film_id = df.id)
 		left join tb_film_image fi on(df.film_id = fi.id)
+		left join tb_rating_review rr on(r.film_id=rr.id)
 		left join tb_genre g on(genre_id = g.id)
+        left join tb_rating_film rf on(f.id = rf.id)
 		where r.status='Y'
         order by r.id desc
 	</select>
@@ -130,12 +140,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 합친부분 -->
 	<select id="selectRatingReviewDetailView" resultMap="ratingReviewSet">
-		select *
+        select *
 		from  TB_REVIEW r
 		left join tb_rating_review rr on (rr.review_id = r.id)
 		left join TB_FILM f on (r.film_id = f.id)
         left join tb_member m on(r.member_id = m.id)
         left join tb_rating_film rf on(r.film_id=rf.id)
+        left join tb_detail_film df on(r.film_id = df.id)
+        left join tb_film_image fi on(df.film_id = fi.id)
+        left join tb_genre g on(genre_id = g.id)
         where r.id=#{id}
 	</select>
 

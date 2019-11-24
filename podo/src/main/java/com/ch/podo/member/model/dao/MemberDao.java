@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +48,25 @@ public class MemberDao {
 	}
 	
 	public ArrayList<Member> selectMemberList(PageInfo pi){
-
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 
 		ArrayList<Member> list = (ArrayList)sqlSession.selectList("memberMapper.selectMemberList",null, rowBounds);
+		
+		return list;
+	}
+	
+	
+	public int getBlackListCount() {
+		return sqlSession.selectOne("memberMapper.getBlackListCount");
+	}
+	
+	public ArrayList<Member> selectBlackList(PageInfo pi){
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+
+		ArrayList<Member> list = (ArrayList)sqlSession.selectList("memberMapper.selectBlackList",null, rowBounds);
 		
 		return list;
 	}
