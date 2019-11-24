@@ -68,18 +68,18 @@
 	</select>
 	
 	<select id="selectMemberList" resultMap="memberResultSet">
-		SELECT A.*,
-		        (SELECT CASE WHEN COUNT(B.target_id) >= 1
-		                     THEN 'Y'
-		                     ELSE 'N'
-		                     END
-		          FROM tb_black_member B
-		         WHERE B.target_id = A.id) AS block,
-		        (SELECT COUNT(C.reported_id)
-		          FROM tb_report C
-		         WHERE C.reported_id = A.id) AS report_count
-		  FROM tb_member A
-		 ORDER BY A.id
+		select a.*,
+		        (select case when count(b.target_id) >= 1
+		                     then 'Y'
+		                     else 'N'
+		                     end
+		          from tb_black_member b
+		         where b.target_id = a.id) as block,
+		        (select count(c.reported_id)
+		          from tb_report c
+		         where c.reported_id = a.id) as report_count
+		  from tb_member a
+		 order by a.id
 	</select>
 	
 	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.ratingReview.model.vo.RatingReview;
@@ -67,6 +68,16 @@ public class ReviewServiceImpl implements ReviewService{
 	public int reviewUpdate(Review rr) {
 		
 		return reviewDao.reviewUpdate(rr);
+	}
+
+	@Override
+	public int getReviewListCount() {
+		return reviewDao.getReviewListCount();
+	}
+
+	@Override
+	public ArrayList<Review> selectReviewList(PageInfo pi) {
+		return reviewDao.selectReviewList(pi);
 	}
 
 }
