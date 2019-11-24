@@ -17,7 +17,7 @@ public class Review {
 	
 	private int id;
 	private String userImage;				// 프로필 이미지
-	private String nickname;			// 사용자 닉네임
+	private String nickName;			// 사용자 닉네임
 	private String titleKor;			// 영화 한국 제목 -처란
 	private String name;				// 영화 장르 -처란
 	private String releaseYear;			// 영화 제작 년도 - 처란
@@ -39,7 +39,6 @@ public class Review {
 	private int ratingPop;			//대중성
 	private int ratingScript;		//각본
 	private int ratingDirect;		//연출
-	private String nickName;		//유저 닉네임
 	private int star;				// 영화 별점
 	
 }

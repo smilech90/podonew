@@ -64,9 +64,9 @@ public class ReviewServiceImpl implements ReviewService{
 
 
 	@Override
-	public int reviewUpdate(Review rr) {
+	public int reviewUpdate(Review r) {
 		
-		return reviewDao.reviewUpdate(rr);
+		return reviewDao.reviewUpdate(r);
 	}
 
 }
