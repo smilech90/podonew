@@ -86,6 +86,18 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.myPageSelectReviewList(id, pi);
 	}
 
+<<<<<<< HEAD
 
+=======
+	@Override
+	public int getReviewListCount() {
+		return reviewDao.getReviewListCount();
+	}
+
+	@Override
+	public ArrayList<Review> selectReviewList(PageInfo pi) {
+		return reviewDao.selectReviewList(pi);
+	}
+>>>>>>> branch 'develop' of https://github.com/humormagnate/podo
 
 }

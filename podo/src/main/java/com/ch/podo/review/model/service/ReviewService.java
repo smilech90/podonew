@@ -38,10 +38,18 @@ public interface ReviewService {
 	
 	// 리뷰 6개 점수 수정용 서비스
 	int reviewUpdate(Review r);
-	
+
 	// 마이페이지 _리뷰리스트 카운트
 	int myPageReviewListCount(String id);
 	
 	// 마이페이지_리뷰리스트 조회
 	ArrayList<Review> myPageSelectReviewList(String id, PageInfo pi);
+	
+	
+	// 관리자
+	// 1_1. 게시판 총 갯수 조회용 서비스
+	int getReviewListCount();
+	
+	// 1_2. 현재 페이지에 보여질 리뷰 리스트 조회용 서비스
+	ArrayList<Review> selectReviewList(PageInfo pi);
 }

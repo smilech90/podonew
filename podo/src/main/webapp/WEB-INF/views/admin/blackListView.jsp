@@ -82,68 +82,69 @@
 			<td colspan="7" align="right"><a href="javascript:;" id="btn_multi_unblock">해제</a></td>
 		</tr>
 	</table>
+<!-- 블랙리스트 ajax -->
 <script>
-$(function() {
-	$('.btn_unblock').click(function() {
-		var param = {
-			blockIds: [$(this).data('id')]
-		};
-		
-		$.ajax({
-			url: '/podo/v1/blacklist/unblock.do',
-			type: 'post',
-			contentType: 'application/json',
-			data: JSON.stringify(param),
-			success: function(data){
-				console.log(data);
-				
-				if (JSON.parse(data)) {
-					location.reload();
-				} else {
-					alert('block 해제에 실패했습니다.');
+	$(function() {
+		$('.btn_unblock').click(function() {
+			var param = {
+				blockIds: [$(this).data('id')]
+			};
+			
+			$.ajax({
+				url: '/podo/v1/blacklist/unblock.do', // API버전
+				type: 'post',
+				contentType: 'application/json',
+				data: JSON.stringify(param),
+				success: function(data){
+					console.log(data);
+					
+					if (JSON.parse(data)) {
+						location.reload();
+					} else {
+						alert('block 해제에 실패했습니다.');
+					}
+				},
+				error: function(){
+					console.log("아이디 ajax 통신 실패");
 				}
-			},
-			error: function(){
-				console.log("아이디 ajax 통신 실패");
-			}
+			});
+		});
+		
+		var $checkboxTarget = $('.checkbox_target');
+		var checkedIds = [];
+		$('#btn_multi_unblock').click(function() {
+			$checkboxTarget.each(function() {
+				var $this = $(this);
+				if ($this.is(':checked')) {
+					checkedIds.push($this.val());
+				}
+			});
+			
+			var param = {
+				blockIds: checkedIds
+					
+			};
+			
+			$.ajax({
+				url: '/podo/v1/blacklist/unblock.do', // API버전
+				type: 'post',
+				contentType: 'application/json',
+				data: JSON.stringify(param),
+				success: function(data){
+					console.log(data);
+					
+	 				if (JSON.parse(data)) {
+						location.reload();
+					} else {
+						alert('block 해제에 실패했습니다.');
+					}
+				},
+				error: function(){
+					console.log("아이디 ajax 통신 실패");
+				}
+			});
 		});
 	});
-	
-	var $checkboxTarget = $('.checkbox_target');
-	var checkedIds = [];
-	$('#btn_multi_unblock').click(function() {
-		$checkboxTarget.each(function() {
-			var $this = $(this);
-			if ($this.is(':checked')) {
-				checkedIds.push($this.val());
-			}
-		});
-		
-		var param = {
-			blockIds: checkedIds
-				
-		};
-		
-		$.ajax({
-			url: '/podo/v1/blacklist/unblock.do', // API버전
-			type: 'post',
-			contentType: 'application/json',
-			data: JSON.stringify(param),
-			success: function(data){
-				console.log(data);
-				
- 				if (JSON.parse(data)) {
-					location.reload();
-				} else {
-					alert('block 해제에 실패했습니다.');
-				}
-			},
-			error: function(){
-				console.log("아이디 ajax 통신 실패");
-			}
-		});
-	});
-});
 </script>
 </body>
 </html>

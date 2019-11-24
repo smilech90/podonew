@@ -35,8 +35,7 @@ public class BlackListAPIController {
 			return false;
 		}
 		
-		log.info("blockIds : {}", blockIds);
-		
+//		log.info("blockIds : {}", blockIds);
 		
 		
 		return true;

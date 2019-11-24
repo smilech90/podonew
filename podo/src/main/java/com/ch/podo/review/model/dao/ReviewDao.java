@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.podo.board.model.vo.PageInfo;
+
+
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dto.Review;
@@ -86,4 +88,22 @@ public class ReviewDao {
 	}
 
 
+	
+	
+	
+	public int getReviewListCount() {
+		return sqlSession.selectOne("reviewMapper.getMemberListCount");
+	}
+	
+	
+	public ArrayList<Review> selectReviewList(PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList",null, rowBounds);
+		
+		return list;
+	}
+	
+	
+	
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -167,6 +168,24 @@ public class ReviewController {
 		return "success";
 	}
 
+	
+	
+	// 관리자 리뷰 리스트 조회
+	@RequestMapping("adRlist.do")
+	public ModelAndView reviewList(ModelAndView mv, 
+								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		
+		int listCount = reviewService.getReviewListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Review> list = reviewService.selectReviewList(pi);
+		
+		mv.addObject("pi", pi).addObject("list", list)
+		  .setViewName("admin/reviewListView");
+		
+		return mv;
+	}
 	
 
 }
