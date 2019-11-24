@@ -104,6 +104,7 @@
 	                </nav>
 		            </div>
 		          </div>
+		          
 		        </div>
 		
 		        <!-- Start Blog Post Siddebar -->

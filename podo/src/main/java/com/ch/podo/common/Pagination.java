@@ -4,6 +4,12 @@ import com.ch.podo.board.model.vo.PageInfo;
 
 public class Pagination {
 	
+	/**
+	 * @param currentPage
+	 * @param listCount
+	 * @return
+	 * @author Changsu Im
+	 */
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		
 		int pageLimit = 5;
