@@ -91,19 +91,4 @@ public class ReviewDao {
 	
 	
 	
-	public int getReviewListCount() {
-		return sqlSession.selectOne("reviewMapper.getMemberListCount");
-	}
-	
-	
-	public ArrayList<Review> selectReviewList(PageInfo pi){
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList",null, rowBounds);
-		
-		return list;
-	}
-	
-	
-	
 }
