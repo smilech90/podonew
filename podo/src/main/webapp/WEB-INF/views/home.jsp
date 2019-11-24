@@ -50,6 +50,7 @@
     <!--================Hero Banner end =================-->
 		
     <!--================ Blog slider start =================-->
+    <!-- 창수가 구현한 위페이지 -->
     <section class="blog-post-area section-margin">
 			<div class="container">
 			
@@ -80,8 +81,8 @@
 	      
 			</div>
 		</section>
-		
-		    <section class="blog-post-area section-margin">
+		<!-- 영화리뷰쪽 -->
+		<section class="blog-post-area section-margin">
 			<div class="container">
 			
 	        	<p align="center">리뷰 리스트</p>
@@ -103,6 +104,38 @@
 	              <h3><a href="#">${ rs.content }</a></h3>
 	              <p>${ rs.nickName }님 작성</p>
 	              <p>${rs.modifyDate }에 작성</p>
+	            </div>
+	            
+	          </div>
+     			</c:forEach>
+    			</div>
+	      
+			</div>
+		</section>
+		
+		<!-- 자유게시판 -->
+		<section class="blog-post-area section-margin">
+			<div class="container">
+			
+	    <p align="center">자유게시판 리스트</p>
+        <div class="owl-carousel owl-theme blog-slider">
+      		<c:forEach items="${ boardList }" var="bs">
+	      	<!--================ Blog slider start =================-->
+	          <div class="card blog__slide text-center">
+	            <div class="blog__slide__img">
+	            	<c:choose>
+	            		<c:when test="${ not empty bs.id }">
+			              <p>bs.title</p>
+	            		</c:when>
+	            		<c:otherwise>
+			             <p>없으면 이거 뜨는게..?</p>
+	            		</c:otherwise>
+	            	</c:choose>
+	            </div>
+	            <div class="blog__slide__content">
+	              <h3><a href="#">${ bs.content }</a></h3>
+	              <p>${ bs.memberId }님 작성</p>
+	              <p>${bs.modifyDate }에 작성</p>
 	            </div>
 	            
 	          </div>

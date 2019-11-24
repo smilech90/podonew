@@ -18,10 +18,18 @@ public class ReviewDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-							 
-	public ArrayList<Review> selectReviewList() {
+	
+	public int getReviewListCount() {
 		
-		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList");
+		return sqlSession.selectOne("reviewMapper.getReviewListCount");
+	}
+	
+	
+	public ArrayList<Review> selectReviewList(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList", null , rowBounds);
 		
 		return list;
 	}
@@ -76,4 +84,6 @@ public class ReviewDao {
 		
 		return list;
 	}
+
+
 }

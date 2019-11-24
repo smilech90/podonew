@@ -98,6 +98,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="posterImage" column="change_name"/>
 	</resultMap>
 	
+	<select id="getReviewListCount" resultType="_int">
+		select count(*)
+		from tb_review r
+		where r.status='Y'
+	</select>
+	
 	<select id="selectReviewList" resultMap="reviewListSet">	
         select *
 		from tb_review r
@@ -172,7 +178,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from tb_detail_film df
 		join tb_film_image i on(i.dfilm_id = df.id))b on(b.film_id=f.id)
 		where member_id=#{id} and
-		      status='Y'
+		status='Y'
 		order by modify_date desc;
 	</select>
 </mapper>

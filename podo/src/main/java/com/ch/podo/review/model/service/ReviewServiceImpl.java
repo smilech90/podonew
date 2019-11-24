@@ -21,9 +21,15 @@ public class ReviewServiceImpl implements ReviewService{
 	private ReviewDao reviewDao;
 	
 	@Override
-	public ArrayList<Review> selectReviewList() {
+	public int getReviewListCount() {
 		
-		return reviewDao.selectReviewList();
+		return reviewDao.getReviewListCount();
+	}
+	
+	@Override
+	public ArrayList<Review> selectReviewList(PageInfo pi) {
+		
+		return reviewDao.selectReviewList(pi);
 	}
 
 	@Override
@@ -79,5 +85,7 @@ public class ReviewServiceImpl implements ReviewService{
 	public ArrayList<Review> myPageSelectReviewList(String id, PageInfo pi) {
 		return reviewDao.myPageSelectReviewList(id, pi);
 	}
+
+
 
 }

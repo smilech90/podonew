@@ -28,11 +28,14 @@ public class ReviewController {
 
 	// 전체리스트 조회 
 	@RequestMapping("reviewList.do")
-	public ModelAndView reviewList(ModelAndView mv) {
+	public ModelAndView reviewList(ModelAndView mv, PageInfo pi,
+							       @RequestParam(value="currentPage",defaultValue = "1") int currentPage) {
 		
-		ArrayList<Review> list = reviewService.selectReviewList();
-		
-		mv.addObject("list",list).setViewName("reviewView/reviewList");
+		int listReviewCount = reviewService.getReviewListCount();
+		pi = Pagination.getPageInfo(currentPage, listReviewCount);
+		ArrayList<Review> list = reviewService.selectReviewList(pi);
+		System.out.println(pi);
+		mv.addObject("list",list).addObject("pi", pi).setViewName("reviewView/reviewList");
 		
 		System.out.println("리뷰리스트 : "  + list);
 		
