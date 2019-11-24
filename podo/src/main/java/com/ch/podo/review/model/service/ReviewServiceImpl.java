@@ -65,9 +65,19 @@ public class ReviewServiceImpl implements ReviewService{
 
 
 	@Override
-	public int reviewUpdate(Review rr) {
+	public int reviewUpdate(Review r) {
 		
-		return reviewDao.reviewUpdate(rr);
+		return reviewDao.reviewUpdate(r);
+	}
+
+	@Override
+	public int myPageReviewListCount(String id) {
+		return reviewDao.myPageReviewListCount(id);
+	}
+
+	@Override
+	public ArrayList<Review> myPageSelectReviewList(String id, PageInfo pi) {
+		return reviewDao.myPageSelectReviewList(id, pi);
 	}
 
 	@Override

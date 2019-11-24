@@ -30,6 +30,13 @@
 		<result property="changeName" column="change_name"/>
 	</resultMap>
 	
+	<!-- Actor 리스트 -->
+	<resultMap id="selectFilmActorResultSet" type="Actor">
+		<id property="id" column="id"/>
+		<result property="actorName" column="name"/>
+		<result property="profileImage" column="profile_img"/>
+	</resultMap>
+		
 	<!-- 영화 상세 정보 보기  -->
 	<!-- 입력 날짜 최신순 기준으로 rownum 1번, status='Y'인 정보 출력 -->
 	<select id="selectDetailFilm" resultMap="detailFilmResultSet">
@@ -79,7 +86,7 @@
 		where rownum = 1
 	</select>
 	
-	<!-- 영화 정보 수정 [배우] 수정하는 부분 insert로 DB에 추가 Dfilm_id 는 어떻게 알지?? -->
+	<!-- 영화 정보 수정 [배우] 수정하는 부분 insert로 DB에 추가 Dfilm_id 는 어떻게 알지?? / 이건 해결 -->
 	<insert id="insertFilmActor">
 		insert into tb_film_actor
 		values(#{actor_id}, #{dFilm_id})
@@ -109,6 +116,16 @@
 		values(seq_collection_id.nextval, '샘플 제목', '샘플 내용', default, default, default, sysdate, sysdate, default, default, #{userId})
 	</insert>
 	
+	<!-- 
+	콜렉션 리스트 출력 
+	<select id="selectCollectionList" resultMap="selectCollectionListResultSet">
+		select *
+		from tb_collection
+		where member_id=#{userId}
+		order by id desc
+	</select>
+	 -->
+	
 	<!-- 생성한 콜렉션에 영화 추가 -->
 	<!-- 콜렉션 번호, 영화 번호 -->
 	<insert id="insertFilm_Collection">
@@ -116,6 +133,23 @@
 		values(#{collectionId}, #{filmId});
 	</insert>
 	
+	<!-- 영화 배우 리스트 -->
+	<select id="selectFilmActor" resultMap="selectFilmActorResultSet">
+		select a.id, a.name, a.profile_img
+		from tb_film_actor fa
+		join tb_actor a on(fa.actor_id=a.id)
+		join tb_detail_film df on(fa.dfilm_id=df.id)
+		where df.film_id=#{filmId}
+	</select>
+	
+	
+	<!-- 검색 배우 리스트  -->
+	<select id="searchActorList" resultMap="selectFilmActorResultSet">
+		select a.name, a.profile_img
+		from tb_film_actor fa
+		join tb_actor a on(fa.actor_id=a.id)
+		where name like '%'||#{searchName}||'%'
+	</select>
 	
 </mapper>
 

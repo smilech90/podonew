@@ -1,10 +1,7 @@
 package com.ch.podo.film.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.common.PodoRenamePolicy;
+import com.ch.podo.common.SearchCondition;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.service.FilmService;
 import com.ch.podo.film.model.vo.Film;
@@ -63,6 +60,7 @@ public class FilmController {
 	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
 																				@RequestParam(value="currentPage", defaultValue = "1") int currentPage) {
 		int listCount = filmService.selectKeywordFilmListCount(keyword);
+		// page는 최대 3페이지, board는 최대 6개 보여지도록 set
 		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 3, 6);
 		// System.out.println("pi : " + pi);
 		
@@ -81,13 +79,20 @@ public class FilmController {
 	 * @return
 	 * @author Changsu Im
 	 */
+	/*
 	@RequestMapping("film.do")
 	public String filmPage(Model model) {
+		ArrayList<String> release = filmService.selectAllReleaseYearList();
+		ArrayList<String> country = filmService.selectAllCountryList();
 		ArrayList<Genre> genre = filmService.selectAllGenreList();
-		model.addAttribute("genre", genre);
+		
+		model.addAttribute("release", release)
+				 .addAttribute("country", country)
+				 .addAttribute("genre", genre);
+		
 		return "film/filmPage";
 	}
-	
+	*/
 	/**
 	 * 영화 찾기 페이지에서 필터 검색
 	 * @param response
@@ -97,8 +102,59 @@ public class FilmController {
 	 * @throws IOException
 	 * @author Changsu Im
 	 */
+	@RequestMapping("film.do")
+	public ModelAndView searchFilterFilm(HttpServletResponse response, HttpSession session,
+																			 SearchCondition sc, ModelAndView mv,
+																			 @RequestParam(value="currentPage", defaultValue = "1") int currentPage)
+			throws JsonIOException, IOException {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		// System.out.println("sc : " + sc);
+		
+		
+		// 필터 목록 조회
+		ArrayList<String> release = filmService.selectAllReleaseYearList();
+		ArrayList<String> country = filmService.selectAllCountryList();
+		ArrayList<Genre> genre = filmService.selectAllGenreList();
+		
+		int listCount = filmService.selectFilterFilmListCount(sc);
+		// page는 최대 3페이지, board는 최대 6개 보여지도록 set
+		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 3, 12);
+		
+		// 옵션으로 검색된 영화 목록
+		ArrayList<Film> filmList = filmService.selectFilterFilmList(sc, pi);
+		// System.out.println("filmList : " + filmList);
+
+		
+		// 사용자가 좋아요한 영화 목록
+		HashMap<Integer, Like> likeMap = new HashMap<>();
+		if (loginUser != null) {
+			likeMap = (HashMap<Integer, Like>)likeService.selectLikedFilmMap(loginUser.getId());
+		}
+		
+		// 사용자가 평가한 영화 목록
+		HashMap<Integer, RatingFilm> ratingMap = new HashMap<>();
+		if (loginUser != null) {
+			ratingMap = (HashMap<Integer, RatingFilm>)ratingFilmService.selectRatedFilm(loginUser.getId());
+		}
+		
+		// System.out.println("ratingMap : " + ratingMap);
+		
+		mv.addObject("release", release)
+			.addObject("country", country)
+			.addObject("genre", genre)
+			.addObject("film", filmList)
+			.addObject("sc", sc)
+			.addObject("pi", pi)
+			.addObject("like", likeMap)
+			.addObject("rate", ratingMap)
+			.setViewName("film/filmPage");
+		
+		return mv;
+	}
+	
 	@RequestMapping("sfFilm.do")
-	public void searchFilterFilm(HttpServletResponse response, HttpSession session, Film film)
+	public void sfFilm(HttpServletResponse response, HttpSession session, Film film)
 			throws JsonIOException, IOException {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -107,8 +163,8 @@ public class FilmController {
 		// System.out.println("film : " + film);
 		
 		// 옵션으로 검색된 영화 목록
-		ArrayList<Film> filmList = filmService.selectFilterFilmList(film);
-		map.put("film", filmList);
+		// ArrayList<Film> filmList = filmService.selectFilterFilmList(film);
+		// map.put("film", filmList);
 		
 		// System.out.println("filmList : " + filmList);
 		
@@ -130,6 +186,7 @@ public class FilmController {
 		Gson gson = new Gson();
 		gson.toJson(map, response.getWriter());
 	}
+	
 	
 	/**
 	 * 영화 페이지에서 좋아요 서비스
@@ -153,8 +210,10 @@ public class FilmController {
 		int result = 0;
 		if (flag > 0) {
 			result = likeService.insertLikeFilm(like);
+			logger.info("like insert 실행");
 		} else {
 			result = likeService.deleteLikeFilm(like);
+			logger.info("like delete 실행");
 		}
 		
 		response.setContentType("application/json; charset=utf-8");
@@ -188,16 +247,16 @@ public class FilmController {
 		// 이미 기존에 있는 별점을 다시 눌렀을 경우 취소되면서 삭제
 		if (flag != null && Integer.parseInt(star) == flag.getStar()) {
 			result = ratingFilmService.deleteRateFilm(rate);
-			logger.info("delete 실행");
+			logger.info("rate delete 실행");
 		} else {
 			// 기존에 별점이 없다면 삽입
 			if (flag == null) {
 				result = ratingFilmService.insertRateFilm(rate);
-				logger.info("insert 실행");
+				logger.info("rate insert 실행");
 			// 이미 기존에 별점이 있다면 수정
 			} else {
 				result = ratingFilmService.updateLikeFilm(rate);
-				logger.info("update실행");
+				logger.info("rate update실행");
 			}
 		}
 		
@@ -216,7 +275,7 @@ public class FilmController {
 	 */
 	@RequestMapping("rec.do")
 	public ModelAndView rec(HttpSession session, ModelAndView mv,
-													@RequestParam(value="page", defaultValue = "1") int page) {
+													@RequestParam(value="page", defaultValue = "1") int page) throws Exception {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
@@ -235,29 +294,36 @@ public class FilmController {
 		// System.out.println("list : " + list);
 		// System.out.println("liked : " + liked);
 		
-		HashMap<String, ArrayList<Film>> map = new HashMap<>();
-		ArrayList<Film> rec = new ArrayList<>();
-		ArrayList<String> genreId = new ArrayList<>();
-		
-		for (int i = 0; i < list.size(); i++) {
-			if ((i + 1) != list.size()
-					&& (list.get(i).getGenreId().equals(list.get(i + 1).getGenreId()))) {
-				rec.add(list.get(i));
-			} else {
-				genreId.add(list.get(i).getGenreId());
-				rec.add(list.get(i));
-				map.put(list.get(i).getGenreId(), rec);
-				rec = new ArrayList<Film>();
+		// 좋아요 누른 영화가 10개 미만일 경우 count만 넘겨줌
+		if (liked < 10) {
+			mv.addObject("count", liked)
+				.setViewName("film/rec");
+		} else {
+			// 쿼리문으로 추천 영화를 받아서 장르 3개 각각에 ArrayList를 받아줌
+			HashMap<String, ArrayList<Film>> map = new HashMap<>();
+			ArrayList<Film> rec = new ArrayList<>();
+			ArrayList<String> genreId = new ArrayList<>();
+			
+			for (int i = 0; i < list.size(); i++) {
+				if ((i + 1) != list.size()
+						&& (list.get(i).getGenreId().equals(list.get(i + 1).getGenreId()))) {
+					rec.add(list.get(i));
+				} else {
+					genreId.add(list.get(i).getGenreId());
+					rec.add(list.get(i));
+					map.put(list.get(i).getGenreId(), rec);
+					rec = new ArrayList<Film>();
+				}
 			}
+			rec = null;
+			
+			mv.addObject("genre1", map.get(genreId.get(0)))
+				.addObject("genre2", map.get(genreId.get(1)))
+				.addObject("genre3", map.get(genreId.get(2)))
+				.addObject("page", page)
+				.addObject("count", liked)
+				.setViewName("film/rec");
 		}
-		rec = null;
-		
-		mv.addObject("genre1", map.get(genreId.get(0)))
-			.addObject("genre2", map.get(genreId.get(1)))
-			.addObject("genre3", map.get(genreId.get(2)))
-			.addObject("page", page)
-			.addObject("count", liked)
-			.setViewName("film/rec");
 		
 		return mv;
 	}

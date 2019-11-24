@@ -294,43 +294,45 @@
 
 
 
-	
-
-
 	<script>
 	 
-		/* $(function(){
+		 $(function(){
 			$("#container ul>li").on("click", function(){
 				var tabMenu = $(this).text();
 				var strId = "${loginUser.id}";
 				var strUrl = "";
 				
-				if(tabMenu.equals("Review")){
-					strUrl="myPageSelectReview.do";
-				}else if(tabMenu.equals("Collection")){
-					strUrl="myPageSelectCollection.do";
-				}else if(tabMenu.equals("Like")){
-					strUrl="myPageSelectLike.do";
-				}else if(tabMenu.equals("Question")){
-					strUrl="myPageSelectQuestion.do";
-				}
+				//console.log(tabMenu);
 				
-				$.ajax({
+				 if(tabMenu == "Review"){
+					strUrl="myPageSelectReview.do";
+				}else if(tabMenu =="Collection"){
+					strUrl="myPageSelectCollection.do";
+				}else if(tabMenu == "Like"){
+					strUrl="myPageSelectLike.do";
+				}else if(tabMenu == "Question"){
+					strUrl="myPageSelectQuestion.do";
+				} 
+				 
+				// console.log(strUrl); 
+				// console.log(strId); 
+				 
+			 	$.ajax({
 					url:strUrl,
 					data:{id:strId},
 					type:"post",
 					success:function(data){
 						console.log(data);
 						if(date==success){
-							
+							console.log("에이작스 성공");
 						}
 					},error:function(){
 						console.log("탭메뉴 ajax 통신 실패");
 					}
 					
-				});
+				}); 
 			});
-		}); */
+		}); 
 	 	
 		// 탭메뉴 관련 
 		$(function() {
