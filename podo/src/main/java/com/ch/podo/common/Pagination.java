@@ -18,4 +18,28 @@ public class Pagination {
 		return new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 	}
 	
+	/**
+	 * method to set a pageLimit and a boardLimit
+	 * @param currentPage
+	 * @param listCount
+	 * @param page
+	 * @param board
+	 * @return new PageInfo
+	 * @author Changsu Im
+	 * @since 2019-11-24
+	 */
+	public static PageInfo setPageLimit(int currentPage, int listCount, int page, int board) {
+		
+		int pageLimit = page;
+		int boardLimit = board;
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		int endPage = startPage + pageLimit - 1;
+		if (endPage > maxPage) {
+			endPage = maxPage;
+		}
+
+		return new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+	}
+	
 }

@@ -21,21 +21,43 @@
 	
 	<table align="center" border="1" cellspacing="0" width="700">
 		<tr>
-			<th>신고번호</th>
-			<th>신고대상자번호</th>
+			<th>NO</th>
+			<th>신고대상자</th>
 			<th>타입</th>
-			<th>대상번호</th>
 			<th>신고내용</th>
-			<th>신고자번호</th>
+			<th>신고자</th>
 		</tr>
 		<c:forEach items="${ list }" var="r">	
 			<tr>
 				<td>${ r.id }</td>
-				<td>${ r.reportedId }</td>
-				<td>${ r.type }</td>
-				<td>${ r.targetId }</td>
-				<td>${ r.content }</td>
-				<td>${ r.reportId }</td>
+				<td>${ r.reportedName }</td>
+				<td>
+					<c:choose>
+					    <c:when test="${  r.type == 1}">
+							리뷰
+					    </c:when>
+					    <c:when test="${  r.type == 2}">
+							댓글
+					    </c:when>
+					    <c:when test="${  r.type == 3}">
+							자유게시판
+					    </c:when>
+					    <c:when test="${  r.type == 4}">
+							컬렉션
+					    </c:when>
+					</c:choose>
+				</td>
+				<td>
+					<c:choose>
+					    <c:when test="${  r.content == 1}">
+							부적절한 내용
+					    </c:when>
+					    <c:when test="${  r.content == 2}">
+							스포일러
+					    </c:when>
+					</c:choose>
+				</td>
+				<td>${ r.reportName }</td>
 
 			</tr>
 		</c:forEach>
