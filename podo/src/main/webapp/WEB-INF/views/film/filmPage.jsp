@@ -28,8 +28,8 @@
 				display: inline-block;
 				white-space: nowrap;
 				width: 225px;
-				height: 40px;
-				padding: 25px;
+				/* height: 40px; */
+				/* padding: 25px; */
 				line-height: 30px;
 			}
 			
@@ -90,31 +90,61 @@
   <body>
 		<jsp:include page="../common/header.jsp"/>
 		
-		<div class="container">
-			<h3>
-				작품찾기에서는 원하는 영화를 어디에서 볼 수 있는지, 내가 이용하는 서비스가 어떤 영화들을 제공하고 있는지를 확인할 수 있습니다. <br>
-				다양한 필터를 적용해 오늘 감상할 영화를 찾아보세요!
-			</h3>
+		
+		<section class="film-banner">
+			<div class="container" style="border: solid 1px; height:150px; margin-bottom: 40px;">
+				<h3>
+					작품찾기에서는 원하는 영화를 어디에서 볼 수 있는지, 내가 이용하는 서비스가 어떤 영화들을 제공하고 있는지를 확인할 수 있습니다. <br>
+					다양한 필터를 적용해 오늘 감상할 영화를 찾아보세요!
+				</h3>
+			</div>
+		</section>
 			
+		<!-- =================필터================= -->
+		<div class="container" style="margin-bottom: 40px;">
+		
+			<!-- 연도별 -->
 			<select name="releaseYear">
-				<option value="">연도별</option>
+				<option value="all" data-display="연도별">연도별</option>
 				<c:forEach begin="2010" end="2019" step="1" var="yyyy">
 					<option value="${ yyyy }">${ yyyy }</option>
 				</c:forEach>
 			</select>
+			
+			<!-- 국가별 -->
 			<select name="productionCountry">
-				<option value="">국가별</option>
+				<option value="all" data-display="국가별">국가별</option>
 				<option value="한국">한국</option>
 				<option value="미국">미국</option>
 				<option value="일본">일본</option>
 			</select>
+			
+			<!-- 장르별 -->
 			<select name="genre">
-				<option value="">장르별</option>
+				<option value="all" data-display="장르별">장르별</option>
 				<c:forEach items="${ genre }" var="g">
 					<option value="${ g.id }">${ g.name }</option>
 				</c:forEach>
 			</select>
 			
+			<!-- 장르별 -->
+			<select name="saw">
+				<option value="all" data-display="관람유무">관람유무</option>
+				<option value="show">본 영화</option>
+				<option value="hide">안 본 영화</option>
+			</select>
+			
+			<!-- 부가옵션 -->
+			<select name="opt">
+				<option value="all" data-display="부가옵션">모두</option>
+				<option value="filmRatingDesc">평가 높은 순</option>
+				<option value="reviewCountDesc">리뷰 많은 순</option>
+			</select>
+			
+		</div>
+		<!-- =================필터================= -->
+		
+		<div class="container">
 			<table id="search-film-result">
 				<thead>
 					<tr>
@@ -134,40 +164,61 @@
 				<tbody>
 				</tbody>
 			</table>
-		
 		</div>
 		
 		
+		
 		<script>
+			/* nice-select 라이브러리 */
+			$(document).ready(function() {
+			  $('select').niceSelect();
+			});
 			
 			/* 영화 검색목록 불러오기 AJAX */
-			$("select[name=releaseYear], select[name=productionCountry], select[name=genre]").on("change", function(){
+			// $("select[name=releaseYear], select[name=productionCountry], select[name=genre]").on("change", function(){
+			$(document).on("click", "li.option", function() {
 				
-				var releaseYear = $("select[name=releaseYear]").val();
-				var productionCountry = $("select[name=productionCountry]").val();
-				var genre = $("select[name=genre]").val();
+				// 연도별, 국가별 데이터도 같이 가져와야하기 때문에 $(this)가 무엇인지 고민해봐야하고 이벤트도 같이 걸어줘야함
+				// 먼저 selected 클래스가 걸려있는 data-value 값을 가져옴
+				// var releaseYear = $("select[name=releaseYear]").val();
+				var releaseYear = $("li[data-display=연도별]").parent().find(".selected").attr("data-value");
+				var productionCountry = $("li[data-display=국가별]").parent().find(".selected").attr("data-value");
+				var genreId = $("li[data-display=장르별]").parent().find(".selected").attr("data-value");
 				
+				// 만약 지금 클릭한 것이라면 selected 클래스가 추가되기 전이므로 $(this) 의 data-value 값을 가져옴
+				if ($(this).siblings('li[data-display=장르별]').length || $(this).attr("data-display") === "장르별") {
+					console.log($(this));
+					genreId = $(this).attr("data-value");
+				} else if ($(this).siblings('li[data-display=연도별]').length || $(this).attr("data-display") === "연도별") {
+					releaseYear = $(this).attr("data-value");
+				} else if ($(this).siblings('li[data-display=국가별]').length || $(this).attr("data-display") === "국가별") {
+					productionCountry = $(this).attr("data-value");
+				} else {
+					console.log("선택된 것이 없다?");
+				}
+				
+				// 필터 검색 AJAX
 				$.ajax({
 					url:"sfFilm.do",
 					data:{ releaseYear : releaseYear,
 							   productionCountry : productionCountry,
-							   genre : genre },
+							   genreId : genreId },
 					success:function(data){
 						
 						$tbody = $("#search-film-result tbody");
 						$tbody.html("");
 						
 						$("#film-count").text("검색결과(" + data.film.length + ")");
-
+						
 						if (data.film.length > 0){
 							
 							var like = data.like;
 							var rate = data.rate;
-							console.log(rate);
 							
 							var i=1;
 							var j=1;
 							
+							// 가져온 데이터를 $.each 메서드로 동적 생성
 							$.each(data.film, function(index, value){
 								$tr = $("<tr></tr>");
 								
@@ -307,9 +358,11 @@
 			
 			$(function(){
 		  	$(document)
+		  	// 별 위에 마우스가 올라가면 'output b' 안에 숫자도 변경
 		    .on("mouseover", ".star-input label", function(){
 		    	$(this).parent().siblings("output").find("b").text($(this).text());
 		    })
+		    // 별 위에서 마우스가 나올 때 체크된 것이 있으면 고정
 		    .on("mouseleave", ".star-input>.input", function(){
 	    		var $checked = $(this).closest(".star-input").find(":checked");
 	    		if ($checked.length === 0) {
@@ -318,11 +371,12 @@
 	   		 		$(this).siblings("output").find("b").text($checked.next().text());
 	    		}
 		  	})
+		  	// 별을 클릭했을 때 DB에 별점을 기록하기 위한 AJAX
 		  	.on("click", ".star-input label", function(){
 					var fid = $(this).closest("tr").find("td").eq(1).text();
 		  		var star = $(this).text();
-		  		console.log("star : " + star);
-		  		console.log("fid : " + fid);
+		  		// console.log("star : " + star);
+		  		// console.log("fid : " + fid);
 		  		
 		  		var $checked = $(this).closest(".star-input").find(":checked");
 		  		console.log($checked);
