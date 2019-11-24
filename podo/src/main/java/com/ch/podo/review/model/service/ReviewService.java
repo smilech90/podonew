@@ -2,9 +2,9 @@ package com.ch.podo.review.model.service;
 
 import java.util.ArrayList;
 
+import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
-import com.ch.podo.ratingReview.model.vo.RatingReview;
 import com.ch.podo.review.model.dto.Review;
 
 
@@ -33,4 +33,10 @@ public interface ReviewService {
 	
 	// 리뷰 6개 점수 수정용 서비스
 	int reviewUpdate(Review r);
+	
+	// 마이페이지 _리뷰리스트 카운트
+	int myPageReviewListCount(String id);
+	
+	// 마이페이지_리뷰리스트 조회
+	ArrayList<Review> myPageSelectReviewList(String id, PageInfo pi);
 }
