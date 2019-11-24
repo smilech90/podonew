@@ -87,6 +87,21 @@
     #addActor{
     	cursor:pointer;
     }
+    #actor_cover{
+    	border : 1px solid lightgrey;
+    	height: 200px;
+    	width: 100%;
+    	border-radius: 5px;
+    	white-space:nowrap;
+    	overflow-x: scroll;
+    }
+    .actor{
+    	width: 30%;
+    	height: 100px;
+    	float:left;
+    	border : 1px solid lightgrey;
+    	border-radius: 5px;
+    }
 </style>
 <body>
 	<!-- 헤더  -->
@@ -99,19 +114,19 @@
             <div class="movie_poster_cover">    <!-- 왼쪽 영화 포스터 -->
 
                 <div class="icon" id="collection">   <!-- 콜렉션 -->
-                    <img id="plus" src="resources/detailFilmImage/plus.jpg" onclick="#" style="width:30px; height:30px;">
+                    <img id="plus" src="resources/detailFilmImage/plus.jpg" style="width:30px; height:30px;">
                 </div>
 
                 <div class="icon" id="likeBtn">      <!-- 좋아요 -->
-                    <img id="heart" src="resources/detailFilmImage/heart.jpg" onclick="#" style="width:30px; height:30px;">
+                    <img id="heart" src="resources/detailFilmImage/heart.jpg" style="width:30px; height:30px;">
                 </div>
 
                 <div class="icon" id="modifyBtn">    <!-- 수  정 -->
-                    <img id="memo" src="resources/detailFilmImage/modifyBtn.jpg" onclick="#" style="width:30px; height:30px;">
+                    <img id="memo" src="resources/detailFilmImage/modifyBtn.jpg" style="width:30px; height:30px;">
                 </div>
                 
                 <div id="movie_poster"> <!-- 포스터 -->
-                    <img id="poster" src="resources/detailFilmImage/${i.changeName}" onclick="#" style="width:100%; height:100%;">
+                    <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
                 </div>
 
             </div>
@@ -135,11 +150,11 @@
                     	<div id="addActor">추가하기</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div id="synopsys">시놉시스 <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.synopsys}</textarea></div>
+                    	<div id="synopsys">시놉시스 <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="80">${df.synopsys}</textarea></div>
                     </div>
                     
                     <div class="cover" id="plusInfo_cover">
-                    	<div id="trivia">트리비아 <textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="90">${df.trivia}</textarea></div>
+                    	<div id="trivia">트리비아 <textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="80">${df.trivia}</textarea></div>
                     </div>
                     
                     <div class="cover">
@@ -150,7 +165,6 @@
             </form>
             </div>
         </div>
-        <hr>
         
         
         <!-- collection 모달 -->
@@ -167,30 +181,46 @@
 					</div>
 					
 					<div class="modal-body">
+						<h5 class="modal-title" id="exampleModalLabel">출연</h5>
+						<div class="form-group">
+							<div id="actor_cover">
+								<div class="actor">
+									<div class="actor_profile">
+										<img>
+									</div>
+									<div class="actor_name">배우이름</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 배우 검색부 모달창 -->
+						<form action="searchActor.do">
+							<div class="form-group">
+								<lavel>배우 검색</label>
+								<input type="text" class="form-control" name="searchName" placeholder="이름을 입력해주세요">
+							</div>
+						</form>						
+						
+						<!-- 배우 검색 결과 -->
 						<form action="updateMember.do" method="post">
-							<input type="hidden" name="id" value="${loginUser.id}">
 							
 							<div class="form-group">
-								<label for="userId">배우 검색</label>
-								<input type="email" class="form-control" id="userId" name="email" value="${ loginUser.email }" readonly>
-							</div>
-							<div class="form-group">
-								<label for="originPwd">변경 전 비밀번호</label>
-								<input type="password" class="form-control" id="originPwd" name="originPwd">
-								<span class="originguide oriok">일치</span>
-								<span class="originguide orino">불일치</span>
-								<input type="hidden" id="originPwdCheck" value="0"><br>
-								<label for="updatePwd">변경 후 비밀번호</label>
-								<input type="password" class="form-control" id="updatePwd" name="updatePwd">
-								<label for="updatePwd2">변경 후 비밀번호 확인</label>
-								<input type="password" class="form-control" id="updatePwd2">
+								<div id="actor_cover">
+									<div class="actor">
+										<div class="actor_profile">
+											<img>
+										</div>
+										<div class="actor_name">배우이름</div>
+									</div>
+								</div>
 							</div>
 							<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn" style="background:purple; color:white;" onclick="return pwdValidate();">Update</button>
-							<!-- <button type="button" onclick="location.href='myPage.do';">Cancel</button> -->
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn" style="background:purple; color:white;" onclick="return pwdValidate();">Update</button>
+								<!-- <button type="button" onclick="location.href='myPage.do';">Cancel</button> -->
 							</div>
 						</form>
+						
 					</div>
 				</div>
 			</div>
