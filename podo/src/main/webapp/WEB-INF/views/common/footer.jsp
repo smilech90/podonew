@@ -39,6 +39,11 @@
 	
 </head>
 <body>
+
+	<br><br>
+	
+	<hr>
+	
 	<!--================ Start Footer Area =================-->
 	<div id="footer-wrapper">
 		<div class="footer-1" align="center">
