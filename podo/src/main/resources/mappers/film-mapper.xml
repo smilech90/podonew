@@ -209,10 +209,13 @@
 	
 	<select id="selectNewFilms" resultMap="recommendFilm">
 		<![CDATA[
-			select rownum, r.*
-			from (select * from vi_film_avg_star
-			      where release_year = to_char(sysdate, 'yyyy')
-			      order by film_id desc) r
+            select rownum, r.*
+			from (select * from vi_film_avg_star fas
+                    JOIN TB_FILM F ON (fas.FILM_ID = F.ID)
+                    JOiN tb_detail_film df ON(fas.film_id = df.id)
+                    join tb_film_image fi on(fas.film_id=fi.id)
+			      where fas.release_year = to_char(sysdate, 'yyyy')
+			      order by fas.film_id desc) r
 			where rownum <= 10
 		]]>
 	</select>
