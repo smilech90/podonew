@@ -89,10 +89,17 @@
           <a class="dropdown-item" href="adBoard.do">신고게시글관리</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="flist.do">
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <ion-icon name="film"></ion-icon>
-          <span>영화관리</span></a>
+          <span>영화관리</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <h6 class="dropdown-header">영화::</h6>
+          <a class="dropdown-item" href="flist.do">전체영화목록</a>
+          <a class="dropdown-item" href="finsertForm.do">영화등록</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="adRlist.do">
