@@ -196,7 +196,7 @@
 			            <div>내용 : ${ r.content }</div>
 			        </c:if>
 			            <div>별점 : 아직 처리 못함</div>			        
-			            <div>작성자 : ${ r.nickname}</div>
+			            <div>작성자 : ${ r.nickName}</div>
 			            <div>좋아요 : ${ r.likeCount }</div>
 		        </div>
 	        </c:forEach>
