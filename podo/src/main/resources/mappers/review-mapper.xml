@@ -19,6 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userImage" column="image"/>
 		<result property="nickName" column="nickname"/>
 		<result property="titleKor" column="TITLE_KOR"/>
+		<result property="titleEng" column="TITLE_Eng"/>
 		<result property="name" column="name"/>
 		<result property="releaseYear" column="RELEASE_YEAR"/>
 		<result property="content" column="content"/>

@@ -19,6 +19,7 @@ public class Review {
 	private String userImage;				// 프로필 이미지
 	private String nickName;			// 사용자 닉네임
 	private String titleKor;			// 영화 한국 제목 -처란
+	private String titleEng;			// 영화 영어 제목
 	private String name;				// 영화 장르 -처란
 	private String releaseYear;			// 영화 제작 년도 - 처란
 	private String content;				// 영화 리뷰 내용

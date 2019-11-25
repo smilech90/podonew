@@ -19,4 +19,6 @@ public class SearchCondition {
 	private String saw;
 	private String opt;
 	
+	private String email;
+	private String nickName;
 }
