@@ -21,7 +21,6 @@
 	
 	
 	
-	
 	<select id="getBoardCount" resultType="_int">
 		select count(*)
 		from tb_board
@@ -36,8 +35,7 @@
 	</select>
 	
 	<insert id="insertBoard">
-		insert into tb_board
-		values
+	
 	</insert>
 	
 	<update id="updateCount">
@@ -58,10 +56,13 @@
 		where id=#{id}
 	</update>
 	
+	<!-- 
 	<update id="updateBoard">
 		
 	</update>
+	 -->
 	
+
 	<select id="selectboardListHome" resultMap="boardResultSet">
 		select *
 		from tb_board b
@@ -70,6 +71,13 @@
 		order by b.id desc
 	</select>
 	
+
+	<!--  -->
+	
+	<insert id="insertComment">
+	
+	</insert>
+
 	
 	
 	

@@ -103,14 +103,20 @@
     	border-radius: 5px;
     }
     .actorImage{
-    	border : 1px solid lightgrey;
-    	border-radius: 20px;
+    	border: 0px solid black;
+    	width:100%;
+    	height:200px;
+    	overflow-y:scroll;
     }
     .actor_name{
-    	border : 1px solid lightgrey;
+    	border : 0px solid lightgrey;
     	border-radius: 5px;
     }
-    
+    .image_cover{
+    	text-align:center;
+    	width:32%;
+    	float:left;
+    }
 </style>
 <body>
 	<!-- 헤더  -->
@@ -158,8 +164,12 @@
                     
                     <c:forEach items="${ al }" var="a">
 	                    <div>
-    	                	<div class="actorImage"><img src="resources/detailFilmImage/actor/${a.profileImage}"></div>
-		                   	<div name="actorName">배우 : ${a.actorName}</div>
+    	                	<div class="actorImage">
+    	                		<div class="image_cover">
+    	                			<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
+				                   	<div name="actorName">${a.actorName}</div>
+    	                		</div>
+    	                	</div>
 	    	            </div>
 			        </c:forEach>
                     <div id="addActor">추가하기</div>
@@ -180,13 +190,12 @@
             </form>
             </div>
         </div>
-        
-        
+       
         <!-- collection 모달 -->
 		<hr style="margin: 0;">
 		<div class="modal fade" id="actor-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
-				<div class="modal-content">
+				<div class="modal-content" style="height:700px;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">배우</h5>						<!-- 모달창 제목 -->
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">	<!-- 닫기 버튼 -->
@@ -204,7 +213,7 @@
 									<div class="actor">
 										<!-- 배우 사진 -->
 										<div class="actor_profile">
-											<img src="resources/detailFilmImage/actor/${a.profileImage}">
+											<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
 										</div>
 										<!-- 배우 이름 -->
 										<div class="actor_name">${a.actorName}</div>
@@ -226,15 +235,13 @@
 						<form action="#" method="post">
 							
 							<div class="form-group">
-								<div id="actor_cover">
-									<div class="actor">
-										<c:forEach items="${al}" var="a">
+								<div id="actor_cover1">
+									<div class="actor searchActor">
 											<div class="actor_profile">
 												<img>
 											</div>
 											
 											<div class="actor_name"></div>
-										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -261,11 +268,8 @@
 	    
 	    // 배우 목록 출현
 	    $(function(){
-	    	searchActorList();
 	    	
-	    	setInterval(function(){
-	    		searchActorList();
-	    	}, 25000);
+	    	//searchActorList();
 	    });
 	    
 	    function searchActorList(){
@@ -278,16 +282,16 @@
 	    		data:{searchName:searchName},
 	    		datType:"json",
 	    		success: function(list){
-	    			
-	    			var $aList = $("#actor_cover");		//	<div>큰틀</div>
+	    			console.log(list)
+	    			var $aList = $("#actor_cover1");		//	<div>큰틀</div>
 	    			
 	    			$aList.html("");		// 기존 div 초기화
 	    			$.each(list, function(index, value){
 	    				
 	    				var $div = $("<div class='actor'>");	// actor 틀
 	    				var $profile = $("<div class='actor_profile'>");	// 배우 사진 틀
-	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.name+'.jpg');
-	    				var $aName = $("<div class='actor_name'>").text(value.name);
+	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage).css({'width':'150', 'height':'150' ,'border-radius':'100px'});
+	    				var $aName = $("<div class='actor_name'>").text(value.actorName).css('border-radius','100px');
 	    				
 	    				$div.append($profile);
 	    				$div.append($img);

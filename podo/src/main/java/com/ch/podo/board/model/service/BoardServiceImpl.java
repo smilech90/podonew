@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.ch.podo.board.model.dao.BoardDao;
 import com.ch.podo.board.model.vo.Board;
 import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.comment.model.vo.Comment;
+import com.ch.podo.image.model.vo.Image;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -29,7 +31,12 @@ public class BoardServiceImpl implements BoardService {
 	public int insertBoard(Board b) {
 		return boardDao.insertBoard(b);
 	}
-
+	
+	@Override
+	public int insertBoardFile(Image i) {
+		return boardDao.insertBoardFile(i);
+	}
+	
 	@Override
 	public Board selectBoard(int id) {
 		
@@ -59,10 +66,17 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+
 	public ArrayList<Board> selectboardListHome() {
 		
 		return boardDao.selectboardListHome();
 	}
+
+	public ArrayList<Comment> selectCommentList(int id) {
+		return boardDao.selectCommentList(id);
+	}
+	
+
 	
 
 }

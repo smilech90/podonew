@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ch.podo.board.model.vo.Board;
 import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.comment.model.vo.Comment;
+import com.ch.podo.image.model.vo.Image;
 
 @Repository("boardDao")
 public class BoardDao {
@@ -40,6 +42,11 @@ public class BoardDao {
 	}
 	
 	
+	public int insertBoardFile(Image i) {
+		return sqlSession.insert("boardMapper.insertBoardFile", i);
+	}
+	
+	
 	public int updateCount(int id) {
 		return sqlSession.selectOne("boardMapper.updateCount", id);
 	}
@@ -65,6 +72,11 @@ public class BoardDao {
 		ArrayList<Board> list = (ArrayList)sqlSession.selectList("boardMapper.selectboardListHome");
 		
 		return list;
+	}
+	
+	
+	public ArrayList<Comment> selectCommentList(int id){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectCommentList");
 	}
 	
 }
