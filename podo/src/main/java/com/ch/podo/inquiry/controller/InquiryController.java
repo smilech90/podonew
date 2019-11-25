@@ -1,5 +1,7 @@
 package com.ch.podo.inquiry.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +15,10 @@ public class InquiryController {
 	private InquiryService inquiryService;
 	
 	@RequestMapping("myPageSelectQuestion.do")
-	public ModelAndView myPageSelectQuestion(String id, ModelAndView mv) {
+	public ModelAndView myPageSelectQuestion(String tab, String id, ModelAndView mv) {
+		ArrayList list = new ArrayList();
 		System.out.println("문의");
-		mv.addObject("question", id).setViewName("member/myPage");
+		mv.addObject("list", list).addObject("tab", tab).setViewName("member/myPage");
 		return mv;
 	}
 }

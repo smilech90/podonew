@@ -155,15 +155,13 @@ public class ReviewController {
 	
 	// 마이페이지 리뷰조회
 	@RequestMapping("myPageSelectReview.do")
-	public ModelAndView myPageSelectReview(String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
+	public ModelAndView myPageSelectReview(String tab, String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
 		int listCount = reviewService.myPageReviewListCount(id);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Review> list = reviewService.myPageSelectReviewList(id,pi);
-		
-		
-		mv.addObject("review", list).addObject("reviewCount", listCount).setViewName("member/myPage");
+		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
+		mv.addObject("review", reviewList).addObject("pi", pi).addObject("tab", tab).setViewName("member/myPage");
 		return mv;
 	}
 
