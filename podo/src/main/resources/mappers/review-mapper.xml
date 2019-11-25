@@ -172,7 +172,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="myPageSelectReviewList" resultMap="myPageSelectReviewListResultSet">
-		select member_id, content, title_kor, f.id as f_id, status, modify_date
+		select member_id, content, title_kor, f.id as f_id, status, modify_date, change_name
 		from tb_review 
 		join tb_film f on(film_id = f.id)
 		join (select film_id, change_name
@@ -182,6 +182,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		status='Y'
 		order by modify_date desc
 	</select>
+	
 	
 
 	
