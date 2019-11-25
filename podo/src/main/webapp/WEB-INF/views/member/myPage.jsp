@@ -90,7 +90,7 @@
 									<div class="desc">
 										<h2>${ loginUser.nickName }</h2>
 										<a href="#"><i class="ti-heart"></i></a>
-										<p class="date">작성리뷰 - 0개  </p>
+										<p class="date">작성리뷰 - ${reviewCount}개  </p>
 										<p class="date">콜렉션 - 0개  </p>
 									</div>
 								</div>
@@ -106,79 +106,131 @@
 							<div class="col-lg-12">
 								<div id="container">
 									<ul class="tab">
-										<li class="current" data-tab="tab1"><a href="#">Review</a></li>
-										<li data-tab="tab2"><a href="#">Collection</a></li>
-										<li data-tab="tab3"><a href="#">Like</a></li>
-										<li data-tab="tab4"><a href="#">Question</a></li>
+										<c:if test="${review != null }">
+											<li class="current" data-tab="tab11" id="tab1"><a>Review</a></li>
+										</c:if>
+										<c:if test="${review == null }">
+											<li data-tab="tab11" id="tab1"><a>Review</a></li>
+										</c:if>
+										<c:if test="${collection != null }">
+											<li class="current" data-tab="tab2" id="tab12"><a>Collection</a></li>
+										</c:if>
+										<c:if test="${collection == null }">
+											<li data-tab="tab2" id="tab12"><a>Collection</a></li>
+										</c:if>
+										<c:if test="${like != null }">
+											<li class="current" data-tab="tab3" id="tab13"><a>Like</a></li>
+										</c:if>
+										<c:if test="${like == null }">
+											<li data-tab="tab3" id="tab13"><a>Like</a></li>
+										</c:if>
+										<c:if test="${question != null }">
+											<li class="current" data-tab="tab4" id="tab14"><a>Question</a></li>
+										</c:if>
+										<c:if test="${question == null }">
+											<li data-tab="tab4" id="tab14"><a>Question</a></li>
+										</c:if>
 									</ul>
 							
-									<div id="tab1" class="tabcontent current"><br>
-										<!-------------------------- 리뷰 탭메뉴 바디 ------------------------>
-										<section class="blog-post-area section-margin mt-4">
-											<div class="container">
-												<div class="row">
-													<div class="col-lg-12">
-														<div class="single-recent-blog-post" style="height:300px">
-															<div class="details mt-20">
-																<div class="thumb" style="float:left">
-																	<div class="col-lg-12" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
-																		<img class="img-fluid" src="resources/detailFilmImage/안녕베일리.jpg" width="100%" height="100%">
+									<c:if test="${review != null }">
+										<div id="tab1" class="tabcontent current"><br>
+											<!-------------------------- 리뷰 탭메뉴 바디 ------------------------>
+											<section class="blog-post-area section-margin mt-4">
+												<div class="container">
+													<div class="row">
+														<div class="col-lg-12">
+															<c:forEach items="${review}" var="list" >
+																<div class="single-recent-blog-post" style="height:300px">
+																	<div class="details mt-20">
+																		<div class="thumb" style="float:left">
+																			<div class="col-lg-12" id="moviePoster" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
+																				<img class='img-fluid' src='resources/detailFilmImage/${list.posterImage}' width='100%' height='100%'>
+																			</div>
+																		</div>
+																		<div style="float:left">
+																			<div style="float:left">
+																				<a href="#"><h3>${list.titleKor}</h3><br></a>
+																				<p>${list.content}</p>
+																			</div>
+																		</div>
 																	</div>
 																</div>
-																<div style="float:left">
-																	<div style="float:left">
-																		<a href="#"><h3>안녕베일리</h3><br></a>
-																		<p> 베일리야안녕</p>
-																	</div>
+															</c:forEach>
+															<!-------------------------- 페이징바 시작 ------------------------>
+															<div class="row">
+																<div class="col-lg-12">
+																	<nav class="blog-pagination justify-content-center d-flex">
+																		<ul class="pagination">
+																			<li class="page-item">
+																				<a href="#" class="page-link" aria-label="Previous">
+																					<span aria-hidden="true">
+																						<i class="ti-angle-left"></i>
+																					</span>
+																				</a>
+																			</li>
+																			<li class="page-item active"><a href="#" class="page-link">1</a></li>
+																			<li class="page-item"><a href="#" class="page-link">2</a></li>
+																			<li class="page-item">
+																				<a href="#" class="page-link" aria-label="Next">
+																					<span aria-hidden="true">
+																						<i class="ti-angle-right"></i>
+																					</span>
+																				</a>
+																			</li>
+																		</ul>
+																	</nav>
 																</div>
 															</div>
+															<!-------------------------- 페이징바 끝 -------------------------->
 														</div>
-														<!-------------------------- 페이징바 시작 ------------------------>
-														<div class="row">
-															<div class="col-lg-12">
-																<nav class="blog-pagination justify-content-center d-flex">
-																	<ul class="pagination">
-																		<li class="page-item">
-																			<a href="#" class="page-link" aria-label="Previous">
-																				<span aria-hidden="true">
-																					<i class="ti-angle-left"></i>
-																				</span>
-																			</a>
-																		</li>
-																		<li class="page-item active"><a href="#" class="page-link">1</a></li>
-																		<li class="page-item"><a href="#" class="page-link">2</a></li>
-																		<li class="page-item">
-																			<a href="#" class="page-link" aria-label="Next">
-																				<span aria-hidden="true">
-																					<i class="ti-angle-right"></i>
-																				</span>
-																			</a>
-																		</li>
-																	</ul>
-																</nav>
-															</div>
-														</div>
-														<!-------------------------- 페이징바 끝 -------------------------->
 													</div>
 												</div>
-											</div>
-										</section>
-									</div>
-							
-									<div id="tab2" class="tabcontent"><br>
-										<h3>Collection</h3><br>
-										<p>컬렉입니당.</p>
-									</div>
-							
-									<div id="tab3" class="tabcontent"><br>
-										<h3>Like</h3><br>
-										<p>라이크임당.</p>
-									</div>
-							
-									<div id="tab4" class="tabcontent"><br>
+											</section>
+										</div>
+									</c:if>
+									
+									<c:if test="${review == null }">
+										<div id="tab1" class="tabcontent"><br>
+											<h3>Review</h3><br>
+											<p>조회된 리스트가 없습니다.</p>
+										</div>
+									</c:if>
+									<c:if test="${collection != null }">
+										<div id="tab2" class="tabcontent current"><br>
+											<h3>Collection</h3><br>
+											<p>컬렉입니당.</p>
+										</div>
+									</c:if>
+									<c:if test="${collection == null }">
+										<div id="tab2" class="tabcontent"><br>
+											<h3>Collection</h3><br>
+											<p>조회된 컬렉 없습니당.</p>
+										</div>
+									</c:if>
+									<c:if test="${like != null }">
+										<div id="tab3" class="tabcontent current"><br>
+											<h3>Like</h3><br>
+											<p>라이크임당.</p>
+										</div>
+									</c:if>
+									<c:if test="${like == null }">
+										<div id="tab3" class="tabcontent"><br>
+											<h3>Like</h3><br>
+											<p>조회된 라이크 없습니당.</p>
+										</div>
+									</c:if>
+									<c:if test="${question != null }">
+									<div id="tab4" class="tabcontent current"><br>
 										<h3>Question</h3><br>
 										<p>문의지롱</p>
 									</div>
+									</c:if>
+									<c:if test="${question == null }">
+									<div id="tab4" class="tabcontent"><br>
+										<h3>Question</h3><br>
+										<p>조회된 문의없지롱</p>
+									</div>
+									</c:if>
 								</div>
 							</div>
 							<!-------------------------- 탭 메뉴 끝 ------------------------>
@@ -295,54 +347,23 @@
 
 
 	<script>
-	 
-		 $(function(){
-			$("#container ul>li").on("click", function(){
-				var tabMenu = $(this).text();
-				var strId = "${loginUser.id}";
-				var strUrl = "";
-				
-				//console.log(tabMenu);
-				
-				 if(tabMenu == "Review"){
-					strUrl="myPageSelectReview.do";
-				}else if(tabMenu =="Collection"){
-					strUrl="myPageSelectCollection.do";
-				}else if(tabMenu == "Like"){
-					strUrl="myPageSelectLike.do";
-				}else if(tabMenu == "Question"){
-					strUrl="myPageSelectQuestion.do";
-				} 
-				 
-				// console.log(strUrl); 
-				// console.log(strId); 
-				 
-			 	$.ajax({
-					url:strUrl,
-					data:{id:strId},
-					type:"post",
-					success:function(data){
-						console.log(data);
-						if(date==success){
-							console.log("에이작스 성공");
-						}
-					},error:function(){
-						console.log("탭메뉴 ajax 통신 실패");
-					}
-					
-				}); 
-			});
-		}); 
-	 	
+	
 		// 탭메뉴 관련 
 		$(function() {
-			$('ul.tab li').click(function() {
-				var activeTab = $(this).attr('data-tab');
-				$('ul.tab li').removeClass('current');
-				$('.tabcontent').removeClass('current');
-				$(this).addClass('current');
-				$('#' + activeTab).addClass('current');
-			})
+			$("#container ul>li").on("click", function(){
+	            var tabMenu = $(this).text();
+	            var strId = "${loginUser.id}";
+	            
+	            if(tabMenu == "Review"){
+	                location.href="myPageSelectReview.do?id=${loginUser.id}";
+	             }else if(tabMenu =="Collection"){
+	            	  location.href="myPageSelectCollection.do?id=${loginUser.id}";
+	             }else if(tabMenu == "Like"){
+	            	  location.href="myPageSelectLike.do?id=${loginUser.id}";
+	             }else if(tabMenu == "Question"){
+	            	  location.href="myPageSelectQuestion.do?id=${loginUser.id}";
+	             } 
+			});
 		});
 
 		// 회원정보 수정, 비밀번호 변경 시 알럴트창

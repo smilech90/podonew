@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.member.model.service.MemberService;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.review.model.service.ReviewService;
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
 
@@ -32,6 +33,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private ReviewService reviewService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
@@ -160,8 +163,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping("myPage.do")
-	public String myPage() {
-		return "member/myPage";
+	public ModelAndView myPage(ModelAndView mv, String id) {
+		int reviewListCount = reviewService.myPageReviewListCount(id);
+		mv.addObject("reviewCount", reviewListCount).setViewName("member/myPage");
+		return mv;
 	}
 	
 	@RequestMapping("memberUpdateForm.do")
