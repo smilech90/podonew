@@ -110,7 +110,10 @@
     	border : 1px solid lightgrey;
     	border-radius: 5px;
     }
-    
+    .image_cover{
+    	text-align:center;
+    	width:35%;
+    }
 </style>
 <body>
 	<!-- 헤더  -->
@@ -158,8 +161,12 @@
                     
                     <c:forEach items="${ al }" var="a">
 	                    <div>
-    	                	<div class="actorImage"><img src="resources/detailFilmImage/actor/${a.profileImage}"></div>
-		                   	<div name="actorName">배우 : ${a.actorName}</div>
+    	                	<div class="actorImage">
+    	                		<div class="image_cover">
+    	                			<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
+				                   	<div name="actorName">${a.actorName}</div>
+    	                		</div>
+    	                	</div>
 	    	            </div>
 			        </c:forEach>
                     <div id="addActor">추가하기</div>
@@ -204,7 +211,7 @@
 									<div class="actor">
 										<!-- 배우 사진 -->
 										<div class="actor_profile">
-											<img src="resources/detailFilmImage/actor/${a.profileImage}">
+											<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
 										</div>
 										<!-- 배우 이름 -->
 										<div class="actor_name">${a.actorName}</div>
@@ -226,15 +233,13 @@
 						<form action="#" method="post">
 							
 							<div class="form-group">
-								<div id="actor_cover">
-									<div class="actor">
-										<c:forEach items="${al}" var="a">
+								<div id="actor_cover1">
+									<div class="actor searchActor">
 											<div class="actor_profile">
 												<img>
 											</div>
 											
 											<div class="actor_name"></div>
-										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -261,11 +266,8 @@
 	    
 	    // 배우 목록 출현
 	    $(function(){
-	    	searchActorList();
 	    	
-	    	setInterval(function(){
-	    		searchActorList();
-	    	}, 25000);
+	    	//searchActorList();
 	    });
 	    
 	    function searchActorList(){
@@ -278,16 +280,16 @@
 	    		data:{searchName:searchName},
 	    		datType:"json",
 	    		success: function(list){
-	    			
-	    			var $aList = $("#actor_cover");		//	<div>큰틀</div>
+	    			console.log(list)
+	    			var $aList = $("#actor_cover1");		//	<div>큰틀</div>
 	    			
 	    			$aList.html("");		// 기존 div 초기화
 	    			$.each(list, function(index, value){
 	    				
 	    				var $div = $("<div class='actor'>");	// actor 틀
 	    				var $profile = $("<div class='actor_profile'>");	// 배우 사진 틀
-	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.name+'.jpg');
-	    				var $aName = $("<div class='actor_name'>").text(value.name);
+	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage);
+	    				var $aName = $("<div class='actor_name'>").text(value.actorName);
 	    				
 	    				$div.append($profile);
 	    				$div.append($img);
