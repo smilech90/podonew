@@ -97,6 +97,7 @@
 								<div class="reply-btn">
 									<a id="update-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); text-align:center;color:white;">정보수정</a>
 									<a id="updatePwd-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); color:white;">비밀번호 변경</a>
+									<a id="question-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:pink; text-align:center; color:white;">문의하기</a>
 								</div>
 							</div>
 							<br><br>	
@@ -343,11 +344,41 @@
 		</div>
 	</div>
 	
+	
+<!-- 문의하기 모달 -->
+	<hr style="margin: 0;">
+	<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">문의하기</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+				<div class="modal-body">
+					<form action="insertQuestion.do" method="post">
+						<input type="hidden" name="userId" value="${ loginUser.id }">
+						<div class="form-group">
+							<label for="qucontent">문의내용</label>
+							<textarea class="form-control" id="qucontent" name="content" rows="5" cols="50"  style="resize: none"></textarea>
+						</div>
+						<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn" style="background:purple; color:white;" onclick="return quValidate();">Question</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		
 
 
 
 	<script>
-	
 		// 탭메뉴 관련 
 		$(function() {
 			console.log("${tab}");
@@ -515,6 +546,26 @@
 			}
 		}
 		
+		
+		// 문의하기 모달창
+		$(function(){
+			$("#question-modal").on("click", function(){
+				$('#questionModal').modal('toggle');
+			});
+		});
+		
+		// 문의하기 버튼 클릭 시		
+		function quValidate(){
+			// 미입력
+			if(!$.trim($("#qucontent").val())){	
+				alert("문의 내용을 입력해주세요");
+				$("#qucontent").focus();
+				return false;
+			} else{
+				return true;
+			}
+		}
+		
 		// 이미지 삭제 버튼 클릭 시
 		function fileReset(){
 			$("#imgArea input").remove();
@@ -545,8 +596,6 @@
 			$("#imgInp").click();
 		});
 	</script>
-	
-		
 	
 </body>
 </html>
