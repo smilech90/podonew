@@ -17,15 +17,6 @@
 		<result property="memberId" column="member_id"/>
 	</resultMap>
 	
-	<resultMap id="ImageResultSet" type="Image">
-		<id property="id" column="id"/>
-		<result property="path" column="path"/>
-		<result property="originalName" column="original_name"/>
-		<result property="changeName" column="change_name"/>
-		<result property="type" column="type"/>
-		<result property="boardId" column="board_id"/>
-		<result property="noticeId" column="notice_id"/>
-	</resultMap>
 	
 	
 	<select id="getBoardCount" resultType="_int">
@@ -42,10 +33,6 @@
 	</select>
 	
 	<insert id="insertBoard">
-	
-	</insert>
-	
-	<insert id="insertImage">
 	
 	</insert>
 	
@@ -67,16 +54,13 @@
 		where id=#{id}
 	</update>
 	
+	<!-- 
 	<update id="updateBoard">
 		
 	</update>
+	 -->
 	
-	<select id="selectCommentList" resultMap="">
-		select *
-		from tb_comment c, tb_board b
-		where c.board_id=#{b.id}
-		order by c.id desc
-	</select>
+	<!--  -->
 	
 	<insert id="insertComment">
 	
