@@ -1,13 +1,14 @@
 package com.ch.podo.review.controller;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,11 +30,14 @@ public class ReviewController {
 
 	// 전체리스트 조회 
 	@RequestMapping("reviewList.do")
-	public ModelAndView reviewList(ModelAndView mv) {
+	public ModelAndView reviewList(ModelAndView mv, PageInfo pi,
+							       @RequestParam(value="currentPage",defaultValue = "1") int currentPage) {
 		
-		ArrayList<Review> list = reviewService.selectReviewList();
-		
-		mv.addObject("list",list).setViewName("reviewView/reviewList");
+		int listReviewCount = reviewService.getReviewListCount();
+		pi = Pagination.getPageInfo(currentPage, listReviewCount);
+		ArrayList<Review> list = reviewService.selectReviewList(pi);
+		System.out.println(pi);
+		mv.addObject("list",list).addObject("pi", pi).setViewName("reviewView/reviewList");
 		
 		System.out.println("리뷰리스트 : "  + list);
 		
@@ -150,19 +154,17 @@ public class ReviewController {
 	
 	
 	// 마이페이지 리뷰조회
-	@ResponseBody
 	@RequestMapping("myPageSelectReview.do")
-	public String myPageSelectReview(String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
-		
+	public ModelAndView myPageSelectReview(String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
 		int listCount = reviewService.myPageReviewListCount(id);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Review> list = reviewService.myPageSelectReviewList(id,pi);
 		
-		System.out.println(list);
 		
-		return "success";
+		mv.addObject("review", list).addObject("reviewCount", listCount).setViewName("member/myPage");
+		return mv;
 	}
 
 	

@@ -10,8 +10,13 @@ import com.ch.podo.review.model.dto.Review;
 
 public interface ReviewService {
 	
+	// 총 리뷰 갯수 조회용 서비스
+	int getReviewListCount(); 
+	
+	
 	//영화 리뷰 보기
-	ArrayList<Review> selectReviewList();
+	ArrayList<Review> selectReviewList(PageInfo pi);
+	
 	
 	//영화 리뷰 삭제
 	int deleteReview(int id);
@@ -41,10 +46,4 @@ public interface ReviewService {
 	ArrayList<Review> myPageSelectReviewList(String id, PageInfo pi);
 	
 	
-	// 관리자
-	// 1_1. 게시판 총 갯수 조회용 서비스
-	int getReviewListCount();
-	
-	// 1_2. 현재 페이지에 보여질 리뷰 리스트 조회용 서비스
-	ArrayList<Review> selectReviewList(PageInfo pi);
 }
