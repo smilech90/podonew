@@ -297,7 +297,6 @@
 	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage).css({'width':'150', 'height':'150' ,'border-radius':'100px'});
 	    				var $aName = $("<div class='actor_name'>").text(value.actorName).css('border-radius','100px');
 	    				
-	    				
 	    				$div.append($profile);
 	    				$div.append($img);
 	    				$div.append($aName);
