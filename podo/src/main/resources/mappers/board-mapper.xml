@@ -15,6 +15,7 @@
 		<result property="createDate" column="create_date"/>
 		<result property="status" column="status"/>
 		<result property="memberId" column="member_id"/>
+		<result property="nickName" column="nickname"/>	
 		<result property="imageId" column="image_id"/>
 	</resultMap>
 	
@@ -60,6 +61,14 @@
 	<update id="updateBoard">
 		
 	</update>
+	
+	<select id="selectboardListHome" resultMap="boardResultSet">
+		select *
+		from tb_board b
+        join tb_member m on(b.member_id=m.id)
+		where b.status='Y'
+		order by b.id desc
+	</select>
 	
 	
 	

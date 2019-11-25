@@ -30,19 +30,20 @@ public class HomeController {
 	private BoardService bs;
 	
 	@RequestMapping("home.do")
-	public ModelAndView home(ModelAndView mv,PageInfo pi,@RequestParam(value="currentPage", defaultValue="1") int currentPage)
-			throws Exception {
+	public ModelAndView home(ModelAndView mv)throws Exception {
 		
 		ArrayList<Film> list = f.selectNewFilms();
 		
-		
+		 System.out.println("창수의:"+list);
 		int listReviewCount = rs.getReviewListCount();
-		ArrayList<Review> reviewList = rs.selectReviewList(pi);
+		ArrayList<Review> reviewList = rs.selectReviewListMain();
+		System.out.println("처란의:"+reviewList);
 		
 		
-		ArrayList<Board> boardList = bs.selectBoardList(pi);
-		int listCount = bs.getBoardCount();
-		mv.addObject("list", list).addObject("reviewList", reviewList).addObject("pi", pi).addObject("boardList", boardList).setViewName("home");
+		ArrayList<Board> boardList = bs.selectboardListHome();
+		
+		System.out.println("윤진의"+boardList);
+		mv.addObject("list", list).addObject("reviewList", reviewList).addObject("boardList", boardList).setViewName("home");
 
 		return mv;
 	}

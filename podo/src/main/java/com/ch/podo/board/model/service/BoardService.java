@@ -28,5 +28,8 @@ public interface BoardService {
 	// 게시판 수정
 	int updateBoard(Board b);
 	
+	// 메인 홈 자유게시판 리스트
+	ArrayList<Board> selectboardListHome();
+	
 	
 }

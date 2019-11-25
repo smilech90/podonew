@@ -88,6 +88,14 @@ public class ReviewDao {
 	}
 
 
+	public ArrayList<Review> selectReviewListMain() {
+		
+		
+		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewListMain");
+		return list;
+	}
+
+
 	
 	
 	

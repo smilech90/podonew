@@ -190,6 +190,18 @@ public class BoardController {
 	}
 	
 	
+	//처란 메인페이지 리스트관련
+	@RequestMapping("boardListHome.do")
+	public ModelAndView selectboardListHome(ModelAndView mv) {
+		
+		ArrayList<Board> list = boardService.selectboardListHome();
+		
+		mv.addObject("list", list).setViewName("board/boardListHome");
+		
+		return mv;		
+		
+	}
+	
 	
 
 }

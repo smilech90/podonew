@@ -187,5 +187,19 @@ public class ReviewController {
 		return mv;
 	}
 	
+	//전체리스트 메인 페이지
+	@RequestMapping("reviewListMain.do")
+	public ModelAndView reviewList(ModelAndView mv) {
+		
+
+		ArrayList<Review> list = reviewService.selectReviewListMain();
+		System.out.println(list);
+		mv.addObject("list",list).setViewName("reviewView/reviewList");
+		
+		System.out.println("리뷰리스트 : "  + list);
+		
+		return mv;
+		
+	}
 
 }

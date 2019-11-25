@@ -57,6 +57,12 @@ public class BoardServiceImpl implements BoardService {
 	public int updateBoard(Board b) {
 		return boardDao.updateBoard(b);
 	}
+
+	@Override
+	public ArrayList<Board> selectboardListHome() {
+		
+		return boardDao.selectboardListHome();
+	}
 	
 
 }
