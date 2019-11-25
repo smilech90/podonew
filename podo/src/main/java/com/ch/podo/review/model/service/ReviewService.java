@@ -45,5 +45,7 @@ public interface ReviewService {
 	// 마이페이지_리뷰리스트 조회
 	ArrayList<Review> myPageSelectReviewList(String id, PageInfo pi);
 	
+	// 영화페이지 메인에 올것
+	ArrayList<Review> selectReviewListMain();
 	
 }

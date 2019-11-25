@@ -19,8 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ch.podo.board.model.service.BoardService;
 import com.ch.podo.board.model.vo.Board;
 import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.image.model.vo.Image;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 public class BoardController {
@@ -53,23 +56,37 @@ public class BoardController {
 	
 	
 	@RequestMapping("binsert.do")
-	public ModelAndView insertBoard(Board b, Image i, HttpServletRequest request, ModelAndView mv, 
-								@RequestParam(value="", required=false) MultipartFile file) {
+	public ModelAndView insertBoardFile(Board b, Image i, HttpServletRequest request, ModelAndView mv,  
+								@RequestParam(value="uploadFile", required=false) MultipartFile file) {
 		
-				
+		// 파일이 있을 경우
 		if(!file.getOriginalFilename().equals("")) {
+			
+			int result = boardService.insertBoard(b);
+			
 			String renameFileName = saveFile(file, request);
 			
 			i.setOriginalName(file.getOriginalFilename());
 			i.setChangeName(renameFileName);
-		}
-		
-		int result = boardService.insertBoard(b);
-		
-		if(result > 0) {
-			mv.setViewName("blist.do");
+			
+			int result2 = boardService.insertBoardFile(i);
+			
+			if(result > 0 && result2 > 0) {
+				mv.addObject("b", b).addObject("i", i).setViewName("");
+			}else {
+				mv.addObject("");
+			}
+			
+		// 첨부파일 없이 게시판 작성
 		}else {
-			mv.addObject("alert", "게시글 작성 실패");
+			
+			int result3 = boardService.insertBoard(b);
+			
+			if(result3 > 0) {
+				mv.addObject("b", b).setViewName("");
+			}else {
+				mv.addObject("");
+			}
 			
 		}
 		
@@ -110,6 +127,9 @@ public class BoardController {
 		return renameFileName;
 		
 	}
+	
+	
+	
 	
 	
 	@RequestMapping("bdetail.do")
@@ -190,6 +210,32 @@ public class BoardController {
 	}
 	
 	
+
+	//처란 메인페이지 리스트관련
+	@RequestMapping("boardListHome.do")
+	public ModelAndView selectboardListHome(ModelAndView mv) {
+		
+		ArrayList<Board> list = boardService.selectboardListHome();
+		
+		mv.addObject("list", list).setViewName("board/boardListHome");
+		
+		return mv;		
+		
+	}
+
+	// 댓글
+	
+	@RequestMapping(value="commentList.do", produces="application/json; charset=UTF-8")
+	public String CommentList(int id) {
+		
+		ArrayList<Comment> cList = boardService.selectCommentList(id);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		return gson.toJson(cList);
+		
+	}
+
 	
 
 }

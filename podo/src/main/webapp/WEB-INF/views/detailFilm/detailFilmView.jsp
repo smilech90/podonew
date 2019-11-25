@@ -84,7 +84,7 @@
         font-size:50px;
     }
     #movie_clip{
-        font-size:15px;
+        font-size:10px;
         border: 0px solid black;
         float:right;
     }
@@ -106,6 +106,22 @@
     .df_r_content{
     	display : none;
     }
+    .actorImage{
+    	border: 0px solid black;
+    	width:100%;
+    	height:200px;
+    	overflow-y:scroll;
+    }
+    .actor_name{
+    	border : 0px solid lightgrey;
+    	border-radius: 5px;
+    }
+    .image_cover{
+    	text-align:center;
+    	width:32%;
+    	float:left;
+    }
+    
 </style>
 <body>
 	<!-- 헤더  -->
@@ -146,25 +162,35 @@
 	                    <span id="movie_clip">예고편 : ${ df.trailer }</span>
                 	</div>
                     <div class="cover" id="director_cover">
-   	                	<div>감독 : ${ df.director }</div>
+   	                	<h5>감독</h5>
+   	                	<div>${ df.director }</div>
                     </div>
-			        <c:forEach items="${ al }" var="a">
-	                    <div class="cover" id="actor_cover">
-		                   	<div>배우 : ${ a.actorName }</div>
-	    	            </div>
-			        </c:forEach>
+                    <br>
+                    <div>
+                    	<h5>출연 배우</h5>
+   	                	<div class="actorImage">
+		                    <c:forEach items="${ al }" var="a">
+	   	                		<div class="image_cover">
+	   	                			<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
+				                   	<div name="actorName">${a.actorName}</div>
+	   	                		</div>
+					        </c:forEach>   
+   	                	</div>
+    	            </div>
+			        <br>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div id="synopsys">시놉시스 : ${ df.synopsys }</div>
+                    	<h5>시놉시스</h5>
+                    	<div id="synopsys">${ df.synopsys }</div>
                     </div>
-                    
+                    <br>
                     <div class="cover" id="plusInfo_cover">
-                    	<div id="trivia">트리비아 : ${ df.trivia }</div>
+                    	<h5>트리비아</h5>
+                    	<div id="trivia">${ df.trivia }</div>
                     </div>
-                    
+                    <br>
                     <div class="cover" id="nickName_cover">
-                    	<div id="trivia">작성자 : ${ df.nickName }</div>
+                    	<div id="df_nickName"><h5>작성자</h5>${ df.nickName }</div>
                     </div>
-                    
                     <c:if test="${ loginUser.id ne null }">
                     	<div class="cover" id="rollbackBtn">
                     		<a href="detailFilmRollback.do?filmId=${df.filmId}">되돌리기</a>
@@ -183,23 +209,23 @@
         <div class="df_review_list">
 		    <div><a href="reviewWriteForm.do?filmId=${df.filmId}&loginUserId=${loginUser.id}">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
 		    
-	        <c:forEach items="${ rl }" var="r">
-		        <div class="review">
-			        <div>리뷰</div>
-			        <c:if test="${ r.spoilerCheck eq 'Y' }">
-			            <div class="df_r_spoContent">
-				            <div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
-				            <div class="df_r_content">내용 : ${ r.content }</div>
-			            </div>
-			        </c:if>
-			        <c:if test="${ r.spoilerCheck eq 'N' }">
-			            <div>내용 : ${ r.content }</div>
-			        </c:if>
-			            <div>별점 : 아직 처리 못함</div>			        
-			            <div>작성자 : ${ r.nickname}</div>
-			            <div>좋아요 : ${ r.likeCount }</div>
-		        </div>
-	        </c:forEach>
+		        <c:forEach items="${ rl }" var="r">
+			        <div class="review">
+				        <div>리뷰</div>
+				        <c:if test="${ r.spoilerCheck eq 'Y' }">
+				            <div class="df_r_spoContent">
+					            <div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
+					            <div class="df_r_content">내용 : ${ r.content }</div>
+				            </div>
+				        </c:if>
+				        <c:if test="${ r.spoilerCheck eq 'N' }">
+				            <div>내용 : ${ r.content }</div>
+				        </c:if>
+				            <div>별점 : 아직 처리 못함</div>			        
+				            <div>작성자 : ${ r.nickName}</div>
+				            <div>좋아요 : ${ r.likeCount }</div>
+			        </div>   
+		        </c:forEach>
     	</div>
 	    <br>
     	</div>

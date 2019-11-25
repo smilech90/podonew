@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.ch.podo.board.model.vo.Board;
 import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.comment.model.vo.Comment;
+import com.ch.podo.image.model.vo.Image;
 
 public interface BoardService {
 	
@@ -13,8 +15,11 @@ public interface BoardService {
 	// 현재 페이지에 보여지는 게시글 리스트 조회
 	ArrayList<Board> selectBoardList(PageInfo pi);
 	
+	
 	// 게시판 작성
 	int insertBoard(Board b);
+	
+	int insertBoardFile(Image i);
 	
 	// 게시판 상세 조회
 	Board selectBoard(int id);
@@ -27,6 +32,14 @@ public interface BoardService {
 	
 	// 게시판 수정
 	int updateBoard(Board b);
+	
+
+	// 메인 홈 자유게시판 리스트
+	ArrayList<Board> selectboardListHome();
+
+	// 댓글 리스트
+	ArrayList<Comment> selectCommentList(int id);
+
 	
 	
 }

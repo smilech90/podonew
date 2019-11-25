@@ -86,6 +86,12 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.myPageSelectReviewList(id, pi);
 	}
 
+	@Override
+	public ArrayList<Review> selectReviewListMain() {
+		
+		return reviewDao.selectReviewListMain();
+	}
+
 
 
 }

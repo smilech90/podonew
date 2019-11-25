@@ -73,7 +73,6 @@ public class DetailFilmController {
 	@ResponseBody
 	@RequestMapping(value="searchActorList.do", produces="application/json; charset=UTF-8")
 	public String selectFilmActor(String searchName) {
-		
 		ArrayList<Actor> al = dfService.searchActorList(searchName);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();

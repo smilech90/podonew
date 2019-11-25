@@ -1,13 +1,14 @@
 package com.ch.podo.review.controller;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -153,19 +154,17 @@ public class ReviewController {
 	
 	
 	// 마이페이지 리뷰조회
-	@ResponseBody
 	@RequestMapping("myPageSelectReview.do")
-	public String myPageSelectReview(String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
-		
+	public ModelAndView myPageSelectReview(String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
 		int listCount = reviewService.myPageReviewListCount(id);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Review> list = reviewService.myPageSelectReviewList(id,pi);
 		
-		System.out.println(list);
 		
-		return "success";
+		mv.addObject("review", list).addObject("reviewCount", listCount).setViewName("member/myPage");
+		return mv;
 	}
 
 	
@@ -187,5 +186,19 @@ public class ReviewController {
 		return mv;
 	}
 	
+	//전체리스트 메인 페이지
+	@RequestMapping("reviewListMain.do")
+	public ModelAndView reviewList(ModelAndView mv) {
+		
+
+		ArrayList<Review> list = reviewService.selectReviewListMain();
+		System.out.println(list);
+		mv.addObject("list",list).setViewName("reviewView/reviewList");
+		
+		System.out.println("리뷰리스트 : "  + list);
+		
+		return mv;
+		
+	}
 
 }

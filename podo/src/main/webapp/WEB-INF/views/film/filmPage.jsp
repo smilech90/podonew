@@ -153,6 +153,7 @@
 			<div style="display: inline-block;">
 				<form action="film.do" method="get" id="search-film-form">
 					<!-- 연도별 -->
+<%-- 					<input type="hidden" name="p" value="${ pi.currentPage }"> --%>
 					<select name="releaseYear">
 						<option value="all" data-display="연도별">연도별</option>
 						<c:forEach items="${ release }" var="release">
@@ -229,8 +230,8 @@
 								<img src="resources/detailFilmImage/podoposter.jpg">
 							</c:if>
 						</div>
-						<div style="margin-top: 20px;">
-							<h3>${ film.titleKor }</h3>
+						<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
+							${ film.titleKor }
 						</div>
 						<div>
 							<small>${ film.genre } / ${ film.releaseYear }</small>
@@ -287,54 +288,61 @@
 			 -->
 		</div>
 		
-		<!-- 페이지 -->
-	<div class="row">
-		<div class="col-lg-12">
-			<nav class="blog-pagination justify-content-center d-flex">
-				<ul class="pagination">
-
-					<!-- [PREV] -->
-					<li class="page-item">
-						<a href="film.do?currentPage=${ pi.currentPage - 1 }"
-																		class="page-link" aria-label="Previous" disabled>
-							<span aria-hidden="true"><i class="ti-angle-left"></i></span>
-						</a>
-					</li>
-
-					<!-- [페이지] -->
-					<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-						<c:if test="${ p eq pi.currentPage }">
-							<c:url value="film.do" var="page">
-								<c:param name="currentPage" value="${ p }" />
-							</c:url>
-							<li class="page-item disabled"><a href="${ page }"
-								class="page-link">${ p }</a></li>
-						</c:if>
-						<c:if test="${ p ne pi.currentPage }">
-							<c:url value="film.do" var="page">
-								<c:param name="currentPage" value="${ p }" />
-							</c:url>
-							<li class="page-item"><a href="${ page }" class="page-link">${ p }</a></li>
-						</c:if>
-
-					</c:forEach>
-
-					<!-- [NEXT] -->
-					<li class="page-item">
-						<a href="film.do?currentPage=${ pi.currentPage + 1 }"
-								class="page-link" aria-label="Next">
-							<span aria-hidden="true">
-								<i class="ti-angle-right"></i>
-							</span>
-						</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-
-
-
+		<c:url var="filmUrl" value="film.do">
+			<c:param name="releaseYear" value="${ param.releaseYear }" />
+			<c:param name="productionCountry" value="${ param.productionCountry }" />
+			<c:param name="genreId" value="${ param.genreId }" />
+			<c:param name="saw" value="${ param.saw }" />
+			<c:param name="opt" value="${ param.opt }" />
+		</c:url>
+			<!-- Pagination -->
+			<div class="row">
+				<div class="col-lg-12">
+					<nav class="blog-pagination justify-content-center d-flex">
+						<ul class="pagination">
+		
+							<!-- [PREV] -->
+							<c:if test="${ pi.currentPage eq 1 }">
+								<li class="page-item disabled">
+							</c:if>
+							<c:if test="${ pi.currentPage ne 1 }">
+								<li class="page-item">
+							</c:if>
+									<a href=<c:out value="${ filmUrl }&p=${ pi.currentPage - 1 }"/> class="page-link" aria-label="Previous">
+										<span aria-hidden="true"><i class="ti-angle-left"></i></span>
+									</a>
+								</li>
+		
+							<!-- [각 페이지] -->
+							<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+							
+								<c:if test="${ p eq pi.currentPage }">
+									<li class="page-item disabled"><a href=<c:out value="${ filmUrl }&p=${ p }"/> class="page-link">${ p }</a></li>
+								</c:if>
+								
+								<c:if test="${ p ne pi.currentPage }">
+									<li class="page-item"><a href="<c:out value="${ filmUrl }&p=${ p }"/>" class="page-link">${ p }</a></li>
+								</c:if>
+								
+							</c:forEach>
+		
+							<!-- [NEXT] -->
+							<c:if test="${ pi.currentPage eq pi.maxPage }">
+								<li class="page-item disabled">
+							</c:if>
+							<c:if test="${ pi.currentPage ne pi.maxPage }">
+								<li class="page-item">
+							</c:if>
+									<a href=<c:out value="${ filmUrl }&p=${ pi.currentPage + 1 }"/> class="page-link" aria-label="Next">
+									<span aria-hidden="true">
+										<i class="ti-angle-right"></i>
+									</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
 
 	<script>
 		
@@ -396,10 +404,8 @@
 							|| $(this).attr("data-display") === "장르별") {
 						// console.log($(this));
 						genreId = $(this).attr("data-value");
-						$("select[name=genreId] option")
-								.attr("selected", false);
-						$("select[name=genreId] option[value=" + genreId + "]")
-								.attr("selected", true);
+						$("select[name=genreId] option").attr("selected", false);
+						$("select[name=genreId] option[value=" + genreId + "]").attr("selected", true);
 					} else if ($(this).siblings('li[data-display=연도별]').length
 							|| $(this).attr("data-display") === "연도별") {
 						releaseYear = $(this).attr("data-value");
