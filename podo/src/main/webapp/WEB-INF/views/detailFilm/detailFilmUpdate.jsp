@@ -103,16 +103,19 @@
     	border-radius: 5px;
     }
     .actorImage{
-    	border : 1px solid lightgrey;
-    	border-radius: 20px;
+    	border: 0px solid black;
+    	width:100%;
+    	height:200px;
+    	overflow-y:scroll;
     }
     .actor_name{
-    	border : 1px solid lightgrey;
+    	border : 0px solid lightgrey;
     	border-radius: 5px;
     }
     .image_cover{
     	text-align:center;
-    	width:35%;
+    	width:32%;
+    	float:left;
     }
 </style>
 <body>
@@ -187,13 +190,12 @@
             </form>
             </div>
         </div>
-        
-        
+       
         <!-- collection 모달 -->
 		<hr style="margin: 0;">
 		<div class="modal fade" id="actor-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
-				<div class="modal-content">
+				<div class="modal-content" style="height:700px;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">배우</h5>						<!-- 모달창 제목 -->
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">	<!-- 닫기 버튼 -->
@@ -288,8 +290,8 @@
 	    				
 	    				var $div = $("<div class='actor'>");	// actor 틀
 	    				var $profile = $("<div class='actor_profile'>");	// 배우 사진 틀
-	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage);
-	    				var $aName = $("<div class='actor_name'>").text(value.actorName);
+	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage).css({'width':'150', 'height':'150' ,'border-radius':'100px'});
+	    				var $aName = $("<div class='actor_name'>").text(value.actorName).css('border-radius','100px');
 	    				
 	    				$div.append($profile);
 	    				$div.append($img);
