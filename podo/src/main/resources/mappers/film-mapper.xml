@@ -42,8 +42,8 @@
 		select f.*, g.name, fi.change_name
 		from tb_film f
 		join tb_genre g on (f.genre_id = g.id)
-		join tb_detail_film df on (df.film_id = f.id)
-		join tb_film_image fi on (df.id = fi.dfilm_id)
+		left outer join tb_detail_film df on (df.film_id = f.id)
+		left outer join tb_film_image fi on (df.id = fi.dfilm_id)
 		where title_kor like '%'||#{keyword}||'%'
 		   or title_eng like '%'||#{keyword}||'%'
 	</select>
@@ -52,8 +52,8 @@
 		select count(*)
 		from tb_film f
 		join tb_genre g on (f.genre_id = g.id)
-		join tb_detail_film df on (df.film_id = f.id)
-		join tb_film_image fi on (df.id = fi.dfilm_id)
+		left outer join tb_detail_film df on (df.film_id = f.id)
+		left outer join tb_film_image fi on (df.id = fi.dfilm_id)
 		where 1 = 1
 		<if test='releaseYear != "all" and releaseYear != null'>
 			and release_year = #{ releaseYear }
@@ -70,8 +70,8 @@
 		select f.*, g.name, fi.change_name
 		from tb_film f
 		join tb_genre g on (f.genre_id = g.id)
-		join tb_detail_film df on (df.film_id = f.id)
-		join tb_film_image fi on (df.id = fi.dfilm_id)
+		left outer join tb_detail_film df on (df.film_id = f.id)
+		left outer join tb_film_image fi on (df.id = fi.dfilm_id)
 		where 1 = 1
 		<if test='releaseYear != "all" and releaseYear != null'>
 			and release_year = #{ releaseYear }
@@ -87,8 +87,8 @@
 	<select id="selectFilterFilmMap" resultMap="filmResultSet">
 		select f.*, g.name, l.user_id
 		from tb_film f
-		join tb_genre g on (f.genre_id = g.id)
-    join tb_like l on (l.target_id = f.id)
+		left outer join tb_genre g on (f.genre_id = g.id)
+    left outer join tb_like l on (l.target_id = f.id)
 		where user_id = #{ mid }
 		<if test='film.releaseYear != "all" and film.releaseYear != null'>
 			and release_year = #{ film.releaseYear }
