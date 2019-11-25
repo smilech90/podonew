@@ -197,7 +197,7 @@
     	<div style="height:200px;"></div>
     </div>
 	    <p align="center">자유게시판 리스트</p>
-						<a href="#" id="boardMore">더보기</a>
+						<a href="blist.do" id="boardMore">더보기</a>
 	<table class="tableHome" align="center" cellspacing="0">
 		<tr class="bTitle">
 			<th></th>
@@ -242,7 +242,7 @@
 					var bId = $(this).parent().children().eq(0).text();
 					
 
-						location.href="boardDetailView.bo?bId=" + bId;
+						location.href="boardDetailView.bo?bid=" + bId;
 
 					
 				});

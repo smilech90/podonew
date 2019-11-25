@@ -119,10 +119,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by r.id desc
 	</select>
 	
-	<insert id="reviewWrite">
+	<insert id="reviewWrite" parameterType="hashMap">
 		INSERT INTO TB_REVIEW
 		VALUES(SEQ_REVIEW_ID.NEXTVAL, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, sysdate , sysdate , #{filmId},#{memberId})
-	</insert>
+	</insert>  
+	
+	<!-- <insert id="ratingWrite">
+		INSERT INTO TB_RATING_REVIEW
+		VALUES (SEQ_RATING_REVIEW_ID.NEXTVAL,#{ratingSound},#{ratingVisual},#{ratingActing},#{ratingPop},#{ratingScript},#{ratingDirect})
+	</insert> -->
 	
 	<update id="deleteReview">
 	update tb_review
@@ -202,8 +207,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      ]]>
 	</select>
 
-	
-
+	<!-- 리뷰가져오는거 -->
+<!-- 	<select id="selectReview" resultMap="reviewListSet">
+        SELECT *
+		FROM TB_Review r
+		where 
+	</select>
+ -->
 	
 	
 </mapper>

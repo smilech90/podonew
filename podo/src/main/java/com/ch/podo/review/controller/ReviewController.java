@@ -1,19 +1,18 @@
 package com.ch.podo.review.controller;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
+import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dto.Review;
@@ -36,10 +35,10 @@ public class ReviewController {
 		int listReviewCount = reviewService.getReviewListCount();
 		pi = Pagination.getPageInfo(currentPage, listReviewCount);
 		ArrayList<Review> list = reviewService.selectReviewList(pi);
-		System.out.println(pi);
+		//System.out.println(pi);
 		mv.addObject("list",list).addObject("pi", pi).setViewName("reviewView/reviewList");
 		
-		System.out.println("리뷰리스트 : "  + list);
+		//System.out.println("리뷰리스트 : "  + list);
 		
 		return mv;
 		
@@ -50,8 +49,13 @@ public class ReviewController {
 	public ModelAndView reviewWriteView(int loginUserId,int filmId, ModelAndView mv) {
 		
 		Film f = reviewService.selectFilm(filmId);
+		//포스터 안끌려옴..?
+		
+		//쓴날짜 오기위해 가져오는건데 의미없는듯 r = reviewService.selectReview();
 		
 		Member m = reviewService.selectMember(loginUserId);
+		
+		//System.out.println("m의값"+m);
 		
 		
 		
@@ -62,11 +66,19 @@ public class ReviewController {
 	
 	// 글 쓰기(별점은 어떻게 가져올지 아직 ..)
 	@RequestMapping("reviewWrite.do")
-	public String reviewWrite(ModelAndView mv,Review r,Model model) {
+	public String reviewWrite(DetailFilm df, ModelAndView mv,Review r,Model model) {
+
 		
+		//int result = reviewService.reivewInsert(df);
 		int result = reviewService.reviewWrite(r);
-		System.out.println(r);
-		if(result > 0) { //게시판 작성 성공
+		
+		
+	
+		//mv.addObject("filmId", df.getFilmId()).setViewName("redirect:reviewList.do");
+		//return mv;
+		
+		if( result > 0) { //게시판 작성 성공
+			System.out.println("글스기인데 값이 안잡힘 : "+r);
 			
 			return "redirect:reviewList.do";
 			
@@ -110,7 +122,7 @@ public class ReviewController {
 		
 		Review r = reviewService.selectRatingReviewDetailView(id);
 		
-		System.out.println("글 리뷰 리스트 조회용: " + r);
+		//System.out.println("글 리뷰 리스트 조회용: " + r);
 		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
 		
 		
@@ -193,7 +205,7 @@ public class ReviewController {
 		System.out.println(list);
 		mv.addObject("list",list).setViewName("reviewView/reviewList");
 		
-		System.out.println("리뷰리스트 : "  + list);
+		//System.out.println("리뷰리스트 : "  + list);
 		
 		return mv;
 		
