@@ -49,6 +49,7 @@
 						<span class="content">${ loginUser.nickName }님을 위한 포도의 추천 영화</span>
 					</c:if>
 					<c:if test="${ empty loginUser }">
+						<span class="content">로그인 해주세요!</span>
 					</c:if>
 				</div>
 			</div>
@@ -176,31 +177,9 @@
 							 -->
 						</c:when>
 						<c:otherwise>
-							10개 이상의 영화를 좋아해주세요!
+							<h2 style="text-align: center; background-color: #bf9dc3;">10개 이상의 영화를 좋아해주세요!</h2>
 						</c:otherwise>
 					</c:choose>
-					
-					      	<%-- 
-									<div class="col-md-12">
-										<div class="single-recent-blog-post card-view">
-											<div class="thumb">
-												<img class="card-img rounded-0" src="http://placehold.it/1100x300" alt="">
-												<ul class="thumb-info">
-													<li><a href="#"><i class="ti-user"></i>${ f.director }</a></li>
-													<li><a href="#"><i class="ti-themify-favicon"></i>${ f.releaseYear }</a></li>
-												</ul>
-											</div>
-											<div class="details mt-20">
-												<a href="detailFilm.do?id=${ f.id }">
-		                    <h3>${ f.titleKor }</h3>
-												</a>
-				                <p>${ f.titleEng } / ${ f.productionCountry } / ${ f.genre }</p>
-				                <a class="button" href="detailFilm.do?id=${ f.id }">More Info<i class="ti-arrow-right"></i></a>
-				              </div>
-										</div>
-									</div>
-									 --%>
-				
 			</div>
 		</section>
 	

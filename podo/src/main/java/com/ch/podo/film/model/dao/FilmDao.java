@@ -88,7 +88,7 @@ public class FilmDao {
 	}
 
 	public int selectFilterFilmListCount(SearchCondition sc) {
-		return sqlSession.selectOne("filmMapper.selectFilterFilmListCount");
+		return sqlSession.selectOne("filmMapper.selectFilterFilmListCount", sc);
 	}
 
 	public ArrayList<Film> selectNewFilms() {
