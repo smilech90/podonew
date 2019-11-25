@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ch.podo.detailFilm.model.dao.DetailFilmDao;
+import com.ch.podo.detailFilm.model.vo.Actor;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.review.model.dto.Review;
@@ -48,9 +49,24 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 		return dfDao.selectFilmImage(id);
 	}
 
+	// 롤백 버튼
 	@Override
 	public int detailFilmRollback(int filmId) {
 		return dfDao.detailFilmRollback(filmId);
+	}
+
+	// 영화 상세정보 배우 리스트
+	@Override
+	public ArrayList<Actor> selectActorList(int filmId) {
+		
+		return dfDao.selectActorList(filmId);
+	}
+
+	// 배우 검색 리스트 출력
+	@Override
+	public ArrayList<Actor> searchActorList(String searchName) {
+		
+		return dfDao.searchActorList(searchName);
 	}
 
 }

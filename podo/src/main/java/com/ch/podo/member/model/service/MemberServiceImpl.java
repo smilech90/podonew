@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.member.model.dao.MemberDao;
@@ -54,6 +55,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ArrayList<Member> selectMemberList(PageInfo pi) {
 		return memberDao.selectMemberList(pi);
+	}
+
+	@Override
+	public int getBlackListCount() {
+		return memberDao.getBlackListCount();
+	}
+
+	@Override
+	public ArrayList<Member> selectBlackList(PageInfo pi) {
+		return memberDao.selectBlackList(pi);
 	}
 
 

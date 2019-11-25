@@ -6,8 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.common.Pagination;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dto.Review;
@@ -24,11 +29,14 @@ public class ReviewController {
 
 	// 전체리스트 조회 
 	@RequestMapping("reviewList.do")
-	public ModelAndView reviewList(ModelAndView mv) {
+	public ModelAndView reviewList(ModelAndView mv, PageInfo pi,
+							       @RequestParam(value="currentPage",defaultValue = "1") int currentPage) {
 		
-		ArrayList<Review> list = reviewService.selectReviewList();
-		
-		mv.addObject("list",list).setViewName("reviewView/reviewList");
+		int listReviewCount = reviewService.getReviewListCount();
+		pi = Pagination.getPageInfo(currentPage, listReviewCount);
+		ArrayList<Review> list = reviewService.selectReviewList(pi);
+		System.out.println(pi);
+		mv.addObject("list",list).addObject("pi", pi).setViewName("reviewView/reviewList");
 		
 		System.out.println("리뷰리스트 : "  + list);
 		
@@ -101,7 +109,7 @@ public class ReviewController {
 		
 		Review r = reviewService.selectRatingReviewDetailView(id);
 		
-		System.out.println(r);
+		System.out.println("글 리뷰 리스트 조회용: " + r);
 		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
 		
 		
@@ -134,6 +142,7 @@ public class ReviewController {
 		//리뷰 내용 수정
 		
 		
+		
 		if(result>0) {
 			mv.addObject("id", r.getRatingReviewId()).setViewName("redirect:ratingDetailReview.do");
 		}else {
@@ -143,6 +152,40 @@ public class ReviewController {
 	}
 	
 	
+	// 마이페이지 리뷰조회
+	@ResponseBody
+	@RequestMapping("myPageSelectReview.do")
+	public String myPageSelectReview(String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		
+		int listCount = reviewService.myPageReviewListCount(id);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Review> list = reviewService.myPageSelectReviewList(id,pi);
+		
+		System.out.println(list);
+		
+		return "success";
+	}
+
+	
+	
+	// 관리자 리뷰 리스트 조회
+	@RequestMapping("adRlist.do")
+	public ModelAndView reviewList(ModelAndView mv, 
+								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		
+		int listCount = reviewService.getReviewListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Review> list = reviewService.selectReviewList(pi);
+		
+		mv.addObject("pi", pi).addObject("list", list)
+		  .setViewName("admin/reviewListView");
+		
+		return mv;
+	}
 	
 
 }

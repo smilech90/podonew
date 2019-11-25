@@ -17,26 +17,23 @@ public class RatingReviewServiceImpl implements RatingReviewService {
 
 	
 	/*
-	 * @Override public RatingReview selectRatingReviewDetailView(int id) {
-	 * 
-	 * return ratingReviewDao.selectRatingReviewDetailView(id); }
-	 * 
-	 * @Override public RatingReview selectUpdateReview(int id) { return
-	 * ratingReviewDao.selectRatingReviewDetailView(id); }
-	 * 
-	 * @Override public int reviewUpdate(RatingReview rr) {
-	 * 
-	 * return ratingReviewDao.reviewUpdate(rr);
-	 * 
-	 * 
-	 * }
+	@Override
+	public RatingReview selectRatingReviewDetailView(int id) {
+
+		return ratingReviewDao.selectRatingReviewDetailView(id);
+	}
+
+	@Override
+	public RatingReview selectUpdateReview(int id) {
+		return ratingReviewDao.selectRatingReviewDetailView(id);
+	}
+
+	@Override
+	public int reviewUpdate(RatingReview rr) {
+
+		return ratingReviewDao.reviewUpdate(rr);
+
+	}
 	 */
 	  
-	  
-	 
-
-
-
-
-
 }

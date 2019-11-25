@@ -33,6 +33,10 @@
 		width: 200px;
 		height: 200px;
 	}
+	#mide{
+		text-align: center;
+		font-weight: lighter;
+	}
 	
 
 </style>
@@ -48,7 +52,8 @@
 	<div id="body">
 	<h1 align="center">리뷰 리스트</h1>
 	<button onclick="location.href='reviewWriteForm.do';"> 글쓰기 </button> 
-	 	<c:forEach items="${ list }" var="review">
+
+	 <c:forEach items="${ list }" var="review">
 	  <div class="container">
           <div class="card blog__slide text-center">
             <div class="blog__slide__img">
@@ -62,13 +67,55 @@
               
               <p></p>
           	  <button onclick="location.href='reviewDelete.do?id=${review.id}';">삭제하기</button>
-              <p>${review.nickname }</p>
+              <p>${review.nickName }님이 작성</p>
               <p>${review.createDate }에 작성됨</p>
             </div>
           </div>
       </div>
 	</c:forEach> 
+	
+	<!-- 페이징 처리 -->
+<%-- 		 <div align="center" height="20">
+			<!-- [이전] -->
+			<c:if test="${ pi.currentPage eq 1 }">
+				[이전]
+			</c:if>
+			
+			<c:if test="${ pi.currentPage ne 1 }">
+				<c:url value="reviewList.do" var="before">
+					<c:param name="currentPage" value="${pi.currentPage-1 }"/>
+				</c:url>
+				<a href="${ before }">[이전]</a>
+			</c:if>
+			
+			<!-- [페이지] -->
+			<c:forEach begin="${ pi.starPage }" end="${pi.endPage }" var="p">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="3">[${ p }]</font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url value="reviewList.do" var="page">
+						<c:param name="currentPage" value="${ p }"/>
+						<a href="${ page }">${ p }</a>
+					</c:url>
+				</c:if>
+			</c:forEach>
+			<!-- [다음] -->
+			<c:if test="${pi.currentPage eq pi.maxPage }">
+				[다음]
+			</c:if>
+			<c:if test="${pi.currentPage ne pi.maxPage }">
+				<c:url value="reviewList.do" var="after">
+					<c:param name="currentPage" value="${pi.currentPage+1 }"/>
+					<a href=" ${after }">[다음]</a>
+				</c:url>
+			</c:if>
+			
+		</div>  --%>
+
+	<p id=mide>총개시글 : ${pi.listCount } 페이지 : ${ pi.currentPage } / ${ pi.maxPage }</p>
 	 <button onclick="location.href='star.do';">스타 보기</button>
+	 
 	<%-- ${list.get(2).titleKor} --%>
 	
 	

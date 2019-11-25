@@ -2,14 +2,16 @@ package com.ch.podo.review.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ch.podo.detailFilm.model.vo.DetailFilm;
+import com.ch.podo.board.model.vo.PageInfo;
+
+
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
-import com.ch.podo.ratingReview.model.vo.RatingReview;
 import com.ch.podo.review.model.dto.Review;
 
 
@@ -18,10 +20,18 @@ public class ReviewDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-							 
-	public ArrayList<Review> selectReviewList() {
+	
+	public int getReviewListCount() {
 		
-		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList");
+		return sqlSession.selectOne("reviewMapper.getReviewListCount");
+	}
+	
+	
+	public ArrayList<Review> selectReviewList(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList", null , rowBounds);
 		
 		return list;
 	}
@@ -64,5 +74,21 @@ public class ReviewDao {
 		return sqlSession.update("reviewMapper.reviewUpdate",r);
 	}
 	
+	public int myPageReviewListCount(String id) {
+		return sqlSession.selectOne("reviewMapper.myPageReviewListCount", id);
+	}
 
+	public ArrayList<Review> myPageSelectReviewList(String id, PageInfo pi){
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		System.out.println("dao : " + rowBounds.toString());
+		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.myPageSelectReviewList, id, rowBounds");
+		
+		return list;
+	}
+
+
+	
+	
+	
 }

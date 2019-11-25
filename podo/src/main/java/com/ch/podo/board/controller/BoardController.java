@@ -170,6 +170,7 @@ public class BoardController {
 		
 	}
 	
+	
 	@RequestMapping("bupdate.do")
 	public ModelAndView boardUpdate(Board b, HttpServletRequest request, ModelAndView mv,
 									@RequestParam(value="reloadFile", required=false) MultipartFile file) {

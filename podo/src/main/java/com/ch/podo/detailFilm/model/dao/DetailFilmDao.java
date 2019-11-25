@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ch.podo.detailFilm.model.vo.Actor;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.review.model.dto.Review;
@@ -58,11 +59,21 @@ public class DetailFilmDao {
 		return sqlSession.insert("detailFilmmapper.filmImageInsert", map);
 	}
 	
+	public ArrayList<Actor> selectActorList(int filmId){
+		
+		ArrayList<Actor> list = (ArrayList)sqlSession.selectList("detailFilmmapper.selectFilmActor", filmId);
+		return list;
+	}
+	
 	// 상세정보 롤백
 	public int detailFilmRollback(int filmId) {
+		return sqlSession.update("detailFilmmapper.updateDetailFilm", filmId);	
+	}
+	
+	// 배우 검색
+	public ArrayList<Actor> searchActorList(String searchName){
 		
-		return sqlSession.update("detailFilmmapper.updateDetailFilm", filmId);
-		
+		return (ArrayList)sqlSession.selectList("detailFilmmapper.searchActorList", searchName);
 	}
 }
 
