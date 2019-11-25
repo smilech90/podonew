@@ -42,15 +42,11 @@
 	</select>
 	
 	<insert id="insertBoard">
-		insert into tb_board
-		values(seq_board_id.nextval, #{title}, #{content}, default, 
-				null, null, null, sysdate, sysdate, default, #{memberId})
+	
 	</insert>
 	
 	<insert id="insertImage">
-		insert into tb_image
-		values(seq_image_id.nextval, #{path}, #{originalName}, #{changeName}, 
-				1, #{boardId}, null)
+	
 	</insert>
 	
 	<update id="updateCount">
@@ -83,6 +79,7 @@
 	</select>
 	
 	<insert id="insertComment">
+	
 	</insert>
 	
 	
