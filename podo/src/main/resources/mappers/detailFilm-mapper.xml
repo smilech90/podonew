@@ -19,7 +19,7 @@
 	<resultMap id="reviewListResultSet" type="Review">
 		<id property="id" column="id"/>
 		<result property="userImage" column="image"/>
-		<result property="nickname" column="nickname"/>
+		<result property="nickName" column="nickname"/>
 		<result property="content" column="content"/>
 		<result property="likeCount" column="like_count"/>
 		<result property="spoilerCheck" column="spoiler_check"/>
