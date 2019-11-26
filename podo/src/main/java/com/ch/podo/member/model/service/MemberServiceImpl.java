@@ -46,41 +46,25 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	
+	
 	@Override
-	public int getMemberListCount() {
-		return memberDao.getMemberListCount();
+	public ArrayList<Member> selectMemberList() {
+		return memberDao.selectMemberList();
 	}
 
 	@Override
-	public ArrayList<Member> selectMemberList(PageInfo pi) {
-		return memberDao.selectMemberList(pi);
+	public ArrayList<Member> selectBlackList() {
+		return memberDao.selectBlackList();
 	}
 
-	@Override
-	public int getBlackListCount() {
-		return memberDao.getBlackListCount();
-	}
-
-	@Override
-	public ArrayList<Member> selectBlackList(PageInfo pi) {
-		return memberDao.selectBlackList(pi);
-	}
-
-	@Override
-	public int getSearchListCount(String search_option, String keyword) {
-		return memberDao.getSearchListCount(search_option, keyword);
-	}
-
-	@Override
-	public ArrayList<Member> selectSearchList(PageInfo pi, String search_option, String keyword) {
-		return memberDao.selectSearchList(pi, search_option, keyword);
-	}
 
 	@Override
 	public int deleteBlackMember(int result) {
 		return memberDao.deleteBlackMember(result);
 	}
+
 
 
 

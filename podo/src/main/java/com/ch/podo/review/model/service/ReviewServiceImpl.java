@@ -93,6 +93,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectReviewListMain();
 	}
 
+	@Override
+	public ArrayList<Review> selectAdReviewList() {
+		return reviewDao.selectAdReviewList();
+	}
+
 	/*
 	@Override
 	public int reivewInsert(DetailFilm df) {

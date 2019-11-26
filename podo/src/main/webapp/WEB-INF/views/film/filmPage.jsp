@@ -88,17 +88,35 @@
 			.podo-film-card {
 /* 				border: 1px solid; */
 				padding-top: 40px;
-				margin-left: 20px;
 				display: inline-block;
 				width: 241px;
 				height: 620px;
 				text-align: center;
 			}
 			
+			.podo-film-card .poster {
+				overflow: hidden;
+				cursor: pointer;
+				border-radius: 10px;
+		    border: 1px solid #b3bfdd;
+			}
+			
 			.podo-film-card .poster img {
-				 width: 240px;
-				 height: 342px;
-				 object-fit: cover;
+/* 				width: 240px; */
+				width: 100%;
+				height: 342px;
+				object-fit: cover;
+			}
+			
+			.podo-film-card .poster img:hover {
+				-moz-transform: scale(1.1);
+		    -webkit-transform: scale(1.1);
+		    -o-transform:scale(1.1);  
+		    transform: scale(1.1);
+				-moz-transition: all 0.3s;
+		    -webkit-transition: all 0.3s;
+		    -o-transition: all 0.3s;
+		    transition: all 0.3s;
 			}
 			
 			@media (min-width: 1000px) {
@@ -205,7 +223,7 @@
 					</select>
 					
 					<!-- 부가옵션 -->
-					<select name="opt">
+					<select name="order">
 						<option value="all" data-display="정렬">모두</option>
 						<option value="filmRatingDesc">평가 높은 순</option>
 						<option value="reviewCountDesc">리뷰 많은 순</option>
@@ -217,53 +235,73 @@
 		<!-- =================필터================= -->
 		
 		<div class="container">
-			<div>
-				<c:forEach items="${ film }" var="film" varStatus="status">
-					<!-- width * 1.425 -->
-					<div class="podo-film-card">
-						<input class="hidden-filmId" type="hidden" value="${ film.id }">
-						<div class="poster">
-							<c:if test="${ not empty film.poster }">
-								<img src="resources/detailFilmImage/${ film.poster }">
-							</c:if>
-							<c:if test="${ empty film.poster }">
-								<img src="resources/detailFilmImage/podoposter.jpg">
-							</c:if>
-						</div>
-						<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
-							${ film.titleKor }
-						</div>
-						<div>
-							<small>${ film.genre } / ${ film.releaseYear }</small>
-						</div>
-						<div style="margin-top: 10px;">
-							<c:if test="${ not empty like[film.id] }">
-								<button class='btn btn-danger btn-liked-film'>LIKED</button>
-							</c:if>
-							<c:if test="${ empty like[film.id] }">
-								<button class='btn btn-secondary btn-like-film'>LIKE</button>
-							</c:if>
-						</div>
-						<div style="margin-top: 10px;">
-							<span class="star-input">
-								<span class="input">
-									<input type="radio" name="star-input${ status.count }" value="1" id="p${ (status.count - 1) * 5 + 1 }" <c:if test="${ rate[film.id].star eq 1 }">checked</c:if>>
-									<label for="p${ (status.count - 1) * 5 + 1 }" style='width: 30px; z-index: 5;'>1</label>
-									<input type="radio" name="star-input${ status.count }" value="2" id="p${ (status.count - 1) * 5 + 2 }" <c:if test="${ rate[film.id].star eq 2 }">checked</c:if>>
-									<label for="p${ (status.count - 1) * 5 + 2 }" style='width: 60px; z-index: 4;'>2</label>
-									<input type="radio" name="star-input${ status.count }" value="3" id="p${ (status.count - 1) * 5 + 3 }" <c:if test="${ rate[film.id].star eq 3 }">checked</c:if>>
-									<label for="p${ (status.count - 1) * 5 + 3 }" style='width: 90px; z-index: 3;'>3</label>
-									<input type="radio" name="star-input${ status.count }" value="4" id="p${ (status.count - 1) * 5 + 4 }" <c:if test="${ rate[film.id].star eq 4 }">checked</c:if>>
-									<label for="p${ (status.count - 1) * 5 + 4 }" style='width: 120px; z-index: 2;'>4</label>
-									<input type="radio" name="star-input${ status.count }" value="5" id="p${ (status.count - 1) * 5 + 5 }" <c:if test="${ rate[film.id].star eq 5 }">checked</c:if>>
-									<label for="p${ (status.count - 1) * 5 + 5 }" style='width: 150px; z-index: 1;'>5</label>
+			<c:if test="${ pi.listCount ne 0 }">
+				<div class="row">
+					<c:forEach items="${ film }" var="film" varStatus="status">
+						<!-- width * 1.425 -->
+						<div class="podo-film-card col-3">
+							<input class="hidden-filmId" type="hidden" value="${ film.id }">
+							<div class="poster">
+								<c:if test="${ not empty film.poster }">
+									<img src="resources/detailFilmImage/${ film.poster }">
+								</c:if>
+								<c:if test="${ empty film.poster }">
+									<img src="resources/detailFilmImage/podoposter.jpg">
+								</c:if>
+							</div>
+							<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
+								${ film.titleKor }
+							</div>
+							<div>
+								<small>${ film.genre } / ${ film.releaseYear }</small>
+							</div>
+							<div class="row" style="margin-top: 10px;">
+								<div class="col"></div>
+								<div class="col">
+									<c:if test="${ not empty like[film.id] }">
+										<button class='btn btn-danger btn-liked-film'>LIKED</button>
+									</c:if>
+									<c:if test="${ empty like[film.id] }">
+										<button class='btn btn-secondary btn-like-film'>LIKE</button>
+									</c:if>
+								</div>
+								<div class="col">
+									<c:if test="${ rate[film.id].saw eq 'Y' }">
+										<button class='btn btn-danger btn-liked-film'>SAW</button>
+									</c:if>
+									<c:if test="${ rate[film.id].saw eq 'N' }">
+										<button class='btn btn-secondary btn-like-film'>SEE</button>
+									</c:if>
+								</div>
+								<div class="col"></div>
+							</div>
+							<div style="margin-top: 10px;">
+								<span class="star-input">
+									<span class="input">
+										<input type="radio" name="star-input${ status.count }" value="1" id="p${ (status.count - 1) * 5 + 1 }" <c:if test="${ rate[film.id].star eq 1 }">checked</c:if>>
+										<label for="p${ (status.count - 1) * 5 + 1 }" style='width: 30px; z-index: 5;'>1</label>
+										<input type="radio" name="star-input${ status.count }" value="2" id="p${ (status.count - 1) * 5 + 2 }" <c:if test="${ rate[film.id].star eq 2 }">checked</c:if>>
+										<label for="p${ (status.count - 1) * 5 + 2 }" style='width: 60px; z-index: 4;'>2</label>
+										<input type="radio" name="star-input${ status.count }" value="3" id="p${ (status.count - 1) * 5 + 3 }" <c:if test="${ rate[film.id].star eq 3 }">checked</c:if>>
+										<label for="p${ (status.count - 1) * 5 + 3 }" style='width: 90px; z-index: 3;'>3</label>
+										<input type="radio" name="star-input${ status.count }" value="4" id="p${ (status.count - 1) * 5 + 4 }" <c:if test="${ rate[film.id].star eq 4 }">checked</c:if>>
+										<label for="p${ (status.count - 1) * 5 + 4 }" style='width: 120px; z-index: 2;'>4</label>
+										<input type="radio" name="star-input${ status.count }" value="5" id="p${ (status.count - 1) * 5 + 5 }" <c:if test="${ rate[film.id].star eq 5 }">checked</c:if>>
+										<label for="p${ (status.count - 1) * 5 + 5 }" style='width: 150px; z-index: 1;'>5</label>
+									</span>
+									<output for="star-input"><b style="display: none;">${ rate[film.id].star }</b></output>
 								</span>
-								<output for="star-input"><b style="display: none;">${ rate[film.id].star }</b></output>
-							</span>
+							</div>
 						</div>
-					</div>
-				</c:forEach>
-			</div>
+					</c:forEach>
+				</div>
+			</c:if>
+			<c:if test="${ pi.listCount eq 0 }">
+				<div style="text-align: center;">
+					<h3>검색된 영화가 없습니다.</h3>
+					<br>
+				</div>
+			</c:if>
 			
 			<!-- 
 			<table id="search-film-result" style="width: 100%;">
@@ -293,7 +331,7 @@
 			<c:param name="productionCountry" value="${ param.productionCountry }" />
 			<c:param name="genreId" value="${ param.genreId }" />
 			<c:param name="saw" value="${ param.saw }" />
-			<c:param name="opt" value="${ param.opt }" />
+			<c:param name="order" value="${ param.order }" />
 		</c:url>
 			<!-- Pagination -->
 			<div class="row">
@@ -371,12 +409,12 @@
 			}
 
 			// 부가옵션 조건 유지
-			if ($.urlParam("opt") === "filmRatingDesc") {
-				$("select[name=opt] option[value=filmRatingDesc]").attr("selected", true);
-			} else if ($.urlParam("opt") === "reviewCountDesc") {
-				$("select[name=opt] option[value=reviewCountDesc]").attr("selected", true);
+			if ($.urlParam("order") === "filmRatingDesc") {
+				$("select[name=order] option[value=filmRatingDesc]").attr("selected", true);
+			} else if ($.urlParam("order") === "reviewCountDesc") {
+				$("select[name=order] option[value=reviewCountDesc]").attr("selected", true);
 			} else {
-				$("select[name=opt] option[value=all]").attr("selected", true);
+				$("select[name=order] option[value=all]").attr("selected", true);
 			}
 		});
 
@@ -397,7 +435,7 @@
 					var productionCountry = $("li[data-display=국가별]").parent().find(".selected").attr("data-value");
 					var genreId = $("li[data-display=장르별]").parent().find(".selected").attr("data-value");
 					var saw = $("li[data-display=관람유무]").parent().find(".selected").attr("data-value");
-					var opt = $("li[data-display=부가옵션]").parent().find(".selected").attr("data-value");
+					var order = $("li[data-display=정렬]").parent().find(".selected").attr("data-value");
 
 					// 만약 지금 클릭한 것이라면 selected 클래스가 추가되기 전이므로 $(this) 의 data-value 값을 가져옴
 					if ($(this).siblings('li[data-display=장르별]').length
@@ -423,9 +461,9 @@
 						$("select[name=saw] option[value=" + saw + "]").attr("selected", true);
 					} else if ($(this).siblings('li[data-display=정렬]').length
 							|| $(this).attr("data-display") === "정렬") {
-						opt = $(this).attr("data-value");
-						$("select[name=opt] option").attr("selected", false);
-						$("select[name=opt] option[value=" + opt + "]").attr("selected", true);
+						order = $(this).attr("data-value");
+						$("select[name=order] option").attr("selected", false);
+						$("select[name=order] option[value=" + order + "]").attr("selected", true);
 					} else {
 						console.log("선택된 것이 없다?");
 					}
