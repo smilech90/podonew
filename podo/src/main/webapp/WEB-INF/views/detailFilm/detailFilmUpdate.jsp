@@ -14,7 +14,7 @@
 <style>
     body{
         width:100%;
-        height:100px;
+        height:1000px;
     }
     #body{
         width:60%;
@@ -87,7 +87,7 @@
     #addActor{
     	cursor:pointer;
     }
-    #actor_cover{
+    #actor_cover, #actor_cover1{
     	border : 1px solid lightgrey;
     	height: 200px;
     	width: 100%;
@@ -96,8 +96,8 @@
     	overflow-x: scroll;
     }
     .actor{
-    	width: 30%;
-    	height: 100px;
+    	width: 33%;
+    	height: 180px;
     	float:left;
     	border : 1px solid lightgrey;
     	border-radius: 5px;
@@ -111,11 +111,15 @@
     .actor_name{
     	border : 0px solid lightgrey;
     	border-radius: 5px;
+    	text-align:center;
     }
     .image_cover{
     	text-align:center;
     	width:32%;
     	float:left;
+    }
+    .check_actor{
+    	cursor:pointer;
     }
 </style>
 <body>
@@ -155,31 +159,34 @@
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
-	                    <textarea class="movie_clip" name="trailer" placeholder="유튜브 링크를 연결해주세요!" rows="2" cols="40">${ df.trailer }</textarea>
+	                    <textarea class="movie_clip" name="trailer" placeholder="유튜브 링크를 연결해주세요!" rows="2" cols="40" style="border:0px;">${ df.trailer }</textarea>
                 	</div>
                     <div class="cover" id="sysnobsis_cover">
-   	                	<div name="director">감독 : ${ df.director }</div>
+   	                	<h5>감독</h5>
+   	                	<div>${ df.director }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
                     
-                    <c:forEach items="${ al }" var="a">
-	                    <div>
-    	                	<div class="actorImage">
-    	                		<div class="image_cover">
-    	                			<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
-				                   	<div name="actorName">${a.actorName}</div>
-    	                		</div>
-    	                	</div>
-	    	            </div>
-			        </c:forEach>
+                    <h5>출연 배우</h5>
+   	               	<div class="actorImage">
+		            	<c:forEach items="${ al }" var="a">
+   		                	<div class="image_cover">
+	   	                		<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
+				                <div name="actorName">${a.actorName}</div>
+	   	                	</div>	
+					    </c:forEach>   
+   	                </div>
+    	            
                     <div id="addActor">추가하기</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    	<div id="synopsys">시놉시스 <textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="80">${df.synopsys}</textarea></div>
+	                    <h5>시놉시스</h5>
+                    	<div id="synopsys"><textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="80" style="border:0px; resize: none;">${df.synopsys}</textarea></div>
                     </div>
                     
                     <div class="cover" id="plusInfo_cover">
-                    	<div id="trivia">트리비아 <textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="80">${df.trivia}</textarea></div>
+                    	<h5>트리비아</h5>
+                    	<div id="trivia"><textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="80" style="border:0px; resize: none;">${df.trivia}</textarea></div>
                     </div>
                     
                     <div class="cover">
@@ -195,7 +202,7 @@
 		<hr style="margin: 0;">
 		<div class="modal fade" id="actor-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
-				<div class="modal-content" style="height:700px;">
+				<div class="modal-content" style="height:730px;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">배우</h5>						<!-- 모달창 제목 -->
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">	<!-- 닫기 버튼 -->
@@ -223,32 +230,28 @@
 						</div>
 
 						<!-- 배우 검색부 모달창 -->
-						<form>
+						<form action="#" onsubmit='return false;'>
 							<div class="form-group">
 								<lavel>배우 검색</label>
 								<input type="text" id="searchName" class="form-control" name="searchName" placeholder="이름을 입력해주세요">
-								<input type="button" value="확인" onclick="searchActorList()">
 							</div>
 						</form>
 						
 						<!-- 배우 검색 결과 -->
-						<form action="#" method="post">
-							
+						<form action="#" onsubmit='return false;'>
 							<div class="form-group">
 								<div id="actor_cover1">
 									<div class="actor searchActor">
-											<div class="actor_profile">
-												<img>
-											</div>
-											
-											<div class="actor_name"></div>
+										<div class="actor_profile">
+											<img>
+										</div>
+										<div class="actor_name"></div>
 									</div>
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="submit" class="btn" style="background:purple; color:white;" onclick="return pwdValidate();">Update</button>
-								<!-- <button type="button" onclick="location.href='myPage.do';">Cancel</button> -->
+								<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+								<button type="submit" class="btn" style="background:purple; color:white;">등록하기</button>
 							</div>
 						</form>
 						
@@ -266,16 +269,17 @@
 			});
 		});
 	    
-	    // 배우 목록 출현
-	    $(function(){
-	    	
-	    	//searchActorList();
+	    $(document).ready(function(){
+	    	$("#searchName").keypress(function (e){
+	    		if(e.which ==13){
+	    			searchActorList();
+	    		}
+	    	});
 	    });
-	    
+	        
 	    function searchActorList(){
 	    	
 	    	var searchName = $('#searchName').val();
-	    	console.log(searchName);
 	    	
 	    	$.ajax({
 	    		url:"searchActorList.do",
@@ -288,7 +292,7 @@
 	    			$aList.html("");		// 기존 div 초기화
 	    			$.each(list, function(index, value){
 	    				
-	    				var $div = $("<div class='actor'>");	// actor 틀
+	    				var $div = $("<div class='actor check_actor'>");	// actor 틀
 	    				var $profile = $("<div class='actor_profile'>");	// 배우 사진 틀
 	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage).css({'width':'150', 'height':'150' ,'border-radius':'100px'});
 	    				var $aName = $("<div class='actor_name'>").text(value.actorName).css('border-radius','100px');
@@ -305,9 +309,9 @@
 	    		}
 	    	});
 	    }
-	    
     </script>
     
+    
 </body>
-
+<jsp:include page="../common/footer.jsp"/>
 </html>

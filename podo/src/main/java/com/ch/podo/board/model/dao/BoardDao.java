@@ -65,6 +65,14 @@ public class BoardDao {
 	public int updateBoard(Board b) {
 		return sqlSession.update("boardMapper.updateBoard", b);
 	}
+
+
+	public ArrayList<Board> selectboardListHome() {
+		
+		ArrayList<Board> list = (ArrayList)sqlSession.selectList("boardMapper.selectboardListHome");
+		
+		return list;
+	}
 	
 	
 	public ArrayList<Comment> selectCommentList(int id){

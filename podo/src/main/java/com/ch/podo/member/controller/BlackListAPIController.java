@@ -35,8 +35,15 @@ public class BlackListAPIController {
 			return false;
 		}
 		
-//		log.info("blockIds : {}", blockIds);
-		
+		log.info("blockIds : {}", blockIds);
+// 미완성! 지우면 안됩니당
+//		int result = memberService.deleteBlackMember(blockIds);
+//		
+//		if(result>0) {
+//			return true;
+//		}else {
+//			return false;
+//		}
 		
 		return true;
 	}

@@ -19,6 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userImage" column="image"/>
 		<result property="nickName" column="nickname"/>
 		<result property="titleKor" column="TITLE_KOR"/>
+		<result property="titleEng" column="TITLE_Eng"/>
 		<result property="name" column="name"/>
 		<result property="releaseYear" column="RELEASE_YEAR"/>
 		<result property="content" column="content"/>
@@ -118,10 +119,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by r.id desc
 	</select>
 	
-	<insert id="reviewWrite">
+	<insert id="reviewWrite" parameterType="hashMap">
 		INSERT INTO TB_REVIEW
 		VALUES(SEQ_REVIEW_ID.NEXTVAL, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, sysdate , sysdate , #{filmId},#{memberId})
-	</insert>
+	</insert>  
+	
+	<!-- <insert id="ratingWrite">
+		INSERT INTO TB_RATING_REVIEW
+		VALUES (SEQ_RATING_REVIEW_ID.NEXTVAL,#{ratingSound},#{ratingVisual},#{ratingActing},#{ratingPop},#{ratingScript},#{ratingDirect})
+	</insert> -->
 	
 	<update id="deleteReview">
 	update tb_review
@@ -183,8 +189,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by modify_date desc
 	</select>
 	
-	
 
+	<select id="selectReviewListMain" resultMap="reviewListSet">
+	<![CDATA[	
+        select rownum, r.*
+		from (select * from tb_review r
+		left join tb_film f on(r.film_id = f.id)
+        left join tb_member m on(r.member_id = m.id)
+		left join tb_detail_film df on(r.film_id = df.id)
+		left join tb_film_image fi on(df.film_id = fi.id)
+		left join tb_rating_review rr on(r.film_id=rr.id)
+		left join tb_genre g on(genre_id = g.id)
+        left join tb_rating_film rf on(f.id = rf.id)
+		where r.status='Y'
+        order by r.like_count desc) r
+        where rownum <=3
+     ]]>
+	</select>
+
+	<!-- 리뷰가져오는거 -->
+<!-- 	<select id="selectReview" resultMap="reviewListSet">
+        SELECT *
+		FROM TB_Review r
+		where 
+	</select>
+ -->
 	
 	
 </mapper>

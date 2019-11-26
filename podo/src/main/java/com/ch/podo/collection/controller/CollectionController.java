@@ -1,5 +1,7 @@
 package com.ch.podo.collection.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +16,10 @@ public class CollectionController {
 	private CollectionService collectionService;
 	
 	@RequestMapping("myPageSelectCollection")
-	public ModelAndView myPageSelectCollection(String id, ModelAndView mv) {
+	public ModelAndView myPageSelectCollection(String tab, String id, ModelAndView mv) {
+		ArrayList list = new ArrayList();
 		System.out.println("컬렉");
-		mv.addObject("collection", id).setViewName("member/myPage");
+		mv.addObject("list", list).addObject("tab", tab).setViewName("member/myPage");
 		return mv;
 	}
 

@@ -97,6 +97,7 @@
 								<div class="reply-btn">
 									<a id="update-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); text-align:center;color:white;">정보수정</a>
 									<a id="updatePwd-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); color:white;">비밀번호 변경</a>
+									<a id="question-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:pink; text-align:center; color:white;">문의하기</a>
 								</div>
 							</div>
 							<br><br>	
@@ -106,33 +107,13 @@
 							<div class="col-lg-12">
 								<div id="container">
 									<ul class="tab">
-										<c:if test="${review != null }">
-											<li class="current" data-tab="tab11" id="tab1"><a>Review</a></li>
-										</c:if>
-										<c:if test="${review == null }">
-											<li data-tab="tab11" id="tab1"><a>Review</a></li>
-										</c:if>
-										<c:if test="${collection != null }">
-											<li class="current" data-tab="tab2" id="tab12"><a>Collection</a></li>
-										</c:if>
-										<c:if test="${collection == null }">
-											<li data-tab="tab2" id="tab12"><a>Collection</a></li>
-										</c:if>
-										<c:if test="${like != null }">
-											<li class="current" data-tab="tab3" id="tab13"><a>Like</a></li>
-										</c:if>
-										<c:if test="${like == null }">
-											<li data-tab="tab3" id="tab13"><a>Like</a></li>
-										</c:if>
-										<c:if test="${question != null }">
-											<li class="current" data-tab="tab4" id="tab14"><a>Question</a></li>
-										</c:if>
-										<c:if test="${question == null }">
-											<li data-tab="tab4" id="tab14"><a>Question</a></li>
-										</c:if>
+											<li class="tab1 current" data-tab="tab1" ><a>Review</a></li>
+											<li class="tab2" data-tab="tab2" ><a>Collection</a></li>
+											<li class="tab3" data-tab="tab3"><a>Like</a></li>
+											<li class="tab4" data-tab="tab4"><a>Question</a></li>
 									</ul>
 							
-									<c:if test="${review != null }">
+								
 										<div id="tab1" class="tabcontent current"><br>
 											<!-------------------------- 리뷰 탭메뉴 바디 ------------------------>
 											<section class="blog-post-area section-margin mt-4">
@@ -161,22 +142,69 @@
 																<div class="col-lg-12">
 																	<nav class="blog-pagination justify-content-center d-flex">
 																		<ul class="pagination">
-																			<li class="page-item">
-																				<a href="#" class="page-link" aria-label="Previous">
-																					<span aria-hidden="true">
-																						<i class="ti-angle-left"></i>
-																					</span>
-																				</a>
-																			</li>
-																			<li class="page-item active"><a href="#" class="page-link">1</a></li>
-																			<li class="page-item"><a href="#" class="page-link">2</a></li>
-																			<li class="page-item">
-																				<a href="#" class="page-link" aria-label="Next">
-																					<span aria-hidden="true">
-																						<i class="ti-angle-right"></i>
-																					</span>
-																				</a>
-																			</li>
+																			<!------ [이전] ------>
+																			<c:if test="${ pi.currentPage eq 1 }">
+																				<li class="page-item">
+																					<a class="page-link" aria-label="Previous" disabled>
+																						<span aria-hidden="true">
+																							<i class="ti-angle-left"></i>
+																						</span>
+																					</a>
+																				</li>
+																			</c:if>
+																			<c:if test="${ pi.currentPage ne 1 }">
+																				<c:url value="myPageSelectReview.do" var="before">
+																					<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+																					<c:param name="id" value="${loginUser.id}"/>
+																				</c:url>
+																				<li class="page-item">
+																					<a href="${ before }" class="page-link" aria-label="Previous">
+																						<span aria-hidden="true">
+																							<i class="ti-angle-left"></i>
+																						</span>
+																					</a>
+																				</li>
+																			</c:if>
+																			<!-- ------------- -->
+																			<!------ [페이지] ----->
+																			<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+																				<c:if test="${ p eq pi.currentPage }">
+																					<li class="page-item active"><a class="page-link" disabled>${p}</a></li>
+																				</c:if>
+																			
+																				<c:if test="${ p ne pi.currentPage }">
+																					<c:url value="myPageSelectReview.do" var="page">
+																						<c:param name="currentPage" value="${ p }"/>
+																						<c:param name="id" value="${loginUser.id}"/>
+																					</c:url>
+																					<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																				</c:if>
+																			</c:forEach>
+																			<!-- --------------- -->
+																			<!------- [다음] ------->
+																			<c:if test="${ pi.currentPage eq pi.maxPage }">
+																				<li class="page-item">
+																					<a class="page-link" aria-label="Next" disabled>
+																						<span aria-hidden="true">
+																							<i class="ti-angle-right"></i>
+																						</span>
+																					</a>
+																				</li>
+																			</c:if>
+																			<c:if test="${ pi.currentPage ne pi.maxPage }">
+																				<c:url value="myPageSelectReview.do" var="after">
+																					<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+																					<c:param name="id" value="${loginUser.id}"/>
+																				</c:url>
+																				<li class="page-item">
+																					<a href="${ after }" class="page-link" aria-label="Next">
+																						<span aria-hidden="true">
+																							<i class="ti-angle-right"></i>
+																						</span>
+																					</a>
+																				</li>
+																			</c:if>
+																			<!-- --------------- -->
 																		</ul>
 																	</nav>
 																</div>
@@ -187,50 +215,23 @@
 												</div>
 											</section>
 										</div>
-									</c:if>
+								
 									
-									<c:if test="${review == null }">
-										<div id="tab1" class="tabcontent"><br>
-											<h3>Review</h3><br>
-											<p>조회된 리스트가 없습니다.</p>
-										</div>
-									</c:if>
-									<c:if test="${collection != null }">
-										<div id="tab2" class="tabcontent current"><br>
+										
+										<div id="tab2" class="tabcontent"><br>
 											<h3>Collection</h3><br>
 											<p>컬렉입니당.</p>
 										</div>
-									</c:if>
-									<c:if test="${collection == null }">
-										<div id="tab2" class="tabcontent"><br>
-											<h3>Collection</h3><br>
-											<p>조회된 컬렉 없습니당.</p>
-										</div>
-									</c:if>
-									<c:if test="${like != null }">
-										<div id="tab3" class="tabcontent current"><br>
+										
+										<div id="tab3" class="tabcontent"><br>
 											<h3>Like</h3><br>
 											<p>라이크임당.</p>
 										</div>
-									</c:if>
-									<c:if test="${like == null }">
-										<div id="tab3" class="tabcontent"><br>
-											<h3>Like</h3><br>
-											<p>조회된 라이크 없습니당.</p>
+										
+										<div id="tab4" class="tabcontent tab4"><br>
+											<h3>Question</h3><br>
+											<p>문의지롱</p>
 										</div>
-									</c:if>
-									<c:if test="${question != null }">
-									<div id="tab4" class="tabcontent current"><br>
-										<h3>Question</h3><br>
-										<p>문의지롱</p>
-									</div>
-									</c:if>
-									<c:if test="${question == null }">
-									<div id="tab4" class="tabcontent"><br>
-										<h3>Question</h3><br>
-										<p>조회된 문의없지롱</p>
-									</div>
-									</c:if>
 								</div>
 							</div>
 							<!-------------------------- 탭 메뉴 끝 ------------------------>
@@ -343,27 +344,74 @@
 		</div>
 	</div>
 	
+	
+<!-- 문의하기 모달 -->
+	<hr style="margin: 0;">
+	<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">문의하기</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+				<div class="modal-body">
+					<form action="insertQuestion.do" method="post">
+						<input type="hidden" name="userId" value="${ loginUser.id }">
+						<div class="form-group">
+							<label for="qucontent">문의내용</label>
+							<textarea class="form-control" id="qucontent" name="content" rows="5" cols="50"  style="resize: none"></textarea>
+						</div>
+						<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn" style="background:purple; color:white;" onclick="return quValidate();">Question</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		
 
 
 
 	<script>
-	
 		// 탭메뉴 관련 
 		$(function() {
+			console.log("${tab}");
+				/* $('ul.tab li').click(function() {
+					var activeTab = $(this).attr('data-tab');
+					$('ul.tab li').removeClass('current');
+					$('.tabcontent').removeClass('current');
+					$(this).addClass('current');
+					$('#' + activeTab).addClass('current');
+				})
+			 */
 			$("#container ul>li").on("click", function(){
+				var activeTab = $(this).attr('data-tab');
 	            var tabMenu = $(this).text();
 	            var strId = "${loginUser.id}";
 	            
 	            if(tabMenu == "Review"){
-	                location.href="myPageSelectReview.do?id=${loginUser.id}";
+	                location.href="myPageSelectReview.do?id=${loginUser.id}&tab="+ activeTab;
 	             }else if(tabMenu =="Collection"){
-	            	  location.href="myPageSelectCollection.do?id=${loginUser.id}";
+	            	  location.href="myPageSelectCollection.do?id=${loginUser.id}&tab="+ activeTab;
 	             }else if(tabMenu == "Like"){
-	            	  location.href="myPageSelectLike.do?id=${loginUser.id}";
+	            	  location.href="myPageSelectLike.do?id=${loginUser.id}&tab="+ activeTab;
 	             }else if(tabMenu == "Question"){
-	            	  location.href="myPageSelectQuestion.do?id=${loginUser.id}";
-	             } 
+	            	  location.href="myPageSelectQuestion.do?id=${loginUser.id}&tab="+ activeTab;
+	             }  
 			});
+			if("${tab}" != ''){
+				var tab = "${tab}";
+				$('ul.tab li').removeClass('current');
+				$('.tabcontent').removeClass('current');
+				$("#" + tab).addClass('current');
+				$("." + tab).addClass('current');
+			}
 		});
 
 		// 회원정보 수정, 비밀번호 변경 시 알럴트창
@@ -498,6 +546,26 @@
 			}
 		}
 		
+		
+		// 문의하기 모달창
+		$(function(){
+			$("#question-modal").on("click", function(){
+				$('#questionModal').modal('toggle');
+			});
+		});
+		
+		// 문의하기 버튼 클릭 시		
+		function quValidate(){
+			// 미입력
+			if(!$.trim($("#qucontent").val())){	
+				alert("문의 내용을 입력해주세요");
+				$("#qucontent").focus();
+				return false;
+			} else{
+				return true;
+			}
+		}
+		
 		// 이미지 삭제 버튼 클릭 시
 		function fileReset(){
 			$("#imgArea input").remove();
@@ -528,8 +596,6 @@
 			$("#imgInp").click();
 		});
 	</script>
-	
-		
 	
 </body>
 </html>
