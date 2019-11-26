@@ -17,6 +17,7 @@ public class SearchCondition {
 	private String productionCountry;
 	private String genreId;
 	private String saw;
-	private String opt;
+	private int userId;
+	private String order;
 	
 }
