@@ -174,13 +174,9 @@ public class ReviewController {
 	public ModelAndView reviewList(ModelAndView mv, 
 								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		
-		int listCount = reviewService.getReviewListCount();
+		ArrayList<Review> list = reviewService.selectAdReviewList();
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<Review> list = reviewService.selectReviewList(pi);
-		
-		mv.addObject("pi", pi).addObject("list", list)
+		mv.addObject("list", list)
 		  .setViewName("admin/reviewListView");
 		
 		return mv;

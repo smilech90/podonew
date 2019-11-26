@@ -86,7 +86,7 @@
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">신고::</h6>
           <a class="dropdown-item" href="rlist.do">신고회원관리</a>
-          <a class="dropdown-item" href="adBoard.do">신고게시글관리</a>
+          <a class="dropdown-item" href="rblist.do">신고게시글관리</a>
         </div>
       </li>
       </li>

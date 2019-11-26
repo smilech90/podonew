@@ -92,6 +92,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectReviewListMain();
 	}
 
+	@Override
+	public ArrayList<Review> selectAdReviewList() {
+		return reviewDao.selectAdReviewList();
+	}
+
 
 
 }

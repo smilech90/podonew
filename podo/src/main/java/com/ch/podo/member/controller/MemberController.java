@@ -233,13 +233,9 @@ public class MemberController {
 	public ModelAndView memberList(ModelAndView mv, 
 								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		
-		int listCount = memberService.getMemberListCount();
+		ArrayList<Member> list = memberService.selectMemberList();
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<Member> list = memberService.selectMemberList(pi);
-		
-		mv.addObject("pi", pi).addObject("list", list)
+		mv.addObject("list", list)
 		  .setViewName("admin/memberListView");
 		
 		return mv;
@@ -251,44 +247,13 @@ public class MemberController {
 	public ModelAndView blackList(ModelAndView mv, 
 								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		
-		int listCount = memberService.getBlackListCount();
+		ArrayList<Member> list = memberService.selectBlackList();
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<Member> list = memberService.selectBlackList(pi);
-		
-		mv.addObject("pi", pi).addObject("list", list)
+		mv.addObject("list", list)
 		  .setViewName("admin/blackListView");
 		
 		return mv;
 	}
-	
-	
-	
-	// 관리자 회원 검색
-	@RequestMapping("mSearchList.do")
-	public ModelAndView selectSearchMember(ModelAndView mv, 
-			  @RequestParam(value="currentPage", defaultValue="1")
-			  String search_option, String keyword, int currentPage) {
-
-		int listCount = memberService.getSearchListCount(search_option, keyword);
-
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put(search_option, 1);
-		map.put(keyword, 2);
-		
-           
-		ArrayList<Member> list = memberService.selectSearchList(pi, search_option, keyword);
-
-		mv.addObject("pi", pi).addObject("list", list).addObject("map", map)
-		  .setViewName("admin/memberListView");
-        
-        return mv;
-    
-    }
-
 	
 	
 	

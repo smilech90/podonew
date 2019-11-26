@@ -126,33 +126,60 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            	리뷰리스트</div>
+            	신고게시물</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead align="center">                
                   <tr>
-                    <th>No</th>
-					<th>영화제목</th>
-					<th>작성자</th>
-					<th>좋아요</th>
-					<th>스포일러</th>
-					<th>신고</th>
-					<th>상태</th>
+                  	<th>체크</th>
+					<th>NO</th>
+					<th>타입</th>
+					<th>신고게시글</th>
+					<th>신고내용</th>
+					<th>신고대상자</th>
+					<th>신고자</th>
+					<th>블라인드</th>
                   </tr>
                 </thead>
                 <tbody align="center">
-				<c:forEach items="${ list }" var="r">	
-					<tr>
-						<td>${ r.id }</td>
-						<td>${ r.titleKor } ${r.titleEng }</td>
-						<td>${ r.nickName }</td>
-						<td>${ r.likeCount }</td>
-						<td>${ r.spoilerCheck }</td>
-						<td>${ r.spoilerCount + r.inappropriateCount}</td>
-						<td>${ r.status }</td>
-					</tr>
-				</c:forEach>
+					<c:forEach items="${ list }" var="r">	
+						<tr>
+							<td><input type="checkbox" value="${r.id}" class="checkbox_target" /></td>
+							<td>${ r.id }</td>
+							<td>
+								<c:choose>
+								    <c:when test="${  r.type == 1}">
+										리뷰
+								    </c:when>
+								    <c:when test="${  r.type == 2}">
+										댓글
+								    </c:when>
+								    <c:when test="${  r.type == 3}">
+										자유게시판
+								    </c:when>
+								    <c:when test="${  r.type == 4}">
+										컬렉션
+								    </c:when>
+								</c:choose>
+							</td>
+							<td>${ r.targetId }</td>
+							<td>
+								<c:choose>
+								    <c:when test="${  r.content == 1}">
+										부적절한 내용
+								    </c:when>
+								    <c:when test="${  r.content == 2}">
+										스포일러
+								    </c:when>
+								</c:choose>
+							</td>
+							<td>${ r.reportedName }</td>
+							<td>${ r.reportName }</td>
+							<td><a href="javascript:;" class="btn_blind" data-id="${r.id}">블라인드</a></td>
+			
+						</tr>
+					</c:forEach>
                 </tbody>
               </table>
             </div>

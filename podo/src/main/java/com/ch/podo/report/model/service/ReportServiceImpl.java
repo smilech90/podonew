@@ -17,13 +17,13 @@ public class ReportServiceImpl implements ReportService {
 	private ReportDao reportDao;
 
 	@Override
-	public int getReportListCount() {
-		return reportDao.getReportListCount();
+	public ArrayList<Report> selectReportList() {
+		return reportDao.selectReportList();
 	}
 
 	@Override
-	public ArrayList<Report> selectReportList(PageInfo pi) {
-		return reportDao.selectReportList(pi);
+	public ArrayList<Report> selectReportBoardList() {
+		return reportDao.selectReportBoardList();
 	}
 	
 	

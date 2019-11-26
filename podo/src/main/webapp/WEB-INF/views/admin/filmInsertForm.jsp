@@ -82,11 +82,11 @@
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">회원::</h6>
           <a class="dropdown-item" href="mlist.do">전체회원</a>
-          <a class="dropdown-item" href="register.html">블랙리스트</a>
+          <a class="dropdown-item" href="blackList.do">블랙리스트</a>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">신고::</h6>
-          <a class="dropdown-item" href="404.html">신고회원관리</a>
-          <a class="dropdown-item" href="blank.html">신고게시글관리</a>
+          <a class="dropdown-item" href="rlist.do">신고회원관리</a>
+          <a class="dropdown-item" href="rblist.do">신고게시글관리</a>
         </div>
       </li>
       <li class="nav-item dropdown">

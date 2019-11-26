@@ -58,15 +58,8 @@
 		where id=#{id} and status='Y'
 	</update>
 	
-	
-	
-	
-	
-	<select id="getMemberListCount" resultType="_int">
-		select count(*)
-		from tb_member
-	</select>
-	
+
+
 	<select id="selectMemberList" resultMap="memberResultSet">
 		select a.*,
 		        (select case when count(b.target_id) >= 1
@@ -83,14 +76,6 @@
 	</select>
 	
 	
-	<select id="getBlackListCount" resultType="_int">
-		select count(*)
-		from tb_member m
-		join tb_black_member b on (m.id = b.target_id)
-		where m.status='Y'
-		
-	</select>
-	
 	<select id="selectBlackList" resultMap="memberResultSet">
 		select b.id, email, nickname as blackName, blackDate
 		from tb_member m
@@ -98,39 +83,12 @@
 		where m.id = b.target_id and m.status='Y'
 		order by blackDate
 	</select>
-	
-	
-	<select id="getSearchListCount" resultType="_int">
-		select count(*)
-		from tb_member
-		<if test="eamil != null">
-			and email like '%' || #{email} || '%'	 
-		</if>
-		<if test="nickname != null">
-			and nickName like '%' || #{nickname} || '%'
-		</if>
-	</select>
-	
-	
-	<select id="selectSearchList" resultMap="memberResultSet">
-		select * 
-		from tb_member
-			<choose>
-				<when test="email != null">
-					and email like '%' || #{email} || '%'
-				</when>
-				<when test="nickname != null">
-					and nickName like '%' || #{nickname} || '%'
-				</when>
-			</choose>	
-		order by id desc
-	</select>
+
 	
 	<delete id="deleteBlackMember">
 		delete from tb_black_member
 		where taget_id = #{result}
 	</delete>
-	
 	
 	
 	
