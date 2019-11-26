@@ -13,7 +13,11 @@
 	</resultMap>
 	
 	<select id="selectReportList" resultMap="reportResultSet">
-
+		select mm.*
+		from (select reported_id, count(*)
+		        from tb_report
+		        group by reported_id) rm
+		join tb_member mm on (id = reported_id)
 	</select>
 	
 	<select id="selectReportBoardList" resultMap="reportResultSet">
