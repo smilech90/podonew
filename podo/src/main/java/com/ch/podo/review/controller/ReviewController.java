@@ -2,12 +2,13 @@ package com.ch.podo.review.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.board.model.vo.PageInfo;
@@ -46,15 +47,15 @@ public class ReviewController {
 	
 	//글 쓰기 폼 가기
 	@RequestMapping("reviewWriteForm.do")
-	public ModelAndView reviewWriteView(int loginUserId,int filmId, ModelAndView mv) {
+	public ModelAndView reviewWriteView(int loginUserId,int filmId, ModelAndView mv,HttpSession session) {
 		
 		Film f = reviewService.selectFilm(filmId);
-		//포스터 안끌려옴..?
+		System.out.println(f);
 		
 		//쓴날짜 오기위해 가져오는건데 의미없는듯 r = reviewService.selectReview();
 		
-		Member m = reviewService.selectMember(loginUserId);
-		
+//		Member m = reviewService.selectMember(loginUserId);
+		Member m=(Member)session.getAttribute("loginUser");
 		//System.out.println("m의값"+m);
 		
 		
@@ -70,14 +71,14 @@ public class ReviewController {
 
 		
 		//int result = reviewService.reivewInsert(df);
+		System.out.println(r);
 		int result = reviewService.reviewWrite(r);
-		
-		
+		int result2 = reviewService.reviewRating(r);
 	
 		//mv.addObject("filmId", df.getFilmId()).setViewName("redirect:reviewList.do");
 		//return mv;
 		
-		if( result > 0) { //게시판 작성 성공
+		if( result2>0 && result > 0) { //게시판 작성 성공
 			System.out.println("글스기인데 값이 안잡힘 : "+r);
 			
 			return "redirect:reviewList.do";
@@ -122,7 +123,7 @@ public class ReviewController {
 		
 		Review r = reviewService.selectRatingReviewDetailView(id);
 		
-		//System.out.println("글 리뷰 리스트 조회용: " + r);
+		System.out.println("글 리뷰 리스트 조회용: " + r);
 		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
 		
 		
@@ -133,31 +134,32 @@ public class ReviewController {
 	
 	// 글 수정 폼으로 가게해주는 리퀘스트매핑
 	@RequestMapping("reviewUpdateView.do")
-	public ModelAndView boardUpdateView(int id, ModelAndView mv) {
+	public ModelAndView boardUpdateView(int id, ModelAndView mv, HttpSession session) {
 		
+		Member m=(Member)session.getAttribute("loginUser");
 		Review r = reviewService.selectUpdateReview(id);
-		
 
+		//System.out.println("r값이뭐냐면요?"+r);
 		
-		
-		mv.addObject("r",r).setViewName("ratingReview/ratingUpdateForm");
+		mv.addObject("r",r).addObject("m", m).setViewName("ratingReview/ratingUpdateForm");
 		return mv;
 		
 	}
 	
 	// 수정 하는 리퀘스트매핑
 	@RequestMapping("reviewUpdate.do")
-	public ModelAndView reviewUpdate(Review r, ModelAndView mv) {
+	public ModelAndView reviewUpdate(Review r, ModelAndView mv, HttpSession session ) {
 		//레이팅 6개
+		
 		int result = reviewService.reviewUpdate(r);
 		//id, 레이팅6개 점수 뿌리기
-		
+		int result2 = reviewService.reviewupdateContent(r);
 		//리뷰 내용 수정
 		
+		Member m=(Member)session.getAttribute("loginUser");
 		
-		
-		if(result>0) {
-			mv.addObject("id", r.getRatingReviewId()).setViewName("redirect:ratingDetailReview.do");
+		if(result2 > 0 && result > 0) {
+			mv.addObject("r", r).addObject("m", m).setViewName("redirect:ratingDetailReview.do");
 		}else {
 			mv.addObject("msg", "게시판 수정 실패").setViewName("error/errorPage");
 		}

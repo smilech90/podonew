@@ -74,6 +74,11 @@ public class ReviewDao {
 		return sqlSession.update("reviewMapper.reviewUpdate",r);
 	}
 	
+	public int reviewupdateContent(Review r) {
+		
+		return sqlSession.update("reviewMapper.reviewUpdateContent",r);
+	}
+	
 	public int myPageReviewListCount(String id) {
 		return sqlSession.selectOne("reviewMapper.myPageReviewListCount", id);
 	}
@@ -94,6 +99,15 @@ public class ReviewDao {
 		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewListMain");
 		return list;
 	}
+
+
+	public int reviewRating(Review r) {
+		
+		return sqlSession.insert("reviewMapper.reviewRating",r);
+	}
+
+
+	
 
 	/*
 	public int reivewInsert(DetailFilm df) {

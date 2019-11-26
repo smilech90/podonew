@@ -38,7 +38,9 @@
 		font-weight: lighter;
 	}
 	
-
+	#reviewContentFont{
+		margin-top: 20px; text-overflow: ellipsis; overflow: hidden;
+	}
 </style>
 </head>
 <body>
@@ -51,7 +53,7 @@
 	
 	<div id="body">
 	<h1 align="center">리뷰 리스트</h1>
-	<button onclick="location.href='reviewWriteForm.do';"> 글쓰기 </button> 
+
 
 	 <c:forEach items="${ list }" var="review">
 	  <div class="container">
@@ -62,11 +64,11 @@
             <div class="blog__slide__content">
               <p class="pTitle"> ${review.titleKor }</p>
               <a class="blog__slide__label">${ review.name }</a>
-              <h3><a href="ratingDetailReview.do?id=${review.id}"><p id="reviewContentFont">${ review.content }</p></a> </h3>
-              <button onclick="location.href='ratingDetailReview.do?id=${review.id}';"> 더보기 </button> 
+              <h3><a href="ratingDetailReview.do?id=${review.id}"><p id="reviewContentFont"  class="title">${ review.content }</p></a> </h3>
+              <button class="btn btn-secondary btn-like-film" onclick="location.href='ratingDetailReview.do?id=${review.id}';"> 더보기 </button> 
               
               <p></p>
-          	  <button onclick="location.href='reviewDelete.do?id=${review.id}';">삭제하기</button>
+          	  <button onclick="location.href='reviewDelete.do?id=${review.id}';">x</button>
               <p>${review.nickName }님이 작성</p>
               <p>${review.createDate }에 작성됨</p>
             </div>
