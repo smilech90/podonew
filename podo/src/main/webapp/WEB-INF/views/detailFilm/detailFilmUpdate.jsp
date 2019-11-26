@@ -88,29 +88,26 @@
     	cursor:pointer;
     }
     #actor_cover, #actor_cover1{
-    	border : 1px solid lightgrey;
+    	border : 0px solid lightgrey;
     	height: 200px;
     	width: 100%;
-    	border-radius: 5px;
     	white-space:nowrap;
-    	overflow-x: scroll;
+    	overflow-x: hidden;
     }
     .actor{
-    	width: 33%;
+    	width: 40%;
     	height: 180px;
     	float:left;
-    	border : 1px solid lightgrey;
-    	border-radius: 5px;
+    	border : 0px solid lightgrey;
     }
     .actorImage{
     	border: 0px solid black;
     	width:100%;
     	height:200px;
-    	overflow-y:scroll;
+    	overflow-x:hidden;
     }
     .actor_name{
     	border : 0px solid lightgrey;
-    	border-radius: 5px;
     	text-align:center;
     }
     .image_cover{
@@ -251,7 +248,7 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-								<button type="submit" class="btn" style="background:purple; color:white;">등록하기</button>
+								<button type="submit" class="btn" style="background:purple; color:white;" onclick="test();">등록하기</button>
 							</div>
 						</form>
 						
@@ -293,11 +290,17 @@
 	    			$.each(list, function(index, value){
 	    				
 	    				var $div = $("<div class='actor check_actor'>");	// actor 틀
+	    				
+//	    				var $check = $("<input type='checkbox'>").attr({"name":"actorId", "value":value.id});			// 이거 아님
+//	    				var $check = $("<input type='checkbox'>").attr("name","actorId").val(value.id);				// 이거 아님
+	    				var $check = $("<input type='checkbox' class='test'>").attr("value",value.id);				// 이거 아님
+	    				
 	    				var $profile = $("<div class='actor_profile'>");	// 배우 사진 틀
 	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage).css({'width':'150', 'height':'150' ,'border-radius':'100px'});
 	    				var $aName = $("<div class='actor_name'>").text(value.actorName).css('border-radius','100px');
 	    				
 	    				$div.append($profile);
+	    				$div.append($check);	    				
 	    				$div.append($img);
 	    				$div.append($aName);
 	    				
@@ -309,8 +312,15 @@
 	    		}
 	    	});
 	    }
-    </script>
-    
+	    
+	    function test(){
+	    	
+	    	console.log($(".test:checked").val());
+	    	
+	    	
+	    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}';
+	    }
+    </script>   
     
 </body>
 <jsp:include page="../common/footer.jsp"/>

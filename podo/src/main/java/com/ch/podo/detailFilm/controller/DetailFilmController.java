@@ -59,6 +59,7 @@ public class DetailFilmController {
 		
 		// 배우 리스트
 		ArrayList<Actor> al = dfService.selectActorList(filmId);
+		
 		mv.addObject("df",df).addObject("al",al).addObject("i",i).setViewName("detailFilm/detailFilmUpdate");
 		
 		return mv;
@@ -70,11 +71,23 @@ public class DetailFilmController {
 	public String selectFilmActor(String searchName) {
 		ArrayList<Actor> al = dfService.searchActorList(searchName);
 		
+		System.out.println("al:" + al);
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return gson.toJson(al);
 	}
-	
+	/*
 	// 배우 등록
+	@RequestMapping("addActor.do")
+	public ModelAndView addActor(int actorId, int id, int filmId, ModelAndView mv) {
+		
+		int result = dfService.addActor(actorId, id);
+		
+		mv.addObject()
+		
+		return mv;
+	}
+	*/
 	
 	
 	// 수정 정보 insert
