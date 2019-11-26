@@ -170,10 +170,10 @@
                     	<h5>출연 배우</h5>
    	                	<div class="actorImage">
 		                    <c:forEach items="${ al }" var="a">
-	   	                		<div class="image_cover">
+   		                		<div class="image_cover">
 	   	                			<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
 				                   	<div name="actorName">${a.actorName}</div>
-	   	                		</div>
+	   	                		</div>	
 					        </c:forEach>   
    	                	</div>
     	            </div>
@@ -233,12 +233,12 @@
     
     <!-- collection 모달 -->
 	<hr style="margin: 0;">
-	<div class="modal fade" id="collectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="collectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 			
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">콜렉션</h5>						<!-- 모달창 제목 -->
+					<h5 class="modal-title" id="exampleModalLabel2">콜렉션</h5>						<!-- 모달창 제목 -->
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">	<!-- 닫기 버튼 -->
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -300,7 +300,6 @@
 					start : 75,         // 원하는 예고편 시작 지점
 					end : 135,          // 원하는 예고편 끝나는 지점
 
-					showinfo : 0,
 					showinfo : 0, 		// Hide the video title
 					modestbranding : 1, // Hide the Youtube Logo
 					loop : 1, 			// Run the video in a loop
@@ -326,8 +325,9 @@
 	        	$(this).children(".df_r_content").css("display","block");
 			});
 		});
-		
-		$(function(){
+    </script>
+    <script>
+	    $(function(){
 			$("#collectionBtn").on("click", function(){
 				$('#collectionModal').modal('toggle');
 			});

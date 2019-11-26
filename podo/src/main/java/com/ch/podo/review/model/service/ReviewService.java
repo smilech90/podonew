@@ -3,6 +3,7 @@ package com.ch.podo.review.model.service;
 import java.util.ArrayList;
 
 import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dto.Review;
@@ -48,5 +49,11 @@ public interface ReviewService {
 	
 	// 영화페이지 메인에 올것
 	ArrayList<Review> selectReviewListMain();
+
+	// 영화 상세자료, 유저아이디
+	//int reivewInsert(DetailFilm df);
+	
+	// 리뷰 조회용 +@
+	//Review	selectReview();
 	
 }

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.member.model.service.MemberService;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.review.model.dto.Review;
 import com.ch.podo.review.model.service.ReviewService;
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
@@ -164,9 +165,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping("myPage.do")
-	public ModelAndView myPage(ModelAndView mv, String id) {
+	public ModelAndView myPage(ModelAndView mv, String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		int reviewListCount = reviewService.myPageReviewListCount(id);
-		mv.addObject("reviewCount", reviewListCount).setViewName("member/myPage");
+		PageInfo pi = Pagination.getPageInfo(currentPage, reviewListCount);
+		
+		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
+		mv.addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/myPage");
+		
 		return mv;
 	}
 	

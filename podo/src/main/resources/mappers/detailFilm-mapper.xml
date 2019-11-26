@@ -142,15 +142,19 @@
 		where df.film_id=#{filmId}
 	</select>
 	
-	
 	<!-- 검색 배우 리스트  -->
 	<select id="searchActorList" resultMap="selectFilmActorResultSet">
-		select a.name, a.profile_img
-		from tb_film_actor fa
-		join tb_actor a on(fa.actor_id=a.id)
+		select id, name, profile_img
+		from tb_actor
 		where name like '%'||#{searchName}||'%'
 	</select>
 	
+	<!-- 배우 등록
+	<insert id="addActor">
+		insert into tb_film_actor
+		values(#{actorId},#{id})
+	</insert>
+	 -->
 </mapper>
 
 

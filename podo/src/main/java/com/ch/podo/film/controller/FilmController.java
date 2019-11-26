@@ -3,6 +3,7 @@ package com.ch.podo.film.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -110,7 +111,10 @@ public class FilmController {
 			throws JsonIOException, IOException {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		System.out.println("sc : " + sc);
+		if (loginUser != null) {
+			sc.setUserId(loginUser.getId());
+		}
+		// System.out.println("sc : " + sc);
 		
 		// 필터 목록 조회
 		ArrayList<String> release = filmService.selectAllReleaseYearList();
@@ -118,24 +122,23 @@ public class FilmController {
 		ArrayList<Genre> genre = filmService.selectAllGenreList();
 		
 		int listCount = filmService.selectFilterFilmListCount(sc);
-		System.out.println("listCount : " + listCount);
+		// System.out.println("listCount : " + listCount);
+		
 		// page는 최대 3페이지, board는 최대 12개 보여지도록 set
 		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 5, 12);
-		System.out.println("pi : " + pi);
-		// 옵션으로 검색된 영화 목록
-		ArrayList<Film> filmList = filmService.selectFilterFilmList(sc, pi);
-		System.out.println("filmList : " + filmList);
-		System.out.println("filmList.size() : " + filmList.size());
-		
 		// 선택한 옵션이 있다면 옵션으로 검색된 목록을 대상으로 페이징 처리
 		if (!((sc.getReleaseYear() == null || sc.getReleaseYear().equals("all"))
 				  && (sc.getProductionCountry() == null || sc.getProductionCountry().equals("all"))
 		 	    && (sc.getGenreId() == null || sc.getGenreId().equals("0"))
 		 	    && (sc.getSaw() == null || sc.getSaw().equals("all"))
-		 	    && (sc.getOpt() == null || sc.getOpt().equals("all")))) {
+		 	    && (sc.getOrder() == null || sc.getOrder().equals("all")))) {
 			pi = Pagination.setNewPageLimit(currentPage, listCount, pi);
+			// System.out.println("new pi : " + pi);
 		}
-		System.out.println("pi : " + pi);
+		// 옵션으로 검색된 영화 목록
+		ArrayList<Film> filmList = filmService.selectFilterFilmList(sc, pi);
+		// System.out.println("filmList : " + filmList);
+		// System.out.println("filmList.size() : " + filmList.size());
 		
 		// 사용자가 좋아요한 영화 목록
 		HashMap<Integer, Like> likeMap = new HashMap<>();
@@ -148,7 +151,6 @@ public class FilmController {
 		if (loginUser != null) {
 			ratingMap = (HashMap<Integer, RatingFilm>)ratingFilmService.selectRatedFilm(loginUser.getId());
 		}
-		
 		// System.out.println("ratingMap : " + ratingMap);
 		
 		mv.addObject("release", release)
