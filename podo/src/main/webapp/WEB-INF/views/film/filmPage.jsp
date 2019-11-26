@@ -331,7 +331,7 @@
 			<c:param name="productionCountry" value="${ param.productionCountry }" />
 			<c:param name="genreId" value="${ param.genreId }" />
 			<c:param name="saw" value="${ param.saw }" />
-			<c:param name="opt" value="${ param.opt }" />
+			<c:param name="order" value="${ param.order }" />
 		</c:url>
 			<!-- Pagination -->
 			<div class="row">

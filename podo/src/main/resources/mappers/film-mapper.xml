@@ -56,15 +56,17 @@
 	      join tb_genre g on (f.genre_id = g.id)
 	      left outer join tb_detail_film df on (df.film_id = f.id)
 	      left outer join tb_film_image fi on (df.id = fi.dfilm_id)
+ 				join vi_film_avg_star fas on (fas.film_id = f.id)
 			</when>
 			<otherwise>
 				select count(*)
-				from (select f.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, NVL(rf.member_id, 8) as mem
+				from (select f.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, NVL(rf.member_id, 8) as mem, fas.avg_star
 				      from tb_film f
 				      join tb_genre g on (f.genre_id = g.id)
 				      left outer join tb_detail_film df on (df.film_id = f.id)
 				      left outer join tb_film_image fi on (df.id = fi.dfilm_id)
-				      left outer join tb_rating_film rf on (rf.film_id = f.id)) t
+				      left outer join tb_rating_film rf on (rf.film_id = f.id)
+      				join vi_film_avg_star fas on (fas.film_id = f.id)) t
 			</otherwise>
 		</choose>
 		<where>
@@ -77,7 +79,7 @@
 			<if test='genreId != "0" and releaseYear != null'>
 				and f.genre_id = #{ genreId }
 			</if>
-			<if test='saw != "all" and saw != null'>
+			<if test='saw != "all" and saw != null and userId != "0" and userId != null'>
 				<choose>
 					<when test='saw == "show"'>
 						and saw = 'Y'
@@ -89,25 +91,28 @@
 				and mem = #{ userId }
 			</if>
 		</where>
+		<!-- count만 가져오기 때문에 order 따로 해주지 않음 -->
 	</select>
 	
 	<select id="selectFilterFilmList" resultMap="filmResultSet">
 		<choose>
 			<when test='userId == "0" or userId == null or saw == "all" or saw == null'>
-				select f.*, g.name, fi.change_name
+				select f.*, g.name, fi.change_name, nvl(fas.avg_star, 0) as avg_star
 	      from tb_film f
 	      join tb_genre g on (f.genre_id = g.id)
 	      left outer join tb_detail_film df on (df.film_id = f.id)
 	      left outer join tb_film_image fi on (df.id = fi.dfilm_id)
+ 				join vi_film_avg_star fas on (fas.film_id = f.id)
 			</when>
 			<otherwise>
 				select t.*
-				from (select f.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, NVL(rf.member_id, 8) as mem
+				from (select f.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, NVL(rf.member_id, 8) as mem, fas.avg_star
 				      from tb_film f
 				      join tb_genre g on (f.genre_id = g.id)
 				      left outer join tb_detail_film df on (df.film_id = f.id)
 				      left outer join tb_film_image fi on (df.id = fi.dfilm_id)
-				      left outer join tb_rating_film rf on (rf.film_id = f.id)) t
+				      left outer join tb_rating_film rf on (rf.film_id = f.id)
+      				join vi_film_avg_star fas on (fas.film_id = f.id)) t
 			</otherwise>
 		</choose>
 		<where>
@@ -120,7 +125,7 @@
 			<if test='genreId != "0" and releaseYear != null'>
 				and f.genre_id = #{ genreId }
 			</if>
-			<if test='saw != "all" and saw != null'>
+			<if test='saw != "all" and saw != null and userId != "0" and userId != null'>
 				<choose>
 					<when test='saw == "show"'>
 						and saw = 'Y'
@@ -132,6 +137,16 @@
 				and mem = #{ userId }
 			</if>
 		</where>
+		<if test='order != "all" and order != null'>
+			<choose>
+				<when test='order == "filmRatingDesc"'>
+					order by avg_star desc
+				</when>
+				<otherwise>
+					
+				</otherwise>
+			</choose>
+		</if>
 	</select>
 	
 	<select id="selectFilterFilmMap" resultMap="filmResultSet">
