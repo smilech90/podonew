@@ -33,13 +33,14 @@ public interface BoardService {
 	// 게시판 수정
 	int updateBoard(Board b);
 	
+	// 댓글 리스트
+	ArrayList<Comment> selectCommentList(int id);
+	
+	// 댓글 작성
+	int insertComment(Comment c);
 
 	// 메인 홈 자유게시판 리스트
 	ArrayList<Board> selectboardListHome();
-
-	// 댓글 리스트
-	ArrayList<Comment> selectCommentList(int id);
-
 	
 	
 }

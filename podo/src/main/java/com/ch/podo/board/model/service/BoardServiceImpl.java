@@ -16,12 +16,14 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private BoardDao boardDao;
-
+	
+	// 게시판 총 개수
 	@Override
 	public int getBoardCount() {
 		return boardDao.getBoardCount();
 	}
-
+	
+	// 게시글 리스트
 	@Override
 	public ArrayList<Board> selectBoardList(PageInfo pi) {
 		return boardDao.selectBoardList(pi);
@@ -64,19 +66,22 @@ public class BoardServiceImpl implements BoardService {
 	public int updateBoard(Board b) {
 		return boardDao.updateBoard(b);
 	}
-
+		
 	@Override
-
+	public ArrayList<Comment> selectCommentList(int id) {
+		return boardDao.selectCommentList(id);
+	}
+	
+	@Override
+	public int insertComment(Comment c) {
+		return boardDao.insertComment(c);
+	}
+	
+	@Override
 	public ArrayList<Board> selectboardListHome() {
 		
 		return boardDao.selectboardListHome();
 	}
 
-	public ArrayList<Comment> selectCommentList(int id) {
-		return boardDao.selectCommentList(id);
-	}
-	
-
-	
 
 }

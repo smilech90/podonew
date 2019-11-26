@@ -46,12 +46,8 @@
 			<tr>
 				<td>${ b.id }</td>
 				<td>
-					<c:if test="${ !empty loginUser }">
 						<a href="bdetail.do?id=${ b.id }">${ b.title }</a>
-					</c:if>
-					<c:if test="${ empty loginUser }">
-						${ b.title }
-					</c:if>
+					
 				</td>
 				<td>${ b.memberId }</td>
 				<td>${ b.createDate }</td>
