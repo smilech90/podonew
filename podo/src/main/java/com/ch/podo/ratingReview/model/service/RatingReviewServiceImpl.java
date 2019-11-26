@@ -15,6 +15,12 @@ public class RatingReviewServiceImpl implements RatingReviewService {
 	@Autowired
 	private RatingReviewDao ratingReviewDao;
 
+	@Override
+	public RatingReview selectUpdateReview(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	/*
 	@Override

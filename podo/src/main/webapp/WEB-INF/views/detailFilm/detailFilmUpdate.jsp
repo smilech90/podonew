@@ -291,7 +291,7 @@
 	    				
 	    				var $div = $("<div class='actor check_actor'>");	// actor 틀
 	    				
-//	    				var $check = $("<input type='checkbox'>").attr({"name":"actorId", "value":value.id});			// 이거 아님
+//	    				var $check = $("<input type='checkbox'>").attr({"name":"actorId", "value":value.id});		// 이거 아님
 //	    				var $check = $("<input type='checkbox'>").attr("name","actorId").val(value.id);				// 이거 아님
 	    				var $check = $("<input type='checkbox' class='test'>").attr("value",value.id);				// 이거 아님
 	    				
@@ -315,11 +315,11 @@
 	    
 	    function test(){
 	    	
-	    	console.log($(".test:checked").val());
+	    	//console.log($(".test:checked").val());
 	    	
-//	    	var actorId = $(".test:checked").val();
+	    	var actorId = $(".test:checked").val();
 	    	
-	    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorId=' + actorId;
+	    	location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorId=' + actorId;
 	    }
     </script>   
     

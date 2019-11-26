@@ -89,7 +89,6 @@ public class DetailFilmController {
 	}
 	*/
 	
-	
 	// 수정 정보 insert
 	@RequestMapping("detailFilmInsert.do")
 	public ModelAndView detailFilmInsert(DetailFilm df, int uId, String filmImage, ModelAndView mv) {

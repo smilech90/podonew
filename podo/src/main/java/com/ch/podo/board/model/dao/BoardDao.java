@@ -48,7 +48,7 @@ public class BoardDao {
 	
 	
 	public int updateCount(int id) {
-		return sqlSession.selectOne("boardMapper.updateCount", id);
+		return sqlSession.update("boardMapper.updateCount", id);
 	}
 	
 	
@@ -65,8 +65,19 @@ public class BoardDao {
 	public int updateBoard(Board b) {
 		return sqlSession.update("boardMapper.updateBoard", b);
 	}
-
-
+	
+	
+	public ArrayList<Comment> selectCommentList(int id){
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectCommentList", id);
+	}
+	
+	
+	public int insertComment(Comment c) {
+		return sqlSession.insert("boardMapper.insertComment", c);
+	}
+	
+	
 	public ArrayList<Board> selectboardListHome() {
 		
 		ArrayList<Board> list = (ArrayList)sqlSession.selectList("boardMapper.selectboardListHome");
@@ -75,8 +86,5 @@ public class BoardDao {
 	}
 	
 	
-	public ArrayList<Comment> selectCommentList(int id){
-		return (ArrayList)sqlSession.selectList("boardMapper.selectCommentList");
-	}
 	
 }
