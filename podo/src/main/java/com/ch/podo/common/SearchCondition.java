@@ -20,4 +20,6 @@ public class SearchCondition {
 	private int userId;
 	private String order;
 	
+	private String email;
+	private String nickName;
 }

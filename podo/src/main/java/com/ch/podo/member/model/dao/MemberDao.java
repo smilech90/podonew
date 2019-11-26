@@ -72,4 +72,28 @@ public class MemberDao {
 	}
 	
 	
+	public int getSearchListCount(String search_option, String keyword) {
+		return sqlSession.selectOne("memberMapper.getSearchListCount");
+	}
+	
+	public 	ArrayList<Member> selectSearchList(PageInfo pi, String search_option, String keyword){
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		HashMap<String,Object> map = new HashMap<>();
+        map.put("search_option", search_option);
+        map.put("keyword", keyword);
+		
+		ArrayList<Member> list = (ArrayList)sqlSession.selectList("memberMapper.selectSearchList", map, rowBounds);
+		
+		return list;
+
+	}
+	
+	public int deleteBlackMember(int result) {
+		return sqlSession.delete("memberMapper.deleteBlackMember", result);
+	}
+	
+	
 }

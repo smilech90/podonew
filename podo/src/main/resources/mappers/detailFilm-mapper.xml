@@ -142,12 +142,10 @@
 		where df.film_id=#{filmId}
 	</select>
 	
-	
 	<!-- 검색 배우 리스트  -->
 	<select id="searchActorList" resultMap="selectFilmActorResultSet">
-		select a.name, a.profile_img
-		from tb_film_actor fa
-		join tb_actor a on(fa.actor_id=a.id)
+		select name, profile_img
+		from tb_actor
 		where name like '%'||#{searchName}||'%'
 	</select>
 	

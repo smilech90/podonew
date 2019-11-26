@@ -100,6 +100,38 @@
 	</select>
 	
 	
+	<select id="getSearchListCount" resultType="_int">
+		select count(*)
+		from tb_member
+		<if test="eamil != null">
+			and email like '%' || #{email} || '%'	 
+		</if>
+		<if test="nickname != null">
+			and nickName like '%' || #{nickname} || '%'
+		</if>
+	</select>
+	
+	
+	<select id="selectSearchList" resultMap="memberResultSet">
+		select * 
+		from tb_member
+			<choose>
+				<when test="email != null">
+					and email like '%' || #{email} || '%'
+				</when>
+				<when test="nickname != null">
+					and nickName like '%' || #{nickname} || '%'
+				</when>
+			</choose>	
+		order by id desc
+	</select>
+	
+	<delete id="deleteBlackMember">
+		delete from tb_black_member
+		where taget_id = #{result}
+	</delete>
+	
+	
 	
 	
 	

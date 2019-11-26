@@ -19,71 +19,88 @@
 	</h3>
 	
 	
-
-	
-	<table border="1" style="width:700px;margin:0 auto;">
-		<tr>
-			<th>No</th>
-			<th>회원아이디</th>
-			<th>닉네임</th>
-			<th>가입일</th>
-			<th>신고수</th>
-			<th>블랙여부</th>
-			<th>상태</th>
-		</tr>
-		<c:forEach items="${ list }" var="m">	
+	<form method="post" action="mSearchList.do">
+		<table border="1" style="width:700px;margin:0 auto;">
 			<tr>
-				<td>${ m.id }</td>
-				<td>${ m.email }</td>
-				<td>${ m.nickName }</td>
-				<td>${ m.enrollDate }</td>
-				<td>${ m.reportCount }</td>
-				<td>${ m.block }</td>
-				<td>${ m.status }</td>
-
+				<th>No</th>
+				<th>회원아이디</th>
+				<th>닉네임</th>
+				<th>가입일</th>
+				<th>신고수</th>
+				<th>블랙여부</th>
+				<th>상태</th>
 			</tr>
-		</c:forEach>
-		
-		<!-- 페이징 처리 -->
-		<tr align="center" height="20">
-			<td colspan="7">
-				<!-- [이전] -->
-				<c:if test="${ pi.currentPage eq 1 }">
-					[이전] 
-				</c:if>
-				<c:if test="${ pi.currentPage ne 1 }">
-					<c:url value="mlist.do" var="before">
-						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
-					</c:url>
-					<a href="${ before }">[이전] </a>	
-				</c:if>
+			<c:forEach items="${ list }" var="m">	
+				<tr>
+					<td>${ m.id }</td>
+					<td>${ m.email }</td>
+					<td>${ m.nickName }</td>
+					<td>${ m.enrollDate }</td>
+					<td>${ m.reportCount }</td>
+					<td>${ m.block }</td>
+					<td>${ m.status }</td>
+	
+				</tr>
+			</c:forEach>
+			
+			<tr align="center">
+				<td colspan="7">
+					<select name="search_option">
+				        <option value="email"
+							<c:if test="${m.search_option == 'email'}">selected</c:if>
+						   	>아이디</option>
 				
-				<!-- [페이지] -->
-				<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-					<c:if test="${ p eq pi.currentPage }">
-						<font color="red" size="4"> [${ p }] </font>
+				        <option value="nickname" 
+							<c:if test="${m.search_option == 'nickname'}">selected</c:if>
+					        >닉네임</option>
+				    </select>
+				    
+				    <input type="text" name="keyword" value="${m.keyword}">
+				    <input type="submit" value="검색">
+				</td>
+			</tr>
+			
+			<!-- 페이징 처리 -->
+			<tr align="center" height="20">
+				<td colspan="7">
+					<!-- [이전] -->
+					<c:if test="${ pi.currentPage eq 1 }">
+						[이전] 
 					</c:if>
-					<c:if test="${ p ne pi.currentPage }">
-						<c:url value="mlist.do" var="page">
-							<c:param name="currentPage" value="${ p }"/>
+					<c:if test="${ pi.currentPage ne 1 }">
+						<c:url value="mlist.do" var="before">
+							<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
 						</c:url>
-						<a href="${ page }"> ${ p } </a>
+						<a href="${ before }">[이전] </a>	
 					</c:if>
-				</c:forEach>
-				
-				<!-- [다음] -->
-				<c:if test="${ pi.currentPage eq pi.maxPage }">
-					 [다음]
-				</c:if>
-				<c:if test="${ pi.currentPage ne pi.maxPage }">
-					<c:url value="mlist.do" var="after">
-						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
-					</c:url>
-					<a href="${ after }"> [다음]</a>
-				</c:if>
-			</td>
-		</tr>
-	</table>
+					
+					<!-- [페이지] -->
+					<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+						<c:if test="${ p eq pi.currentPage }">
+							<font color="red" size="4"> [${ p }] </font>
+						</c:if>
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url value="mlist.do" var="page">
+								<c:param name="currentPage" value="${ p }"/>
+							</c:url>
+							<a href="${ page }"> ${ p } </a>
+						</c:if>
+					</c:forEach>
+					
+					<!-- [다음] -->
+					<c:if test="${ pi.currentPage eq pi.maxPage }">
+						 [다음]
+					</c:if>
+					<c:if test="${ pi.currentPage ne pi.maxPage }">
+						<c:url value="mlist.do" var="after">
+							<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+						</c:url>
+						<a href="${ after }"> [다음]</a>
+					</c:if>
+				</td>
+			</tr>
+		</table>
+	</form>
 
 </body>
 </html>

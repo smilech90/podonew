@@ -66,11 +66,17 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+
+	public ArrayList<Board> selectboardListHome() {
+		
+		return boardDao.selectboardListHome();
+	}
+
 	public ArrayList<Comment> selectCommentList(int id) {
 		return boardDao.selectCommentList(id);
 	}
 	
-	
+
 	
 
 }

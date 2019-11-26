@@ -42,6 +42,14 @@ public interface MemberService {
 	ArrayList<Member> selectBlackList(PageInfo pi);
 	
 	// 3. 블랙리스트 해제
-
+	int deleteBlackMember(int result);
+	
+	// 4_1. 검색된 회원 갯수 조회용 서비스
+	int getSearchListCount(String search_option, String keyword);
+	
+	// 4_2. 검색된 현재 페이지에 보여질 검색 게시판 리스트 조회용 서비스
+	ArrayList<Member> selectSearchList(PageInfo pi, String search_option, String keyword);
+	
+	
 	
 }

@@ -2,10 +2,10 @@ package com.ch.podo.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.member.model.service.MemberService;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.review.model.dto.Review;
 import com.ch.podo.review.model.service.ReviewService;
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
+
 
 @Controller
 public class MemberController {
@@ -163,9 +165,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping("myPage.do")
-	public ModelAndView myPage(ModelAndView mv, String id) {
+	public ModelAndView myPage(ModelAndView mv, String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		int reviewListCount = reviewService.myPageReviewListCount(id);
-		mv.addObject("reviewCount", reviewListCount).setViewName("member/myPage");
+		PageInfo pi = Pagination.getPageInfo(currentPage, reviewListCount);
+		
+		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
+		mv.addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/myPage");
+		
 		return mv;
 	}
 	
@@ -263,6 +269,31 @@ public class MemberController {
 	}
 	
 	
+	
+	// 관리자 회원 검색
+	@RequestMapping("mSearchList.do")
+	public ModelAndView selectSearchMember(ModelAndView mv, 
+			  @RequestParam(value="currentPage", defaultValue="1")
+			  String search_option, String keyword, int currentPage) {
+
+		int listCount = memberService.getSearchListCount(search_option, keyword);
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put(search_option, 1);
+		map.put(keyword, 2);
+		
+           
+		ArrayList<Member> list = memberService.selectSearchList(pi, search_option, keyword);
+
+		mv.addObject("pi", pi).addObject("list", list).addObject("map", map)
+		  .setViewName("admin/memberListView");
+        
+        return mv;
+    
+    }
+
 	
 	
 	

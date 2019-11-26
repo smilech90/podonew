@@ -1,6 +1,7 @@
 package com.ch.podo.review.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.podo.board.model.vo.PageInfo;
-
-
+import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dto.Review;
@@ -50,7 +50,7 @@ public class ReviewDao {
 		
 		Film f = sqlSession.selectOne("reviewMapper.selectFilm", filmId);
 		
-		System.out.println("f : " + f);
+		//System.out.println("f : " + f);
 		return f;
 	}
 
@@ -58,7 +58,7 @@ public class ReviewDao {
 		
 		Member m = sqlSession.selectOne("reviewMapper.selectMember", loginUserId);
 		
-		System.out.println("m : " +m);
+		//System.out.println("m : " +m);
 		return m;
 	}
 	
@@ -86,6 +86,32 @@ public class ReviewDao {
 		
 		return list;
 	}
+
+
+	public ArrayList<Review> selectReviewListMain() {
+		
+		
+		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewListMain");
+		return list;
+	}
+
+	/*
+	public int reivewInsert(DetailFilm df) {
+		HashMap map= new HashMap();
+		
+		map.put("df", df);
+		
+		return sqlSession.insert("reviewMapper.reivewInsert",map);
+	}*/
+
+	/*
+	public Review selectReview() {
+		
+		Review r = sqlSession.selectOne("reviewMapper.selectReview");
+		
+		System.out.println("r : " + r);
+		return r;
+	}*/
 
 
 	

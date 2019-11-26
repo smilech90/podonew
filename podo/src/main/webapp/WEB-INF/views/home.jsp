@@ -25,12 +25,89 @@
 				height: 360px;
 				object-fit: contain;
 			}
-			#homePoster{
-				width: 200px;
-				height: 200px;
-				margin-left: 80px;
+			.homeReviewArea{
+				margin-left:auto;
+				margin-right:auto;
+				
+				height: 150px;
+				border: 1px solid blue;
+				width: 600px;
+			}
+
+			.leftImage{
+				border: 1px solid green;
+				width: 20%;
+				height: 100%;
+				margin-left:auto;
+				margin-right:auto;
+				float: left;
+
+			}
+
+			.userImageHome{
+				border-radius: 100px;
+				height:80%;
+				width:100%;
+				border: 1px solid black;
+				float:left;
+				text-align:center;
+			}
+			.nickNameHome{
+				height:20%;
+				width:100%;
+				border: 1px solid purple;
+				float:left;
+				text-align:center;
+
 			}
 			
+			
+			.rightContent{
+				border: 1px solid red;
+				height:100%;
+				width: 80%;
+				float: left;
+
+			}
+			.homeContent{
+				width:100%;
+				height:100%;
+				float:left;
+				
+				
+			}
+			
+			.titleKorea{
+				width:100%;
+				float: left;
+				border: 1px solid yellow;
+				height: 20%;
+			}
+			.contentKorea{
+				float: left;
+				width:100%;
+				height:65%;
+				border: 1px solid orange;
+			}
+			.btns{
+				float: left;
+				width:100%;
+				height: 15%;
+			}
+			.tableHome{
+				border: 1px solid red;
+				width: 800px;
+			}
+			.bNo{
+				border: 1px solid black;
+				text-align: center;
+			}
+			.bTitle{
+				text-align: center;
+			}
+			#boardMore{
+				margin-left: 925px;
+			}
 		</style>
 	</head>
 	<body>
@@ -82,68 +159,68 @@
 			</div>
 		</section>
 		<!-- 영화리뷰쪽 -->
-		<section class="blog-post-area section-margin">
-			<div class="container">
+		
+			
 			
 	        	<p align="center">리뷰 리스트</p>
-        <div class="owl-carousel owl-theme blog-slider">
+	        	
+	         
       		<c:forEach items="${ reviewList }" var="rs">
-	      	<!--================ Blog slider start =================-->
-	          <div class="card blog__slide text-center">
-	            <div class="blog__slide__img">
-	            	<c:choose>
-	            		<c:when test="${ not empty rs.posterImage }">
-			              <img class="card-img rounded-0" src="resources/detailFilmImage/${ rs.posterImage }" alt="" id="homePoster">
-	            		</c:when>
-	            		<c:otherwise>
-			              <img class="card-img rounded-0" src="resources/detailFilmImage/podoposter.jpg" alt="" id="homePoster">
-	            		</c:otherwise>
-	            	</c:choose>
-	            </div>
-	            <div class="blog__slide__content">
-	              <h3><a href="#">${ rs.content }</a></h3>
-	              <p>${ rs.nickName }님 작성</p>
-	              <p>${rs.modifyDate }에 작성</p>
-	            </div>
-	            
-	          </div>
-     			</c:forEach>
-    			</div>
+      	<div class="homeReviewArea">
+			        <div class="leftImage">
+			              <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }.jpg" height="100px">
+			               <div class="nickNameHome">${ rs.nickName }님</div>
+					</div>
+			   		<div class="rightContent">
+			   			<div class="titleKorea">${ rs.titleKor }</div>
+			            <div class="contentKorea"> ${ rs.content }</div>
+	             		 <div class="btns">${rs.modifyDate }에 작성</div>
+			        </div>       
+	        
+
+
+	     </div>
+     			</c:forEach> 
+    			
 	      
-			</div>
-		</section>
+
+		
 		
 		<!-- 자유게시판 -->
-		<section class="blog-post-area section-margin">
-			<div class="container">
+
 			
+			
+			
+			
+			
+	 <div class="row">
+    	<div style="height:200px;"></div>
+    </div>
 	    <p align="center">자유게시판 리스트</p>
-        <div class="owl-carousel owl-theme blog-slider">
-      		<c:forEach items="${ boardList }" var="bs">
-	      	<!--================ Blog slider start =================-->
-	          <div class="card blog__slide text-center">
-	            <div class="blog__slide__img">
-	            	<c:choose>
-	            		<c:when test="${ not empty bs.id }">
-			              <p>bs.title</p>
-	            		</c:when>
-	            		<c:otherwise>
-			             <p>없으면 이거 뜨는게..?</p>
-	            		</c:otherwise>
-	            	</c:choose>
-	            </div>
-	            <div class="blog__slide__content">
-	              <h3><a href="#">${ bs.content }</a></h3>
-	              <p>${ bs.memberId }님 작성</p>
-	              <p>${bs.modifyDate }에 작성</p>
-	            </div>
-	            
-	          </div>
-     			</c:forEach>
-    			</div>
-	      
-			</div>
-		</section>
+						<a href="blist.do" id="boardMore">더보기</a>
+	<table class="tableHome" align="center" cellspacing="0">
+		<tr class="bTitle">
+			<th></th>
+			<th width="300">제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>조회</th>
+			<th>좋아요</th>
+		</tr>
+		<c:forEach items="${ boardList }" var="b">
+			<tr class="bNo">
+		
+				<td>${ b.id }</td>
+			
+				<td>${ b.title }</td>
+				<td>${ b.nickName }</td>
+				<td>${ b.createDate }</td>
+				<td>${ b.viewCount}</td>
+				<td>${ b.likeCount }</td>
+			</tr>
+		</c:forEach>
+		
+	</table>
 		
     <!--================ Blog slider end =================-->  
     
@@ -154,4 +231,21 @@
 	  <jsp:include page="common/footer.jsp"/>
 	  
 	</body>
+		<script>
+			$(function(){
+				$(".bNo td").mouseenter(function(){
+					$(this).parent().css({"background":"orangered", "cursor":"pointer"});
+				}).mouseout(function(){
+					$(this).parent().css("background", "white");
+				}).click(function(){
+					
+					var bId = $(this).parent().children().eq(0).text();
+					
+
+						location.href="boardDetailView.bo?bid=" + bId;
+
+					
+				});
+			});
+		</script>
 </html>

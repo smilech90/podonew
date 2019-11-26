@@ -32,12 +32,12 @@
 		<c:forEach items="${ list }" var="r">	
 			<tr>
 				<td>${ r.id }</td>
-				<td>${ r. } ${r. }</td>
-				<td>${ r. }</td>
-				<td>${ r. }</td>
-				<td>${ r. }</td>
-				<td>${ r. }</td>
-				<td>${ r. }</td>
+				<td>${ r.titleKor } ${r.titleEng }</td>
+				<td>${ r.nickName }</td>
+				<td>${ r.likeCount }</td>
+				<td>${ r.spoilerCheck }</td>
+				<td>${ r.spoilerCount + r.inappropriateCount}</td>
+				<td>${ r.status }</td>
 
 			</tr>
 		</c:forEach>
