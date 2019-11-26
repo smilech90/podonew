@@ -16,22 +16,21 @@ public class ReportDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	
-	public int getReportListCount() {
-		return sqlSession.selectOne("reportMapper.getReportListCount");
-	}
-	
-	public ArrayList<Report> selectReportList(PageInfo pi){
 
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+	public ArrayList<Report> selectReportList(){
 
-		ArrayList<Report> list = (ArrayList)sqlSession.selectList("reportMapper.selectReportList",null, rowBounds);
+		ArrayList<Report> list = (ArrayList)sqlSession.selectList("reportMapper.selectReportList");
 		
 		return list;
 	}
 	
-	
+
+	public ArrayList<Report> selectReportBoardList(){
+
+		ArrayList<Report> list = (ArrayList)sqlSession.selectList("reportMapper.selectReportBoardList");
+		
+		return list;
+	}
 	
 
 }

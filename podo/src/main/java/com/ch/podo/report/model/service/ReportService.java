@@ -8,10 +8,10 @@ import com.ch.podo.report.model.vo.Report;
 public interface ReportService {
 	
 	// 관리자
-	// 1_1. 게시판 총 갯수 조회용 서비스
-	int getReportListCount();
+	// 1. 현재 페이지에 보여질 신고 회원 리스트 조회용 서비스
+	ArrayList<Report> selectReportList();
 	
-	// 1_2. 현재 페이지에 보여질 회원 리스트 조회용 서비스
-	ArrayList<Report> selectReportList(PageInfo pi);
+	// 2. 현재 페이지에 보여질 게시글 리스트 조회용 서비스
+	ArrayList<Report> selectReportBoardList();
 
 }

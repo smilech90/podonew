@@ -1,7 +1,6 @@
 package com.ch.podo.review.model.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -74,11 +73,6 @@ public class ReviewDao {
 		return sqlSession.update("reviewMapper.reviewUpdate",r);
 	}
 	
-	public int reviewupdateContent(Review r) {
-		
-		return sqlSession.update("reviewMapper.reviewUpdateContent",r);
-	}
-	
 	public int myPageReviewListCount(String id) {
 		return sqlSession.selectOne("reviewMapper.myPageReviewListCount", id);
 	}
@@ -109,6 +103,11 @@ public class ReviewDao {
 
 	
 
+	
+	public ArrayList<Review> selectAdReviewList(){
+		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList");
+		return list;
+	}
 	/*
 	public int reivewInsert(DetailFilm df) {
 		HashMap map= new HashMap();

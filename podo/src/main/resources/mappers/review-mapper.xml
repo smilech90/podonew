@@ -100,11 +100,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="posterImage" column="change_name"/>
 	</resultMap>
 	
-	<select id="getReviewListCount" resultType="_int">
+	<!-- <select id="getReviewListCount" resultType="_int">
 		select count(*)
 		from tb_review r
 		where r.status='Y'
-	</select>
+	</select> -->
 	
 	<select id="selectReviewList" resultMap="reviewListSet">	
         select *
