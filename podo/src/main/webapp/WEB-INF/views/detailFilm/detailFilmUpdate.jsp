@@ -317,8 +317,9 @@
 	    	
 	    	console.log($(".test:checked").val());
 	    	
+//	    	var actorId = $(".test:checked").val();
 	    	
-	    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}';
+	    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorId=' + actorId;
 	    }
     </script>   
     
