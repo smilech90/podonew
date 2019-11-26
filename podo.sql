@@ -173,11 +173,8 @@ CREATE TABLE "TB_NOTICE" (
    "VIEW_COUNT"   NUMBER   DEFAULT 0   NOT NULL,
    "CREATE_DATE"   TIMESTAMP      NOT NULL,
    "MODIFY_DATE"   TIMESTAMP      NOT NULL,
-<<<<<<< HEAD
-   "ADMIN_ID"   NUMBER      NOT NULL
-=======
+   "ADMIN_ID"   NUMBER      NOT NULL,
    "IMAGE_ID"   NUMBER      NOT NULL
->>>>>>> branch 'develop' of https://github.com/humormagnate/podo
 );
 
 CREATE TABLE "TB_COLLECTION" (
