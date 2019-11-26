@@ -117,6 +117,14 @@
 				text-align: right;
 				vertical-align: middle;
 			}
+			.main_blog_details{
+			margin-left:200px;
+			width: 100%;
+			}
+			#ok1{
+				margin-left: 150px;
+			}
+		
 </style>
 </head>
 <body>
@@ -233,49 +241,53 @@
    </script>
    </div>
    
-    <form action="reviewUpdate.do" method="post" enctype="mutipart/form-data" id="movieform">
+
+    <form action="reviewUpdate.do" method="post" id="movieform">
+      	<input type="hidden" name="id" value="${r.id }">
+      	<input type="hidden" name="ratingReviewId" value="${r.ratingReviewId }">
       <table align="center" id="vv">
-      	<input type="hidden" name="id" value="${r.ratingReviewId }">
          <tr>
-            <td>영화제목</td>
+            <td class="alert alert-primary">영화제목</td>
             <td><input type="text" name="title" id="vtitle"  value="${ r.titleKor }"  readonly></td>
          </tr>
          <tr>
-            <td>음악</td>
+            <td class="alert alert-primary">음악</td>
             <td><input type="number" name="ratingSound" class="insertRating" id="ratingSound" value="${r.ratingSound }"></td>
          </tr>
          <tr>   
-            <td>영상</td>
+            <td class="alert alert-primary">영상</td>
             <td><input type="number" name="ratingVisual" class="insertRating" id="ratingVisual" value="${r.ratingVisual }"></td>
          </tr>
          <tr>
-            <td>연기</td>
+            <td class="alert alert-primary">연기</td>
             <td><input type="number" name="ratingActing" class="insertRating" id="ratingActing" value="${r.ratingActing }"></td>
          </tr>
          <tr>
-            <td>대중성</td>
+            <td class="alert alert-primary">대중성</td>
             <td><input type="number" name="ratingPop" class="insertRating" id="ratingPop" value="${r.ratingPop }"></td>
          </tr>
          <tr>
-            <td>각본</td>
+            <td class="alert alert-primary">각본</td>
             <td><input type="number" name="ratingScript" class="insertRating" id="ratingScript" value="${r.ratingScript }"></td>
          </tr>
          <tr>
-            <td>연출</td>
+            <td class="alert alert-primary">연출</td>
             <td><input type="number" name="ratingDirect" class="insertRating" id="ratingDirect" value="${r.ratingDirect }" ></td>
          </tr>
 
       </table>
-   </div>
-                <p><textarea rows="3" cols="75" name="content"  >${r.content }</textarea></p>
-               <button type="submit" id="reviewupdate">리뷰수정하기1</button>
-               <button type="button" onclick="location.href='reviewList.do';">목록으로</button>
-   </form>
+   
+                <p><textarea rows="3" cols="75" name="content" id="content"  >${r.content }</textarea></p>
+                <button class="button" type="submit" id="ok1">리뷰수정하기</button>
+               <button class="button" type="button" onclick="location.href='reviewList.do';">목록으로</button>
+   </form>	
+    </div>
      
 
               </div>
         </div>
       </div>
+  
   </section>	
 	
 	<br>
@@ -284,6 +296,7 @@
 	</div>
 	
 	 <script>
+	 console.log(${r.ratingReviewId})
       $('.insertRating').on('input',function(){
          var ctx = document.getElementById('myChart');
          var chart = new Chart(ctx, {

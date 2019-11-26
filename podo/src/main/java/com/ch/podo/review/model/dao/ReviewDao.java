@@ -94,6 +94,15 @@ public class ReviewDao {
 		return list;
 	}
 
+
+	public int reviewRating(Review r) {
+		
+		return sqlSession.insert("reviewMapper.reviewRating",r);
+	}
+
+
+	
+
 	
 	public ArrayList<Review> selectAdReviewList(){
 		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList");

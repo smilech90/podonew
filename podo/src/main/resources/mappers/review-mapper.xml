@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	<result property="filmId" column="FILM_ID"/>
 	 	<result property="memberId" column="MEMBER_ID"/>
 	 	<result property="posterImage" column="change_name"/>
+	  	<result property="ratingReviewId" column="rr_id"/>
 	 	<result property="ratingSound" column="RATING_SOUND"/>
 		<result property="ratingVisual" column="RATING_VISUAL"/>
 		<result property="ratingActing" column="RATING_ACTING"/>
@@ -44,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<resultMap id="ratingReviewSet" type="Review">
-		<id property="ratingReviewId" column="id"/>
+		<id property="id" column="id"/>
 		<result property="nickName" column="nickname"/>
 		<result property="name" column="name"/>
 		<result property="ratingSound" column="RATING_SOUND"/>
@@ -119,16 +120,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by r.id desc
 	</select>
 	
-	<insert id="reviewWrite" parameterType="hashMap">
+	<insert id="reviewWrite">
 		INSERT INTO TB_REVIEW
 		VALUES(SEQ_REVIEW_ID.NEXTVAL, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, sysdate , sysdate , #{filmId},#{memberId})
 	</insert>  
 	
-	<!-- <insert id="ratingWrite">
+	<insert id="reviewRating">
 		INSERT INTO TB_RATING_REVIEW
-		VALUES (SEQ_RATING_REVIEW_ID.NEXTVAL,#{ratingSound},#{ratingVisual},#{ratingActing},#{ratingPop},#{ratingScript},#{ratingDirect})
-	</insert> -->
+		VALUES (SEQ_RATING_REVIEW_ID.NEXTVAL,#{ratingSound},#{ratingVisual},#{ratingActing},#{ratingPop},#{ratingScript},#{ratingDirect}, SEQ_REVIEW_ID.currval,#{memberId})
+	</insert> 
 	
+	<!-- 리뷰업데이트 관련 -->
+	<update id="reviewUpdateContent">
+		update tb_review
+		set CONTENT=#{content},INAPPROPRIATE_COUNT=default,SPOILER_COUNT=default,LIKE_COUNT=default,SPOILER_CHECK=default,STATUS=default,MODIFY_DATE=sysdate,CREATE_DATE=sysdate,FILM_ID=#{filmId},MEMBER_ID=#{memberId}
+		where id=#{id}
+	</update>
+	<!-- 리뷰 레이팅리뷰 업데이트관련 -->
+	<update id="reviewUpdate">
+		update tb_rating_review
+		set rating_Sound=#{ratingSound},rating_Visual=#{ratingVisual},rating_Acting=#{ratingActing},rating_Pop=#{ratingPop},rating_Script=#{ratingScript},rating_Direct=#{ratingDirect}
+		where id=#{ratingReviewId}
+	</update>
+	
+	<!-- 리뷰삭제 -->
 	<update id="deleteReview">
 	update tb_review
 	set status='N'
@@ -140,6 +155,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT *
 		FROM TB_FILM f
         left join tb_genre g on( f.genre_id = g.id)
+        left join tb_detail_film df on(df.film_id=f.id)
+        left join TB_FILM_IMAGE fi on(fi.DFILM_ID=df.id)
         where f.id=#{id}
 	</select>
 	
@@ -151,7 +168,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 합친부분 -->
-	<select id="selectRatingReviewDetailView" resultMap="ratingReviewSet">
+	<select id="selectRatingReviewDetailView" resultMap="reviewListSet">
         select *
 		from  TB_REVIEW r
 		left join tb_rating_review rr on (rr.review_id = r.id)
@@ -164,11 +181,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where r.id=#{id}
 	</select>
 
-	<update id="reviewUpdate">
-		update tb_rating_review
-		set rating_Sound=#{ratingSound},rating_Visual=#{ratingVisual},rating_Acting=#{ratingActing},rating_Pop=#{ratingPop},rating_Script=#{ratingScript},rating_Direct=#{ratingDirect}
-		where id=#{id}
-	</update>
+	
 	
 	
 	<select id="myPageReviewListCount" resultType="_int">

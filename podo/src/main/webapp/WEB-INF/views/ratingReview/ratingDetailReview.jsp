@@ -21,7 +21,7 @@
   <script src="js/jquery.ajaxchimp.min.js"></script>
   <script src="js/mail-script.js"></script>
   <script src="js/main.js"></script>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <title>Insert title here</title>
 <style>
 	body{
@@ -37,17 +37,22 @@
 	#mychart2{
 		margin-left:auto;
 		margin-right:auto;
-		width:300px;
-		height:190px;
+		
+		width:350px;
+		height:350px;
 		display:inline-block;
+		
 	}
+	
 	#movieform{
 		display:inline-block;
+		
+	
 	}
 	.img-fluid{
-		margin-left:180px;
-		width:300px;
-		height:190px;
+		margin-left:260px;
+		width:200px;
+		height:50px;
 	}
 			.star-input>.input,
 			.star-input>.input>label:hover,
@@ -118,6 +123,15 @@
 				text-align: right;
 				vertical-align: middle;
 			}
+		.main_blog_details{
+			margin-left:200px;
+			width: 100%;
+		}
+		#movieform{
+			text-align: center;
+		}
+
+
 </style>
 </head>
 <body>
@@ -128,7 +142,7 @@
 		<br>
 		
 		<h3 align="center">
-			<a href="reviewUpdateView.do?id=${r.ratingReviewId}">수정하기</a>
+			<a href="reviewUpdateView.do?id=${r.id}">수정하기</a>
 		</h3>
 	  <section class="blog-post-area section-margin">
     <div class="container">
@@ -143,6 +157,7 @@
                       <div class="media">
                       <div class="media-body">
                         <h5>${r.nickName }님</h5>
+                 
                         <p>${ r.createDate }에 작성</p>
                       </div>
                       <div class="d-flex">
@@ -235,42 +250,43 @@
    </script>
    </div>
    
-    <form action="vinsert.do" method="post" enctype="mutipart/form-data" id="movieform">
+    <form action="vinsert.do" method="post" id="movieform">
       <table align="center" id="vv">
          <tr>
-            <td>영화제목</td>
-            <td><input type="text" name="title" id="vtitle"  value="${ r.titleKor }"  readonly></td>
+            <td class="alert alert-primary">제목</td>
+            <td><input style="text-align: center" class="button" type="text" name="title" id="vtitle"  value="${ r.titleKor }"  readonly></td>
          </tr>
          <tr>
-            <td>음악</td>
-            <td><input type="text" name="ratingSound" class="insertRating" id="ratingSound" value="${r.ratingSound }" readonly></td>
+            <td class="alert alert-primary">음악</td>
+            <td><input style="text-align: center" class="button" type="text" name="ratingSound" class="insertRating" id="ratingSound" value="${r.ratingSound }" readonly></td>
          </tr>
          <tr>   
-            <td>영상</td>
-            <td><input type="text" name="ratingVisual" class="insertRating" id="ratingVisual" value="${r.ratingVisual }" readonly></td>
+            <td class="alert alert-primary">영상</td>
+            <td><input style="text-align: center" class="button" type="text" name="ratingVisual" class="insertRating" id="ratingVisual" value="${r.ratingVisual }" readonly></td>
          </tr>
          <tr>
-            <td>연기</td>
-            <td><input type="text" name="ratingActing" class="insertRating" id="ratingActing" value="${r.ratingActing }" readonly></td>
+            <td class="alert alert-primary">연기</td>
+            <td><input style="text-align: center" class="button" type="text" name="ratingActing" class="insertRating" id="ratingActing" value="${r.ratingActing }" readonly></td>
          </tr>
          <tr>
-            <td>대중성</td>
-            <td><input type="text" name="ratingPop" class="insertRating" id="ratingPop" value="${r.ratingPop }" readonly></td>
+            <td class="alert alert-primary">대중성</td>
+            <td><input style="text-align: center" class="button" type="text" name="ratingPop" class="insertRating" id="ratingPop" value="${r.ratingPop }" readonly></td>
          </tr>
          <tr>
-            <td>각본</td>
-            <td><input type="text" name="ratingScript" class="insertRating" id="ratingScript" value="${r.ratingScript }" readonly></td>
+            <td class="alert alert-primary">각본</td>
+            <td><input style="text-align: center" class="button" type="text" name="ratingScript" class="insertRating" id="ratingScript" value="${r.ratingScript }" readonly></td>
          </tr>
          <tr>
-            <td>연출</td>
-            <td><input type="text" name="ratingDirect" class="insertRating" id="ratingDirect" value="${r.ratingDirect }" readonly></td>
+            <td class="alert alert-primary">연출</td>
+            <td><input style="text-align: center" class="button" type="text" name="ratingDirect" class="insertRating" id="ratingDirect" value="${r.ratingDirect }" readonly></td>
          </tr>
-         
-
+                 
+		
       </table>
    </form>
    </div>
-                <p>${r.content }</p>
+        <p class="main_blog_details">${r.content }</p>
+               
      
 
               </div>
