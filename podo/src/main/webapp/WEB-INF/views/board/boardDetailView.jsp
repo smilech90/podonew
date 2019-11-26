@@ -15,6 +15,13 @@
 	
 	<h1>게시판</h1>
 	
+	<table align="center">
+		<tr>
+			<td>1</td>
+			<td></td>
+		</tr>
+	</table>
+	
 	
 	<button onclick="location.href='/download.board.do?imageId=${ b.imageId }';">다운로드</button>
 	
