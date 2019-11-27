@@ -123,7 +123,7 @@ public class ReviewController {
 		
 		Review r = reviewService.selectRatingReviewDetailView(id);
 		
-		System.out.println("글 리뷰 리스트 조회용: " + r);
+		System.out.println("글 리뷰 리스트 조회용여기가 나와야 지금의 시작: " + r);
 		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
 		
 		
@@ -138,7 +138,7 @@ public class ReviewController {
 		
 		Member m=(Member)session.getAttribute("loginUser");
 		Review r = reviewService.selectUpdateReview(id);
-
+		System.out.println(r);
 		//System.out.println("r값이뭐냐면요?"+r);
 		
 		mv.addObject("r",r).addObject("m", m).setViewName("ratingReview/ratingUpdateForm");
@@ -153,14 +153,15 @@ public class ReviewController {
 		
 		int result = reviewService.reviewUpdate(r);
 		//id, 레이팅6개 점수 뿌리기
-		int result2 = reviewService.reviewupdateContent(r);
+		int result2 = reviewService.reviewUpdateContent(r);
 		//리뷰 내용 수정
-		
 		Member m=(Member)session.getAttribute("loginUser");
 		
 		if(result2 > 0 && result > 0) {
-			mv.addObject("r", r).addObject("m", m).setViewName("redirect:ratingDetailReview.do");
+			mv.addObject("id",r.getId()).setViewName("redirect:ratingDetailReview.do");
 		}else {
+			System.out.println(result);
+			System.out.println(result2);
 			mv.addObject("msg", "게시판 수정 실패").setViewName("error/errorPage");
 		}
 		return mv;

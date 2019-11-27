@@ -73,6 +73,12 @@ public class ReviewDao {
 		return sqlSession.update("reviewMapper.reviewUpdate",r);
 	}
 	
+	
+	public int reviewUpdateContent(Review r) {
+		
+		return sqlSession.update("reviewMapper.reviewUpdateContent",r);
+	}
+	
 	public int myPageReviewListCount(String id) {
 		return sqlSession.selectOne("reviewMapper.myPageReviewListCount", id);
 	}
@@ -116,6 +122,8 @@ public class ReviewDao {
 		
 		return sqlSession.insert("reviewMapper.reivewInsert",map);
 	}*/
+
+
 
 	/*
 	public Review selectReview() {
