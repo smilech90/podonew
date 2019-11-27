@@ -1,3 +1,4 @@
+
 package com.ch.podo.member.controller;
 
 import java.io.File;
@@ -205,7 +206,7 @@ public class MemberController {
 		
 		if(result > 0) {	// 업데이트 성공
 			session.setAttribute("loginUser", mem);
-			mv.addObject("msg", "회원정보 수정 성공").setViewName("member/myPage");
+			mv.addObject("msg", "회원정보 수정 성공").setViewName("redirect:myPage.do?id="+mem.getId());
 		}else {
 			mv.addObject("msg", "회원정보 수정 실패").setViewName("member/memberUpdateForm");
 		}
