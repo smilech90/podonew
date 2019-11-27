@@ -59,9 +59,9 @@ public class DetailFilmDao {
 		return sqlSession.insert("detailFilmmapper.filmImageInsert", map);
 	}
 	
-	public ArrayList<Actor> selectActorList(int filmId){
+	public ArrayList<Actor> selectActorList(int id){
 		
-		ArrayList<Actor> list = (ArrayList)sqlSession.selectList("detailFilmmapper.selectFilmActor", filmId);
+		ArrayList<Actor> list = (ArrayList)sqlSession.selectList("detailFilmmapper.selectFilmActor", id);
 		return list;
 	}
 	
@@ -75,6 +75,18 @@ public class DetailFilmDao {
 		
 		return (ArrayList)sqlSession.selectList("detailFilmmapper.searchActorList", searchName);
 	}
+	
+	public int addActor(int actorId, int id) {
+		
+		HashMap map = new HashMap();
+		
+		map.put("actorId", actorId);
+		map.put("id", id);
+		
+		return sqlSession.insert("detailFilmmapper.addActor",map);
+	}
+	
+	
 }
 
 
