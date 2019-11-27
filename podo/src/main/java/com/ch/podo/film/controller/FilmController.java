@@ -3,7 +3,6 @@ package com.ch.podo.film.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +33,6 @@ import com.ch.podo.ratingFilm.model.service.RatingFilmService;
 import com.ch.podo.ratingFilm.model.vo.RatingFilm;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
-import com.sun.istack.internal.Nullable;
 
 @Controller
 public class FilmController {
