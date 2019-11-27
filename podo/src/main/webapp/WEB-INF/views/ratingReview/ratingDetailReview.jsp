@@ -142,7 +142,7 @@
 		<br>
 		
 		<h3 align="center">
-			<a href="reviewUpdateView.do?id=${r.id}">수정하기</a>
+			<a href="reviewUpdateView.do?id=${r.ratingReviewId}">수정하기</a>
 		</h3>
 	  <section class="blog-post-area section-margin">
     <div class="container">
@@ -168,23 +168,7 @@
                   <div class="float-right mt-sm-0 mt-3">
                     <div class="media">
   					  <div class="media-body">
-                        <h5>별점입니다</h5>
-	                    <span class="star-input">
-							<span class="input">
-							<input type="radio" name="star-input1" value="1" id="p1">
-								<label for="p1" style="width: 30px; z-index: 5;">1</label>
-							<input type="radio" name="star-input1" value="2" id="p2">
-								<label for="p2" style="width: 60px; z-index: 4;">2</label>
-							<input type="radio" name="star-input1" value="3" id="p3">
-								<label for="p3" style="width: 90px; z-index: 3;">3</label>
-							<input type="radio" name="star-input1" value="4" id="p4">
-								<label for="p4" style="width: 120px; z-index: 2;">4</label>
-							<input type="radio" name="star-input1" value="5" id="p5">
-								<label for="p5" style="width: 150px; z-index: 1;">5</label>
-							</span>
-							<output for="star-input"><b style="display: none;"></b></output>
-						</span>
-                        <p>${r.star }점</p>
+                        <h2>★ :${r.star }점</h2>
                         
                       </div>
                       <div class="d-flex">
