@@ -42,7 +42,7 @@ public interface ReviewService {
 	int reviewUpdate(Review r);
 
 	// 리뷰 내용 수정
-	int reviewupdateContent(Review r);
+	int reviewUpdateContent(Review r);
 	
 	// 마이페이지 _리뷰리스트 카운트
 	int myPageReviewListCount(String id);

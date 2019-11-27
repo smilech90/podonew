@@ -78,9 +78,9 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	public int reviewupdateContent(Review r) {
-		// TODO Auto-generated method stub
-		return reviewDao.reviewupdateContent(r);
+	public int reviewUpdateContent(Review r) {
+	
+		return reviewDao.reviewUpdateContent(r);
 	}
 
 	@Override

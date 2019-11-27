@@ -133,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 리뷰업데이트 관련 -->
 	<update id="reviewUpdateContent">
 		update tb_review
-		set CONTENT=#{content},INAPPROPRIATE_COUNT=default,SPOILER_COUNT=default,LIKE_COUNT=default,SPOILER_CHECK=default,STATUS=default,MODIFY_DATE=sysdate,CREATE_DATE=sysdate,FILM_ID=#{filmId},MEMBER_ID=#{memberId}
+		set CONTENT=#{content},MODIFY_DATE=sysdate
 		where id=#{id}
 	</update>
 	<!-- 리뷰 레이팅리뷰 업데이트관련 -->
@@ -169,16 +169,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 합친부분 -->
 	<select id="selectRatingReviewDetailView" resultMap="reviewListSet">
-        select *
-		from  TB_REVIEW r
-		left join tb_rating_review rr on (rr.review_id = r.id)
-		left join TB_FILM f on (r.film_id = f.id)
-        left join tb_member m on(r.member_id = m.id)
-        left join tb_rating_film rf on(r.film_id=rf.id)
-        left join tb_detail_film df on(r.film_id = df.id)
-        left join tb_film_image fi on(df.film_id = fi.id)
-        left join tb_genre g on(genre_id = g.id)
-        where r.id=#{id}
+      select r.id as id,m.image, fi.change_name,f.title_kor,rf.star,r.modify_date,r.create_date,m.nickname,r.content,rr.rating_Sound,rr.rating_Visual,rr.rating_Acting,rr.rating_Pop,rr.rating_Script,rr.rating_Direct,rr.id as rr_id
+      from  TB_REVIEW r
+      left join tb_rating_review rr on (rr.review_id = r.id)
+      left join TB_FILM f on (r.film_id = f.id)
+      left join tb_member m on(r.member_id = m.id)
+      left join tb_rating_film rf on(r.film_id=rf.id)
+      left join tb_detail_film df on(r.film_id = df.id)
+      left join tb_film_image fi on(df.film_id = fi.id)
+      left join tb_genre g on(genre_id = g.id)
+      where r.id=#{id}
 	</select>
 
 	

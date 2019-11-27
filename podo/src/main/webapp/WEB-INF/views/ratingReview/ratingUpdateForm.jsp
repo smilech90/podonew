@@ -243,7 +243,7 @@
    
 
     <form action="reviewUpdate.do" method="post" id="movieform">
-      	<input type="hidden" name="id" value="${r.id }">
+      	<input type="hidden" name="id" value="${r.id}">
       	<input type="hidden" name="ratingReviewId" value="${r.ratingReviewId }">
       <table align="center" id="vv">
          <tr>
@@ -296,7 +296,7 @@
 	</div>
 	
 	 <script>
-	 console.log(${r.ratingReviewId})
+	 console.log(${r.id})
       $('.insertRating').on('input',function(){
          var ctx = document.getElementById('myChart');
          var chart = new Chart(ctx, {
