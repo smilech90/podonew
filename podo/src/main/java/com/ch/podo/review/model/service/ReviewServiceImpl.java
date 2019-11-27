@@ -76,6 +76,12 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		return reviewDao.reviewUpdate(r);
 	}
+	
+	@Override
+	public int reviewupdateContent(Review r) {
+		// TODO Auto-generated method stub
+		return reviewDao.reviewupdateContent(r);
+	}
 
 	@Override
 	public int myPageReviewListCount(String id) {
@@ -91,6 +97,19 @@ public class ReviewServiceImpl implements ReviewService{
 	public ArrayList<Review> selectReviewListMain() {
 		
 		return reviewDao.selectReviewListMain();
+	}
+
+	@Override
+	public int reviewRating(Review r) {
+		
+		return reviewDao.reviewRating(r);
+	}
+
+
+
+	@Override
+	public ArrayList<Review> selectAdReviewList() {
+		return reviewDao.selectAdReviewList();
 	}
 
 	/*

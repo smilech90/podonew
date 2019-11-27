@@ -21,6 +21,7 @@
       <typeAlias type="com.ch.podo.report.model.vo.Report" alias="Report"/>
       <typeAlias type="com.ch.podo.detailFilm.model.vo.Actor" alias="Actor"/>
       <typeAlias type="com.ch.podo.inquiry.model.vo.Inquiry" alias="Inquiry"/>
+      <typeAlias type="com.ch.podo.comment.model.vo.Comment" alias="Comment"/>
    </typeAliases>
    
    <mappers>

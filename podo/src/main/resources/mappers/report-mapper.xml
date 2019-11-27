@@ -12,19 +12,20 @@
 		
 	</resultMap>
 	
-	
-	<select id="getReportListCount" resultType="_int">
-		select count(*)
-		from tb_report
+	<select id="selectReportList" resultMap="reportResultSet">
+		select mm.*
+		from (select reported_id, count(*)
+		        from tb_report
+		        group by reported_id) rm
+		join tb_member mm on (id = reported_id)
 	</select>
 	
-	<select id="selectReportList" resultMap="reportResultSet">
-		select r.id, mr.nickname as reported, rm.nickname as report, type, content, target_id
+	<select id="selectReportBoardList" resultMap="reportResultSet">
+		select r.id, type, r.target_id, r.content, mr.nickname as reported, rm.nickname as report
 		from tb_report r
 		join tb_member mr on (r.reported_id = mr.id)
 		join tb_member rm on (r.report_id = rm.id)
 	</select>
-	
 	
 	
 	

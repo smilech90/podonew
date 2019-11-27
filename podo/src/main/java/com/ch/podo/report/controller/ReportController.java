@@ -19,22 +19,34 @@ public class ReportController {
 	@Autowired
 	private ReportService reportService;
 	
-	// 관리자 신고 리스트
+	// 관리자 신고 회원 리스트
 	@RequestMapping("rlist.do")
 	public ModelAndView reportList(ModelAndView mv, 
 								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+	
+		ArrayList<Report> list = reportService.selectReportList();
 		
-		int listCount = reportService.getReportListCount();
-		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<Report> list = reportService.selectReportList(pi);
-		
-		mv.addObject("pi", pi).addObject("list", list)
+		mv.addObject("list", list)
 		  .setViewName("admin/reportListView");
 		
 		return mv;
 	}
+	
+	
+	
+	// 관리자 신고 게시물 리스트
+	@RequestMapping("rblist.do")
+	public ModelAndView reportBoardList(ModelAndView mv, 
+								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		
+		ArrayList<Report> list = reportService.selectReportBoardList();
+		
+		mv.addObject("list", list)
+		  .setViewName("admin/reportBoardListView");
+		
+		return mv;
+	}
+	
 	
 	
 	

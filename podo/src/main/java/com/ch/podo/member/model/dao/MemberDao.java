@@ -41,59 +41,20 @@ public class MemberDao {
 	}
 	
 	
-	
-	
-	public int getMemberListCount() {
-		return sqlSession.selectOne("memberMapper.getMemberListCount");
-	}
-	
-	public ArrayList<Member> selectMemberList(PageInfo pi){
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 
-		ArrayList<Member> list = (ArrayList)sqlSession.selectList("memberMapper.selectMemberList",null, rowBounds);
-		
-		return list;
+	public ArrayList<Member> selectMemberList() {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberList");
 	}
 	
-	
-	public int getBlackListCount() {
-		return sqlSession.selectOne("memberMapper.getBlackListCount");
+	public ArrayList<Member> selectBlackList() {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectBlackList");
 	}
 	
-	public ArrayList<Member> selectBlackList(PageInfo pi){
-
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-
-		ArrayList<Member> list = (ArrayList)sqlSession.selectList("memberMapper.selectBlackList",null, rowBounds);
-		
-		return list;
-	}
-	
-	
-	public int getSearchListCount(String search_option, String keyword) {
-		return sqlSession.selectOne("memberMapper.getSearchListCount");
-	}
-	
-	public 	ArrayList<Member> selectSearchList(PageInfo pi, String search_option, String keyword){
-		
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
-		HashMap<String,Object> map = new HashMap<>();
-        map.put("search_option", search_option);
-        map.put("keyword", keyword);
-		
-		ArrayList<Member> list = (ArrayList)sqlSession.selectList("memberMapper.selectSearchList", map, rowBounds);
-		
-		return list;
-
-	}
 	
 	public int deleteBlackMember(int result) {
 		return sqlSession.delete("memberMapper.deleteBlackMember", result);
 	}
-	
+
+
 	
 }

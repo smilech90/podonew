@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -138,7 +138,7 @@ public class BoardController {
 		Board b = boardService.selectBoard(id);
 		
 		if(b != null) {
-			mv.addObject("b", b).setViewName("board/");
+			mv.addObject("b", b).setViewName("board/boardDetailView");
 		}else {
 			mv.addObject("alert", "error");
 		}
@@ -210,6 +210,33 @@ public class BoardController {
 	}
 	
 	
+	// 댓글
+	@ResponseBody
+	@RequestMapping(value="commentList.do", produces="application/json; charset=UTF-8")
+	public String CommentList(int id) {
+		
+		ArrayList<Comment> cList = boardService.selectCommentList(id);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		return gson.toJson(cList);
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("commentInsert.do")
+	public String insertComment(Comment c, ModelAndView mv) {
+		
+		int result = boardService.insertComment(c);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
 
 	//처란 메인페이지 리스트관련
 	@RequestMapping("boardListHome.do")
@@ -220,19 +247,6 @@ public class BoardController {
 		mv.addObject("list", list).setViewName("board/boardListHome");
 		
 		return mv;		
-		
-	}
-
-	// 댓글
-	
-	@RequestMapping(value="commentList.do", produces="application/json; charset=UTF-8")
-	public String CommentList(int id) {
-		
-		ArrayList<Comment> cList = boardService.selectCommentList(id);
-		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		
-		return gson.toJson(cList);
 		
 	}
 
