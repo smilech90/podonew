@@ -37,6 +37,6 @@ public interface DetailFilmService {
 	int detailFilmRollback(int filmId);
 	
 	// 3. 관리자 영화 등록 서비스시 기본 정보 삽입
-	int insertInitDetailFilm(int id, int filmId);
+	int insertInitDetailFilm(int id);
 	
 }
