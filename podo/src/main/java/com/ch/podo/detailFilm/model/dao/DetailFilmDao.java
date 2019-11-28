@@ -67,7 +67,7 @@ public class DetailFilmDao {
 	
 	// 상세정보 롤백
 	public int detailFilmRollback(int filmId) {
-		return sqlSession.update("detailFilmmapper.updateDetailFilm", filmId);	
+		return sqlSession.update("detailFilmmapper.updateDetailFilm", filmId);
 	}
 	
 	// 배우 검색
@@ -81,11 +81,56 @@ public class DetailFilmDao {
 		return sqlSession.insert("detailFilmmapper.insertInitDetailFilm", memberId);
 	}
 	
+	// 배우 등록
+	public int addActor(int newActorId, int id) {
+		
+		System.out.println("newActor : "+newActorId);
+		
+		HashMap map= new HashMap();
+		
+		map.put("newActorId", newActorId);
+		map.put("id", id);
+		
+		return sqlSession.insert("detailFilmmapper.addActor", map);
+	}
 	
-	public int addActor(String actorId, int id) {
+	// 배우 수정 등록
+	public int actorInsert(String actorIdList, int id) {
 		
-		System.out.println("actorId : "+actorId);
+		String[] actorList = actorIdList.split(",");
+		int[] actorIntList = null;
 		
-		return sqlSession.insert("detailFilmmapper.addActor");
+		System.out.println("actorList : "+actorList);
+		System.out.println("actorList.length :"+actorList.length);
+		
+		// 인트형으로 변환
+		for(int i=0; i<actorList.length; i++) {
+			actorIntList[i] = Integer.parseInt(actorList[i]);
+		}
+		
+		int result=0;
+		HashMap map= new HashMap();
+		
+		for(int i=0; i<actorIntList.length; i++) {
+			
+			map.put("newActorId",actorIntList[i]);
+			map.put("id",id);
+			
+			result = sqlSession.insert("detailFilmmapper.addActor",map);
+		}
+		
+		return result;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
