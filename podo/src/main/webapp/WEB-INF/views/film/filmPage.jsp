@@ -269,7 +269,7 @@
 									<c:if test="${ rate[film.id].saw eq 'Y' }">
 										<button class='btn btn-danger btn-liked-film'>SAW</button>
 									</c:if>
-									<c:if test="${ rate[film.id].saw eq 'N' }">
+									<c:if test="${ rate[film.id].saw eq 'N' or empty rate[film.id].saw }">
 										<button class='btn btn-secondary btn-like-film'>SEE</button>
 									</c:if>
 								</div>

@@ -46,7 +46,7 @@ public class MemberController {
 																	boolean rememberMe, HttpServletResponse response, HttpServletRequest request) {
 		
 		Member loginUser = memberService.selectLoginMember(mem);
-		// System.out.println("loginUser : " + loginUser);
+		System.out.println("loginUser : " + loginUser);
 		// System.out.println("rememberMe : " + rememberMe);
 		
 		if (loginUser != null && bcryptPasswordEncoder.matches(mem.getPwd(), loginUser.getPwd())) {
@@ -67,9 +67,9 @@ public class MemberController {
 					}
 				}
 			}
-			String referer = request.getHeader("Referer");
 			
 			session.setAttribute("loginUser", loginUser);
+			String referer = request.getHeader("Referer");
 			mv.setViewName("redirect:" + referer);
 			
 		} else {

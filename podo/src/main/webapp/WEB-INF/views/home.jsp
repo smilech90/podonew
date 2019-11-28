@@ -117,7 +117,7 @@
       <div class="container">
         <div class="main-banner">
           <div class="hero-banner__content">
-            <h3>Film & Review</h3>
+            <h3>Film &amp; Review</h3>
             <h1>Great, Grape!</h1>
             <h4>December 5, 2019</h4>
           </div>
@@ -125,6 +125,16 @@
       </div>
     </section>
     <!--================Hero Banner end =================-->
+    
+    <!--================ Ad start =================-->
+    <c:if test="${ ( loginUser ne null)  }">
+	    <div class="container" style="background-color: black; background-clip: content-box;">
+	    	<div style="height: 100px;">
+		      <h1 style="text-align: center; color: white;">광고</h1>
+	    	</div>
+	    </div>
+    </c:if>
+    <!--================Ad end =================-->
 		
     <!--================ Blog slider start =================-->
     <!-- 창수가 구현한 위페이지 -->
