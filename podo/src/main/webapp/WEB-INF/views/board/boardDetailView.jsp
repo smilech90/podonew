@@ -90,8 +90,12 @@
 					<thead>
 						<tr>
 							<td colspan="3"><b id="commentCount"></b></td>
+							<td></td>
 						</tr>
 					</thead>
+					<tbody>
+						
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -106,6 +110,7 @@
 					<tr>
 						<td><textarea cols="55" rows="5" id="c-content"></textarea></td>
 						<td><button id="commentBtn">등록</button></td>
+							<button>삭제</button>
 					</tr>
 				</table>
 			</div>
@@ -157,21 +162,25 @@
 				data:{id:${b.id}},
 				dataType:"json",
 				success:function(data){
+					
+					console.log(data);
 					$tbody = $("#commentList tbody");
 					$tbody.html("");
 					
 					$("#commentCount").text("댓글(" + data.length + ")");
 					
 					if(data.length > 0){
+						
 						$.each(data, function(index, value){
-							$tr = $("<tr></tr>");
+							console.log(value);
+							$tr = $("<tr width='300'></tr>");
 							
-							$writerTd = $("<td width='200'></td>").text(value.writer);
 							$contentTd = $("<td></td>").text(value.content);
+							$writerTd = $("<td width='200'></td>").text(value.writer);
 							$dateTd = $("<td></td>").text(value.createDate);
 							
-							$tr.append($writerTd);
 							$tr.append($contentTd);
+							$tr.append($writerTd);
 							$tr.append($dateTd);
 							
 							$tbody.append($tr);
@@ -179,7 +188,7 @@
 						});
 						
 					}else{
-						
+						console.log('else');
 						$tr = $("<tr></tr>");
 						
 						$contentTd = $("<td colspan='3'></td>").text("등록된 댓글이 없습니다.");

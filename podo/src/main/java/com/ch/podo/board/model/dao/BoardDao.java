@@ -67,6 +67,7 @@ public class BoardDao {
 	}
 	
 	
+	// 댓글
 	public ArrayList<Comment> selectCommentList(int id){
 		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectCommentList", id);

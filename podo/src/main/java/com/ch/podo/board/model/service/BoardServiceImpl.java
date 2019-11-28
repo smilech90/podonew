@@ -66,7 +66,8 @@ public class BoardServiceImpl implements BoardService {
 	public int updateBoard(Board b) {
 		return boardDao.updateBoard(b);
 	}
-		
+	
+	// 댓글
 	@Override
 	public ArrayList<Comment> selectCommentList(int id) {
 		return boardDao.selectCommentList(id);
