@@ -51,10 +51,12 @@ public class MemberDao {
 	}
 	
 	
-	public int deleteBlackMember(int result) {
-		return sqlSession.delete("memberMapper.deleteBlackMember", result);
+	public int deleteBlackMember(String[] result) {
+		return sqlSession.delete("memberMapper.del	eteBlackMember", result);
 	}
 
-
+	public int prohibitionBoard(int bid) {
+		return sqlSession.selectOne("memberMapper.prohibitionBoard", bid);
+	}
 	
 }
