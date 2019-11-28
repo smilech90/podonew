@@ -11,6 +11,7 @@ import com.ch.podo.common.SearchCondition;
 import com.ch.podo.film.model.dao.FilmDao;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
+import com.ch.podo.image.model.vo.Image;
 
 @Service("filmService")
 public class FilmServiceImpl implements FilmService {
@@ -54,8 +55,8 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
-	public ArrayList<Film> selectFilmList(PageInfo pi) {
-		return filmDao.selectFilmList(pi);
+	public ArrayList<Film> selectFilmList() {
+		return filmDao.selectFilmList();
 	}
 	
 	@Override

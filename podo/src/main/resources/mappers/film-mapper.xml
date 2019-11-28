@@ -188,11 +188,16 @@
 	
 	<insert id="insertFilm">
 		insert into tb_film
-		values(seq_id.nextval, #{title_kor}, #{title_eng}, #{director}, 
-			   #{release_year}, #{production_country}, #{production_status}, #{genre_id})
+		values(seq_film_id.nextval, #{ titleKor }, #{ titleEng }, #{ director }, 
+			   #{ releaseYear }, #{ productionCountry }, #{ productionStatus }, #{ genreId })
 	</insert>
 	
-
+	<insert id="insertFilmImage">
+		insert into tb_film_image
+		values(SEQ_FIMAGE_ID.nextval, 1, #{ changeName }, null)
+		<!-- dfilm_id 수정할것 -->
+	</insert>
+	
 	<select id="selectFilm" resultMap="filmResultSet">
 		select * 
 		from tb_film

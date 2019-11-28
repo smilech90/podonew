@@ -76,7 +76,13 @@ public class DetailFilmDao {
 		return (ArrayList)sqlSession.selectList("detailFilmmapper.searchActorList", searchName);
 	}
 	
-	public int addActor(String actorId, int id) {
+	
+	public int insertInitDetailFilm(Integer memberId) {
+		return sqlSession.insert("detailFilmmapper.insertInitDetailFilm", memberId);
+	}
+	
+	
+	public int addActor(int actorId, int id) {
 		
 		HashMap map = new HashMap();
 		
@@ -85,22 +91,4 @@ public class DetailFilmDao {
 		
 		return sqlSession.insert("detailFilmmapper.addActor",map);
 	}
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

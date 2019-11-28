@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <html>
+
 	<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
 		<title>포도포도</title>
 		<style>
 			
@@ -94,9 +96,11 @@
 				width:100%;
 				height: 15%;
 			}
-			.tableHome{
-				border: 1px solid red;
+			.tableDiv{
+				
 				width: 800px;
+				margin-left:auto;
+				margin-right:auto;
 			}
 			.bNo{
 				border: 1px solid black;
@@ -106,7 +110,7 @@
 				text-align: center;
 			}
 			#boardMore{
-				margin-left: 925px;
+				margin-left: 750px;
 			}
 		</style>
 	</head>
@@ -117,7 +121,7 @@
       <div class="container">
         <div class="main-banner">
           <div class="hero-banner__content">
-            <h3>Film & Review</h3>
+            <h3>Film &amp; Review</h3>
             <h1>Great, Grape!</h1>
             <h4>December 5, 2019</h4>
           </div>
@@ -125,6 +129,16 @@
       </div>
     </section>
     <!--================Hero Banner end =================-->
+    
+    <!--================ Ad start =================-->
+    <c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
+	    <div class="container" style="background-color: black; background-clip: content-box; margin-bottom: 30px;">
+	    	<div style="height: 100px;">
+		      <h1 style="text-align: center; color: white;">광고</h1>
+	    	</div>
+	    </div>
+    </c:if>
+    <!--================Ad end =================-->
 		
     <!--================ Blog slider start =================-->
     <!-- 창수가 구현한 위페이지 -->
@@ -186,20 +200,16 @@
 
 		
 		
-		<!-- 자유게시판 -->
-
-			
-			
-			
-			
+		<!-- 자유게시판 -->	
 			
 	 <div class="row">
     	<div style="height:200px;"></div>
-    </div>
+    </div>	
+    <div class="tableDiv">
 	    <p align="center">자유게시판 리스트</p>
 						<a href="blist.do" id="boardMore">더보기</a>
-	<table class="tableHome" align="center" cellspacing="0">
-		<tr class="bTitle">
+	<table class="table table-striped table-dark" align="center" cellspacing="0">
+		<tr class="table-primary">
 			<th></th>
 			<th width="300">제목</th>
 			<th>작성자</th>
@@ -208,20 +218,20 @@
 			<th>좋아요</th>
 		</tr>
 		<c:forEach items="${ boardList }" var="b">
-			<tr class="bNo">
+			<tr class="table-success">
 		
-				<td>${ b.id }</td>
+				<td class="table-success">${ b.id }</td>
 			
-				<td>${ b.title }</td>
-				<td>${ b.nickName }</td>
-				<td>${ b.createDate }</td>
-				<td>${ b.viewCount}</td>
-				<td>${ b.likeCount }</td>
+				<td class="table-success">${ b.title }</td>
+				<td class="table-success">${ b.nickName }</td>
+				<td class="table-success">${ b.createDate }</td>
+				<td class="table-success">${ b.viewCount}</td>
+				<td class="table-success">${ b.likeCount }</td>
 			</tr>
 		</c:forEach>
 		
 	</table>
-		
+	</div>
     <!--================ Blog slider end =================-->  
     
     <div class="row">
@@ -233,8 +243,8 @@
 	</body>
 		<script>
 			$(function(){
-				$(".bNo td").mouseenter(function(){
-					$(this).parent().css({"background":"orangered", "cursor":"pointer"});
+				$(".table-success td").mouseenter(function(){
+					$(this).parent().css({"background":"black", "cursor":"pointer"});
 				}).mouseout(function(){
 					$(this).parent().css("background", "white");
 				}).click(function(){
@@ -242,7 +252,7 @@
 					var bId = $(this).parent().children().eq(0).text();
 					
 
-						location.href="boardDetailView.bo?bid=" + bId;
+						location.href="bdetail.do?id="+bId;
 
 					
 				});

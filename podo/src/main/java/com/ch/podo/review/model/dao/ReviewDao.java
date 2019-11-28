@@ -11,6 +11,7 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.report.model.vo.Report;
 import com.ch.podo.review.model.dto.Review;
 
 
@@ -86,7 +87,7 @@ public class ReviewDao {
 	public ArrayList<Review> myPageSelectReviewList(String id, PageInfo pi){
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		System.out.println("dao : " + rowBounds.toString());
+
 		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.myPageSelectReviewList", id, rowBounds);
 		
 		return list;
@@ -122,6 +123,18 @@ public class ReviewDao {
 		
 		return sqlSession.insert("reviewMapper.reivewInsert",map);
 	}*/
+
+
+	public int insertDeclaration(Report rep) {
+		
+		return sqlSession.insert("reviewMapper.insertDeclaration",rep);
+	}
+
+
+	public Review selectReviewReport(int reviewNo) {
+		
+		return sqlSession.selectOne("reviewMapper.selectReviewReport", reviewNo);
+	}
 
 
 

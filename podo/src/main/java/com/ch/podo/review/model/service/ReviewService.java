@@ -3,9 +3,9 @@ package com.ch.podo.review.model.service;
 import java.util.ArrayList;
 
 import com.ch.podo.board.model.vo.PageInfo;
-import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.report.model.vo.Report;
 import com.ch.podo.review.model.dto.Review;
 
 
@@ -62,5 +62,11 @@ public interface ReviewService {
 	
 	// 리뷰 조회용 +@
 	//Review	selectReview();
+	
+	// 리뷰 신고 하기
+	int insertDeclaration(Report rep);
+	
+	// 리뷰 글번호 가져오기
+	Review selectReviewReport(int reviewNo);
 	
 }
