@@ -43,4 +43,6 @@ public interface BoardService {
 	ArrayList<Board> selectboardListHome();
 	
 	
+	
+	
 }

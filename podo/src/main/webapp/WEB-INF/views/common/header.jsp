@@ -56,19 +56,21 @@
 							<li class="nav-item"><a class="nav-link" href="film.do?p=1">영화</a></li>
 							<li class="nav-item"><a class="nav-link" href="reviewList.do">리뷰</a>
 							<li class="nav-item"><a class="nav-link" href="rec.do">추천</a>
-							<li class="nav-item"><a class="nav-link" href="blist.do">게시판</a>
-							<c:if test="${ loginUser ne null }">
-								<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>
-								<c:if test="${ loginUser.autho eq 1 }">
+
+							<li class="nav-item"><a class="nav-link" href="blist.do">게시판</a>					
+							<c:choose>
+						       <c:when test="${ loginUser.autho eq 2}">
+						       		<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>
+									<li class="nav-item"><a id="logout" class="nav-link" href="admin.do">관리자</a>
+						       </c:when>
+						       <c:when test="${ loginUser ne null }">
+						       		<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>
 									<li class="nav-item"><a id="logout" class="nav-link" href="myPage.do?id=${ loginUser.id }">마이페이지</a>
-								</c:if>
-								<c:if test="${ loginUser.autho eq 2 }">
-									<li class="nav-item"><a id="logout" class="nav-link" href="admin.do">관리자페이지</a>
-								</c:if>
-							</c:if>
-							<c:if test="${ loginUser eq null }">
-								<li class="nav-item"><a id="login-modal" class="nav-link" href="#" data-toggle="modal">로그인</a>
-							</c:if>
+						       </c:when>
+						       <c:otherwise>
+						       		<li class="nav-item"><a id="login-modal" class="nav-link" href="#" data-toggle="modal">로그인</a>
+						       </c:otherwise>
+						   </c:choose>
 						</ul>
 					</div>
 					<form method="post" action="skFilm.do" class="form-inline my-4 my-lg-0">

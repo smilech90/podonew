@@ -38,8 +38,9 @@ public interface MemberService {
 
 	
 	// 3. 블랙리스트 해제
-	int deleteBlackMember(int result);
+	int deleteBlackMember(String[] result);
 	
-	
+	// 4. 블랙리스트 기능 제한 인터셉터
+	int prohibitionBoard(int bid);
 	
 }

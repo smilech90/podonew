@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.image.model.vo.Image;
+import com.ch.podo.member.model.service.MemberService;
+import com.ch.podo.member.model.vo.Member;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -31,7 +34,7 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
-	
+
 	
 	@RequestMapping("blist.do")
 	public ModelAndView boardList(ModelAndView mv,
@@ -51,8 +54,9 @@ public class BoardController {
 	
 	
 	@RequestMapping("binsertForm.do")
-	public String boardInsertView() {
-		return "board/boardInsertForm";
+	public String boardInsertView(HttpSession session, Model model) {
+			return "board/boardInsertForm";
+
 	}
 	
 	
