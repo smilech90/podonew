@@ -100,6 +100,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="posterImage" column="change_name"/>
 	</resultMap>
 	
+	<resultMap type="Report" id="reportResultSet">
+		<id property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="targetId" column="target_id"/>
+		<result property="content" column="content"/>
+		<result property="reportName" column="report"/>
+		<result property="reportedName" column="reported"/>
+		<result property="memberId" column="member_id"/>
+		
+	</resultMap>
+	
 	<select id="getReviewListCount" resultType="_int">
 		select count(*)
 		from tb_review r
@@ -219,7 +230,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where rownum <=3
      ]]>
 	</select>
-
+	
+	<!-- 리뷰 신고 조회 -->
+	<select id="selectReviewReport" resultMap="reviewListSet">
+		select rownum, r.*
+		from ( select member_ID from tb_review) r
+		where rownum = 1
+	</select>
+	
+	<!-- 리뷰 신고하기 -->
+	<insert id="insertDeclaration">
+		  insert into tb_report values(SEQ_REPORT_ID.nextval,1,#{targetId},#{content},#{reportName},#{ memberId })
+	</insert>
+	
 	<!-- 리뷰가져오는거 -->
 <!-- 	<select id="selectReview" resultMap="reviewListSet">
         SELECT *
