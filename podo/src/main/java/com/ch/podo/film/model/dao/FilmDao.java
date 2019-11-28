@@ -60,10 +60,6 @@ public class FilmDao {
 		return sqlSession.insert("filmMapper.insertFilm", f);
 	}
 
-	public int insertFilmImage(Image img) {
-		return sqlSession.insert("filmMapper.insertFilmImage", img);
-	}
-
 	public Film selectFilm(int id) {
 		return sqlSession.selectOne("filmMapper.selectFilm", id);
 	}

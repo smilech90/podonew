@@ -77,10 +77,11 @@ public class DetailFilmController {
 	
 	// 배우 등록
 	@RequestMapping("addActor.do")
-	public ModelAndView addActor(int id, int filmId, int actorId, ModelAndView mv) {
+	public ModelAndView addActor(int id, int filmId, String actorIdList, ModelAndView mv) {
 		
 		// 배우 등록
-		int result = dfService.addActor(actorId, id);
+		System.out.println("actorId 컨트롤러 :" + actorIdList);
+		int result = dfService.addActor(actorIdList, id);
 		
 		// 영화 업데이트 뷰 한번 더 뿌려주기
 		// 영화 상세정보

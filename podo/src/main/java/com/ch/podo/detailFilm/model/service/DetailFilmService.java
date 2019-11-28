@@ -25,7 +25,7 @@ public interface DetailFilmService {
 	ArrayList<Actor> selectActorList(int id);
 	
 	// 2_2. 배우 등록 --(배우 번호, 영화 상세 번호)
-	int addActor(int actorId, int id);
+	int addActor(String actorId, int id);
 	
 	// 2_3. 배우 검색 리스트 출력-- (영화 번호, 검색어)
 	ArrayList<Actor> searchActorList(String searchName);
@@ -37,6 +37,6 @@ public interface DetailFilmService {
 	int detailFilmRollback(int filmId);
 	
 	// 3. 관리자 영화 등록 서비스시 기본 정보 삽입
-	int insertInitDetailFilm(int id, int filmId);
+	int insertInitDetailFilm(int id);
 	
 }

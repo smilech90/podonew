@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="imageMapper">
+	
+	<resultMap type="Image" id="imageResultSet">
+		<id property="id" column="id"/>
+		<result property="" column=""/>
+	</resultMap>
+	
+	<insert id="insertFilmImage">
+		insert into tb_film_image
+		<choose>
+			<when test="changeName != null">
+				values(seq_fimage_id.nextval, 1, #{ changeName }, seq_dfilm_id.currval)
+			</when>
+			<otherwise>
+				values(seq_fimage_id.nextval, 1, default, seq_dfilm_id.currval)
+			</otherwise>
+		</choose>
+		
+	</insert>
+	
+</mapper>

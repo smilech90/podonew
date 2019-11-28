@@ -75,37 +75,17 @@ public class DetailFilmDao {
 		
 		return (ArrayList)sqlSession.selectList("detailFilmmapper.searchActorList", searchName);
 	}
-
-	public int insertInitDetailFilm(int id, int filmId) {
-		int[] ids = {id, filmId};
-		return sqlSession.insert("detailFilmmapper.insertInitDetailFilm", ids);
-	}
 	
-	public int addActor(int actorId, int id) {
-		
-		HashMap map = new HashMap();
-		
-		map.put("actorId", actorId);
-		map.put("id", id);
-		
-		return sqlSession.insert("detailFilmmapper.addActor",map);
+	
+	public int insertInitDetailFilm(Integer memberId) {
+		return sqlSession.insert("detailFilmmapper.insertInitDetailFilm", memberId);
 	}
 	
 	
+	public int addActor(String actorId, int id) {
+		
+		System.out.println("actorId : "+actorId);
+		
+		return sqlSession.insert("detailFilmmapper.addActor");
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

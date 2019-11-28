@@ -302,24 +302,47 @@
 
 	</div>
 	<!-- 신고하기 모달 -->
-	<div class="modal fade" id="de_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="de_modal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">×</span>
+						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel"></h4>
 				</div>
 				<div class="modal-body">
-				신고하기
+					신고하기
+					<form action="declarationModal.do" method="post">
+						<input type="hidden" name="reportId" value="${ loginUser.id }">
+						<input type="hidden" name="targetId" value="${ r.id }">
+						<input type="hidden" name="reportedId" value="${ r.memberId }">
+						
 					<div class="eu">
-						<p></p>	
-								<input class="reviewType" type="radio"  name="reviewconent">부적절한내용
-								<input class="reviewType" type="radio"  name="reviewconent">스포일러	
+						
 						<p></p>
-					<!-- 	<input id="commentDe" type="radio" onclick="commentClick();" name="defaultMenu">댓글
+							<input class="reviewType" type="radio" value="1" name="content">부적절한내용
+							<input class="reviewType" type="radio" value="2" name="content">스포일러
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<button  type="submit" class="btn btn-primary">신고보내기</button>
+						<button  class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<!-- 	<input id="commentDe" type="radio" onclick="commentClick();" name="defaultMenu">댓글
 						<p></p>
 								<input class="commentType" type="checkbox" style="display:none;"><p class="commentType" style="display:none;">부적절한내용</p>
 								<input class="commentType" type="checkbox" style="display:none;"><p class="commentType" style="display:none;">스포일러</p>
@@ -334,23 +357,6 @@
 								<input class="collectionType" type="checkbox" style="display:none;"><p class="collectionType" style="display:none;">부적절한내용</p>
 								<input class="collectionType" type="checkbox" style="display:none;"><p class="collectionType" style="display:none;">스포일러</p>
 						<p></p> -->
-					</div>
-				</div>
-				
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" >신고보내기</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
-
-
-
 
 
 
@@ -365,6 +371,7 @@
 	// 신고하기 버튼 클릭 시
 	$("#declaration-modal").on( "click", function() {
         $("#de_modal").modal();
+        //console.log("${ loginUser.id }");
     });
 
 

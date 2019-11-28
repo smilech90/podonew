@@ -70,13 +70,13 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 	}
 
 	@Override
-	public int insertInitDetailFilm(int id, int filmId) {
-		return dfDao.insertInitDetailFilm(id, filmId);
+	public int insertInitDetailFilm(int id) {
+		return dfDao.insertInitDetailFilm(id);
 	}
 
 	// 배우 등록
 	@Override
-	public int addActor(int actorId, int id) {
+	public int addActor(String actorId, int id) {
 		
 		return dfDao.addActor(actorId, id);
 	}
