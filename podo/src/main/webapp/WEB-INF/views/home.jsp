@@ -96,11 +96,15 @@
 				width:100%;
 				height: 15%;
 			}
-			.tableDiv{
-				
+			.table-responsive-xl{
+			
 				width: 800px;
 				margin-left:auto;
 				margin-right:auto;
+			}
+			tbody{
+				background-color: rgb(131,36,255);
+				font-size: 12px;
 			}
 			.bNo{
 				border: 1px solid black;
@@ -205,11 +209,11 @@
 	 <div class="row">
     	<div style="height:200px;"></div>
     </div>	
-    <div class="tableDiv">
+    <div class="table-responsive-xl">
 	    <p align="center">자유게시판 리스트</p>
 						<a href="blist.do" id="boardMore">더보기</a>
 	<table class="table table-striped table-dark" align="center" cellspacing="0">
-		<tr class="table-primary">
+		<tr>
 			<th></th>
 			<th width="300">제목</th>
 			<th>작성자</th>
@@ -218,15 +222,15 @@
 			<th>좋아요</th>
 		</tr>
 		<c:forEach items="${ boardList }" var="b">
-			<tr class="table-success">
+			<tr class="boardB">
 		
-				<td class="table-success">${ b.id }</td>
+				<td>${ b.id }</td>
 			
-				<td class="table-success">${ b.title }</td>
-				<td class="table-success">${ b.nickName }</td>
-				<td class="table-success">${ b.createDate }</td>
-				<td class="table-success">${ b.viewCount}</td>
-				<td class="table-success">${ b.likeCount }</td>
+				<td>${ b.title }</td>
+				<td>${ b.nickName }</td>
+				<td>${ b.createDate }</td>
+				<td>${ b.viewCount}</td>
+				<td>${ b.likeCount }</td>
 			</tr>
 		</c:forEach>
 		
@@ -243,10 +247,10 @@
 	</body>
 		<script>
 			$(function(){
-				$(".table-success td").mouseenter(function(){
-					$(this).parent().css({"background":"black", "cursor":"pointer"});
+				$(".boardB td").mouseenter(function(){
+					$(this).parent().css({"cursor":"pointer"});
 				}).mouseout(function(){
-					$(this).parent().css("background", "white");
+					$(this).parent().css(/* "background", "white" */);
 				}).click(function(){
 					
 					var bId = $(this).parent().children().eq(0).text();

@@ -170,11 +170,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("myPage.do")
-	public ModelAndView myPage(ModelAndView mv, String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+	public ModelAndView myPage(HttpSession session, ModelAndView mv, String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		int reviewListCount = reviewService.myPageReviewListCount(id);
 		PageInfo pi = Pagination.getPageInfo(currentPage, reviewListCount);
 		
 		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
+		session.setAttribute("reviewListCount", reviewListCount);
 		mv.addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/myPage");
 		
 		return mv;

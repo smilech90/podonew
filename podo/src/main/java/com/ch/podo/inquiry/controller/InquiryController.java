@@ -21,11 +21,13 @@ public class InquiryController {
 	
 	@RequestMapping("insertQuestion.do")
 	public ModelAndView insertQuestion(Inquiry inq, ModelAndView mv) {
-		
+		System.out.println("인설트컨트롤러 들어옴");
+		System.out.println(inq);
 		int result = inquiryService.insertQuestion(inq);
 		
+		System.out.println(result);
 		if(result > 0) {	// 업데이트 성공
-			mv.addObject("msg", "문의 등록 성공").setViewName("member/myPage");
+			mv.addObject("msg", "문의 등록 성공").setViewName("redirect:myPage.do");
 		}else {
 			mv.addObject("msg", "문의 등록 실패").setViewName("member/myPage");
 		}
@@ -35,14 +37,15 @@ public class InquiryController {
 	
 	@RequestMapping("myPageSelectQuestion.do")
 	public ModelAndView myPageSelectQuestion(String tab, String id, ModelAndView mv, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
-		System.out.println("컨트롤러 들어옴");
+		System.out.println("셀렉트컨트롤러 들어옴");
+		System.out.println(tab);
 		int listCount = inquiryService.myPageInquiryListCount(id);
 		System.out.println("listcount : " + listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Inquiry> inquiryList = inquiryService.myPageSelectInquiryList(id,pi);
 		System.out.println("inquiryList : " +inquiryList);
-		mv.addObject("inquiry", inquiryList).addObject("pi", pi).addObject("tab", tab).setViewName("member/myPage");
+		mv.addObject("inquiry", inquiryList).addObject("inquiryPi", pi).addObject("tab", tab).setViewName("member/myPage");
 		
 		return mv;
 	}
