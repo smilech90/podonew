@@ -71,7 +71,7 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 
 	// 배우 등록
 	@Override
-	public int addActor(int actorId, int id) {
+	public int addActor(String actorId, int id) {
 		
 		return dfDao.addActor(actorId, id);
 	}

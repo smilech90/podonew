@@ -76,7 +76,7 @@ public class DetailFilmDao {
 		return (ArrayList)sqlSession.selectList("detailFilmmapper.searchActorList", searchName);
 	}
 	
-	public int addActor(int actorId, int id) {
+	public int addActor(String actorId, int id) {
 		
 		HashMap map = new HashMap();
 		

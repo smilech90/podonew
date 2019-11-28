@@ -293,7 +293,7 @@
 	    			$.each(list, function(index, value){
 	    				
 	    				var $div = $("<div class='actor check_actor'>");	// actor 틀
-	    				var $check = $("<input type='checkbox' class='test' name='resultSearch'>").attr("value",value.id);				// 이거 됨
+	    				var $check = $("<input type='radio' class='test' name='resultSearch'>").attr("value",value.id);				// 이거 됨
 	    				
 	    				var $profile = $("<div class='actor_profile'>");	// 배우 사진 틀
 	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage).css({'width':'150', 'height':'150' ,'border-radius':'100px'});
@@ -328,29 +328,29 @@
 	    		
 	    		// 마지막 인덱스면 , 붙여주지 않음
 	    		if (i != a.length-1){
-	    			actorIdList += ",";
+	    			actorIdList += "%2C";
 	    		}
 	    	}
 	    	console.log(actorIdList);
 	    	//--------- 기존에 저장된 배우들 문자열에 담아줌!
 	    	
-	    	var resultSearch = "";
+	    	var compare = actorIdList.split("%2C");
 	    	
-	    	$("input[name=resultSearch]:checked").each(function(){
+	    	
+	    	console.log("스플릿 적용 : "+compare[0]);
+	    	console.log("스플릿 길이 : "+compare.length);
+	    	
+	    	$("input[class=test]:checked").each(function(){
 	    		
-	    		resultSearch = $(this).val();
+	    		newActor = $(this).val();
+	    		//actorIdList += ","+$(this).val();
 	    		
+	    		if(compare.indexOf(newActor) == -1){
+   					actorIdList += "%2C"+newActor;
+			    	location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorIdList='+actorIdList;
+	    		}
+				console.log(actorIdList);
 	    	});
-	    	
-	    	console.log("검색결과 값 : "+ resultSearch);
-	    	
-	    	
-	    	
-	    	var actorId = $(".test:checked").val();
-	    	var befordActorId = "${al}".length;
-	    	var acotr = befordActorId+ actorId;
-	    	
-	    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorId=' + actorId;
 	    }
     </script>   
     
