@@ -61,17 +61,18 @@
 		</div>
 		<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">첨부파일</label>
-			<div class="col-sm-5" id="board-file-area">
-				<input type="file" id="board-upload-file" name="board-upload-file">
-			</div>
+			<c:if test="${ !empty i.originalName }">
+				<a href="${ pageContext.servletContext.contextPath }/resources/boardUploadFiles/${ i.changeName }" download="${ i.originalName }">${ i.originalName }</a>
+			</c:if>
 		</div>
 		<br>
 		<div class="form-group row">
-			<label for="" class="col-sm-2 col-form-label"></label>
 			<div class="col-sm-5" id="">
-				<button>취소</button>
-				&nbsp; &nbsp;
-				<button>등록</button>
+				<c:if test="${ loginUser.id eq b.memberId }">
+					<button>수정하기</button>
+					&nbsp; &nbsp;
+					<button>삭제하기</button>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -110,7 +111,6 @@
 					<tr>
 						<td><textarea cols="55" rows="5" id="c-content"></textarea></td>
 						<td><button id="commentBtn">등록</button></td>
-							<button>삭제</button>
 					</tr>
 				</table>
 			</div>
@@ -204,6 +204,23 @@
 				}
 			})
 		}
+		
+		function deleteComment(id){
+			if(confirm("댓글을 삭제하시겠습니까")){
+				$.ajax({
+					type:"post",
+					url:"deleteComment.do",
+					data:{"COMMENT_ID":id},
+					success:function(){
+						alert("댓글이 삭제되었습니다.");
+					},
+					error:function(){
+						alert("댓글 삭제 실패");
+					}
+				});
+			}
+		}
+		
 	</script>
 	
 	

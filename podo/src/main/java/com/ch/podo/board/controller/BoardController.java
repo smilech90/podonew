@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,41 +57,25 @@ public class BoardController {
 	
 	
 	@RequestMapping("binsert.do")
-	public ModelAndView insertBoardFile(Board b, Image i, HttpServletRequest request, ModelAndView mv,  
+	public String insertBoardFile(Board b, Image i, HttpServletRequest request, Model model, 
 								@RequestParam(value="uploadFile", required=false) MultipartFile file) {
 		
-		// 파일이 있을 경우
 		if(!file.getOriginalFilename().equals("")) {
-			
-			int result = boardService.insertBoard(b);
-			
 			String renameFileName = saveFile(file, request);
 			
 			i.setOriginalName(file.getOriginalFilename());
 			i.setChangeName(renameFileName);
 			
-			int result2 = boardService.insertBoardFile(i);
-			
-			if(result > 0 && result2 > 0) {
-				mv.addObject("b", b).addObject("i", i).setViewName("");
-			}else {
-				mv.addObject("");
-			}
-			
-		// 첨부파일 없이 게시판 작성
-		}else {
-			
-			int result3 = boardService.insertBoard(b);
-			
-			if(result3 > 0) {
-				mv.addObject("b", b).setViewName("");
-			}else {
-				mv.addObject("");
-			}
-			
 		}
 		
-		return mv;
+		int result = boardService.insertBoard(b);
+		
+		if(result > 0) {
+			return "redirect:blist.do";
+		}else {
+			return "";
+		}
+		
 		
 	}
 	

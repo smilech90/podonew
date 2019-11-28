@@ -34,7 +34,6 @@
 	</resultMap>
 	
 	
-	
 	<select id="getBoardCount" resultType="_int">
 		select count(*)
 		from tb_board
@@ -49,7 +48,9 @@
 	</select>
 	
 	<insert id="insertBoard">
-	
+		insert into tb_board
+		values(seq_board_id.nextval, #{title}, #{content}, default, null, null, null,
+				sysdate, sysdate, default, #{memberId})	
 	</insert>
 	
 	<update id="updateCount">
