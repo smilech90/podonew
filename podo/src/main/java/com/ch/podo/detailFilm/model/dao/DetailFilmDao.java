@@ -84,11 +84,8 @@ public class DetailFilmDao {
 	
 	public int addActor(String actorId, int id) {
 		
-		HashMap map = new HashMap();
+		System.out.println("actorId : "+actorId);
 		
-		map.put("actorId", actorId);
-		map.put("id", id);
-		
-		return sqlSession.insert("detailFilmmapper.addActor",map);
+		return sqlSession.insert("detailFilmmapper.addActor");
 	}
 }
