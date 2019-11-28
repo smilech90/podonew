@@ -12,6 +12,7 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.SearchCondition;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
+import com.ch.podo.image.model.vo.Image;
 
 @Repository("filmDao")
 public class FilmDao {
@@ -51,10 +52,8 @@ public class FilmDao {
 		return sqlSession.selectOne("filmMapper.getFilmListCount");
 	}
 	
-	public ArrayList<Film> selectFilmList(PageInfo pi){
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("filmMapper.selectFilmList",null, rowBounds);
+	public ArrayList<Film> selectFilmList(){
+		return (ArrayList)sqlSession.selectList("filmMapper.selectFilmList");
 	}
 	
 	public int insertFilm(Film f) {

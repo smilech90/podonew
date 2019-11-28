@@ -7,6 +7,7 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.SearchCondition;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
+import com.ch.podo.image.model.vo.Image;
 
 public interface FilmService {
 
@@ -42,9 +43,9 @@ public interface FilmService {
 	int getFilmListCount();
 	
 	// 10-2. 현재 페이지에 보여질 영화 리스트 조회용 서비스
-	ArrayList<Film> selectFilmList(PageInfo pi);
+	ArrayList<Film> selectFilmList();
 	
-	// 11. 영화 등록하기 서비스
+	// 11. 영화 기본정보 등록하기 서비스
 	int insertFilm(Film f);
 	
 	// 12. 영화 상세보기 서비스
@@ -58,5 +59,6 @@ public interface FilmService {
 	
 	// 15. 최신 등록 영화 조회 서비스
 	ArrayList<Film> selectNewFilms();
+	
 
 }
