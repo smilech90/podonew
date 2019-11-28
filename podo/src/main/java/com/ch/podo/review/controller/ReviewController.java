@@ -124,7 +124,7 @@ public class ReviewController {
 		
 		Review r = reviewService.selectRatingReviewDetailView(id);
 		
-		//System.out.println("글 리뷰 리스트 조회용여기가 나와야 지금의 시작: " + r);
+		System.out.println("글 리뷰 리스트 조회용여기가 나와야 지금의 시작: " + r);
 		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
 		
 		
@@ -213,16 +213,16 @@ public class ReviewController {
 	
 	//  리뷰 신고하기
 	@RequestMapping("declarationModal.do")
-	public ModelAndView insertDeclaration(int reviewNo, Report rep,ModelAndView mv) {
+	public ModelAndView insertDeclaration(Review r,Report rep,ModelAndView mv) {
+		
 		
 		//Review r = reviewService.selectReviewReport(reviewNo);
-		//System.out.println("구하고자하는값은"+r);
-	
+		System.out.println("구하고자하는값은"+rep);
 		
 		int result = reviewService.insertDeclaration(rep);
 		System.out.println("성공할건가"+result);
 		if(result>0) { // 성공
-			mv.addObject("msg", "신고하기 성공").setViewName("ratingReview/ratingDetailReview");
+			mv.addObject("id",rep.getTargetId()).setViewName("redirect:ratingDetailReview.do");
 			
 		}else { // 실패
 			mv.addObject("msg", "신고하기 실풰").setViewName("error/errorPage");

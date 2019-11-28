@@ -100,15 +100,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="posterImage" column="change_name"/>
 	</resultMap>
 	
-	<resultMap type="Report" id="reportResultSet">
+	<resultMap type="Report" id="reportReview">
 		<id property="id" column="id"/>
 		<result property="type" column="type"/>
 		<result property="targetId" column="target_id"/>
 		<result property="content" column="content"/>
-		<result property="reportName" column="report"/>
-		<result property="reportedName" column="reported"/>
-		<result property="memberId" column="member_id"/>
-		
+		<result property="reportId" column="REPORT_ID"/>
+		<result property="reportedId" column="REPORTED_ID"/>
+		<!-- <result property="memberId" column="member_id"/> -->
+
 	</resultMap>
 	
 	<select id="getReviewListCount" resultType="_int">
@@ -180,7 +180,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 합친부분 -->
 	<select id="selectRatingReviewDetailView" resultMap="reviewListSet">
-      select r.id as id,m.image, fi.change_name,f.title_kor,rf.star,r.modify_date,r.create_date,m.nickname,r.content,rr.rating_Sound,rr.rating_Visual,rr.rating_Acting,rr.rating_Pop,rr.rating_Script,rr.rating_Direct,rr.id as rr_id
+      select r.id as id,m.id as member_Id,m.image, fi.change_name,f.title_kor,rf.star,r.modify_date,r.create_date,m.nickname,r.content,rr.rating_Sound,rr.rating_Visual,rr.rating_Acting,rr.rating_Pop,rr.rating_Script,rr.rating_Direct,rr.id as rr_id
       from  TB_REVIEW r
       left join tb_rating_review rr on (rr.review_id = r.id)
       left join TB_FILM f on (r.film_id = f.id)
@@ -240,7 +240,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 리뷰 신고하기 -->
 	<insert id="insertDeclaration">
-		  insert into tb_report values(SEQ_REPORT_ID.nextval,1,#{targetId},#{content},#{reportName},#{ memberId })
+		  insert into tb_report values(SEQ_REPORT_ID.nextval,1,#{targetId},#{content},#{reportId},#{ reportedId })
 	</insert>
 	
 	<!-- 리뷰가져오는거 -->

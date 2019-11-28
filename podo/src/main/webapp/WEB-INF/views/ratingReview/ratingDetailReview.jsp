@@ -315,13 +315,15 @@
 				<div class="modal-body">
 					신고하기
 					<form action="declarationModal.do" method="post">
-						<input type="hidden" name="userId" value="${ loginUser.id }">
-						<input type="hidden" name="reviewNo" value="${ r.id }">
+						<input type="hidden" name="reportId" value="${ loginUser.id }">
+						<input type="hidden" name="targetId" value="${ r.id }">
+						<input type="hidden" name="reportedId" value="${ r.memberId }">
+						
 					<div class="eu">
 						
 						<p></p>
-							<input class="reviewType" type="radio" value="1" name="reviewConent">부적절한내용
-							<input class="reviewType" type="radio" value="2" name="reviewConent">스포일러
+							<input class="reviewType" type="radio" value="1" name="content">부적절한내용
+							<input class="reviewType" type="radio" value="2" name="content">스포일러
 						<p></p>
 					</div>
 					<div class="modal-footer">
