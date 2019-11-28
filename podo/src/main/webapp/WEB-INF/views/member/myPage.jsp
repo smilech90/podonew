@@ -96,7 +96,7 @@
 									</div>
 									<div class="desc">
 										<h2>${ loginUser.nickName }</h2>
-										<p class="date">작성리뷰 - ${reviewCount}개  </p>
+										<p class="date">작성리뷰 - ${reviewListCount}개  </p>
 										<p class="date">콜렉션 - 0개  </p>
 									</div>
 								</div>
@@ -148,7 +148,7 @@
 																	<nav class="blog-pagination justify-content-center d-flex">
 																		<ul class="pagination">
 																			<!------ [이전] ------>
-																			<c:if test="${ pi.currentPage eq 1 }">
+																			<c:if test="${ reviewPi.currentPage eq 1 }">
 																				<li class="page-item">
 																					<a class="page-link" aria-label="Previous" disabled>
 																						<span aria-hidden="true">
@@ -157,9 +157,9 @@
 																					</a>
 																				</li>
 																			</c:if>
-																			<c:if test="${ pi.currentPage ne 1 }">
+																			<c:if test="${ reviewPi.currentPage ne 1 }">
 																				<c:url value="myPageSelectReview.do" var="before">
-																					<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+																					<c:param name="currentPage" value="${ reviewPi.currentPage-1 }"/>
 																					<c:param name="id" value="${loginUser.id}"/>
 																				</c:url>
 																				<li class="page-item">
@@ -172,12 +172,12 @@
 																			</c:if>
 																			<!-- ------------- -->
 																			<!------ [페이지] ----->
-																			<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-																				<c:if test="${ p eq pi.currentPage }">
+																			<c:forEach begin="${ reviewPi.startPage }" end="${ reviewPi.endPage }" var="p">
+																				<c:if test="${ p eq reviewPi.currentPage }">
 																					<li class="page-item active"><a class="page-link" disabled>${p}</a></li>
 																				</c:if>
 																			
-																				<c:if test="${ p ne pi.currentPage }">
+																				<c:if test="${ p ne reviewPi.currentPage }">
 																					<c:url value="myPageSelectReview.do" var="page">
 																						<c:param name="currentPage" value="${ p }"/>
 																						<c:param name="id" value="${loginUser.id}"/>
@@ -187,7 +187,7 @@
 																			</c:forEach>
 																			<!-- --------------- -->
 																			<!------- [다음] ------->
-																			<c:if test="${ pi.currentPage eq pi.maxPage }">
+																			<c:if test="${ reviewPi.currentPage eq reviewPi.maxPage }">
 																				<li class="page-item">
 																					<a class="page-link" aria-label="Next" disabled>
 																						<span aria-hidden="true">
@@ -196,9 +196,9 @@
 																					</a>
 																				</li>
 																			</c:if>
-																			<c:if test="${ pi.currentPage ne pi.maxPage }">
+																			<c:if test="${ reviewPi.currentPage ne reviewPi.maxPage }">
 																				<c:url value="myPageSelectReview.do" var="after">
-																					<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+																					<c:param name="currentPage" value="${ reviewPi.currentPage+1 }"/>
 																					<c:param name="id" value="${loginUser.id}"/>
 																				</c:url>
 																				<li class="page-item">
@@ -233,8 +233,14 @@
 											<p>라이크임당.</p>
 										</div>
 										
+										<c:if test="${ empty inquiry  }">
+											<div id="tab4" class="tabcontent"><br>
+											문의 내용이 없습니다.
+											</div>
+										</c:if>
 										
-										<div id="tab4" class="tabcontent tab4"><br>
+										<c:if test="${ not empty inquiry }">
+										<div id="tab4" class="tabcontent"><br>
 											<table align="center" border="1" cellspacing="0" width="700" style="text-align:center">
 												<tr>
 													<th>번호</th>
@@ -242,6 +248,7 @@
 													<th>작성일</th>
 													<th>답변여부</th>
 												</tr>
+											
 												<c:forEach items="${ inquiry }" var="list" > 
 													<tr>
 														<td>${ list.id }</td>
@@ -262,7 +269,7 @@
 													<nav class="blog-pagination justify-content-center d-flex">
 														<ul class="pagination">
 															<!------ [이전] ------>
-															<c:if test="${ pi.currentPage eq 1 }">
+															<c:if test="${ inquiryPi.currentPage eq 1 }">
 																<li class="page-item">
 																	<a class="page-link" aria-label="Previous" disabled>
 																		<span aria-hidden="true">
@@ -271,9 +278,10 @@
 																	</a>
 																</li>
 															</c:if>
-															<c:if test="${ pi.currentPage ne 1 }">
-																<c:url value="myPageSelectReview.do" var="before">
-																	<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+															<c:if test="${ inquiryPi.currentPage ne 1 }">
+																<c:url value="myPageSelectQuestion.do" var="before">
+																	<c:param name="currentPage" value="${ inquiryPi.currentPage-1 }"/>
+																	<c:param name="tab" value="tab4"/>
 																	<c:param name="id" value="${loginUser.id}"/>
 																</c:url>
 																<li class="page-item">
@@ -286,14 +294,15 @@
 															</c:if>
 															<!-- ------------- -->
 															<!------ [페이지] ----->
-															<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-																<c:if test="${ p eq pi.currentPage }">
+															<c:forEach begin="${ inquiryPi.startPage }" end="${ inquiryPi.endPage }" var="p">
+																<c:if test="${ p eq inquiryPi.currentPage }">
 																	<li class="page-item active"><a class="page-link" disabled>${p}</a></li>
 																</c:if>
 															
-																<c:if test="${ p ne pi.currentPage }">
-																	<c:url value="myPageSelectReview.do" var="page">
+																<c:if test="${ p ne inquiryPi.currentPage }">
+																	<c:url value="myPageSelectQuestion.do" var="page">
 																		<c:param name="currentPage" value="${ p }"/>
+																		<c:param name="tab" value="tab4"/>
 																		<c:param name="id" value="${loginUser.id}"/>
 																	</c:url>
 																	<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
@@ -301,7 +310,7 @@
 															</c:forEach>
 															<!-- --------------- -->
 															<!------- [다음] ------->
-															<c:if test="${ pi.currentPage eq pi.maxPage }">
+															<c:if test="${ inquiryPi.currentPage eq pi.maxPage }">
 																<li class="page-item">
 																	<a class="page-link" aria-label="Next" disabled>
 																		<span aria-hidden="true">
@@ -310,9 +319,10 @@
 																	</a>
 																</li>
 															</c:if>
-															<c:if test="${ pi.currentPage ne pi.maxPage }">
-																<c:url value="myPageSelectReview.do" var="after">
-																	<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+															<c:if test="${ inquiryPi.currentPage ne inquiryPi.maxPage }">
+																<c:url value="myPageSelectQuestion.do" var="after">
+																	<c:param name="currentPage" value="${ inquiryPi.currentPage+1 }"/>
+																	<c:param name="tab" value="tab4"/>
 																	<c:param name="id" value="${loginUser.id}"/>
 																</c:url>
 																<li class="page-item">
@@ -329,6 +339,7 @@
 												</div>
 												<!-------------------------- 페이징바 끝 -------------------------->
 										</div>
+										</c:if>
 									</div>
 								</div>
 								<!-------------------------- 탭 메뉴 끝 ------------------------>
@@ -521,6 +532,9 @@
 	            var tabMenu = $(this).text();
 	            var strId = "${loginUser.id}";
 	            
+	            console.log(activeTab);
+	            console.log(tabMenu);
+	            
 	            if(tabMenu == "Review"){
 	                location.href="myPageSelectReview.do?id=${loginUser.id}&tab="+ activeTab;
 	             }else if(tabMenu =="Collection"){
@@ -701,6 +715,7 @@
 				$("#qucontent").focus();
 				return false;
 			} else{
+				console.log("성공");
 				return true;
 			}
 		}

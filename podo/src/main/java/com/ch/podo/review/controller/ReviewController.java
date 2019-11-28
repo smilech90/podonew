@@ -176,7 +176,7 @@ public class ReviewController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
-		mv.addObject("review", reviewList).addObject("pi", pi).addObject("tab", tab).setViewName("member/myPage");
+		mv.addObject("review", reviewList).addObject("reviewPi", pi).addObject("tab", tab).setViewName("member/myPage");
 		return mv;
 	}
 
