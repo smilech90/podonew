@@ -70,14 +70,6 @@
 		values(seq_dfilm_id.nextval, #{df.synopsys}, #{df.trivia}, #{df.trailer}, null, 'Y', sysdate, #{uId}, #{df.filmId})
 	</insert>
 	
-	<!-- 창수의 영화등록 서비스 수정중 -->
-	<!-- 
-	<insert id="insertInitDetailFilm">
-		insert into tb_detail_film
-		values(seq_dfilm_id.nextval, null, null, null, null, 'Y', sysdate, #{id}, #{df.filmId})
-	</insert>
-	 -->
-	
 	<insert id="filmImageInsert" parameterType="hashMap">
 		insert into tb_film_image
 		values(seq_fimage_id.nextval, 1, #{filmImage}, seq_dfilm_id.currval)
@@ -160,6 +152,11 @@
 	<insert id="addActor">
 		insert into tb_film_actor
 		values(#{actorId},#{id})
+	</insert>
+	
+	<insert id="insertInitDetailFilm">
+		insert into tb_detail_film
+		values(seq_dfilm_id.nextval, null, null, null, null, 'Y', sysdate, #{ memberId }, seq_film_id.currval)
 	</insert>
 	
 </mapper>
