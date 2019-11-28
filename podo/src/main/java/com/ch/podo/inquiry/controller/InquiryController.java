@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.common.Pagination;
 import com.ch.podo.inquiry.model.service.InquiryService;
 import com.ch.podo.inquiry.model.vo.Inquiry;
+import com.ch.podo.review.model.dto.Review;
 
 @Controller
 public class InquiryController {
@@ -30,10 +34,16 @@ public class InquiryController {
 	}
 	
 	@RequestMapping("myPageSelectQuestion.do")
-	public ModelAndView myPageSelectQuestion(String tab, String id, ModelAndView mv) {
-		ArrayList list = new ArrayList();
-		System.out.println("문의");
-		mv.addObject("list", list).addObject("tab", tab).setViewName("member/myPage");
+	public ModelAndView myPageSelectQuestion(String tab, String id, ModelAndView mv, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		System.out.println("컨트롤러 들어옴");
+		int listCount = inquiryService.myPageInquiryListCount(id);
+		System.out.println("listcount : " + listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Inquiry> inquiryList = inquiryService.myPageSelectInquiryList(id,pi);
+		System.out.println("inquiryList : " +inquiryList);
+		mv.addObject("inquiry", inquiryList).addObject("pi", pi).addObject("tab", tab).setViewName("member/myPage");
+		
 		return mv;
 	}
 }

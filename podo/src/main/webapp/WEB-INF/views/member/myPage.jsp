@@ -69,6 +69,7 @@
 		display: block;
 	}
 	/* --------------------- 탭메뉴 끝 ---------------------  */
+	#noAnswer{color:red;}
 </style>
 </head>
 <body>
@@ -85,11 +86,16 @@
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
-										<img src="resources/memberProfileImage/${ loginUser.image }" width="70px" height="70px" alt="">
+										<img src="resources/memberProfileImage/${ loginUser.image }" width="70px" height="70px" alt=""><br><br>
+										<c:if test="${ not empty like[film.id] }">
+												<button class='btn btn-danger btn-liked-film'>LIKED</button>
+											</c:if>
+											<c:if test="${ empty like[film.id] }">
+												<button class='btn btn-secondary btn-like-film'>LIKE</button>
+											</c:if>
 									</div>
 									<div class="desc">
 										<h2>${ loginUser.nickName }</h2>
-										<a href="#"><i class="ti-heart"></i></a>
 										<p class="date">작성리뷰 - ${reviewCount}개  </p>
 										<p class="date">콜렉션 - 0개  </p>
 									</div>
@@ -113,8 +119,7 @@
 											<li class="tab4" data-tab="tab4"><a>Question</a></li>
 									</ul>
 							
-								
-										<div id="tab1" class="current tabcontent current"><br>
+										<div id="tab1" class="tabcontent current"><br>
 											<!-------------------------- 리뷰 탭메뉴 바디 ------------------------>
 											<section class="blog-post-area section-margin mt-4">
 												<div class="container">
@@ -228,13 +233,105 @@
 											<p>라이크임당.</p>
 										</div>
 										
+										
 										<div id="tab4" class="tabcontent tab4"><br>
-											<h3>Question</h3><br>
-											<p>문의지롱</p>
+											<table align="center" border="1" cellspacing="0" width="700" style="text-align:center">
+												<tr>
+													<th>번호</th>
+													<th>내용</th>
+													<th>작성일</th>
+													<th>답변여부</th>
+												</tr>
+												<c:forEach items="${ inquiry }" var="list" > 
+													<tr>
+														<td>${ list.id }</td>
+														<td>${ list.content }</td>
+														<td>${ list.createDate }</td>
+														<c:if test="${ list.answer != null}">
+															<td>${ list.answer }</td> 
+															<!-- <td><button type="button" id="answerBtn" onclick="answer();"></button></td> -->
+														</c:if>
+														<c:if test="${ list.answer == null}">
+															 <td id="noAnswer">답변 미등록</td> 
+														</c:if>
+													</tr>
+												</c:forEach>
+												</table><br>
+												<!-------------------------- 페이징바 시작 ------------------------>
+												<div class="col-lg-12">
+													<nav class="blog-pagination justify-content-center d-flex">
+														<ul class="pagination">
+															<!------ [이전] ------>
+															<c:if test="${ pi.currentPage eq 1 }">
+																<li class="page-item">
+																	<a class="page-link" aria-label="Previous" disabled>
+																		<span aria-hidden="true">
+																			<i class="ti-angle-left"></i>
+																		</span>
+																	</a>
+																</li>
+															</c:if>
+															<c:if test="${ pi.currentPage ne 1 }">
+																<c:url value="myPageSelectReview.do" var="before">
+																	<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+																	<c:param name="id" value="${loginUser.id}"/>
+																</c:url>
+																<li class="page-item">
+																	<a href="${ before }" class="page-link" aria-label="Previous">
+																		<span aria-hidden="true">
+																			<i class="ti-angle-left"></i>
+																		</span>
+																	</a>
+																</li>
+															</c:if>
+															<!-- ------------- -->
+															<!------ [페이지] ----->
+															<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+																<c:if test="${ p eq pi.currentPage }">
+																	<li class="page-item active"><a class="page-link" disabled>${p}</a></li>
+																</c:if>
+															
+																<c:if test="${ p ne pi.currentPage }">
+																	<c:url value="myPageSelectReview.do" var="page">
+																		<c:param name="currentPage" value="${ p }"/>
+																		<c:param name="id" value="${loginUser.id}"/>
+																	</c:url>
+																	<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																</c:if>
+															</c:forEach>
+															<!-- --------------- -->
+															<!------- [다음] ------->
+															<c:if test="${ pi.currentPage eq pi.maxPage }">
+																<li class="page-item">
+																	<a class="page-link" aria-label="Next" disabled>
+																		<span aria-hidden="true">
+																			<i class="ti-angle-right"></i>
+																		</span>
+																	</a>
+																</li>
+															</c:if>
+															<c:if test="${ pi.currentPage ne pi.maxPage }">
+																<c:url value="myPageSelectReview.do" var="after">
+																	<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+																	<c:param name="id" value="${loginUser.id}"/>
+																</c:url>
+																<li class="page-item">
+																	<a href="${ after }" class="page-link" aria-label="Next">
+																		<span aria-hidden="true">
+																			<i class="ti-angle-right"></i>
+																		</span>
+																	</a>
+																</li>
+															</c:if>
+															<!-- --------------- -->
+														</ul>
+													</nav>
+												</div>
+												<!-------------------------- 페이징바 끝 -------------------------->
 										</div>
+									</div>
 								</div>
-							</div>
-							<!-------------------------- 탭 메뉴 끝 ------------------------>
+								<!-------------------------- 탭 메뉴 끝 ------------------------>
 						</div>
 					</div>
 				</div>
@@ -345,7 +442,7 @@
 	</div>
 	
 	
-<!-- 문의하기 모달 -->
+	<!-- 문의하기 모달 -->
 	<hr style="margin: 0;">
 	<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -374,6 +471,35 @@
 		</div>
 	</div>
 	
+	
+	<%-- <!-- 문의하기_답변보기 모달 -->
+	<hr style="margin: 0;">
+	<div class="modal fade" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">답변보기</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+				<div class="modal-body">
+					<form action="insertQuestion.do" method="post">
+						<input type="hidden" name="userId" value="${ loginUser.id }">
+						<div class="form-group">
+							<label for="qucontent">문의내용</label>
+							<textarea class="form-control" id="qucontent" name="content" rows="5" cols="50"  style="resize: none"></textarea>
+						</div>
+						<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div> --%>
+	
 		
 
 
@@ -381,7 +507,7 @@
 	<script>
 		// 탭메뉴 관련 
 		$(function() {
-			console.log("${tab}");
+				//console.log("${tab}");
 				/* $('ul.tab li').click(function() {
 					var activeTab = $(this).attr('data-tab');
 					$('ul.tab li').removeClass('current');
@@ -413,6 +539,19 @@
 				$("." + tab).addClass('current');
 			}
 		});
+		
+		/* // 문의하기 답변보기 모달 창
+		$(function(){
+			$("#answerBtn").on("click", function(){
+				var tr = $(this);
+		        var td = tr.parent().parent();
+
+		        alert("클릭한 Row의 모든 데이터 : " + td.eq(2).text());
+
+				
+				$('#answerModal').modal('toggle');
+			});
+		}); */
 
 		// 회원정보 수정, 비밀번호 변경 시 알럴트창
 		$(function(){

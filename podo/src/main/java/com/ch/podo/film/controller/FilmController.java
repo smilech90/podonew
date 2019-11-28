@@ -26,6 +26,7 @@ import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.service.FilmService;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
+import com.ch.podo.image.model.service.ImageService;
 import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.like.model.vo.Like;
@@ -49,6 +50,9 @@ public class FilmController {
 	
 	@Autowired
 	private DetailFilmService detailFilmService;
+	
+	@Autowired
+	private ImageService imageService;
 	
 	private Logger logger = LoggerFactory.getLogger(FilmController.class);
 	
@@ -433,20 +437,18 @@ public class FilmController {
 	 */
 	@RequestMapping("finsert.do")
 	public ModelAndView finsert(ModelAndView mv, Film film, DetailFilm df, Image img,
-								HttpServletRequest request, HttpSession session,
-								@RequestParam(value = "uploadFile", required = false) MultipartFile file) {
+															HttpServletRequest request, HttpSession session,
+															@RequestParam(value = "uploadFile", required = false) MultipartFile file) {
 		System.out.println("film : " + film);
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		if (!file.getOriginalFilename().equals("")) {
-			String renameFileName = new PodoRenamePolicy().rename(file, request);
+			String renameFileName = PodoRenamePolicy.rename(file, request);
 			img.setChangeName(renameFileName);
 			logger.info("renameFileName : " + renameFileName);
-		} else {
-			img.setChangeName("podoposter.jpg");
 		}
-		logger.info("img : " + img);
+		// logger.info("img : " + img);
 		
 		/*
 		 * 트랜잭션 처리 필요
@@ -454,10 +456,10 @@ public class FilmController {
 		int result1 = filmService.insertFilm(film);
 		logger.info("result1 : " + result1);
 		
-		int result2 = detailFilmService.insertInitDetailFilm(loginUser.getId(), film.getId());
+		int result2 = detailFilmService.insertInitDetailFilm(loginUser.getId());
 		logger.info("result2 : " + result2);
 		
-		int result3 = filmService.insertFilmImage(img);
+		int result3 = imageService.insertFilmImage(img);
 		logger.info("result3 : " + result3);
 		
 		if (result1 > 0 && result2 > 0 && result3 > 0) {

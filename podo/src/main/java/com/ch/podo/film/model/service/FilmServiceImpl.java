@@ -65,11 +65,6 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
-	public int insertFilmImage(Image img) {
-		return filmDao.insertFilmImage(img);
-	}
-
-	@Override
 	public Film selectFilm(int id) {
 			return filmDao.selectFilm(id);
 	}

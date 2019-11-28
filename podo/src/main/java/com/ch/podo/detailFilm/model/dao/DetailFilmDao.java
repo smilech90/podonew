@@ -75,10 +75,9 @@ public class DetailFilmDao {
 		
 		return (ArrayList)sqlSession.selectList("detailFilmmapper.searchActorList", searchName);
 	}
-
-	public int insertInitDetailFilm(int id, int filmId) {
-		int[] ids = {id, filmId};
-		return sqlSession.insert("detailFilmmapper.insertInitDetailFilm", ids);
+	
+	public int insertInitDetailFilm(Integer memberId) {
+		return sqlSession.insert("detailFilmmapper.insertInitDetailFilm", memberId);
 	}
 	
 	public int addActor(int actorId, int id) {

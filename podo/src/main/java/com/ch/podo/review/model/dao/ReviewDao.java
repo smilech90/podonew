@@ -87,7 +87,7 @@ public class ReviewDao {
 	public ArrayList<Review> myPageSelectReviewList(String id, PageInfo pi){
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		System.out.println("dao : " + rowBounds.toString());
+
 		ArrayList<Review> list = (ArrayList)sqlSession.selectList("reviewMapper.myPageSelectReviewList", id, rowBounds);
 		
 		return list;
