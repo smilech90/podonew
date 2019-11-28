@@ -180,6 +180,18 @@ public class ReviewController {
 		mv.addObject("review", reviewList).addObject("reviewPi", pi).addObject("tab", tab).setViewName("member/myPage");
 		return mv;
 	}
+	
+	// 유저페이지 리뷰조회
+	@RequestMapping("userPageSelectReview.do")
+	public ModelAndView userPageSelectReview(String tab, String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
+		int listCount = reviewService.myPageReviewListCount(id);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
+		mv.addObject("review", reviewList).addObject("reviewPi", pi).addObject("tab", tab).setViewName("member/myPage");
+		return mv;
+	}
 
 	
 	

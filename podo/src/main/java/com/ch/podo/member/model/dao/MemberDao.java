@@ -40,6 +40,9 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.updateMember", mem);
 	}
 	
+	public Member selectUserPageMem(String userId) {
+		return sqlSession.selectOne("memberMapper.selectUserPageMem", userId);
+	}
 	
 
 	public ArrayList<Member> selectMemberList() {

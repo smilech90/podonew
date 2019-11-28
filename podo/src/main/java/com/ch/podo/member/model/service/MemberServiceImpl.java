@@ -71,4 +71,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.prohibitionBoard(bid);
 	}
 
+	@Override
+	public Member selectUserPageMem(String userId) {
+		return memberDao.selectUserPageMem(userId);
+	}
+
 }

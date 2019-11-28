@@ -272,9 +272,16 @@ public class MemberController {
 	
 	
 	@RequestMapping("userPage.do")
-	public ModelAndView userPage(String userId, ModelAndView mv) {
+	public ModelAndView userPage(HttpSession session, ModelAndView mv, String userId, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		Member userPageMem = memberService.selectUserPageMem(userId);
+		int reviewListCount = reviewService.myPageReviewListCount(userId);
 		
-		System.out.println("혜경 : " + userId);
+		PageInfo pi = Pagination.getPageInfo(currentPage, reviewListCount);
+		
+		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(userId,pi);
+		
+		session.setAttribute("reviewListCount", reviewListCount);
+		mv.addObject("userPageMem", userPageMem).addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/userPage");
 		return mv;
 	}
 	

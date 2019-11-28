@@ -708,7 +708,7 @@
 				$("#qucontent").focus();
 				return false;
 			} else{
-				console.log("성공");
+				alert("문의 등록 완료");
 				return true;
 			}
 		}
