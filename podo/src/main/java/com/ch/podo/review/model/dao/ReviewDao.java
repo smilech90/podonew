@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
@@ -134,6 +135,19 @@ public class ReviewDao {
 	public Review selectReviewReport(int reviewNo) {
 		
 		return sqlSession.selectOne("reviewMapper.selectReviewReport", reviewNo);
+	}
+
+
+	public ArrayList<Comment> selectReviewComment(int id) {
+		
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewComment",id);
+		
+	}
+
+
+	public int insertReviewComment(Comment c) {
+		
+		return sqlSession.insert("reviewMapper.insertReviewComment",c);
 	}
 
 

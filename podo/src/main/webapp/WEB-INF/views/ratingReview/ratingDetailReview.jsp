@@ -5,6 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
   <link rel="icon" href="img/Fevicon.png" type="image/png">
 
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
@@ -295,9 +301,180 @@
       
       
   </section>
-			
+  
+  <!-- 댓글 등록 -->
+  <table align="center" width="500" border="1" cellspacing="0">
+	  <tr>
+		  	<td><textarea rows="3" cols="55" id="review-comment"></textarea></td>
+		  	<td><button id="rBtn">댓글등록</button></td>
+	  </tr>
+  </table>
+  
+  <!-- 댓글리스트 -->
+	<table align="center" width="500" border="1" cellspacing="0" id="rtb">
+  		<thead>
+	  		<tr>
+	  			<td colspan="3"><b id="rCount"></b></td>
+	  		</tr>
+  		</thead>
+  		<tbody>
+  		
+  		</tbody>
+  	</table>
 	
-	<br>
+	
+	<script>
+	// 댓글 작성해주는거
+	$(function(){
+		getReplyReviewCommentList();
+			
+			setInterval(function(){
+				getReplyReviewCommentList();
+			}, 50000);
+			
+			
+			$("#rBtn").on("click", function(){
+				
+				var content = $("#review-comment").val();
+				var boardId = ${r.id};
+				var nickName = "${r.nickName}";
+				
+				$.ajax({
+					url:"insertReviewComment.do",
+					data:{content:content,
+						  boardId:boardId,
+						  nickName:nickName
+					},
+					success:function(data){
+						if(data == "success"){
+							console.log(data);
+							getReplyReviewCommentList();
+							$("#review-comment").val("");
+						}else{
+							alert("댓글 작성 실패");
+						}
+					},error:function(){
+						console.log("ajax 통신 실패");
+					}
+				});
+			});			
+		});
+	
+	
+	
+	// 댓글 리스트 가져오는거
+		$(function () {
+			getReplyReviewCommentList();
+		});
+		
+		function getReplyReviewCommentList(){
+			
+			
+			
+			$.ajax({
+				url:"reviewCommentList.do",
+				data:{id:${r.id}},
+				dataType:"json",
+				success:function(data){
+					//console.log(data);
+					
+					$tbody = $("#rtb tbody");
+					$tbody.html("");
+					
+					$("#rCount").text("댓글(" + data.length + ")");
+					
+					if(data.length > 0){
+						$.each(data, function(index, value){
+							$tr = $("<tr></tr>");
+							
+							$writerTd = $("<td width='200'></td>").text(value.nickName);
+							$contentTd = $("<td></td>").text(value.content);
+							$dateTd = $("<td></td>").text(value.createDate);
+							
+							$tr.append($writerTd);
+							$tr.append($contentTd);
+							$tr.append($dateTd);
+							
+							$tbody.append($tr);
+							
+						});
+						
+					}else{
+						
+						$tr = $("<tr></tr>");
+						
+						$contentTd = $("<td colspan='3'></td>").text("등록된 댓글이 없습니다.");
+						$tr.append($contentTd);
+						
+						$tbody.append($tr);
+						
+					}
+				},
+				error:function(){
+					console.log("통신실패");
+				}
+				
+			});
+		}
+		
+		
+	</script>
+	
+	
+	<!-- 	<div class="comments-area">
+			<h4>05 Comments</h4>
+			<div class="comment-list">
+				<div class="single-comment justify-content-between d-flex">
+					<div class="user justify-content-between d-flex">
+						<div class="thumb">
+							<img src="img/blog/c1.jpg" alt="">
+						</div>
+						<div class="desc">
+							<h5>
+								<a href="#">Emilly Blunt</a>
+							</h5>
+							<p class="date">December 4, 2017 at 3:12 pm</p>
+							<p class="comment">Never say goodbye till the end comes!</p>
+						</div>
+					</div>
+					<div class="reply-btn">
+						<a href="" class="btn-reply text-uppercase">reply</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="comment-form">
+			<h4>Leave a Reply</h4>
+			<form>
+				<div class="form-group form-inline">
+					<div class="form-group col-lg-6 col-md-6 name">
+						<input type="text" class="form-control" id="name"
+							placeholder="Enter Name" onfocus="this.placeholder = ''"
+							onblur="this.placeholder = 'Enter Name'">
+					</div>
+					<div class="form-group col-lg-6 col-md-6 email">
+						<input type="email" class="form-control" id="email"
+							placeholder="Enter email address" onfocus="this.placeholder = ''"
+							onblur="this.placeholder = 'Enter email address'">
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="subject"
+						placeholder="Subject" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Subject'">
+				</div>
+				<div class="form-group">
+					<textarea class="form-control mb-10" rows="5" name="message"
+						placeholder="Messege" onfocus="this.placeholder = ''"
+						onblur="this.placeholder = 'Messege'" required=""></textarea>
+				</div>
+				<a href="#" class="button submit_btn">Post Comment</a>
+			</form>
+		</div> -->
+
+		<br>
 	
 
 	</div>

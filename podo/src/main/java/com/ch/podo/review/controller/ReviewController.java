@@ -1,7 +1,9 @@
 package com.ch.podo.review.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
@@ -19,6 +23,9 @@ import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.report.model.vo.Report;
 import com.ch.podo.review.model.dto.Review;
 import com.ch.podo.review.model.service.ReviewService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 
 
 
@@ -243,5 +250,35 @@ public class ReviewController {
 		return mv;
 	}
 	
+	// 리부 댓글
+	
+	@ResponseBody
+	@RequestMapping(value="reviewCommentList.do", produces="application/json; charset=UTF-8")
+	public String reviewCommentList(int id ){
+		
+		ArrayList<Comment> reviewCommentList = reviewService.selectReviewComment(id);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		System.out.println("댓글"+reviewCommentList);
+		return gson.toJson(reviewCommentList);
+		 
+	}
+	
+	//댓글 등록
+	
+	@ResponseBody
+	@RequestMapping("insertReviewComment.do")
+	public String insertReviewComment(Comment c, ModelAndView mv) {
+		
+		int result = reviewService.insertReviewComment(c);
+		
+		System.out.println(result);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 
 }
