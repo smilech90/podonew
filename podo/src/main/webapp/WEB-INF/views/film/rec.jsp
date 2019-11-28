@@ -55,6 +55,14 @@
 			</div>
 		</section>
 		
+		<c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
+	    <div class="container" style="background-color: black; background-clip: content-box; margin-bottom: 30px;">
+	    	<div style="height: 100px;">
+		      <h1 style="text-align: center; color: white;">광고</h1>
+	    	</div>
+	    </div>
+    </c:if>
+		
 		<section class="blog-post-area section-margin">
 			<div class="container">
 			

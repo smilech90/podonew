@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <html>
 	<head>
 		<title>포도포도</title>
@@ -117,7 +116,7 @@
       <div class="container">
         <div class="main-banner">
           <div class="hero-banner__content">
-            <h3>Film & Review</h3>
+            <h3>Film &amp; Review</h3>
             <h1>Great, Grape!</h1>
             <h4>December 5, 2019</h4>
           </div>
@@ -125,6 +124,16 @@
       </div>
     </section>
     <!--================Hero Banner end =================-->
+    
+    <!--================ Ad start =================-->
+    <c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
+	    <div class="container" style="background-color: black; background-clip: content-box; margin-bottom: 30px;">
+	    	<div style="height: 100px;">
+		      <h1 style="text-align: center; color: white;">광고</h1>
+	    	</div>
+	    </div>
+    </c:if>
+    <!--================Ad end =================-->
 		
     <!--================ Blog slider start =================-->
     <!-- 창수가 구현한 위페이지 -->

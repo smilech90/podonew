@@ -19,7 +19,7 @@
 		<result property="blackDate" column="blackDate"/>
 		<result property="block" column="block"/>
 		<result property="reportCount" column="report_count"/>
-		
+		<result property="premium" column="premium"/>
 	</resultMap>
 	
 	<insert id="insertMember">
