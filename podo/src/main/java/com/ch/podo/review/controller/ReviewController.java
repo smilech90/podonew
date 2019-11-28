@@ -16,6 +16,7 @@ import com.ch.podo.common.Pagination;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.report.model.vo.Report;
 import com.ch.podo.review.model.dto.Review;
 import com.ch.podo.review.model.service.ReviewService;
 
@@ -79,7 +80,7 @@ public class ReviewController {
 		//return mv;
 		
 		if( result2>0 && result > 0) { //게시판 작성 성공
-			System.out.println("글스기인데 값이 안잡힘 : "+r);
+			//System.out.println("글스기인데 값이 안잡힘 : "+r);
 			
 			return "redirect:reviewList.do";
 			
@@ -176,7 +177,7 @@ public class ReviewController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
-		mv.addObject("review", reviewList).addObject("pi", pi).addObject("tab", tab).setViewName("member/myPage");
+		mv.addObject("review", reviewList).addObject("reviewPi", pi).addObject("tab", tab).setViewName("member/myPage");
 		return mv;
 	}
 
@@ -209,5 +210,26 @@ public class ReviewController {
 		return mv;
 		
 	}
+	
+	//  리뷰 신고하기
+	@RequestMapping("declarationModal.do")
+	public ModelAndView insertDeclaration(Review r,Report rep,ModelAndView mv) {
+		
+		
+		//Review r = reviewService.selectReviewReport(reviewNo);
+		System.out.println("구하고자하는값은"+rep);
+		
+		int result = reviewService.insertDeclaration(rep);
+		System.out.println("성공할건가"+result);
+		if(result>0) { // 성공
+			mv.addObject("id",rep.getTargetId()).setViewName("redirect:ratingDetailReview.do");
+			
+		}else { // 실패
+			mv.addObject("msg", "신고하기 실풰").setViewName("error/errorPage");
+		}
+		
+		return mv;
+	}
+	
 
 }

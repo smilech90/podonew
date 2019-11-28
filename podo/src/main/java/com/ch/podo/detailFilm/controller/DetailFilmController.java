@@ -38,7 +38,7 @@ public class DetailFilmController {
 		Image i = dfService.selectFilmImage(df.getId());
 		
 		// 배우 리스트
-		ArrayList<Actor> al = dfService.selectActorList(filmId);
+		ArrayList<Actor> al = dfService.selectActorList(df.getId());
 		
 		// 리뷰 리스트
 		ArrayList<Review> rl = dfService.selectReivewList(filmId);
@@ -58,7 +58,7 @@ public class DetailFilmController {
 		Image i = dfService.selectFilmImage(df.getId()); 
 		
 		// 배우 리스트
-		ArrayList<Actor> al = dfService.selectActorList(filmId);
+		ArrayList<Actor> al = dfService.selectActorList(df.getId());
 		
 		mv.addObject("df",df).addObject("al",al).addObject("i",i).setViewName("detailFilm/detailFilmUpdate");
 		
@@ -71,23 +71,32 @@ public class DetailFilmController {
 	public String selectFilmActor(String searchName) {
 		ArrayList<Actor> al = dfService.searchActorList(searchName);
 		
-		System.out.println("al:" + al);
-		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return gson.toJson(al);
 	}
-	/*
+	
 	// 배우 등록
 	@RequestMapping("addActor.do")
-	public ModelAndView addActor(int actorId, int id, int filmId, ModelAndView mv) {
+	public ModelAndView addActor(int id, int filmId, String actorIdList, ModelAndView mv) {
 		
-		int result = dfService.addActor(actorId, id);
+		// 배우 등록
+		System.out.println("actorId 컨트롤러 :" + actorIdList);
+		int result = dfService.addActor(actorIdList, id);
 		
-		mv.addObject()
+		// 영화 업데이트 뷰 한번 더 뿌려주기
+		// 영화 상세정보
+		DetailFilm df = dfService.selectDetailFilm(filmId);	
+		
+		// 포스터 이미지
+		Image i = dfService.selectFilmImage(df.getId()); 
+		
+		// 배우 리스트
+		ArrayList<Actor> al = dfService.selectActorList(filmId);
+		
+		mv.addObject("df",df).addObject("al",al).addObject("i",i).setViewName("detailFilm/detailFilmUpdate");
 		
 		return mv;
 	}
-	*/
 	
 	// 수정 정보 insert
 	@RequestMapping("detailFilmInsert.do")

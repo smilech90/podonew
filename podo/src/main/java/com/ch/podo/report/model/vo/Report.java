@@ -24,5 +24,5 @@ public class Report {
    private String reportedName; // 신고대상자이름
    private int reportCount; // 신고수
    
-
+   private int memberId;			// 사용자 번호
 }

@@ -56,6 +56,7 @@
 							<li class="nav-item"><a class="nav-link" href="film.do?p=1">영화</a></li>
 							<li class="nav-item"><a class="nav-link" href="reviewList.do">리뷰</a>
 							<li class="nav-item"><a class="nav-link" href="rec.do">추천</a>
+
 							<li class="nav-item"><a class="nav-link" href="blist.do">게시판</a>					
 							<c:choose>
 						       <c:when test="${ loginUser.autho eq 2}">

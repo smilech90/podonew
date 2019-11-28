@@ -1,3 +1,4 @@
+
 package com.ch.podo.member.controller;
 
 import java.io.File;
@@ -5,13 +6,14 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,12 +24,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ch.podo.board.model.vo.PageInfo;
+import com.ch.podo.common.Pagination;
 import com.ch.podo.member.model.service.MemberService;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dto.Review;
 import com.ch.podo.review.model.service.ReviewService;
-import com.ch.podo.board.model.vo.PageInfo;
-import com.ch.podo.common.Pagination;
+
 
 
 @Controller
@@ -40,14 +43,16 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
+	Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
 	// @CookieValue(value="storeIdCookie", required = false) Cookie storeIdCookie
 	@RequestMapping("login.do")
 	public ModelAndView loginMember(Member mem, HttpSession session, ModelAndView mv,
 																	boolean rememberMe, HttpServletResponse response, HttpServletRequest request) {
 		
 		Member loginUser = memberService.selectLoginMember(mem);
-		// System.out.println("loginUser : " + loginUser);
-		// System.out.println("rememberMe : " + rememberMe);
+		// logger.info("loginUser : " + loginUser);
+		// logger.info("rememberMe : " + rememberMe);
 		
 		if (loginUser != null && bcryptPasswordEncoder.matches(mem.getPwd(), loginUser.getPwd())) {
 			if (rememberMe == true) {
@@ -67,9 +72,9 @@ public class MemberController {
 					}
 				}
 			}
-			String referer = request.getHeader("Referer");
 			
 			session.setAttribute("loginUser", loginUser);
+			String referer = request.getHeader("Referer");
 			mv.setViewName("redirect:" + referer);
 			
 		} else {
@@ -165,11 +170,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("myPage.do")
-	public ModelAndView myPage(ModelAndView mv, String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+	public ModelAndView myPage(HttpSession session, ModelAndView mv, String id, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		int reviewListCount = reviewService.myPageReviewListCount(id);
 		PageInfo pi = Pagination.getPageInfo(currentPage, reviewListCount);
 		
 		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
+		session.setAttribute("reviewListCount", reviewListCount);
 		mv.addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/myPage");
 		
 		return mv;
@@ -205,7 +211,7 @@ public class MemberController {
 		
 		if(result > 0) {	// 업데이트 성공
 			session.setAttribute("loginUser", mem);
-			mv.addObject("msg", "회원정보 수정 성공").setViewName("member/myPage");
+			mv.addObject("msg", "회원정보 수정 성공").setViewName("redirect:myPage.do?id="+mem.getId());
 		}else {
 			mv.addObject("msg", "회원정보 수정 실패").setViewName("member/memberUpdateForm");
 		}

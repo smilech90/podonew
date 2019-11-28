@@ -41,6 +41,12 @@
 	#reviewContentFont{
 		margin-top: 20px; text-overflow: ellipsis; overflow: hidden;
 	}
+	.df_r_content{
+    	display : none;
+    }
+    .df_r_spoContent{
+    	cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -64,7 +70,16 @@
             <div class="blog__slide__content">
               <p class="pTitle"> ${review.titleKor }</p>
               <a class="blog__slide__label">${ review.name }</a>
-              <h3><a href="ratingDetailReview.do?id=${review.id}"><p id="reviewContentFont"  class="title">${ review.content }</p></a> </h3>
+              <h3>
+              
+              	<p id="reviewContentFont"  class="title">
+              		<div class="df_r_spoContent">
+				          <div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
+					       <div class="df_r_content">내용 : ${ review.content }</div>
+				    </div>
+              	</p>
+              
+              </h3>
               <button class="btn btn-secondary btn-like-film" onclick="location.href='ratingDetailReview.do?id=${review.id}';"> 더보기 </button> 
               
               <p></p>
@@ -173,7 +188,18 @@
 	
 	
 	
-	
+	<script>
+	$(document).ready(function(){
+		$(".df_r_spoContent").on("click",function(){
+			  if (confirm("정말 확인하시겠습니까??") == true){    //확인
+					$(this).children(".df_r_spoilerCheck").css("display","none");
+		        	$(this).children(".df_r_content").css("display","block");
+			  }else{   //취소
+			      return;
+			  }
+		});
+	});
+	</script>
 	
 	
  	<jsp:include page="../common/footer.jsp"/> 

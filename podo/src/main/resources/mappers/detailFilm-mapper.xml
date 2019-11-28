@@ -124,7 +124,7 @@
 		where member_id=#{userId}
 		order by id desc
 	</select>
-	 -->
+	-->
 	
 	<!-- 생성한 콜렉션에 영화 추가 -->
 	<!-- 콜렉션 번호, 영화 번호 -->
@@ -139,7 +139,7 @@
 		from tb_film_actor fa
 		join tb_actor a on(fa.actor_id=a.id)
 		join tb_detail_film df on(fa.dfilm_id=df.id)
-		where df.film_id=#{filmId}
+		where df.id=#{id}
 	</select>
 	
 	<!-- 검색 배우 리스트  -->
@@ -149,12 +149,16 @@
 		where name like '%'||#{searchName}||'%'
 	</select>
 	
-	<!-- 배우 등록
 	<insert id="addActor">
 		insert into tb_film_actor
 		values(#{actorId},#{id})
 	</insert>
-	 -->
+	
+	<insert id="insertInitDetailFilm">
+		insert into tb_detail_film
+		values(seq_dfilm_id.nextval, null, null, null, null, 'Y', sysdate, #{ memberId }, seq_film_id.currval)
+	</insert>
+	
 </mapper>
 
 
