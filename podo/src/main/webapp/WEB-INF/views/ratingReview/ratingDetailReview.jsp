@@ -165,12 +165,12 @@
                     <div class="float-left">
                       <div class="media">
                       <div class="media-body">
-                        <h5>${r.nickName }님</h5>
+                        <a href="userPage.do?userId=${r.memberId}"><h5>${r.nickName }님</h5></a>
                  
                         <p>${ r.createDate }에 작성</p>
                       </div>
                       <div class="d-flex">
-                        <img width="42" height="42" src="resources/memberProfileImage/${ r.userImage }" alt="">
+                        <img width="42" height="42" src="resources/memberProfileImage/${ r.userImage }" onclick="location.href='userPage.do?userId=${r.memberId}'">
                       </div>
                     </div>
                   	</div>

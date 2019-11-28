@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
+import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.member.model.service.MemberService;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dto.Review;
@@ -40,6 +41,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private LikeService likeService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
@@ -175,6 +178,7 @@ public class MemberController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, reviewListCount);
 		
 		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
+		
 		session.setAttribute("reviewListCount", reviewListCount);
 		mv.addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/myPage");
 		
@@ -267,6 +271,12 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping("userPage.do")
+	public ModelAndView userPage(String userId, ModelAndView mv) {
+		
+		System.out.println("혜경 : " + userId);
+		return mv;
+	}
 	
 	
 	

@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>PoDo_MyPage</title>
+	<title>PoDo_UserPage</title>
 
 <style>
 	#imgInp{display:none}
@@ -81,7 +81,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="comments-area">
-						<h4>마이페이지</h4>
+						<h4></h4>
 						<div class="comment-list">
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
