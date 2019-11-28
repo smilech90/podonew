@@ -69,4 +69,9 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 		return dfDao.searchActorList(searchName);
 	}
 
+	@Override
+	public int insertInitDetailFilm(int id, int filmId) {
+		return dfDao.insertInitDetailFilm(id, filmId);
+	}
+
 }

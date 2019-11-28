@@ -21,6 +21,7 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.common.PodoRenamePolicy;
 import com.ch.podo.common.SearchCondition;
+import com.ch.podo.detailFilm.model.service.DetailFilmService;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.service.FilmService;
 import com.ch.podo.film.model.vo.Film;
@@ -45,6 +46,9 @@ public class FilmController {
 
 	@Autowired
 	private RatingFilmService ratingFilmService;
+	
+	@Autowired
+	private DetailFilmService detailFilmService;
 	
 	private Logger logger = LoggerFactory.getLogger(FilmController.class);
 	
@@ -391,18 +395,11 @@ public class FilmController {
 	 * @author Changsu Im, Yujeong Choi
 	 */
 	@RequestMapping("flist.do")
-	public ModelAndView filmList(ModelAndView mv, 
-								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+	public ModelAndView filmList(ModelAndView mv) {
 		
-		int listCount = filmService.getFilmListCount();
+		ArrayList<Film> list = filmService.selectFilmList();
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<Film> list = filmService.selectFilmList(pi);
-		
-		mv.addObject("pi", pi)
-			.addObject("list", list)
-		  .setViewName("admin/filmListView");
+		mv.addObject("list", list).setViewName("admin/filmListView");
 		
 		return mv;
 	}
@@ -435,22 +432,39 @@ public class FilmController {
 	 * @author Changsu Im
 	 */
 	@RequestMapping("finsert.do")
-	public ModelAndView finsert(ModelAndView mv, Film film, DetailFilm df, Image img, HttpServletRequest request,
-															@RequestParam(value = "uploadFile", required = false) MultipartFile file) {
+	public ModelAndView finsert(ModelAndView mv, Film film, DetailFilm df, Image img,
+								HttpServletRequest request, HttpSession session,
+								@RequestParam(value = "uploadFile", required = false) MultipartFile file) {
 		System.out.println("film : " + film);
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		if (!file.getOriginalFilename().equals("")) {
 			String renameFileName = new PodoRenamePolicy().rename(file, request);
 			img.setChangeName(renameFileName);
+			System.out.println("renameFileName : " + renameFileName);
+		} else {
+			img.setChangeName("podoposter.jpg");
 		}
+		System.out.println("img : " + img);
 		
+		/*
+		 * 트랜잭션 처리 필요
+		 */
 		int result1 = filmService.insertFilm(film);
-//		int result2 = filmService.insertFilmImage(img);
-//		if (result1 > 0 && result2 > 0) {
-//			mv.setViewName("redirect:flist.do");
-//		} else {
-//			mv.setViewName("error/errorPage");
-//		}
+		System.out.println("result1 : " + result1);
+		
+		int result2 = detailFilmService.insertInitDetailFilm(loginUser.getId(), film.getId());
+		System.out.println("result2 : " + result2);
+		
+		int result3 = filmService.insertFilmImage(img);
+		System.out.println("result3 : " + result3);
+		
+		if (result1 > 0 && result2 > 0 && result3 > 0) {
+			mv.setViewName("redirect:flist.do");
+		} else {
+			mv.setViewName("error/errorPage");
+		}
 
 		return mv;
 	}
