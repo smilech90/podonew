@@ -66,7 +66,7 @@ public class FilmController {
 		int listCount = filmService.selectKeywordFilmListCount(keyword);
 		// page는 최대 3페이지, board는 최대 6개 보여지도록 set
 		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 3, 6);
-		// System.out.println("pi : " + pi);
+		// logger.info("pi : " + pi);
 		
 		ArrayList<Film> list = filmService.selectKeywordFilmList(keyword, pi);
 		mv.addObject("listCount", listCount)
@@ -116,7 +116,7 @@ public class FilmController {
 		if (loginUser != null) {
 			sc.setUserId(loginUser.getId());
 		}
-		// System.out.println("sc : " + sc);
+		// logger.info("sc : " + sc);
 		
 		// 필터 목록 조회
 		ArrayList<String> release = filmService.selectAllReleaseYearList();
@@ -124,7 +124,7 @@ public class FilmController {
 		ArrayList<Genre> genre = filmService.selectAllGenreList();
 		
 		int listCount = filmService.selectFilterFilmListCount(sc);
-		// System.out.println("listCount : " + listCount);
+		// logger.info("listCount : " + listCount);
 		
 		// page는 최대 3페이지, board는 최대 12개 보여지도록 set
 		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 5, 12);
@@ -135,12 +135,12 @@ public class FilmController {
 		 	    && (sc.getSaw() == null || sc.getSaw().equals("all"))
 		 	    && (sc.getOrder() == null || sc.getOrder().equals("all")))) {
 			pi = Pagination.setNewPageLimit(currentPage, listCount, pi);
-			// System.out.println("new pi : " + pi);
+			// logger.info("new pi : " + pi);
 		}
 		// 옵션으로 검색된 영화 목록
 		ArrayList<Film> filmList = filmService.selectFilterFilmList(sc, pi);
-		// System.out.println("filmList : " + filmList);
-		// System.out.println("filmList.size() : " + filmList.size());
+		// logger.info("filmList : " + filmList);
+		// logger.info("filmList.size() : " + filmList.size());
 		
 		// 사용자가 좋아요한 영화 목록
 		HashMap<Integer, Like> likeMap = new HashMap<>();
@@ -153,7 +153,7 @@ public class FilmController {
 		if (loginUser != null) {
 			ratingMap = (HashMap<Integer, RatingFilm>)ratingFilmService.selectRatedFilm(loginUser.getId());
 		}
-		// System.out.println("ratingMap : " + ratingMap);
+		// logger.info("ratingMap : " + ratingMap);
 		
 		mv.addObject("release", release)
 			.addObject("country", country)
@@ -175,13 +175,13 @@ public class FilmController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		// System.out.println("film : " + film);
+		// logger.info("film : " + film);
 		
 		// 옵션으로 검색된 영화 목록
 		// ArrayList<Film> filmList = filmService.selectFilterFilmList(film);
 		// map.put("film", filmList);
 		
-		// System.out.println("filmList : " + filmList);
+		// logger.info("filmList : " + filmList);
 		
 		// 사용자가 좋아요한 영화 목록
 		HashMap<Integer, Like> likeMap = new HashMap<>();
@@ -307,8 +307,8 @@ public class FilmController {
 			liked = filmService.selectLikedFilmCount(loginUser.getId());
 		}
 		
-		// System.out.println("list : " + list);
-		// System.out.println("liked : " + liked);
+		// logger.info("list : " + list);
+		// logger.info("liked : " + liked);
 		
 		// 좋아요 누른 영화가 10개 미만일 경우 count만 넘겨줌
 		if (liked < 10) {
@@ -442,23 +442,23 @@ public class FilmController {
 		if (!file.getOriginalFilename().equals("")) {
 			String renameFileName = new PodoRenamePolicy().rename(file, request);
 			img.setChangeName(renameFileName);
-			System.out.println("renameFileName : " + renameFileName);
+			logger.info("renameFileName : " + renameFileName);
 		} else {
 			img.setChangeName("podoposter.jpg");
 		}
-		System.out.println("img : " + img);
+		logger.info("img : " + img);
 		
 		/*
 		 * 트랜잭션 처리 필요
 		 */
 		int result1 = filmService.insertFilm(film);
-		System.out.println("result1 : " + result1);
+		logger.info("result1 : " + result1);
 		
 		int result2 = detailFilmService.insertInitDetailFilm(loginUser.getId(), film.getId());
-		System.out.println("result2 : " + result2);
+		logger.info("result2 : " + result2);
 		
 		int result3 = filmService.insertFilmImage(img);
-		System.out.println("result3 : " + result3);
+		logger.info("result3 : " + result3);
 		
 		if (result1 > 0 && result2 > 0 && result3 > 0) {
 			mv.setViewName("redirect:flist.do");

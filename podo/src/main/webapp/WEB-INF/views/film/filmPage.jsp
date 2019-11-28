@@ -165,7 +165,15 @@
 				</div>
 			</div>
 		</section>
-			
+		
+		<c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
+	    <div class="container" style="background-color: black; background-clip: content-box; margin-bottom: 30px;">
+	    	<div style="height: 100px;">
+		      <h1 style="text-align: center; color: white;">광고</h1>
+	    	</div>
+	    </div>
+    </c:if>
+		
 		<!-- =================필터================= -->
 		<div class="container" style="margin-bottom: 40px; text-align: center;">
 			<div style="display: inline-block;">
@@ -624,7 +632,7 @@
 		$(document).on("click", ".btn-like-film, .btn-liked-film", function() {
 					// 영화 ID 찾기
 					// var fid = $(this).closest("tr").find("td").eq(1).text();
-					var fid = $(this).parent().siblings("input[type=hidden]").val();
+					var fid = $(this).closest(".row").siblings("input[type=hidden]").val();
 					var $this = $(this)[0];
 					// console.log(fid);
 

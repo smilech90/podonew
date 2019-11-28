@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <html>
 	<head>
 		<title>포도포도</title>
@@ -127,8 +126,8 @@
     <!--================Hero Banner end =================-->
     
     <!--================ Ad start =================-->
-    <c:if test="${ ( loginUser ne null)  }">
-	    <div class="container" style="background-color: black; background-clip: content-box;">
+    <c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
+	    <div class="container" style="background-color: black; background-clip: content-box; margin-bottom: 30px;">
 	    	<div style="height: 100px;">
 		      <h1 style="text-align: center; color: white;">광고</h1>
 	    	</div>
