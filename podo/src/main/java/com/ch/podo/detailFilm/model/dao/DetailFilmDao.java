@@ -82,7 +82,7 @@ public class DetailFilmDao {
 	}
 	
 	
-	public int addActor(int actorId, int id) {
+	public int addActor(String actorId, int id) {
 		
 		HashMap map = new HashMap();
 		
