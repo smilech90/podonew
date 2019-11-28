@@ -57,9 +57,9 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 
 	// 영화 상세정보 배우 리스트
 	@Override
-	public ArrayList<Actor> selectActorList(int filmId) {
+	public ArrayList<Actor> selectActorList(int id) {
 		
-		return dfDao.selectActorList(filmId);
+		return dfDao.selectActorList(id);
 	}
 
 	// 배우 검색 리스트 출력
@@ -72,6 +72,12 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 	@Override
 	public int insertInitDetailFilm(int id, int filmId) {
 		return dfDao.insertInitDetailFilm(id, filmId);
+
+	// 배우 등록
+	@Override
+	public int addActor(int actorId, int id) {
+		
+		return dfDao.addActor(actorId, id);
 	}
 
 }

@@ -144,7 +144,7 @@
                 <div id="movie_poster"> <!-- 포스터 -->
                     <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
                 </div>
-
+                
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
             <form action="detailFilmInsert.do" method="post">
@@ -251,7 +251,6 @@
 								<button type="submit" class="btn" style="background:purple; color:white;" onclick="test();">등록하기</button>
 							</div>
 						</form>
-						
 					</div>
 				</div>
 			</div>
@@ -315,11 +314,15 @@
 	    
 	    function test(){
 	    	
-	    	//console.log($(".test:checked").val());
+	    	// 이 부분 수정필요////////////////////////////////
 	    	
 	    	var actorId = $(".test:checked").val();
+	    	var befordActorId = "${al}";
+	    	var acotr = befordActorId+ actorId;
 	    	
-	    	location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorId=' + actorId;
+	    	console.log(acotr);
+	    	
+	    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorId=' + actorId;
 	    }
     </script>   
     

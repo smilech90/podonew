@@ -114,7 +114,7 @@
 									</ul>
 							
 								
-										<div id="tab1" class="tabcontent current"><br>
+										<div id="tab1" class="current tabcontent current"><br>
 											<!-------------------------- 리뷰 탭메뉴 바디 ------------------------>
 											<section class="blog-post-area section-margin mt-4">
 												<div class="container">

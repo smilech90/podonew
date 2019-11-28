@@ -274,8 +274,6 @@
 		</div>
 	</div>
     
-    
-    
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script async src="https://www.youtube.com/iframe_api"></script>
 	<script type="text/javascript">
