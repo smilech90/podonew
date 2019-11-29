@@ -188,14 +188,11 @@
                     		<a href="detailFilmRollback.do?filmId=${df.filmId}">되돌리기</a>
                     	</div>
                     </c:if>
-                    
-                    <c:if test="${ loginUser.id ne null }">
+                 
 	                    <div class="cover" id="modifyBtn">
-	                    	<a href="detailFilmUpdate.do?filmId=${ df.filmId }">정보 수정
+	                    	<a href="detailFilmUpdate.do?filmId=${ df.filmId }">정보 수정</a>
 	                    </div>
-	                </c:if>
                 </div>
-            </form>
             </div>
         </div>
         <div class="df_review_list">
