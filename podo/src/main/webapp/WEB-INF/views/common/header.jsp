@@ -6,9 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="icon" href="resources/bootstrap/img/favicon.png" type="image/png">
+	
+	<!-- js -->
+	<script src="resources/bootstrap/vendors/jquery/jquery-3.2.1.min.js"></script>
+	<script src="resources/bootstrap/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 	
 	<!-- css -->
-	<link rel="icon" href="resources/bootstrap/img/favicon.png" type="image/png">
 	<link rel="stylesheet" href="resources/bootstrap/vendors/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" href="resources/bootstrap/vendors/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="resources/bootstrap/vendors/themify-icons/themify-icons.css">
@@ -21,17 +25,13 @@
 	<!-- 폰트 -->
 	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700&display=swap" rel="stylesheet">
 	
-	<!-- js -->
-	<script src="resources/bootstrap/vendors/jquery/jquery-3.2.1.min.js"></script>
-	<script src="resources/bootstrap/vendors/bootstrap/bootstrap.bundle.min.js"></script>
-	
 	<style>
 		
 		.search-form {
 			display: inline-block;
 			text-align: center;
-		
 		}
+		
 	</style>
 
 </head>
