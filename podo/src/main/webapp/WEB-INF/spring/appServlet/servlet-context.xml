@@ -40,8 +40,11 @@
 			<mapping path="/rateFilm.do"/>
 			
 			<beans:bean id="BoardInsertInterceptor" class="com.ch.podo.common.interceptor.BoardInsertInterceptor"/>
+			
 		</interceptor>
+		
 	</interceptors>
+
 	
 	
 </beans:beans>

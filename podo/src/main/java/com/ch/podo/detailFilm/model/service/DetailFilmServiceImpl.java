@@ -69,11 +69,6 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 		return dfDao.searchActorList(searchName);
 	}
 
-	@Override
-	public int insertInitDetailFilm(int id) {
-		return dfDao.insertInitDetailFilm(id);
-	}
-
 	// 배우 등록
 	@Override
 	public int addActor(int newActorId, int id) {
@@ -81,11 +76,11 @@ public class DetailFilmServiceImpl implements DetailFilmService{
 		return dfDao.addActor(newActorId, id);
 	}
 
-	// 영화 배우 수정 입력
+	// 위키 영화 배우 수정 입력
 	@Override
-	public int actorInsert(String actorIdList, int id) {
+	public int actorInsert(String actorIdList) {
 		
-		return dfDao.actorInsert(actorIdList, id);
+		return dfDao.actorInsert(actorIdList);
 	}
 
 }

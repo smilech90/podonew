@@ -315,7 +315,7 @@
 	    }
 	    
 	    function test(){
-/*
+
 	    	// 배우 번호만 짤라서 쭈우욱 담아줌.
 	    	var a = $("#actor_cover .actor_name");
 	    	
@@ -339,17 +339,19 @@
 	    	
 	    	$("input[class=test]:checked").each(function(){
 	    		
+	    		newActorId = $(this).val();
 	    		newActor = $(this).val();
 	    		//actorIdList += ","+$(this).val();
 	    		
 	    		if(compare.indexOf(newActor) == -1){
-   					actorIdList += "%2C"+newActor;
-			    	location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorIdList='+actorIdList;
+   					//actorIdList += "%2C"+newActor;
+			    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorIdList='+actorIdList;
+	    			location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&newActorId='+newActorId;
 	    		}
 				console.log(actorIdList);
 	    	});
-*/
-	    	
+
+	    	/*
 	    	// 배우 하나만 추가
 			$("input[class=test]:checked").each(function(){
 	    		
@@ -358,7 +360,7 @@
 			   	location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&newActorId='+newActorId;
 	    		
 	    	});
-	    	
+	    	*/
 	    }
     </script>   
     
