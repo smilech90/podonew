@@ -47,7 +47,7 @@ public class ReviewController {
 		//System.out.println(pi);
 		mv.addObject("list",list).addObject("pi", pi).setViewName("reviewView/reviewList");
 		
-		//System.out.println("리뷰리스트 : "  + list);
+		System.out.println("리뷰리스트 왜 스포일러체크 널인지 : "  + list);
 		
 		return mv;
 		
