@@ -55,7 +55,7 @@ public class ReviewController {
 	
 	//글 쓰기 폼 가기
 	@RequestMapping("reviewWriteForm.do")
-	public ModelAndView reviewWriteView(int loginUserId,int filmId, ModelAndView mv,HttpSession session) {
+	public ModelAndView reviewWriteView(String spoilerCheck,int loginUserId,int filmId, ModelAndView mv,HttpSession session) {
 		
 		Film f = reviewService.selectFilm(filmId);
 		System.out.println(f);
@@ -77,6 +77,13 @@ public class ReviewController {
 	@RequestMapping("reviewWrite.do")
 	public String reviewWrite(DetailFilm df, ModelAndView mv,Review r,Model model) {
 
+		System.out.println("스포 변경 전 : "+ r.getSpoilerCheck());
+		if (r.getSpoilerCheck().equals("0")) {
+			r.setSpoilerCheck("Y");
+		} else {
+			r.setSpoilerCheck("N");
+		}
+		System.out.println("스포 변경 후 : "+ r.getSpoilerCheck());
 		
 		//int result = reviewService.reivewInsert(df);
 		System.out.println(r);

@@ -78,11 +78,11 @@
 								<c:if test="${ review.spoilerCheck eq 'Y' }">
 									<div class="df_r_spoContent">
 										<div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
-										<div class="df_r_content">내용 : ${ review.content }</div>
+										<div class="df_r_content">${ review.content }</div>
 									</div>
 								</c:if>
 								<c:if test="${ review.spoilerCheck eq 'N' }">
-									<div>내용 : ${ review.content }</div>
+									<div>${ review.content }</div>
 								</c:if>
 
 							</p>

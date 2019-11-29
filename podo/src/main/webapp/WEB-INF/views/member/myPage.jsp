@@ -97,9 +97,10 @@
 									<a id="update-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); text-align:center;color:white;">정보수정</a>
 									<a id="updatePwd-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); color:white;">비밀번호 변경</a>
 									<a id="question-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:pink; text-align:center; color:white;">문의하기</a>
+									<a class="btn-reply text-uppercase" href="premium.do" style="background:pink; text-align:center; color:white;">프리미엄</a>
 								</div>
 							</div>
-							<br><br>	
+							<br><br>
 							<div style='border:1px solid lightgray'></div><br>
 							
 							<!------------------------- 탭 메뉴 시작 ----------------------->
