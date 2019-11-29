@@ -87,6 +87,12 @@
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
 										<img src="resources/memberProfileImage/${ userPageMem.image }" width="70px" height="70px" alt=""><br><br>
+										<c:if test="${ not empty likeUser }">
+			                                 <button class='btn btn-danger btn-liked-film'>LIKED</button>
+		                                </c:if>
+		                                <c:if test="${ empty likeUser }">
+		                                   <button class='btn btn-secondary btn-like-film'>LIKE</button>
+		                                </c:if>
 									</div>
 									<div class="desc">
 										<h2>${ userPageMem.nickName }</h2>
