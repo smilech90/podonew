@@ -171,12 +171,12 @@
                     <div class="float-left">
                       <div class="media">
                       <div class="media-body">
-                        <a href="userPage.do?userId=${r.memberId}"><h5>${r.nickName }님</h5></a>
+                        <a href="userPage.do?userId=${r.memberId}&loginUserId=${ loginUser.id }"><h5>${r.nickName }님</h5></a>
                  
                         <p>${ r.createDate }에 작성</p>
                       </div>
                       <div class="d-flex">
-                        <img width="42" height="42" src="resources/memberProfileImage/${ r.userImage }" onclick="location.href='userPage.do?userId=${r.memberId}'">
+                        <img width="42" height="42" src="resources/memberProfileImage/${ r.userImage }" onclick="location.href='userPage.do?userId=${r.memberId}&loginUserId=${ loginUser.id }'">
                       </div>
                     </div>
                   	</div>
