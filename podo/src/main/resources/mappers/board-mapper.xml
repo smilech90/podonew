@@ -67,7 +67,7 @@
 	<insert id="insertBoard">
 		insert into tb_board
 		values(seq_board_id.nextval, #{title}, #{content}, default, 0, 0, 0,
-				sysdate, sysdate, default, #{loginUser.id})
+				sysdate, sysdate, default, #{memberId})
 	</insert>
 	
 	<insert id="insertBoardFile">
@@ -83,8 +83,9 @@
 	
 	<select id="selectBoard" resultMap="boardResultSet">
 		select *
-		from tb_board
-		where id=#{id}
+		from tb_board b
+		left join tb_member m on(b.member_id=m.id) 
+		where b.id=#{id}
 	</select>
 	
 	<update id="deleteBoard">
