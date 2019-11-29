@@ -64,12 +64,13 @@
 		order by b.id desc
 	</select>
 	
-	
+	<!--  해당 부분 주석
 	<select id="selectMem" resultMap="memberListResultSet">
 		select id, nickname
 		from tb_member
-		where id = #{}
+		where id = #{memberId}
 	</select>
+	 -->
 	
 	<insert id="insertBoard">
 		insert into tb_board
