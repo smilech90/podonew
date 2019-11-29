@@ -126,7 +126,7 @@
 
 	<script>
 		$(function(){
-			$("#login-modal, #rec-login-modal").on("click", function(){
+			$("#login-modal, #rec-login-modal").on("click",function(){
 				$('#loginModal').modal('toggle');
 			});
 		});

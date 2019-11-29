@@ -329,13 +329,13 @@
 	    		
 	    		// 마지막 인덱스면 , 붙여주지 않음
 	    		if (i != a.length-1){
-	    			actorIdList += "%2C";
+	    			actorIdList += "/";
 	    		}
 	    	}
 	    	console.log(actorIdList);
 	    	//--------- 기존에 저장된 배우들 문자열에 담아줌!
 
-	    	var compare = actorIdList.split("%2C");
+	    	var compare = actorIdList.split("/");
 	    	
 	    	$("input[class=test]:checked").each(function(){
 	    		
@@ -344,6 +344,10 @@
 	    		//actorIdList += ","+$(this).val();
 	    		
 	    		if(compare.indexOf(newActor) == -1){
+	    			
+	    			console.log("newActorId : "+newActorId);
+	    			console.log("newActor : "+newActor);
+	    			console.log("actorIdList : "+actorIdList);
    					//actorIdList += "%2C"+newActor;
 			    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorIdList='+actorIdList;
 	    			location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&newActorId='+newActorId;
@@ -351,7 +355,7 @@
 				console.log(actorIdList);
 	    	});
 
-	    	/*
+/*
 	    	// 배우 하나만 추가
 			$("input[class=test]:checked").each(function(){
 	    		
@@ -360,7 +364,7 @@
 			   	location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&newActorId='+newActorId;
 	    		
 	    	});
-	    	*/
+*/
 	    }
     </script>   
     
