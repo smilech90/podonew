@@ -57,7 +57,7 @@ public class BoardController {
 		
 		Member m = (Member)session.getAttribute("loginUser");
 		
-		System.out.println(m);
+	System.out.println("윤진이가담은 객체"+m);
 		
 		mv.addObject("m", m).setViewName("board/boardInsertForm");
 		
@@ -67,7 +67,7 @@ public class BoardController {
 	
 	
 	@RequestMapping("binsert.do")
-	public int insertBoard(Board b, Image i, int uId, HttpServletRequest request, Model model, ModelAndView mv, 
+	public int insertBoard(HttpServletRequest request, Model model, ModelAndView mv, Board b, Image i, Member m,
 									@RequestParam(value="board-upload-file", required=false) MultipartFile file) {
 		
 		int result = 0;
@@ -80,7 +80,7 @@ public class BoardController {
 			i.setOriginalName(file.getOriginalFilename());
 			i.setChangeName(renameFileName);
 			
-			int result1 = boardService.insertBoard(b, uId);
+			int result1 = boardService.insertBoard(b);
 			int result2 = boardService.insertBoardFile(i);
 			
 			if(result1 > 0 && result2 > 0) {
@@ -145,9 +145,11 @@ public class BoardController {
 	
 	
 	@RequestMapping("bdetail.do")
-	public ModelAndView boardDetail(Member m, int id, ModelAndView mv) {
-		
+	public ModelAndView boardDetail(HttpSession session, int id, ModelAndView mv) {
+		Member m = (Member)session.getAttribute("loginUser");
 		Board b = boardService.selectBoard(id);
+		System.out.println("윤진이가적은!!"+b);
+		System.out.println("윤진이가적은!!"+m);
 		
 		if(b != null) {
 			mv.addObject("b", b).addObject("m", m).setViewName("board/boardDetailView");

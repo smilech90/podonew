@@ -263,7 +263,7 @@
     	// 배우 등록 modal
 	    $(function(){
 			$("#addActor").on("click", function(){
-				$('#actor-model').modal('toggle');
+				/* $('#actor-model').modal('toggle'); */
 			});
 		});
 	    

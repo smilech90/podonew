@@ -150,7 +150,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="reviewWrite">
 		INSERT INTO TB_REVIEW
-		VALUES(SEQ_REVIEW_ID.NEXTVAL, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, sysdate , sysdate , #{filmId},#{memberId})
+		VALUES(SEQ_REVIEW_ID.NEXTVAL, #{content}, DEFAULT, DEFAULT, DEFAULT, #{spoilerCheck}, DEFAULT, sysdate , sysdate , #{filmId},#{memberId})
 	</insert>  
 	
 	<insert id="reviewRating">

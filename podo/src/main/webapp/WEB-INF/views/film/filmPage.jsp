@@ -360,7 +360,7 @@
 								<li class="page-item">
 							</c:if>
 									<a href=<c:out value="${ filmUrl }&p=${ pi.currentPage - 1 }"/> class="page-link" aria-label="Previous">
-										<span aria-hidden="true"><i class="ti-angle-left"></i></span>
+										&lt;
 									</a>
 								</li>
 		
@@ -384,10 +384,8 @@
 							<c:if test="${ pi.currentPage ne pi.maxPage }">
 								<li class="page-item">
 							</c:if>
-									<a href=<c:out value="${ filmUrl }&p=${ pi.currentPage + 1 }"/> class="page-link" aria-label="Next">
-									<span aria-hidden="true">
-										<i class="ti-angle-right"></i>
-									</span>
+								<a href=<c:out value="${ filmUrl }&p=${ pi.currentPage + 1 }"/> class="page-link" aria-label="Next">
+									&gt;
 								</a>
 							</li>
 						</ul>
