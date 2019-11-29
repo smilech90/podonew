@@ -93,7 +93,7 @@ public class DetailFilmDao {
 	public int actorInsert(String actorIdList) {
 		
 		String[] actorList = actorIdList.split(",");
-		int[] actorIntList = null;
+		int[] actorIntList = new int[actorList.length];
 		
 		System.out.println("actorList : "+actorList);
 		System.out.println("actorList.length :"+actorList.length);
@@ -107,7 +107,7 @@ public class DetailFilmDao {
 		
 		for(int i=0; i<actorIntList.length; i++) {
 			
-			result = sqlSession.insert("detailFilmmapper.addActor", actorIntList[i]);
+			result = sqlSession.insert("detailFilmmapper.wikiAddActor", actorIntList[i]);
 			
 		}
 		
