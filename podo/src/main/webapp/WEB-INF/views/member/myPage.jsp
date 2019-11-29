@@ -107,9 +107,10 @@
 								<div id="container">
 									<ul class="tab">
 											<li class="tab1 current" data-tab="tab1" ><a>Review</a></li>
-											<li class="tab2" data-tab="tab2" ><a>Collection</a></li>
-											<li class="tab3" data-tab="tab3"><a>Like</a></li>
-											<li class="tab4" data-tab="tab4"><a>Question</a></li>
+											<li class="tab2" data-tab="tab2" ><a>Like_Film</a></li>
+											<li class="tab3" data-tab="tab3"><a>Like_Review</a></li>
+											<li class="tab4" data-tab="tab4"><a>Like_User</a></li>
+											<li class="tab5" data-tab="tab5"><a>Question</a></li>
 									</ul>
 							
 										<div id="tab1" class="tabcontent current"><br>
@@ -217,29 +218,28 @@
 									
 										
 										<div id="tab2" class="tabcontent"><br>
-											<h3>Collection</h3><br>
+											<h3>Like_Film</h3><br>
 											<p>컬렉입니당.</p>
 										</div>
 										
 										<div id="tab3" class="tabcontent"><br>
-					   	                	<div class="actorImage">
-							                    <c:forEach items="${ al }" var="a">
-					   		                		<div class="image_cover">
-						   	                			<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
-									                   	<div name="actorName">${a.actorName}</div>
-						   	                		</div>	
-										        </c:forEach>   
-					   	                	</div>
+											<h3>Like_Review</h3><br>
+											<p>컬렉입니당.</p>
+										</div>
+										
+										<div id="tab4" class="tabcontent"><br>
+					   	                	<h3>Like_User</h3><br>
+											<p>컬렉입니당.</p>
 										</div>
 										
 										<c:if test="${ empty inquiry  }">
-											<div id="tab4" class="tabcontent"><br>
+											<div id="tab5" class="tabcontent"><br>
 											문의 내용이 없습니다.
 											</div>
 										</c:if>
 										
 										<c:if test="${ not empty inquiry }">
-										<div id="tab4" class="tabcontent"><br>
+										<div id="tab5" class="tabcontent"><br>
 											<table align="center" border="1" cellspacing="0" width="700" style="text-align:center">
 												<tr>
 													<th>번호</th>
@@ -536,10 +536,12 @@
 	            
 	            if(tabMenu == "Review"){
 	                location.href="myPageSelectReview.do?id=${loginUser.id}&tab="+ activeTab;
-	             }else if(tabMenu =="Collection"){
-	            	  location.href="myPageSelectCollection.do?id=${loginUser.id}&tab="+ activeTab;
-	             }else if(tabMenu == "Like"){
-	            	  location.href="myPageSelectLike.do?id=${loginUser.id}&tab="+ activeTab;
+	             }else if(tabMenu =="Like_Film"){
+	            	  location.href="myPageSelectLikeFilm.do?id=${loginUser.id}&tab="+ activeTab;
+	             }else if(tabMenu == "Like_Review"){
+	            	  location.href="myPageSelectLikeReview.do?id=${loginUser.id}&tab="+ activeTab;
+	             }else if(tabMenu == "Like_User"){
+	            	  location.href="myPageSelectLikeUser.do?id=${loginUser.id}&tab="+ activeTab;
 	             }else if(tabMenu == "Question"){
 	            	  location.href="myPageSelectQuestion.do?id=${loginUser.id}&tab="+ activeTab;
 	             }  

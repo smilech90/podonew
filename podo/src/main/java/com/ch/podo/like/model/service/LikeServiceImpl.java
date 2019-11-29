@@ -1,10 +1,12 @@
 package com.ch.podo.like.model.service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.like.model.dao.LikeDao;
 import com.ch.podo.like.model.vo.Like;
 
@@ -43,5 +45,14 @@ public class LikeServiceImpl implements LikeService{
 	public int deleteLikeMem(Like like) {
 		return likeDao.deleteLikeMem(like);
 	}
-	
+
+	@Override
+	public int myPageLikeReviewListCount(String id) {
+		return likeDao.myPageLikewReviewListCount(id);
+	}
+
+	/*
+	 * @Override public ArrayList<Like> myPageSelectLikeFilm(String id, PageInfo pi)
+	 * { return likeDao.myPageSelectLikeFilm(id, pi); }
+	 */
 }
