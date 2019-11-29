@@ -133,10 +133,6 @@
 		where name like '%'||#{searchName}||'%'
 	</select>
 	
-	<insert id="insertInitDetailFilm">
-		insert into tb_detail_film
-		values(seq_dfilm_id.nextval, null, null, null, null, 'Y', sysdate, #{ memberId }, seq_film_id.currval)
-	</insert>
 	
 	<!-- 배우 추가 -->
 	<insert id="addActor" parameterType="hashMap">

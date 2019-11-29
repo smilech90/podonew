@@ -76,11 +76,6 @@ public class DetailFilmDao {
 		return (ArrayList)sqlSession.selectList("detailFilmmapper.searchActorList", searchName);
 	}
 	
-	
-	public int insertInitDetailFilm(Integer memberId) {
-		return sqlSession.insert("detailFilmmapper.insertInitDetailFilm", memberId);
-	}
-	
 	// 배우 등록
 	public int addActor(int newActorId, int id) {
 		
