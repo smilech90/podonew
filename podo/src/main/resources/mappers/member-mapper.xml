@@ -59,6 +59,11 @@
 	</update>
 	
 
+	<select id="selectUserPageMem" resultMap="memberResultSet">
+		select *
+		from tb_member
+		where id=#{userId}
+	</select>
 
 	<select id="selectMemberList" resultMap="memberResultSet">
 		select a.*,

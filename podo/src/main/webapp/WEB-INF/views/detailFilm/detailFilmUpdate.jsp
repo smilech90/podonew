@@ -143,11 +143,12 @@
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
             <form action="detailFilmInsert.do" method="post">
-            <input type="hidden" name="id" value="${ df.id }">	<!-- 영화 상세 정보 번호 -->
-            <input type="hidden" name="filmId" value="${ df.filmId }"> <!-- 영화 번호  -->
-            
-            <input type="hidden" name="filmImage" value="${ i.changeName }">
-            <input type="hidden" name="uId" value="${ loginUser.id }">
+	            <input type="hidden" name="id" value="${df.id}">	<!-- 영화 상세 정보 번호 -->
+	            <input type="hidden" name="filmId" value="${df.filmId}"> <!-- 영화 번호  -->
+	            <input type="hidden" name="actorList" value="${al}">	<!-- 배우 리스트 -->
+	            
+	            <input type="hidden" name="filmImage" value="${ i.changeName }">
+	            <input type="hidden" name="uId" value="${ loginUser.id }">
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
@@ -314,7 +315,7 @@
 	    }
 	    
 	    function test(){
-	    	
+
 	    	// 배우 번호만 짤라서 쭈우욱 담아줌.
 	    	var a = $("#actor_cover .actor_name");
 	    	
@@ -333,24 +334,33 @@
 	    	}
 	    	console.log(actorIdList);
 	    	//--------- 기존에 저장된 배우들 문자열에 담아줌!
-	    	
+
 	    	var compare = actorIdList.split("%2C");
-	    	
-	    	
-	    	console.log("스플릿 적용 : "+compare[0]);
-	    	console.log("스플릿 길이 : "+compare.length);
 	    	
 	    	$("input[class=test]:checked").each(function(){
 	    		
+	    		newActorId = $(this).val();
 	    		newActor = $(this).val();
 	    		//actorIdList += ","+$(this).val();
 	    		
 	    		if(compare.indexOf(newActor) == -1){
-   					actorIdList += "%2C"+newActor;
-			    	location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorIdList='+actorIdList;
+   					//actorIdList += "%2C"+newActor;
+			    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorIdList='+actorIdList;
+	    			location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&newActorId='+newActorId;
 	    		}
 				console.log(actorIdList);
 	    	});
+
+	    	/*
+	    	// 배우 하나만 추가
+			$("input[class=test]:checked").each(function(){
+	    		
+				newActorId = $(this).val();
+	    		
+			   	location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&newActorId='+newActorId;
+	    		
+	    	});
+	    	*/
 	    }
     </script>   
     

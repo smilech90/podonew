@@ -87,17 +87,10 @@
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
 										<img src="resources/memberProfileImage/${ loginUser.image }" width="70px" height="70px" alt=""><br><br>
-										<c:if test="${ not empty like[film.id] }">
-												<button class='btn btn-danger btn-liked-film'>LIKED</button>
-											</c:if>
-											<c:if test="${ empty like[film.id] }">
-												<button class='btn btn-secondary btn-like-film'>LIKE</button>
-											</c:if>
 									</div>
 									<div class="desc">
 										<h2>${ loginUser.nickName }</h2>
 										<p class="date">작성리뷰 - ${reviewListCount}개  </p>
-										<p class="date">콜렉션 - 0개  </p>
 									</div>
 								</div>
 								<div class="reply-btn">
@@ -229,8 +222,14 @@
 										</div>
 										
 										<div id="tab3" class="tabcontent"><br>
-											<h3>Like</h3><br>
-											<p>라이크임당.</p>
+					   	                	<div class="actorImage">
+							                    <c:forEach items="${ al }" var="a">
+					   		                		<div class="image_cover">
+						   	                			<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
+									                   	<div name="actorName">${a.actorName}</div>
+						   	                		</div>	
+										        </c:forEach>   
+					   	                	</div>
 										</div>
 										
 										<c:if test="${ empty inquiry  }">
@@ -356,7 +355,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">회원정보 수정</h5>
+					<h5 class="modal-title" id="exampleModalLabel">회원정보 수정</h5>3.
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -715,7 +714,7 @@
 				$("#qucontent").focus();
 				return false;
 			} else{
-				console.log("성공");
+				alert("문의 등록 완료");
 				return true;
 			}
 		}

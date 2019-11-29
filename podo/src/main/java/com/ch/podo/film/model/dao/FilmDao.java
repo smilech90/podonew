@@ -94,4 +94,12 @@ public class FilmDao {
 		return (ArrayList)sqlSession.selectList("filmMapper.selectNewFilms");
 	}
 
+	public int insertInitDetailFilm(int memberId) {
+		return sqlSession.insert("filmMapper.insertInitDetailFilm", memberId);
+	}
+
+	public int insertFilmImage(Image img) {
+		return sqlSession.insert("filmMapper.insertFilmImage", img);
+	}
+
 }
