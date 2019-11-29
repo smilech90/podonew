@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -209,28 +210,65 @@ public class FilmController {
 	 * @throws IOException
 	 * @author Changsu Im
 	 */
+	@ResponseBody
 	@RequestMapping("likeFilm.do")
-	public void likeFilm(HttpServletResponse response, HttpSession session,
+	public int likeFilm(HttpServletResponse response, HttpSession session,
 											 String fid, @RequestParam("flag") int flag)
 			throws JsonIOException, IOException {
-		Member mem = (Member)session.getAttribute("loginUser");
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		if (loginUser == null) {
+			return 0;
+		}
 		
 		Like like = new Like();
 		like.setTargetId(Integer.parseInt(fid));
-		like.setUserId(mem.getId());
+		like.setUserId(loginUser.getId());
 		
-		int result = 0;
 		if (flag > 0) {
-			result = likeService.insertLikeFilm(like);
 			logger.info("like insert 실행");
+			return likeService.insertLikeFilm(like);
 		} else {
-			result = likeService.deleteLikeFilm(like);
 			logger.info("like delete 실행");
+			return likeService.deleteLikeFilm(like);
 		}
 		
-		response.setContentType("application/json; charset=utf-8");
-		Gson gson = new Gson();
-		gson.toJson(result, response.getWriter());
+	}
+	
+	/**
+	 * 영화 페이지에서 봤어요 서비스
+	 * @param response
+	 * @param session
+	 * @param fid
+	 * @param flag
+	 * @throws JsonIOException
+	 * @throws IOException
+	 * @author Changsu Im
+	 * @since 2019-11-29
+	 */
+	@ResponseBody
+	@RequestMapping("sawFilm.do")
+	public int sawFilm(HttpServletResponse response, HttpSession session,
+											String fid, @RequestParam("flag") int flag)
+					throws JsonIOException, IOException {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+
+		if (loginUser == null) {
+			return 0;
+		}
+		
+		RatingFilm rate = new RatingFilm();
+		rate.setFilmId(Integer.parseInt(fid));
+		rate.setUserId(loginUser.getId());
+		
+		if (flag > 0) {
+			logger.info("saw insert 실행");
+			return ratingFilmService.insertSawFilm(rate);
+		} else {
+			logger.info("saw delete 실행");
+			return ratingFilmService.deleteSawFilm(rate);
+		}
+		
 	}
 	
 	/**
@@ -243,8 +281,9 @@ public class FilmController {
 	 * @throws IOException
 	 * @author Changsu Im
 	 */
+	@ResponseBody
 	@RequestMapping("rateFilm.do")
-	public void rateFilm(HttpServletResponse response, HttpSession session, String fid, String star)
+	public int rateFilm(HttpServletResponse response, HttpSession session, String fid, String star)
 			throws JsonIOException, IOException {
 		Member mem = (Member)session.getAttribute("loginUser");
 		
@@ -254,27 +293,23 @@ public class FilmController {
 		rate.setFilmId(Integer.parseInt(fid));
 		
 		RatingFilm flag = ratingFilmService.selectRatingFilm(rate);
-		int result = 0;
 
 		// 이미 기존에 있는 별점을 다시 눌렀을 경우 취소되면서 삭제
 		if (flag != null && Integer.parseInt(star) == flag.getStar()) {
-			result = ratingFilmService.deleteRateFilm(rate);
 			logger.info("rate delete 실행");
+			return ratingFilmService.deleteRateFilm(rate);
 		} else {
 			// 기존에 별점이 없다면 삽입
 			if (flag == null) {
-				result = ratingFilmService.insertRateFilm(rate);
 				logger.info("rate insert 실행");
+				return ratingFilmService.insertRateFilm(rate);
 			// 이미 기존에 별점이 있다면 수정
 			} else {
-				result = ratingFilmService.updateLikeFilm(rate);
 				logger.info("rate update실행");
+				return ratingFilmService.updateLikeFilm(rate);
 			}
 		}
 		
-		response.setContentType("application/json; charset=utf-8");
-		Gson gson = new Gson();
-		gson.toJson(result, response.getWriter());
 	}
 	
 	/**

@@ -295,7 +295,7 @@
 				values(seq_fimage_id.nextval, 1, #{ changeName }, seq_dfilm_id.currval)
 			</when>
 			<otherwise>
-				values(seq_fimage_id.nextval, 1, default, seq_dfilm_id.currval)
+				values(seq_fimage_id.nextval, 1, null, seq_dfilm_id.currval)
 			</otherwise>
 		</choose>
 	</insert>
