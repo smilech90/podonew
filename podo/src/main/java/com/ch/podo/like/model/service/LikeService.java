@@ -16,4 +16,5 @@ public interface LikeService {
 	// 3. 사용자가 좋아요 누른 영화 목록 조회
 	Map<Integer, Like> selectLikedFilmMap(int id);
 	
+	// 4. 
 }

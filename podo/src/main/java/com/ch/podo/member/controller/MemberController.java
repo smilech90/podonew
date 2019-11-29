@@ -26,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
+import com.ch.podo.like.model.service.LikeService;
+import com.ch.podo.like.model.vo.Like;
 import com.ch.podo.member.model.service.MemberService;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.review.model.dto.Review;
@@ -40,6 +42,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private LikeService likeService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
@@ -175,6 +179,7 @@ public class MemberController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, reviewListCount);
 		
 		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(id,pi);
+		
 		session.setAttribute("reviewListCount", reviewListCount);
 		mv.addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/myPage");
 		
@@ -267,6 +272,20 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping("userPage.do")
+	public ModelAndView userPage(HttpSession session, ModelAndView mv, String loginUserId, String userId, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		Member userPageMem = memberService.selectUserPageMem(userId);
+		int reviewListCount = reviewService.myPageReviewListCount(userId);
+		//Like likeUser = likeService.selectLikeUser(userId,loginUserId);
+		System.out.println(loginUserId +  userId);
+		PageInfo pi = Pagination.getPageInfo(currentPage, reviewListCount);
+		
+		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(userId,pi);
+		
+		session.setAttribute("reviewListCount", reviewListCount);
+		mv.addObject("userPageMem", userPageMem).addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/userPage");
+		return mv;
+	}
 	
 	
 	

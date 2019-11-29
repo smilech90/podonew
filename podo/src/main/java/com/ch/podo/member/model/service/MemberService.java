@@ -25,7 +25,8 @@ public interface MemberService {
 	// 5. 회원 탈퇴
 	int deleteMember(String id);
 	
-	
+	// 6. 유저페이지_유저조회
+	Member selectUserPageMem(String userId);
 	
 	
 	// 관리자

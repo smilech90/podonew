@@ -79,4 +79,9 @@ public class MemberServiceImpl implements MemberService {
 	
 
 
+	@Override
+	public Member selectUserPageMem(String userId) {
+		return memberDao.selectUserPageMem(userId);
+	}
+
 }

@@ -87,17 +87,10 @@
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
 										<img src="resources/memberProfileImage/${ loginUser.image }" width="70px" height="70px" alt=""><br><br>
-										<c:if test="${ not empty like[film.id] }">
-												<button class='btn btn-danger btn-liked-film'>LIKED</button>
-											</c:if>
-											<c:if test="${ empty like[film.id] }">
-												<button class='btn btn-secondary btn-like-film'>LIKE</button>
-											</c:if>
 									</div>
 									<div class="desc">
 										<h2>${ loginUser.nickName }</h2>
 										<p class="date">작성리뷰 - ${reviewListCount}개  </p>
-										<p class="date">콜렉션 - 0개  </p>
 									</div>
 								</div>
 								<div class="reply-btn">
@@ -715,7 +708,7 @@
 				$("#qucontent").focus();
 				return false;
 			} else{
-				console.log("성공");
+				alert("문의 등록 완료");
 				return true;
 			}
 		}
