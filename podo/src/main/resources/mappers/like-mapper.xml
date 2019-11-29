@@ -10,6 +10,16 @@
 		<result property="userId" column="user_id"/>
 	</resultMap>
 	
+	<!-- <resultMap type="Like" id="likeFilmResultSet">
+		<id property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="targetId" column="target_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="titleKor" column="title_kor"/>
+		<result property="changeName" column="change_name"/>
+	</resultMap> -->
+	
+	
 	<insert id="insertLikeFilm">
 		insert into tb_like
 		values (seq_like_id.nextval, 1, #{targetId}, #{userId})
@@ -43,6 +53,23 @@
 		where user_id = #{userId} and
 			  target_id = #{targetId}
 	</delete>
+	
+	<select id="myPageLikewReviewListCount" resultType="_int">
+		select count(*)
+		from tb_like
+		where user_id=#{id}
+	</select>
+	
+	<!-- <select id="myPageSelectLikeFilm" resultType="likeFilmResultSet">
+		select l.id, type, target_id, user_id, title_kor, change_name
+		from tb_like l
+		join tb_film f on(l.target_id = f.id)  
+		left join (select film_id, change_name
+		            from tb_detail_film df
+		            join tb_film_image fi on(df.id = fi.dfilm_id))b on(b.film_id = f.id)
+		where type=1 and
+		      user_id=#{id}    
+	</select> -->
 	
 	
 </mapper>
