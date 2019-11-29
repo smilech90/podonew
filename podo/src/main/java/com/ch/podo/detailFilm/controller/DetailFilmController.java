@@ -113,7 +113,7 @@ public class DetailFilmController {
 		// 이미지 저장용 select 한번 더
 		int result = dfService.detailFilmInsert(df, uId);
 		int result2 = dfService.filmImageInsert(filmImage, df.getId());
-		int result3 = dfService.actorInsert(actorIdList, df.getId());
+		int result3 = dfService.actorInsert(actorIdList);
 		
 		
 		mv.addObject("filmId", df.getFilmId()).setViewName("redirect:detailFilm.do");

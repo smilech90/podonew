@@ -144,6 +144,14 @@
 		values(#{newActorId},#{id})
 	</insert>
 	
+	<!-- 위키 저장시 배우 저장란 -->
+	<insert id="wikiAddActor">
+		insert into tb_film_actor
+		values(#{newActorId},seq_dfilm_id.currval)
+	</insert>
+		
+	
+	
 </mapper>
 
 
