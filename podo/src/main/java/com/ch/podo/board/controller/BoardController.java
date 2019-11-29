@@ -57,6 +57,8 @@ public class BoardController {
 		
 		Member m = (Member)session.getAttribute("loginUser");
 		
+		System.out.println(m);
+		
 		mv.addObject("m", m).setViewName("board/boardInsertForm");
 		
 		return mv;
@@ -143,12 +145,12 @@ public class BoardController {
 	
 	
 	@RequestMapping("bdetail.do")
-	public ModelAndView boardDetail(int id, ModelAndView mv) {
+	public ModelAndView boardDetail(Member m, int id, ModelAndView mv) {
 		
 		Board b = boardService.selectBoard(id);
 		
 		if(b != null) {
-			mv.addObject("b", b).setViewName("board/boardDetailView");
+			mv.addObject("b", b).addObject("m", m).setViewName("board/boardDetailView");
 		}else {
 			mv.addObject("alert", "error");
 		}
