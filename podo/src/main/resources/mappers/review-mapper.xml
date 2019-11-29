@@ -230,7 +230,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by modify_date desc
 	</select>
 	
-
+	<!-- 메인화면 리뷰 3개씩 뜨는거 좋아요순 -->
 	<select id="selectReviewListMain" resultMap="reviewListSet">
 	<![CDATA[	
         select rownum, r.*
@@ -242,7 +242,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join tb_rating_review rr on(r.film_id=rr.id)
 		left join tb_genre g on(genre_id = g.id)
         left join tb_rating_film rf on(f.id = rf.id)
-		where r.status='Y'
+		where r.status='Y' 
         order by r.like_count desc) r
         where rownum <=3
      ]]>
