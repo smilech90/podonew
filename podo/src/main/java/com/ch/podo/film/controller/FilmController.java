@@ -21,12 +21,10 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.common.PodoRenamePolicy;
 import com.ch.podo.common.SearchCondition;
-import com.ch.podo.detailFilm.model.service.DetailFilmService;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.service.FilmService;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
-import com.ch.podo.image.model.service.ImageService;
 import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.like.model.vo.Like;
@@ -47,12 +45,6 @@ public class FilmController {
 
 	@Autowired
 	private RatingFilmService ratingFilmService;
-	
-	@Autowired
-	private DetailFilmService detailFilmService;
-	
-	@Autowired
-	private ImageService imageService;
 	
 	private Logger logger = LoggerFactory.getLogger(FilmController.class);
 	
@@ -450,24 +442,15 @@ public class FilmController {
 		}
 		// logger.info("img : " + img);
 		
-		/*
-		 * 트랜잭션 처리 필요
-		 */
-		int result1 = filmService.insertFilm(film);
-		logger.info("result1 : " + result1);
+		int result = filmService.insertFilm(film, loginUser.getId(), img);
+		logger.info("result : " + result);
 		
-		int result2 = detailFilmService.insertInitDetailFilm(loginUser.getId());
-		logger.info("result2 : " + result2);
-		
-		int result3 = imageService.insertFilmImage(img);
-		logger.info("result3 : " + result3);
-		
-		if (result1 > 0 && result2 > 0 && result3 > 0) {
+		if (result > 0) {
 			mv.setViewName("redirect:flist.do");
 		} else {
 			mv.setViewName("error/errorPage");
 		}
-
+		
 		return mv;
 	}
 	
