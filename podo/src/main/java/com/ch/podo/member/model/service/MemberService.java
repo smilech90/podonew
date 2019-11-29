@@ -43,4 +43,7 @@ public interface MemberService {
 	// 4. 블랙리스트 기능 제한 인터셉터
 	int prohibitionBoard(int bid);
 	
+	// 5. 신고회원 블랙리스트로 이동
+	int addBlackList(String[] result);
+	
 }

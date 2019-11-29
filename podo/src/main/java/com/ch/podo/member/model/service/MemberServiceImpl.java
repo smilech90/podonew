@@ -70,5 +70,13 @@ public class MemberServiceImpl implements MemberService {
 	public int prohibitionBoard(int bid) {
 		return memberDao.prohibitionBoard(bid);
 	}
+	
+	@Override
+	public int addBlackList(String[] result) {
+		return memberDao.addBlackList(result);
+	}
+	
+	
+
 
 }
