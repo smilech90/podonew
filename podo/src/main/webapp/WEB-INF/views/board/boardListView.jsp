@@ -48,7 +48,7 @@
 				<td>
 					<a href="bdetail.do?id=${ b.id }">${ b.title }</a>					
 				</td>
-				<td>${ b.memberId }</td>
+				<td>${ b.nickName }</td>
 				<td>${ b.createDate }</td>
 				<td>${ b.viewCount }</td>
 			</tr>

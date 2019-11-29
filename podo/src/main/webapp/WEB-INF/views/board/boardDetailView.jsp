@@ -64,6 +64,11 @@
 			<c:if test="${ !empty i.originalName }">
 				<a href="${ pageContext.servletContext.contextPath }/resources/boardUploadFiles/${ i.changeName }" download="${ i.originalName }">${ i.originalName }</a>
 			</c:if>
+			<c:if test="${ empty i.originalName }">
+				<div class="col-sm-5">
+					<input type="text" class="form-control" value="첨부파일이 없습니다." readonly>
+	    		</div>
+			</c:if>
 		</div>
 		<br>
 		<div class="form-group row">

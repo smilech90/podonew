@@ -24,7 +24,6 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.image.model.vo.Image;
-import com.ch.podo.member.model.service.MemberService;
 import com.ch.podo.member.model.vo.Member;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -48,38 +47,60 @@ public class BoardController {
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("board/boardListView");
 		
-		return mv;		
+		return mv;
 		
 	}
 	
 	
 	@RequestMapping("binsertForm.do")
-	public String boardInsertView(HttpSession session, Model model) {
-			return "board/boardInsertForm";
-
+	public ModelAndView boardInsertView(HttpSession session, ModelAndView mv) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		mv.addObject("m", m).setViewName("board/boardInsertForm");
+		
+		return mv;
+		
 	}
 	
 	
 	@RequestMapping("binsert.do")
-	public String insertBoardFile(Board b, Image i, HttpServletRequest request, Model model, 
-								@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+	public int insertBoard(Board b, Image i, Member m, HttpServletRequest request, Model model, ModelAndView mv, 
+									@RequestParam(value="board-upload-file", required=false) MultipartFile file) {
 		
+		int result = 0;
+		
+		// 파일이 존재할 경우
 		if(!file.getOriginalFilename().equals("")) {
+			
 			String renameFileName = saveFile(file, request);
 			
 			i.setOriginalName(file.getOriginalFilename());
 			i.setChangeName(renameFileName);
 			
-		}
-		
-		int result = boardService.insertBoard(b);
-		
-		if(result > 0) {
-			return "redirect:blist.do";
+			int result1 = boardService.insertBoard(b);
+			int result2 = boardService.insertBoardFile(i);
+			
+			if(result1 > 0 && result2 > 0) {
+				result = 1;
+			}else {
+				result = 0;
+			}
+			
 		}else {
-			return "";
+			
+			int result1 = boardService.insertBoard(b);
+			
+			if(result1 > 0) {
+				result = 1;
+			}else {
+				result = 0;
+			}
+			
+			
 		}
 		
+		return result;
 		
 	}
 	
