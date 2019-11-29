@@ -77,6 +77,7 @@
     #modify_all{
         width: 30%;
         float:right;
+        
     }
     #modifyBtn{    
     	float:right;
