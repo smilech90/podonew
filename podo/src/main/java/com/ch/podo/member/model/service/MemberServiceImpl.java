@@ -72,12 +72,22 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public int addBlackList(String[] result) {
-		return memberDao.addBlackList(result);
+	public int insertBlackList(String[] result) {
+		
+		int result1 = memberDao.insertBlackList(result);
+		int result2 = memberDao.deleteReport(result);
+		
+		if(result1 > 0 && result2 > 0) {
+			return 1;
+		}
+		return 0;
+		
+		//return memberDao.insertBlackList(result);
 	}
 	
 	
-
+	
+	
 
 	@Override
 	public Member selectUserPageMem(String userId) {

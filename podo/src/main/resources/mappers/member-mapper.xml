@@ -103,9 +103,15 @@
 	</select>
 	
 	<!-- 신고회원 블랙리스트로 추가 -->
-	<insert id="addBlackList">
+	<insert id="insertBlackList">
 		insert into tb_black_member values(seq_black_id.nextval, SYSTIMESTAMP, #{item})
 	</insert>
+	
+	<!-- 블랙리스트된 회원 신고수 삭제 -->
+	<delete id="deleteReport">
+		delete from tb_report
+		where reported_id = #{item}
+	</delete>
 	
 	
 </mapper>

@@ -66,11 +66,20 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.prohibitionBoard", bid);
 	}
 	
-	public int addBlackList(String[] result) {
+	public int insertBlackList(String[] result) {
 		
 		for(int i=0; i<result.length; i++) {
 			String item = result[i];
-			sqlSession.insert("memberMapper.addBlackList", item);
+			sqlSession.insert("memberMapper.insertBlackList", item);
+		}
+		return 1;
+	}
+	
+	public int deleteReport(String[] result) {
+		
+		for(int i=0; i<result.length; i++) {
+			String item = result[i];
+			sqlSession.insert("memberMapper.deleteReport", item);
 		}
 		return 1;
 	}

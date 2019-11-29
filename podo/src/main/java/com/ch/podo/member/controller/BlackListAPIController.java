@@ -67,7 +67,7 @@ public class BlackListAPIController {
 		log.info("blackUsers : {}", blackUsers);
 		
  
-		int result = memberService.addBlackList(blackUsers);
+		int result = memberService.insertBlackList(blackUsers);
 		
 		if(result>0) {
 			return true;
