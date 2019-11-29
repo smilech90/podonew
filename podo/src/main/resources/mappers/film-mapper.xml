@@ -192,12 +192,6 @@
 			   #{ releaseYear }, #{ productionCountry }, #{ productionStatus }, #{ genreId })
 	</insert>
 	
-	<insert id="insertFilmImage">
-		insert into tb_film_image
-		values(SEQ_FIMAGE_ID.nextval, 1, #{ changeName }, null)
-		<!-- dfilm_id 수정할것 -->
-	</insert>
-	
 	<select id="selectFilm" resultMap="filmResultSet">
 		select * 
 		from tb_film
@@ -288,5 +282,22 @@
 			where rownum <= 10
 		]]>
 	</select>
+	
+	<insert id="insertInitDetailFilm">
+		insert into tb_detail_film
+		values(seq_dfilm_id.nextval, null, null, null, null, 'Y', sysdate, #{ memberId }, seq_film_id.currval)
+	</insert>
+	
+	<insert id="insertFilmImage">
+		insert into tb_film_image
+		<choose>
+			<when test="changeName != null">
+				values(seq_fimage_id.nextval, 1, #{ changeName }, seq_dfilm_id.currval)
+			</when>
+			<otherwise>
+				values(seq_fimage_id.nextval, 1, default, seq_dfilm_id.currval)
+			</otherwise>
+		</choose>
+	</insert>
 	
 </mapper>

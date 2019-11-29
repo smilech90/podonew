@@ -46,7 +46,7 @@ public interface FilmService {
 	ArrayList<Film> selectFilmList();
 	
 	// 11. 영화 기본정보 등록하기 서비스
-	int insertFilm(Film f);
+	int insertFilm(Film f, int memId, Image img);
 	
 	// 12. 영화 상세보기 서비스
 	Film selectFilm(int id);
