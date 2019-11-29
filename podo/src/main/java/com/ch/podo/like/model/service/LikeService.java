@@ -30,9 +30,9 @@ public interface LikeService {
 	// 7_1. 마이페이지_ 영화좋아요 리스트 카운트
 	int myPageLikeReviewListCount(String id);
 	
-	/*
-	 * // 7_2. 마이페이지_ 영화좋아요 조회 ArrayList<Like> myPageSelectLikeFilm(String id,
-	 * PageInfo pi);
-	 */
+	
+	// 7_2. 마이페이지_ 영화좋아요 조회 
+	ArrayList<Like> myPageSelectLikeFilm(String id,PageInfo pi);
+	 
 	
 }

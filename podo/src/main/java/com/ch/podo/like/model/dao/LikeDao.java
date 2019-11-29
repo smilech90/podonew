@@ -46,13 +46,15 @@ public class LikeDao {
 		return sqlSession.delete("likeMapper.deleteLikeMem", like);
 	}
 	
-	/*
-	 * public ArrayList<Like> myPageSelectLikeFilm(String id, PageInfo pi){ int
-	 * offset = (pi.getCurrentPage() -1) * pi.getBoardLimit(); RowBounds rowBounds =
-	 * new RowBounds(offset, pi.getBoardLimit()); ArrayList<Like> list =
-	 * (ArrayList)sqlSession.selectList("likeMapper.myPageSelectLikeFilm", id,
-	 * rowBounds); return list; }
-	 */
+	
+	 public ArrayList<Like> myPageSelectLikeFilm(String id, PageInfo pi){ 
+		 int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit(); 
+		 RowBounds rowBounds =new RowBounds(offset, pi.getBoardLimit()); 
+		 ArrayList<Like> list = (ArrayList)sqlSession.selectList("likeMapper.myPageSelectLikeFilm", id, rowBounds); 
+		 
+		 return list; 
+	}
+	 
 	
 	public int myPageLikewReviewListCount(String id) {
 		return sqlSession.selectOne("likeMapper.myPageLikewReviewListCount", id);

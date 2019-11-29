@@ -171,12 +171,21 @@
                     <div class="float-left">
                       <div class="media">
                       <div class="media-body">
-                        <a href="userPage.do?userId=${r.memberId}&loginUserId=${ loginUser.id }"><h5>${r.nickName }님</h5></a>
-                 
+                      	<c:if test="${ loginUser.id != r.memberId }">
+        	                <a href="userPage.do?userId=${r.memberId}&loginUserId=${ loginUser.id }"><h5>${r.nickName }님</h5></a>
+                 		</c:if>
+                 		<c:if test="${ loginUser.id == r.memberId }">
+                 			 <a href="myPage.do?id=${ loginUser.id }"><h5>${r.nickName }님</h5></a>
+                 		</c:if>
                         <p>${ r.createDate }에 작성</p>
                       </div>
                       <div class="d-flex">
-                        <img width="42" height="42" src="resources/memberProfileImage/${ r.userImage }" onclick="location.href='userPage.do?userId=${r.memberId}&loginUserId=${ loginUser.id }'">
+                      	<c:if test="${ loginUser.id == r.memberId }">
+	                        <img width="42" height="42" src="resources/memberProfileImage/${ r.userImage }" onclick="location.href='myPage.do?id=${ loginUser.id }'">
+                      	</c:if>
+                      	<c:if test="${ loginUser.id != r.memberId }">
+                        	<img width="42" height="42" src="resources/memberProfileImage/${ r.userImage }" onclick="location.href='userPage.do?userId=${r.memberId}&loginUserId=${ loginUser.id }'">
+                        </c:if>
                       </div>
                     </div>
                   	</div>

@@ -40,13 +40,10 @@ public class LikeController {
 	public ModelAndView myPageSelectLikeFilm(String tab, String id, ModelAndView mv,  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		
 		int FilmlistCount = likeService.myPageLikeReviewListCount(id);
-		System.out.println( FilmlistCount);
-		PageInfo pi = Pagination.getPageInfo(currentPage, FilmlistCount);
-		System.out.println(pi);
-		//ArrayList<Like> likeFilmList = likeService.myPageSelectLikeFilm(id, pi);
+		PageInfo filmPi = Pagination.setPageLimit(currentPage, FilmlistCount, 5, 12);
+		ArrayList<Like> likeFilmList = likeService.myPageSelectLikeFilm(id, filmPi);
 		
-		//addObject("likeFilmList", likeFilmList)
-		mv.addObject("tab", tab).setViewName("member/myPage");
+		mv.addObject("likeFilmList", likeFilmList).addObject("FilmlistCount", FilmlistCount).addObject("filmPi", filmPi).addObject("tab", tab).setViewName("member/myPage");
 		return mv;
 	}
 	
