@@ -44,7 +44,11 @@
 	  	<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">작성자 </label>
 	    	<div class="col-sm-5">
+<<<<<<< HEAD
+				<input type="text" class="form-control" name="memberId" value="${ loginUser.nickname }" readonly>
+=======
 				<input type="text" class="form-control" name="memberId" value="${ b.nickName }" readonly>
+>>>>>>> branch 'develop' of https://github.com/humormagnate/podo
 	    	</div>
 	  	</div>
 	  	<div class="form-group row">

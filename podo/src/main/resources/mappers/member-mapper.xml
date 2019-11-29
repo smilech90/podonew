@@ -92,11 +92,7 @@
 	<!-- 블랙회원 해제 -->
 	<delete id="deleteBlackMember">
 		delete from tb_black_member
-		where taget_id in
-		<foreach item="item" index="index" collection="result"
-			open="(" separator="," close=")">
-        	#{item[index]}
-       	</foreach>
+		where id = #{item}
 	</delete>
 	
 	<!-- 블랙리스트 기능 제한 인터셉터 -->
@@ -105,6 +101,17 @@
 		from tb_black_member
 		where target_id = #{bid}
 	</select>
+	
+	<!-- 신고회원 블랙리스트로 추가 -->
+	<insert id="insertBlackList">
+		insert into tb_black_member values(seq_black_id.nextval, SYSTIMESTAMP, #{item})
+	</insert>
+	
+	<!-- 블랙리스트된 회원 신고수 삭제 -->
+	<delete id="deleteReport">
+		delete from tb_report
+		where reported_id = #{item}
+	</delete>
 	
 	
 </mapper>

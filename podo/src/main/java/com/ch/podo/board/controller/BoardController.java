@@ -57,7 +57,7 @@ public class BoardController {
 		
 		Member m = (Member)session.getAttribute("loginUser");
 		
-		System.out.println("윤진이가담은 객체"+m);
+	System.out.println("윤진이가담은 객체"+m);
 		
 		mv.addObject("m", m).setViewName("board/boardInsertForm");
 		
