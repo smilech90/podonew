@@ -199,9 +199,9 @@
             </div>
         </div>
         <div class="df_review_list">
-        	
+        	<c:if test="${loginUser.id ne null }">
 		    <div><a href="reviewWriteForm.do?filmId=${df.filmId}&loginUserId=${loginUser.id}">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
-		    
+		    </c:if>
 		        <c:forEach items="${ rl }" var="r">
 			        <div class="review">
 				        <div>리뷰</div>
