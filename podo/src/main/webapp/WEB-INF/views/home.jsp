@@ -31,12 +31,12 @@
 				margin-right:auto;
 				
 				height: 150px;
-				border: 1px solid blue;
+				/* border: 1px solid blue; */
 				width: 600px;
 			}
 
 			.leftImage{
-				border: 1px solid green;
+				/* border: 1px solid green; */
 				width: 20%;
 				height: 100%;
 				margin-left:auto;
@@ -49,14 +49,14 @@
 				border-radius: 100px;
 				height:80%;
 				width:100%;
-				border: 1px solid black;
+				/* border: 1px solid black; */
 				float:left;
 				text-align:center;
 			}
 			.nickNameHome{
 				height:20%;
 				width:100%;
-				border: 1px solid purple;
+				/* border: 1px solid purple; */
 				float:left;
 				text-align:center;
 
@@ -64,7 +64,7 @@
 			
 			
 			.rightContent{
-				border: 1px solid red;
+				/* border: 1px solid red; */
 				height:100%;
 				width: 80%;
 				float: left;
@@ -81,14 +81,14 @@
 			.titleKorea{
 				width:100%;
 				float: left;
-				border: 1px solid yellow;
+				/* border: 1px solid yellow; */
 				height: 20%;
 			}
 			.contentKorea{
 				float: left;
 				width:100%;
 				height:65%;
-				border: 1px solid orange;
+				/* border: 1px solid orange; */
 			}
 			.btns{
 				float: left;
