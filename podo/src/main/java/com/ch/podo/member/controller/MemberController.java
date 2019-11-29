@@ -274,16 +274,16 @@ public class MemberController {
 	
 	@RequestMapping("userPage.do")
 	public ModelAndView userPage(HttpSession session, ModelAndView mv, String loginUserId, String userId, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
-		Member userPageMem = memberService.selectUserPageMem(userId);
-		int reviewListCount = reviewService.myPageReviewListCount(userId);
-		//Like likeUser = likeService.selectLikeUser(userId,loginUserId);
-		System.out.println(loginUserId +  userId);
+		// loginUserId = 로그인 한 회원 , userId = 유저페이지 조회할 유저
+		Member userPageMem = memberService.selectUserPageMem(userId); // 유저페이지 조회 될 해당 유저 객체
+		int reviewListCount = reviewService.myPageReviewListCount(userId);	
+		Like likeUser = likeService.selectLikeUser(userId,loginUserId);	// 유저페이지 조회 시 라이크 여부
 		PageInfo pi = Pagination.getPageInfo(currentPage, reviewListCount);
 		
 		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(userId,pi);
 		
 		session.setAttribute("reviewListCount", reviewListCount);
-		mv.addObject("userPageMem", userPageMem).addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/userPage");
+		mv.addObject("likeUser", likeUser).addObject("userPageMem", userPageMem).addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/userPage");
 		return mv;
 	}
 	

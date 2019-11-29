@@ -88,11 +88,14 @@
 									<div class="thumb">
 										<img src="resources/memberProfileImage/${ userPageMem.image }" width="70px" height="70px" alt=""><br><br>
 										<c:if test="${ not empty likeUser }">
-			                                 <button class='btn btn-danger btn-liked-film'>LIKED</button>
+		                                	<button class='btn btn-danger likeBtn'>LIKED</button>
+		                                	<input type="hidden" class="likeInp" value="1"/>
 		                                </c:if>
 		                                <c:if test="${ empty likeUser }">
-		                                   <button class='btn btn-secondary btn-like-film'>LIKE</button>
+		                                    <button class='btn btn-secondary likeBtn'>LIKE</button>
+		                                   <input type="hidden" class="likeInp" value="0"/>
 		                                </c:if>
+		                                <!-- <input type="hidden" class="likeInp" value="0"/> -->
 									</div>
 									<div class="desc">
 										<h2>${ userPageMem.nickName }</h2>
@@ -346,8 +349,62 @@
 
 	<script>
 		// 탭메뉴 관련 
+		
 		$(function() {
+			//var likeUser = $(".likeInp").val();
+			//console.log("처음인풋 : " + likeUser);
+			
+			$(".likeBtn").on("click", function(){
+				var targetId = "${userPageMem.id}";
+				var userId = "${loginUser.id}";
+				var likeInp = $(".likeInp").val();
+				var status = "";
 				
+				//console.log("버튼클릭시 : " + likeInp);
+				
+				if(likeInp == '0'){
+					status = "like";
+				}else if(likeInp == '1'){
+					status = "nonlike";
+				}
+				//console.log(status);
+				$.ajax({
+						url:"likeClick.do",
+						data:{userId:userId,
+							  targetId:targetId,
+							  status:status},
+						type:"post",
+						success:function(data){
+							//console.log(data);
+							if(status == "like"){ // 좋아요클릭시
+								if(data == 1){
+									$(".likeBtn").removeClass("btn-danger");
+									$(".likeBtn").removeClass("btn-secondary");
+									$(".likeBtn").addClass("btn-danger");
+									$(".likeBtn").text('LIKED');
+									$(".likeInp").val('1');
+								}else{
+									alert("좋아요 실패");
+								}
+							}else if(status == "nonlike"){ // 좋아요 취소
+								if(data == 1){
+									$(".likeBtn").removeClass("btn-danger");
+									$(".likeBtn").removeClass("btn-secondary");
+									$(".likeBtn").addClass("btn-secondary");
+									$(".likeBtn").text('LIKE');
+									$(".likeInp").val('0');
+								}else{
+									alert("좋아요 실패");
+								}
+							}
+							//console.log("에이작스 후 : " + likeInp);
+								
+						},error:function(){
+							console.log("라이크 ajax 통신 실패");
+						}
+					});  
+			});
+			
 			$("#container ul>li").on("click", function(){
 				var activeTab = $(this).attr('data-tab');
 	            var tabMenu = $(this).text();
