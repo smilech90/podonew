@@ -34,7 +34,7 @@ public interface DetailFilmService {
 	int filmImageInsert(String filmImage, int id);
 
 	// 2_5. 영화 배우 수정 입력 -- (배우 번호(String), 영화 상세번호)
-	int actorInsert(String actorIdList, int id);
+	int actorInsert(String actorIdList);
 	
 	// 2_6. 영화 데이터 롤백 버튼 --(영화 번호)
 	int detailFilmRollback(int filmId);
