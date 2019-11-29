@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<jsp:include page="../common/header.jsp"/>
 		<title>평점 기반 영화 추천</title>
 		<style>
 			
@@ -37,7 +37,6 @@
 		</style>
 	</head>
 	<body>
-		<jsp:include page="../common/header.jsp" />
 		
 		<section class="mb-30px">
 			<div class="container">
