@@ -67,7 +67,7 @@ public class BoardController {
 	
 	
 	@RequestMapping("binsert.do")
-	public int insertBoard(Board b, Image i, Member m, HttpServletRequest request, Model model, ModelAndView mv, 
+	public int insertBoard(Board b, Image i, int uId, HttpServletRequest request, Model model, ModelAndView mv, 
 									@RequestParam(value="board-upload-file", required=false) MultipartFile file) {
 		
 		int result = 0;
@@ -80,7 +80,7 @@ public class BoardController {
 			i.setOriginalName(file.getOriginalFilename());
 			i.setChangeName(renameFileName);
 			
-			int result1 = boardService.insertBoard(b);
+			int result1 = boardService.insertBoard(b, uId);
 			int result2 = boardService.insertBoardFile(i);
 			
 			if(result1 > 0 && result2 > 0) {
