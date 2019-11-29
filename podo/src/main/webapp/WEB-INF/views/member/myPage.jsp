@@ -222,8 +222,14 @@
 										</div>
 										
 										<div id="tab3" class="tabcontent"><br>
-											<h3>Like</h3><br>
-											<p>라이크임당.</p>
+					   	                	<div class="actorImage">
+							                    <c:forEach items="${ al }" var="a">
+					   		                		<div class="image_cover">
+						   	                			<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
+									                   	<div name="actorName">${a.actorName}</div>
+						   	                		</div>	
+										        </c:forEach>   
+					   	                	</div>
 										</div>
 										
 										<c:if test="${ empty inquiry  }">
@@ -349,7 +355,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">회원정보 수정</h5>
+					<h5 class="modal-title" id="exampleModalLabel">회원정보 수정</h5>3.
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
