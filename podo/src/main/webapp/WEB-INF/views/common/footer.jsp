@@ -8,7 +8,7 @@
 	}
 	#footer-wrapper{width: 100%;}
 	.footer-1>a{
-		color: navy;
+		color: #797979;
 		text-decoration: none;
 		font-weight: 700;
 		margin: 10px;

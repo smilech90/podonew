@@ -287,6 +287,9 @@ public class MemberController {
 		return mv;
 	}
 	
-	
+	@RequestMapping("premium.do")
+	public String goToPremiumPage() {
+		return "member/premium";
+	}
 	
 }
