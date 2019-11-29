@@ -25,7 +25,7 @@
     .movie_info2{
         width:100%;
         float:left;
-        border:1px solid black;
+        border:0px solid black;
     }
     .movie_poster_cover{
         width:30%;
@@ -33,7 +33,7 @@
         position:relative;
         float:left;
         left:20px;
-        border:1px solid blue;
+        border:0px solid blue;
     }
     .movie_info_cover{
         width: 60%;
@@ -64,14 +64,14 @@
         height: 40%;
     }
     .cover{
-        border: 1px solid black;
+        border: 0px solid black;
     }
     #title_cover{
         font-size:50px;
     }
     .movie_clip{
         font-size:15px;
-        border: 1px solid black;
+        border: 0px solid black;
         float:right;
     }
     #modify_all{
@@ -83,6 +83,10 @@
     }
     #synopsys{
     	border: 0px solid black;
+    }
+    .textArea{
+    	background-color: rgb(9, 15, 33);
+    	color:grey;
     }
     #addActor{
     	cursor:pointer;
@@ -144,15 +148,15 @@
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
             <form action="detailFilmInsert.do" method="post">
 	            <input type="hidden" name="id" value="${df.id}">	<!-- 영화 상세 정보 번호 -->
-	            <input type="hidden" name="filmId" value="${df.filmId}"> <!-- 영화 번호  -->
-	            <input type="hidden" name="actorList" value="${al}">	<!-- 배우 리스트 -->
+	            <input type="hidden" name="filmId" value="${df.filmId}">  <!-- 영화 번호  -->
+	            <input type="hidden" name="actorList" value="${al}">	 <!-- 배우 리스트 -->
 	            
 	            <input type="hidden" name="filmImage" value="${ i.changeName }">
 	            <input type="hidden" name="uId" value="${ loginUser.id }">
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
-	                    <textarea class="movie_clip" name="trailer" placeholder="유튜브 링크를 연결해주세요!" rows="2" cols="40" style="border:0px;">${ df.trailer }</textarea>
+	                    <textarea class="movie_clip textArea" name="trailer" placeholder="유튜브 링크를 연결해주세요!" rows="2" cols="40" style="border:0px; resize: none;">${ df.trailer }</textarea>
                 	</div>
                     <div class="cover" id="sysnobsis_cover">
    	                	<h5>감독</h5>
@@ -166,6 +170,7 @@
    		                	<div class="image_cover">
 	   	                		<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
 				                <div name="actorName">${a.actorName}</div>
+				                <div>삭제</div>
 	   	                	</div>	
 					    </c:forEach>   
    	                </div>
@@ -174,12 +179,12 @@
                     </div>
                     <div class="cover" id="sysnobsis_cover">
 	                    <h5>시놉시스</h5>
-                    	<div id="synopsys"><textarea id="text_synopsys" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="80" style="border:0px; resize: none;">${df.synopsys}</textarea></div>
+                    	<div id="synopsys"><textarea id="text_synopsys" class="textArea" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="80" style="border:0px; resize: none;">${df.synopsys}</textarea></div>
                     </div>
                     
                     <div class="cover" id="plusInfo_cover">
                     	<h5>트리비아</h5>
-                    	<div id="trivia"><textarea id="text_trivia" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="80" style="border:0px; resize: none;">${df.trivia}</textarea></div>
+                    	<div id="trivia"><textarea id="text_trivia" class="textArea" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="80" style="border:0px; resize: none;">${df.trivia}</textarea></div>
                     </div>
                     
                     <div class="cover">
