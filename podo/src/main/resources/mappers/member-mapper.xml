@@ -23,7 +23,7 @@
 	</resultMap>
 	
 	<insert id="insertMember">
-		insert into tb_member values(seq_member_id.nextval, #{image}, #{email}, #{pwd}, #{nickName}, default, sysdate, sysdate, null, null, default<!-- , default -->)
+		insert into tb_member values(seq_member_id.nextval, #{image}, #{email}, #{pwd}, #{nickName}, default, sysdate, sysdate, null, null, default, default)
 	</insert>
 	
 	<select id="idCheck" resultType="_int">
