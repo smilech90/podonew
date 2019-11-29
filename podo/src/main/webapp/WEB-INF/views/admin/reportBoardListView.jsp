@@ -176,7 +176,7 @@
 							</td>
 							<td>${ r.reportedName }</td>
 							<td>${ r.reportName }</td>
-							<td><a href="javascript:;" class="btn_blind" data-id="${r.id}">블라인드</a></td>
+							<td><a href="adBlind.do;" name="btn_blind" data-id="${r.id}">블라인드</a></td>
 			
 						</tr>
 					</c:forEach>
