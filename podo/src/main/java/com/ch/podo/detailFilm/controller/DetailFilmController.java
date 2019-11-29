@@ -80,13 +80,25 @@ public class DetailFilmController {
 	public ModelAndView addActor(int id, int filmId, int newActorId, ModelAndView mv) {
 		
 		// 배우 등록
-		System.out.println("newActor 컨트롤러 :" + newActorId);
 		int result = dfService.addActor(newActorId, id);
 		
 		mv.addObject("filmId",filmId).setViewName("redirect:detailFilmUpdate.do");
 		
 		return mv;
 	}
+	
+	// 배우 삭제
+	@RequestMapping("deleteActor.do")
+	public ModelAndView deleteActor(int id, int filmId, int actorId, ModelAndView mv) {
+		
+		// 배우 삭제
+		int result = dfService.deleteActor(actorId, id);
+		
+		mv.addObject("filmId",filmId).setViewName("redirect:detailFilmUpdate.do");
+		
+		return mv;
+	}
+	
 	
 	// 수정 정보 insert
 	@RequestMapping("detailFilmInsert.do")

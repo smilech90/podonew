@@ -14,7 +14,7 @@
 <style>
     body{
         width:100%;
-        height:1000px;
+        height:1300px;
     }
     #body{
         width:60%;
@@ -89,7 +89,7 @@
     	background-color: rgb(9, 15, 33);
     	color:grey;
     }
-    #addActor{
+    #addActor, .deleteActor{
     	cursor:pointer;
     }
     #actor_cover, #actor_cover1{
@@ -114,6 +114,7 @@
     .actor_name{
     	border : 0px solid lightgrey;
     	text-align:center;
+    	color:black;
     }
     .image_cover{
     	text-align:center;
@@ -159,35 +160,37 @@
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
 	                    <textarea class="movie_clip textArea" name="trailer" placeholder="유튜브 링크를 연결해주세요!" rows="2" cols="40" style="border:0px; resize: none;">${ df.trailer }</textarea>
                 	</div>
+                	<br>
                     <div class="cover" id="sysnobsis_cover">
    	                	<h5>감독</h5>
    	                	<div>${ df.director }</div>
                     </div>
                     <div class="cover" id="sysnobsis_cover">
-                    
+                    <br>
                     <h5>출연 배우</h5>
    	               	<div class="actorImage">
 		            	<c:forEach items="${ al }" var="a">
    		                	<div class="image_cover">
 	   	                		<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
-				                <div name="actorName">${a.actorName}</div>
-				                <div>삭제</div>
+				                <div class="actorName">${a.actorName}</div>
+				                <div class="deleteActor" onclick="deleteActor('${a.id}');">삭제</div>
 	   	                	</div>	
 					    </c:forEach>   
    	                </div>
-    	            
+    	            <br>
                     <div id="addActor">추가하기</div>
                     </div>
+                    <br>
                     <div class="cover" id="sysnobsis_cover">
 	                    <h5>시놉시스</h5>
                     	<div id="synopsys"><textarea id="text_synopsys" class="textArea" name="synopsys" placeholder="정보를 입력해주세요" rows="10" cols="80" style="border:0px; resize: none;">${df.synopsys}</textarea></div>
                     </div>
-                    
+                    <br>
                     <div class="cover" id="plusInfo_cover">
                     	<h5>트리비아</h5>
                     	<div id="trivia"><textarea id="text_trivia" class="textArea" name="trivia" placeholder="정보를 입력해주세요" rows="10" cols="80" style="border:0px; resize: none;">${df.trivia}</textarea></div>
                     </div>
-                    
+                    <br>
                     <div class="cover">
                     	<button type="submit" id="modifyBtn">내용 저장</button>
                     </div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
@@ -269,10 +272,10 @@
     	// 배우 등록 modal
 	    $(function(){
 			$("#addActor").on("click", function(){
-				/* $('#actor-model').modal('toggle'); */
+				$('#actor-model').modal('toggle');
 			});
 		});
-	    
+    	
     	// 배우 검색
 	    $(document).ready(function(){
 	    	$("#searchName").keypress(function (e){
@@ -338,7 +341,6 @@
 	    			actorIdList += "/";
 	    		}
 	    	}
-	    	console.log(actorIdList);
 	    	//--------- 기존에 저장된 배우들 문자열에 담아줌!
 
 	    	var compare = actorIdList.split("/");
@@ -347,30 +349,17 @@
 	    		
 	    		newActorId = $(this).val();
 	    		newActor = $(this).val();
-	    		//actorIdList += ","+$(this).val();
 	    		
 	    		if(compare.indexOf(newActor) == -1){
-	    			
-	    			console.log("newActorId : "+newActorId);
-	    			console.log("newActor : "+newActor);
-	    			console.log("actorIdList : "+actorIdList);
-   					//actorIdList += "%2C"+newActor;
-			    	//location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&actorIdList='+actorIdList;
 	    			location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&newActorId='+newActorId;
 	    		}
-				console.log(actorIdList);
 	    	});
-
-/*
-	    	// 배우 하나만 추가
-			$("input[class=test]:checked").each(function(){
-	    		
-				newActorId = $(this).val();
-	    		
-			   	location.href='addActor.do?id=${df.id}&filmId=${df.filmId}&newActorId='+newActorId;
-	    		
-	    	});
-*/
+	    }
+	    
+	    function deleteActor(actorId){
+	    	
+	    	location.href='deleteActor.do?id=${df.id}&filmId=${df.filmId}&actorId='+actorId;
+	    	
 	    }
     </script>   
     

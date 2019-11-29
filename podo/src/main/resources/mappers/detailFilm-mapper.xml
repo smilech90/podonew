@@ -146,7 +146,12 @@
 		values(#{newActorId},seq_dfilm_id.currval)
 	</insert>
 		
-	
+	<!-- 배우 삭제 -->
+	<delete id="deleteActor">
+		delete from tb_film_actor
+		where actor_id=#{actorId}
+		and dfilm_id=#{id}
+	</delete>
 	
 </mapper>
 
