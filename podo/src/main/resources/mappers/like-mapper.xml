@@ -67,7 +67,7 @@
 		left join (select film_id, change_name
 		            from tb_detail_film df
 		            join tb_film_image fi on(df.id = fi.dfilm_id))b on(b.film_id = f.id)
-		where type=2 and
+		where type=1 and
 		      user_id=#{id}    
 	</select>
 	

@@ -284,8 +284,9 @@
 																
 																<div class="row" style="margin-top: 10px;">
 																	<div class="col">
-										                                	<button class='btn btn-danger likeBtn'>LIKED</button>
-										                                	<input type="hidden" class="likeInp" value="1"/>
+									                                	<button class='btn btn-danger likeBtn'>LIKED</button>
+									                                	<input type="hidden" class="likeInp" value="1"/>
+									                                	<input type="hidden" class="targetInp" value="${ likeFilm.targetId }"/>
 																	</div>
 																</div>
 															</div>
@@ -672,6 +673,63 @@
 
 
 	<script>
+	
+		$(function() {
+			var likeUser = $(".likeInp").val();
+			console.log("처음인풋 : " + likeUser);
+			
+			$(".likeBtn").on("click", function(){
+				var targetId = $(".targetInp").val();
+				var userId = "${loginUser.id}";
+				var likeInp = $(".likeInp").val();
+				var status = "";
+				
+				console.log("버튼클릭시 라이크인풋: " + likeInp);
+				console.log("버튼클릭시 타켓인풋 : " + targetId);
+				
+				if(likeInp == '0'){
+					status = "like";
+				}else if(likeInp == '1'){
+					status = "nonlike";
+				}
+				console.log(status);
+				$.ajax({
+						url:"likeClick.do",
+						data:{userId:userId,
+							  targetId:targetId,
+							  status:status},
+						type:"post",
+						success:function(data){
+							console.log(data);
+							if(status == "like"){ // 좋아요클릭시
+								if(data == 1){
+									$(".likeBtn").removeClass("btn-danger");
+									$(".likeBtn").removeClass("btn-secondary");
+									$(".likeBtn").addClass("btn-danger");
+									$(".likeBtn").text('LIKED');
+									$(".likeInp").val('1');
+								}else{
+									alert("좋아요 실패");
+								}
+							}else if(status == "nonlike"){ // 좋아요 취소
+								if(data == 1){
+									$(".likeBtn").removeClass("btn-danger");
+									$(".likeBtn").removeClass("btn-secondary");
+									$(".likeBtn").addClass("btn-secondary");
+									$(".likeBtn").text('LIKE');
+									$(".likeInp").val('0');
+								}else{
+									alert("좋아요 실패");
+								}
+							}
+							console.log("에이작스 후 : " + likeInp);
+								
+						},error:function(){
+							console.log("라이크 ajax 통신 실패");
+						}
+					});  
+			});
+		});
 		// 탭메뉴 관련 
 		$(function() {
 				//console.log("${tab}");
