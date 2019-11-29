@@ -38,6 +38,8 @@
 			<mapping path="/reviewDelete.do"/>
 			<mapping path="/insertQuestion.do"/>
 			<mapping path="/rateFilm.do"/>
+			<mapping path="/insertReviewComment.do"/>
+			
 			
 			<beans:bean id="BoardInsertInterceptor" class="com.ch.podo.common.interceptor.BoardInsertInterceptor"/>
 			
