@@ -110,6 +110,26 @@
 	  pointer-events: none;
 	  cursor: default;
 	}
+	
+    .actorImage{
+    	border: 0px solid black;
+    	width:100%;
+    	height:200px;
+    	overflow-x:hidden;
+    }
+    .actor_name{
+    	border : 0px solid lightgrey;
+    	text-align:center;
+    	color:black;
+    }
+    .podo-user-card {
+		/*border: 1px solid; */
+		padding-top: 40px;
+		display: inline-block;
+		width: 241px;
+		height: 400px;
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -259,9 +279,9 @@
 												</div>
 											</section>
 										</div>
-										<!-- -------------------- 리뷰끝 --------------------------->
+										<!-- -------------------- 리뷰끝 -------------------------->
 									
-										<!-- -------------------- 라이크_영화--------------------------->
+										<!-- -------------------- 라이크_영화----------------------->
 										<div id="tab2" class="tabcontent"><br>
 											<div class="container">
 												<c:if test="${ !empty likeFilmList }">
@@ -377,10 +397,9 @@
 												<!-------------------------- 페이징바 끝 -------------------------->
 											</div>
 										</div>
-										<!-- -------------------- 라이크_영화 끝--------------------------->
+										<!-- -------------------- 라이크_영화 끝--------------------->
 										
-										
-										<!-------------------------- 라이크_리뷰 시작 ------------------------>
+										<!--------------------- 라이크_리뷰 시작 --------------------->
 										<div id="tab3" class="tabcontent"><br>
 											<section class="blog-post-area section-margin mt-4">
 												<div class="container">
@@ -393,9 +412,13 @@
 																			<div class="col-lg-12" id="moviePoster" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
 																				<img class='img-fluid' src='resources/detailFilmImage/${list.changeName}' width='100%' height='100%'>
 																			</div>
+																			
 																		</div>
 																		<div style="float:left">
 																			<div style="float:left">
+									                                	<button class='btn btn-danger likeBtn'>LIKED</button>
+									                                	<input type="hidden" class="likeInp" value="1"/>
+									                                	<input type="hidden" class="targetInp" value="${ list.targetId }"/><br><br>
 																				<a href="#"><h3>${list.titleKor}</h3><br></a>
 																				<p>${list.content}</p>
 																			</div>
@@ -485,13 +508,122 @@
 											</section>
 										</div>
 										</div>
-										<!-------------------------- 라이크_리뷰 끝 ------------------------>
+										<!--------------------- 라이크_리뷰 끝 ---------------------->
 										
+						   	            <!--------------------- 라이크_유저 시작 --------------------->
 										<div id="tab4" class="tabcontent"><br>
-					   	                	<h3>Like_User</h3><br>
-											<p>컬렉입니당.</p>
+											<div class="container">
+												<c:if test="${ !empty likeUserList }">
+													<div class="row">
+														<c:forEach items="${ likeUserList }" var="likeUserList">
+															<!-- width * 1.425 -->
+															<div class="podo-user-card col-3">
+																<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
+																<div class="image_cover">
+																		<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
+																</div>
+																<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
+																	${ likeUserList.nickName }
+																</div>
+																
+																<div class="row" style="margin-top: 10px;">
+																	<div class="col">
+									                                	<button class='btn btn-danger likeBtn'>LIKED</button>
+									                                	<input type="hidden" class="likeInp" value="1"/>
+									                                	<input type="hidden" class="targetInp" value="${ likeUserList.targetId }"/>
+																	</div>
+																</div>
+															</div>
+														</c:forEach>
+													</div>
+												</c:if>
+												<c:if test="${ UserlistCount eq 0 }">
+													<div style="text-align: center;">
+														<h3> 좋아요 한 영화가 없습니다.</h3>
+														<br>
+													</div>
+												</c:if>
+												<!-------------------------- 페이징바 시작 ------------------------>
+												<div class="row">
+													<div class="col-lg-12">
+														<nav class="blog-pagination justify-content-center d-flex">
+															<ul class="pagination">
+																<!------ [이전] ------>
+																<c:if test="${ userPi.currentPage eq 1 }">
+																	<li class="page-item">
+																		<a class="page-link disabled" aria-label="Previous">
+																			<span aria-hidden="true">
+																				<i class="ti-angle-left"></i>
+																			</span>
+																		</a>
+																	</li>
+																</c:if>
+																<c:if test="${ userPi.currentPage ne 1 }">
+																	<c:url value="myPageSelectLikeUser.do" var="before">
+																		<c:param name="currentPage" value="${ userPi.currentPage-1 }"/>
+																		<c:param name="tab" value="tab4"/>
+																		<c:param name="id" value="${loginUser.id}"/>
+																	</c:url>
+																	<li class="page-item">
+																		<a href="${ before }" class="page-link" aria-label="Previous">
+																			<span aria-hidden="true">
+																				<i class="ti-angle-left"></i>
+																			</span>
+																		</a>
+																	</li>
+																</c:if>
+																<!-- ------------- -->
+																<!------ [페이지] ----->
+																<c:forEach begin="${ userPi.startPage }" end="${ userPi.endPage }" var="p">
+																	<c:if test="${ p eq fuserPi.currentPage }">
+																		<li class="page-item disabled"><a class="page-link" >${p}</a></li>
+																	</c:if>
+																
+																	<c:if test="${ p ne userPi.currentPage }">
+																		<c:url value="myPageSelectLikeUser.do" var="page">
+																			<c:param name="currentPage" value="${ p }"/>
+																			<c:param name="tab" value="tab4"/>
+																			<c:param name="id" value="${loginUser.id}"/>
+																		</c:url>
+																		<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																	</c:if>
+																</c:forEach>
+																<!-- --------------- -->
+																<!------- [다음] ------->
+																<c:if test="${ userPi.currentPage eq userPi.maxPage }">
+																	<li class="page-item">
+																		<a class="page-link disabled" aria-label="Next" >
+																			<span aria-hidden="true">
+																				<i class="ti-angle-right"></i>
+																			</span>
+																		</a>
+																	</li>
+																</c:if>
+																<c:if test="${ userPi.currentPage ne userPi.maxPage }">
+																	<c:url value="myPageSelectLikeUser.do" var="after">
+																		<c:param name="currentPage" value="${ userPi.currentPage+1 }"/>
+																		<c:param name="tab" value="tab4"/>
+																		<c:param name="id" value="${loginUser.id}"/>
+																	</c:url>
+																	<li class="page-item">
+																		<a href="${ after }" class="page-link" aria-label="Next">
+																			<span aria-hidden="true">
+																				<i class="ti-angle-right"></i>
+																			</span>
+																		</a>
+																	</li>
+																</c:if>
+																<!-- --------------- -->
+															</ul>
+														</nav>
+													</div>
+												</div>
+												<!-------------------------- 페이징바 끝 -------------------------->
+											</div>
 										</div>
+										<!---------------------- 라이크_유저 끝 --------------------->
 										
+										<!-------------------------- 문의 시작 --------------------->
 										<c:if test="${ empty inquiry  }">
 											<div id="tab5" class="tabcontent"><br>
 											문의 내용이 없습니다.
@@ -599,6 +731,7 @@
 												<!-------------------------- 페이징바 끝 -------------------------->
 										</div>
 										</c:if>
+										<!-------------------------- 문의 끝 ----------------------->
 									</div>
 								</div>
 								<!-------------------------- 탭 메뉴 끝 ------------------------>

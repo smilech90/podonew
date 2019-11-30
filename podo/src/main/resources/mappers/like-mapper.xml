@@ -101,9 +101,9 @@
 	<select id="myPageSelectLikeUser" resultMap="likeUserResultSet">
 		select l.*, nickname, image
 		from tb_like l
-		join tb_member m on(l.target_id = m.id)
-		where user_id=#{id} and
-		      type=2   
+        join tb_member m on(l.target_id = m.id)
+		where user_id=8 and
+		      type=2 
 	</select>
 	
 	<select id="myPageLikeReviewListCount" resultType="_int">
