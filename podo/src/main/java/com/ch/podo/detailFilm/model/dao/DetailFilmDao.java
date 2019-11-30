@@ -115,13 +115,10 @@ public class DetailFilmDao {
 		
 		for(int i=0; i<actorIntList.length; i++) {
 			
-			result = sqlSession.insert("detailFilmmapper.wikiAddActor", actorIntList[i]);
-			
+			result = sqlSession.insert("detailFilmmapper.wikiAddActor", actorIntList[i]);		
 		}
-		
 		return result;
 	}
-	
 }
 
 
