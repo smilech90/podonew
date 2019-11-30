@@ -177,430 +177,462 @@
 							
 										<!-------------------------- 리뷰 탭메뉴 바디 ------------------------>
 										<div id="tab1" class="tabcontent current"><br>
-											<section class="blog-post-area section-margin mt-4">
-												<div class="container">
-													<div class="row">
-														<div class="col-lg-12">
-															<c:forEach items="${review}" var="list" >
-																<div class="single-recent-blog-post" style="height:300px">
-																	<div class="details mt-20">
-																		<div class="thumb" style="float:left">
-																			<div class="col-lg-12" id="moviePoster" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
-																				<img class='img-fluid' src='resources/detailFilmImage/${list.posterImage}' width='100%' height='100%'>
+											<c:if test="${ !empty review }">
+												<section class="blog-post-area section-margin mt-4">
+													<div class="container">
+														<div class="row">
+															<div class="col-lg-12">
+																<c:forEach items="${review}" var="list" >
+																	<div class="single-recent-blog-post" style="height:300px">
+																		<div class="details mt-20">
+																			<div class="thumb" style="float:left">
+																				<div class="col-lg-12" id="moviePoster" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
+																					<img class='img-fluid' src='resources/detailFilmImage/${list.posterImage}' width='100%' height='100%'>
+																				</div>
 																			</div>
-																		</div>
-																		<div style="float:left">
 																			<div style="float:left">
-																				<a href="#"><h3>${list.titleKor}</h3><br></a>
-																				<p>${list.content}</p>
+																				<div style="float:left">
+																					<a href="#"><h3>${list.titleKor}</h3><br></a>
+																					<p>${list.content}</p>
+																				</div>
 																			</div>
 																		</div>
 																	</div>
-																</div>
-															</c:forEach>
-															<!-------------------------- 페이징바 시작 ------------------------>
-															<div class="row">
-																<div class="col-lg-12">
-																	<nav class="blog-pagination justify-content-center d-flex">
-																		<ul class="pagination">
-																			<!------ [이전] ------>
-																			<c:if test="${ reviewPi.currentPage eq 1 }">
-																				<li class="page-item">
-																					<a class="page-link disabled" aria-label="Previous">
-																						<span aria-hidden="true">
-																							<i class="ti-angle-left"></i>
-																						</span>
-																					</a>
-																				</li>
-																			</c:if>
-																			<c:if test="${ reviewPi.currentPage ne 1 }">
-																				<c:url value="userPageSelectReview.do" var="before">
-																					<c:param name="currentPage" value="${ reviewPi.currentPage-1 }"/>
-																					<c:param name="tab" value="tab1"/>
-																					<c:param name="id" value="${userPageMem.id}"/>
-																				</c:url>
-																				<li class="page-item">
-																					<a href="${ before }" class="page-link" aria-label="Previous">
-																						<span aria-hidden="true">
-																							<i class="ti-angle-left"></i>
-																						</span>
-																					</a>
-																				</li>
-																			</c:if>
-																			<!-- ------------- -->
-																			<!------ [페이지] ----->
-																			<c:forEach begin="${ reviewPi.startPage }" end="${ reviewPi.endPage }" var="p">
-																				<c:if test="${ p eq reviewPi.currentPage }">
-																					<li class="page-item active "><a class="page-link disabled" >${p}</a></li>
+																</c:forEach>
+																<!-------------------------- 페이징바 시작 ------------------------>
+																<div class="row">
+																	<div class="col-lg-12">
+																		<nav class="blog-pagination justify-content-center d-flex">
+																			<ul class="pagination">
+																				<!------ [이전] ------>
+																				<c:if test="${ reviewPi.currentPage eq 1 }">
+																					<li class="page-item">
+																						<a class="page-link disabled" aria-label="Previous">
+																							<span aria-hidden="true">
+																								<i class="ti-angle-left"></i>
+																							</span>
+																						</a>
+																					</li>
 																				</c:if>
-																			
-																				<c:if test="${ p ne reviewPi.currentPage }">
-																					<c:url value="userPageSelectReview.do" var="page">
-																						<c:param name="currentPage" value="${ p }"/>
+																				<c:if test="${ reviewPi.currentPage ne 1 }">
+																					<c:url value="userPageSelectReview.do" var="before">
+																						<c:param name="currentPage" value="${ reviewPi.currentPage-1 }"/>
 																						<c:param name="tab" value="tab1"/>
 																						<c:param name="id" value="${userPageMem.id}"/>
 																					</c:url>
-																					<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																					<li class="page-item">
+																						<a href="${ before }" class="page-link" aria-label="Previous">
+																							<span aria-hidden="true">
+																								<i class="ti-angle-left"></i>
+																							</span>
+																						</a>
+																					</li>
 																				</c:if>
-																			</c:forEach>
-																			<!-- --------------- -->
-																			<!------- [다음] ------->
-																			<c:if test="${ reviewPi.currentPage eq reviewPi.maxPage }">
-																				<li class="page-item">
-																					<a class="page-link disabled" aria-label="Next" >
-																						<span aria-hidden="true">
-																							<i class="ti-angle-right"></i>
-																						</span>
-																					</a>
-																				</li>
-																			</c:if>
-																			<c:if test="${ reviewPi.currentPage ne reviewPi.maxPage }">
-																				<c:url value="userPageSelectReview.do" var="after">
-																					<c:param name="currentPage" value="${ reviewPi.currentPage+1 }"/>
-																					<c:param name="tab" value="tab1"/>
-																					<c:param name="id" value="${userPageMem.id}"/>
-																				</c:url>
-																				<li class="page-item">
-																					<a href="${ after }" class="page-link" aria-label="Next">
-																						<span aria-hidden="true">
-																							<i class="ti-angle-right"></i>
-																						</span>
-																					</a>
-																				</li>
-																			</c:if>
-																			<!-- --------------- -->
-																		</ul>
-																	</nav>
+																				<!-- ------------- -->
+																				<!------ [페이지] ----->
+																				<c:forEach begin="${ reviewPi.startPage }" end="${ reviewPi.endPage }" var="p">
+																					<c:if test="${ p eq reviewPi.currentPage }">
+																						<li class="page-item active "><a class="page-link disabled" >${p}</a></li>
+																					</c:if>
+																				
+																					<c:if test="${ p ne reviewPi.currentPage }">
+																						<c:url value="userPageSelectReview.do" var="page">
+																							<c:param name="currentPage" value="${ p }"/>
+																							<c:param name="tab" value="tab1"/>
+																							<c:param name="id" value="${userPageMem.id}"/>
+																						</c:url>
+																						<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																					</c:if>
+																				</c:forEach>
+																				<!-- --------------- -->
+																				<!------- [다음] ------->
+																				<c:if test="${ reviewPi.currentPage eq reviewPi.maxPage }">
+																					<li class="page-item">
+																						<a class="page-link disabled" aria-label="Next" >
+																							<span aria-hidden="true">
+																								<i class="ti-angle-right"></i>
+																							</span>
+																						</a>
+																					</li>
+																				</c:if>
+																				<c:if test="${ reviewPi.currentPage ne reviewPi.maxPage }">
+																					<c:url value="userPageSelectReview.do" var="after">
+																						<c:param name="currentPage" value="${ reviewPi.currentPage+1 }"/>
+																						<c:param name="tab" value="tab1"/>
+																						<c:param name="id" value="${userPageMem.id}"/>
+																					</c:url>
+																					<li class="page-item">
+																						<a href="${ after }" class="page-link" aria-label="Next">
+																							<span aria-hidden="true">
+																								<i class="ti-angle-right"></i>
+																							</span>
+																						</a>
+																					</li>
+																				</c:if>
+																				<!-- --------------- -->
+																			</ul>
+																		</nav>
+																	</div>
 																</div>
+																<!-------------------------- 페이징바 끝 -------------------------->
 															</div>
-															<!-------------------------- 페이징바 끝 -------------------------->
 														</div>
 													</div>
+												</section>
+											</c:if>
+											<c:if test="${ empty review }">
+												<div style="text-align: center;">
+													<h3> 작성한 리뷰가 없습니다.</h3>
+													<br>
 												</div>
-											</section>
+											</c:if>
 										</div>
 										<!-- -------------------- 리뷰 끝----------------------->
 										
 										<!-- -------------------- 라이크_영화----------------------->
 										<div id="tab2" class="tabcontent"><br>
-											<div class="container">
-												<c:if test="${ !empty likeFilmList }">
+											<c:if test="${ !empty likeFilmList }">
+												<div class="container">
+													<c:if test="${ !empty likeFilmList }">
+														<div class="row">
+															<c:forEach items="${ likeFilmList }" var="likeFilm" >
+																<!-- width * 1.425 -->
+																<div class="podo-film-card col-3">
+																	<input class="hidden-filmId" type="hidden" value="${ likeFilm.id }">
+																	<div class="poster">
+																		<c:if test="${ not empty likeFilm.changeName }">
+																			<img src="resources/detailFilmImage/${ likeFilm.changeName }">
+																		</c:if>
+																		<c:if test="${ empty likeFilm.changeName }">
+																			<img src="resources/detailFilmImage/podoposter.jpg">
+																		</c:if>
+																	</div>
+																	<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
+																		${ likeFilm.titleKor }
+																	</div>
+																</div>
+															</c:forEach>
+														</div>
+													</c:if>
+													<c:if test="${ FilmlistCount eq 0 }">
+														<div style="text-align: center;">
+															<h3> 좋아요 한 영화가 없습니다.</h3>
+															<br>
+														</div>
+													</c:if>
+													<!-------------------------- 페이징바 시작 ------------------------>
 													<div class="row">
-														<c:forEach items="${ likeFilmList }" var="likeFilm" >
-															<!-- width * 1.425 -->
-															<div class="podo-film-card col-3">
-																<input class="hidden-filmId" type="hidden" value="${ likeFilm.id }">
-																<div class="poster">
-																	<c:if test="${ not empty likeFilm.changeName }">
-																		<img src="resources/detailFilmImage/${ likeFilm.changeName }">
+														<div class="col-lg-12">
+															<nav class="blog-pagination justify-content-center d-flex">
+																<ul class="pagination">
+																	<!------ [이전] ------>
+																	<c:if test="${ filmPi.currentPage eq 1 }">
+																		<li class="page-item">
+																			<a class="page-link disabled" aria-label="Previous">
+																				<span aria-hidden="true">
+																					<i class="ti-angle-left"></i>
+																				</span>
+																			</a>
+																		</li>
 																	</c:if>
-																	<c:if test="${ empty likeFilm.changeName }">
-																		<img src="resources/detailFilmImage/podoposter.jpg">
-																	</c:if>
-																</div>
-																<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
-																	${ likeFilm.titleKor }
-																</div>
-															</div>
-														</c:forEach>
-													</div>
-												</c:if>
-												<c:if test="${ FilmlistCount eq 0 }">
-													<div style="text-align: center;">
-														<h3> 좋아요 한 영화가 없습니다.</h3>
-														<br>
-													</div>
-												</c:if>
-												<!-------------------------- 페이징바 시작 ------------------------>
-												<div class="row">
-													<div class="col-lg-12">
-														<nav class="blog-pagination justify-content-center d-flex">
-															<ul class="pagination">
-																<!------ [이전] ------>
-																<c:if test="${ filmPi.currentPage eq 1 }">
-																	<li class="page-item">
-																		<a class="page-link disabled" aria-label="Previous">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-left"></i>
-																			</span>
-																		</a>
-																	</li>
-																</c:if>
-																<c:if test="${ filmPi.currentPage ne 1 }">
-																	<c:url value="myPageSelectLikeFilm.do" var="before">
-																		<c:param name="currentPage" value="${ filmPi.currentPage-1 }"/>
-																		<c:param name="tab" value="tab2"/>
-																		<c:param name="id" value="${userPageMem.id}"/>
-																	</c:url>
-																	<li class="page-item">
-																		<a href="${ before }" class="page-link" aria-label="Previous">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-left"></i>
-																			</span>
-																		</a>
-																	</li>
-																</c:if>
-																<!-- ------------- -->
-																<!------ [페이지] ----->
-																<c:forEach begin="${ filmPi.startPage }" end="${ filmPi.endPage }" var="p">
-																	<c:if test="${ p eq filmPi.currentPage }">
-																		<li class="page-item disabled"><a class="page-link" >${p}</a></li>
-																	</c:if>
-																
-																	<c:if test="${ p ne filmPi.currentPage }">
-																		<c:url value="myPageSelectLikeFilm.do" var="page">
-																			<c:param name="currentPage" value="${ p }"/>
+																	<c:if test="${ filmPi.currentPage ne 1 }">
+																		<c:url value="myPageSelectLikeFilm.do" var="before">
+																			<c:param name="currentPage" value="${ filmPi.currentPage-1 }"/>
 																			<c:param name="tab" value="tab2"/>
 																			<c:param name="id" value="${userPageMem.id}"/>
 																		</c:url>
-																		<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																		<li class="page-item">
+																			<a href="${ before }" class="page-link" aria-label="Previous">
+																				<span aria-hidden="true">
+																					<i class="ti-angle-left"></i>
+																				</span>
+																			</a>
+																		</li>
 																	</c:if>
-																</c:forEach>
-																<!-- --------------- -->
-																<!------- [다음] ------->
-																<c:if test="${ filmPi.currentPage eq filmPi.maxPage }">
-																	<li class="page-item">
-																		<a class="page-link disabled" aria-label="Next" >
-																			<span aria-hidden="true">
-																				<i class="ti-angle-right"></i>
-																			</span>
-																		</a>
-																	</li>
-																</c:if>
-																<c:if test="${ filmPi.currentPage ne filmPi.maxPage }">
-																	<c:url value="myPageSelectLikeFilm.do" var="after">
-																		<c:param name="currentPage" value="${ filmPi.currentPage+1 }"/>
-																		<c:param name="tab" value="tab2"/>
-																		<c:param name="id" value="${userPageMem.id}"/>
-																	</c:url>
-																	<li class="page-item">
-																		<a href="${ after }" class="page-link" aria-label="Next">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-right"></i>
-																			</span>
-																		</a>
-																	</li>
-																</c:if>
-																<!-- --------------- -->
-															</ul>
-														</nav>
+																	<!-- ------------- -->
+																	<!------ [페이지] ----->
+																	<c:forEach begin="${ filmPi.startPage }" end="${ filmPi.endPage }" var="p">
+																		<c:if test="${ p eq filmPi.currentPage }">
+																			<li class="page-item disabled"><a class="page-link" >${p}</a></li>
+																		</c:if>
+																	
+																		<c:if test="${ p ne filmPi.currentPage }">
+																			<c:url value="myPageSelectLikeFilm.do" var="page">
+																				<c:param name="currentPage" value="${ p }"/>
+																				<c:param name="tab" value="tab2"/>
+																				<c:param name="id" value="${userPageMem.id}"/>
+																			</c:url>
+																			<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																		</c:if>
+																	</c:forEach>
+																	<!-- --------------- -->
+																	<!------- [다음] ------->
+																	<c:if test="${ filmPi.currentPage eq filmPi.maxPage }">
+																		<li class="page-item">
+																			<a class="page-link disabled" aria-label="Next" >
+																				<span aria-hidden="true">
+																					<i class="ti-angle-right"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</c:if>
+																	<c:if test="${ filmPi.currentPage ne filmPi.maxPage }">
+																		<c:url value="myPageSelectLikeFilm.do" var="after">
+																			<c:param name="currentPage" value="${ filmPi.currentPage+1 }"/>
+																			<c:param name="tab" value="tab2"/>
+																			<c:param name="id" value="${userPageMem.id}"/>
+																		</c:url>
+																		<li class="page-item">
+																			<a href="${ after }" class="page-link" aria-label="Next">
+																				<span aria-hidden="true">
+																					<i class="ti-angle-right"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</c:if>
+																	<!-- --------------- -->
+																</ul>
+															</nav>
+														</div>
 													</div>
+													<!-------------------------- 페이징바 끝 -------------------------->
 												</div>
-												<!-------------------------- 페이징바 끝 -------------------------->
-											</div>
+											</c:if>
+											<c:if test="${ empty likeFilmList }">
+												<div style="text-align: center;">
+													<h3> 좋아한 영화가 없습니다.</h3>
+													<br>
+												</div>
+											</c:if>
 										</div>
 										<!-- -------------------- 라이크_영화 끝--------------------->
 										
 										<!--------------------- 라이크_리뷰 시작 --------------------->
 										<div id="tab3" class="tabcontent"><br>
-											<section class="blog-post-area section-margin mt-4">
-												<div class="container">
-													<div class="row">
-														<div class="col-lg-12">
-															<c:forEach items="${likeReviewList}" var="list" >
-																<div class="single-recent-blog-post" style="height:300px">
-																	<div class="details mt-20">
-																		<div class="thumb" style="float:left">
-																			<div class="col-lg-12" id="moviePoster" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
-																				<img class='img-fluid' src='resources/detailFilmImage/${list.changeName}' width='100%' height='100%'>
+											<c:if test="${ !empty likeReviewList }">
+												<section class="blog-post-area section-margin mt-4">
+													<div class="container">
+														<div class="row">
+															<div class="col-lg-12">
+																<c:forEach items="${likeReviewList}" var="list" >
+																	<div class="single-recent-blog-post" style="height:300px">
+																		<div class="details mt-20">
+																			<div class="thumb" style="float:left">
+																				<div class="col-lg-12" id="moviePoster" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
+																					<img class='img-fluid' src='resources/detailFilmImage/${list.changeName}' width='100%' height='100%'>
+																				</div>
+																				
 																			</div>
-																			
-																		</div>
-																		<div style="float:left">
 																			<div style="float:left">
-																				<a href="#"><h3>${list.titleKor}</h3><br></a>
-																				<p>${list.content}</p>
+																				<div style="float:left">
+																					<a href="#"><h3>${list.titleKor}</h3><br></a>
+																					<p>${list.content}</p>
+																				</div>
 																			</div>
 																		</div>
 																	</div>
-																</div>
-															</c:forEach>
-															<!-------------------------- 페이징바 시작 ------------------------>
-															<div class="row">
-																<div class="col-lg-12">
-																	<nav class="blog-pagination justify-content-center d-flex">
-																		<ul class="pagination">
-																			<!------ [이전] ------>
-																			<c:if test="${ reviewlikePi.currentPage eq 1 }">
-																				<li class="page-item">
-																					<a class="page-link disabled" aria-label="Previous">
-																						<span aria-hidden="true">
-																							<i class="ti-angle-left"></i>
-																						</span>
-																					</a>
-																				</li>
-																			</c:if>
-																			<c:if test="${ reviewlikePi.currentPage ne 1 }">
-																				<c:url value="myPageSelectLikeReview.do" var="before">
-																					<c:param name="currentPage" value="${ reviewlikePi.currentPage-1 }"/>
-																					<c:param name="tab" value="tab3"/>
-																					<c:param name="id" value="${userPageMem.id}"/>
-																				</c:url>
-																				<li class="page-item">
-																					<a href="${ before }" class="page-link" aria-label="Previous">
-																						<span aria-hidden="true">
-																							<i class="ti-angle-left"></i>
-																						</span>
-																					</a>
-																				</li>
-																			</c:if>
-																			<!-- ------------- -->
-																			<!------ [페이지] ----->
-																			<c:forEach begin="${ reviewlikePi.startPage }" end="${ reviewlikePi.endPage }" var="p">
-																				<c:if test="${ p eq reviewlikePi.currentPage }">
-																					<li class="page-item disabled"><a class="page-link" >${p}</a></li>
+																</c:forEach>
+																<!-------------------------- 페이징바 시작 ------------------------>
+																<div class="row">
+																	<div class="col-lg-12">
+																		<nav class="blog-pagination justify-content-center d-flex">
+																			<ul class="pagination">
+																				<!------ [이전] ------>
+																				<c:if test="${ reviewlikePi.currentPage eq 1 }">
+																					<li class="page-item">
+																						<a class="page-link disabled" aria-label="Previous">
+																							<span aria-hidden="true">
+																								<i class="ti-angle-left"></i>
+																							</span>
+																						</a>
+																					</li>
 																				</c:if>
-																			
-																				<c:if test="${ p ne reviewlikePi.currentPage }">
-																					<c:url value="myPageSelectLikeReview.do" var="page">
-																						<c:param name="currentPage" value="${ p }"/>
+																				<c:if test="${ reviewlikePi.currentPage ne 1 }">
+																					<c:url value="myPageSelectLikeReview.do" var="before">
+																						<c:param name="currentPage" value="${ reviewlikePi.currentPage-1 }"/>
 																						<c:param name="tab" value="tab3"/>
 																						<c:param name="id" value="${userPageMem.id}"/>
 																					</c:url>
-																					<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																					<li class="page-item">
+																						<a href="${ before }" class="page-link" aria-label="Previous">
+																							<span aria-hidden="true">
+																								<i class="ti-angle-left"></i>
+																							</span>
+																						</a>
+																					</li>
 																				</c:if>
-																			</c:forEach>
-																			<!-- --------------- -->
-																			<!------- [다음] ------->
-																			<c:if test="${ reviewlikePi.currentPage eq reviewlikePi.maxPage }">
-																				<li class="page-item">
-																					<a class="page-link disabled" aria-label="Next" >
-																						<span aria-hidden="true">
-																							<i class="ti-angle-right"></i>
-																						</span>
-																					</a>
-																				</li>
-																			</c:if>
-																			<c:if test="${ reviewlikePi.currentPage ne reviewlikePi.maxPage }">
-																				<c:url value="myPageSelectLikeReview.do" var="after">
-																					<c:param name="currentPage" value="${ reviewlikePi.currentPage+1 }"/>
-																					<c:param name="tab" value="tab3"/>
-																					<c:param name="id" value="${userPageMem.id}"/>
-																				</c:url>
-																				<li class="page-item">
-																					<a href="${ after }" class="page-link" aria-label="Next">
-																						<span aria-hidden="true">
-																							<i class="ti-angle-right"></i>
-																						</span>
-																					</a>
-																				</li>
-																			</c:if>
-																			<!-- --------------- -->
-																		</ul>
-																	</nav>
+																				<!-- ------------- -->
+																				<!------ [페이지] ----->
+																				<c:forEach begin="${ reviewlikePi.startPage }" end="${ reviewlikePi.endPage }" var="p">
+																					<c:if test="${ p eq reviewlikePi.currentPage }">
+																						<li class="page-item disabled"><a class="page-link" >${p}</a></li>
+																					</c:if>
+																				
+																					<c:if test="${ p ne reviewlikePi.currentPage }">
+																						<c:url value="myPageSelectLikeReview.do" var="page">
+																							<c:param name="currentPage" value="${ p }"/>
+																							<c:param name="tab" value="tab3"/>
+																							<c:param name="id" value="${userPageMem.id}"/>
+																						</c:url>
+																						<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																					</c:if>
+																				</c:forEach>
+																				<!-- --------------- -->
+																				<!------- [다음] ------->
+																				<c:if test="${ reviewlikePi.currentPage eq reviewlikePi.maxPage }">
+																					<li class="page-item">
+																						<a class="page-link disabled" aria-label="Next" >
+																							<span aria-hidden="true">
+																								<i class="ti-angle-right"></i>
+																							</span>
+																						</a>
+																					</li>
+																				</c:if>
+																				<c:if test="${ reviewlikePi.currentPage ne reviewlikePi.maxPage }">
+																					<c:url value="myPageSelectLikeReview.do" var="after">
+																						<c:param name="currentPage" value="${ reviewlikePi.currentPage+1 }"/>
+																						<c:param name="tab" value="tab3"/>
+																						<c:param name="id" value="${userPageMem.id}"/>
+																					</c:url>
+																					<li class="page-item">
+																						<a href="${ after }" class="page-link" aria-label="Next">
+																							<span aria-hidden="true">
+																								<i class="ti-angle-right"></i>
+																							</span>
+																						</a>
+																					</li>
+																				</c:if>
+																				<!-- --------------- -->
+																			</ul>
+																		</nav>
+																	</div>
 																</div>
+																<!-------------------------- 페이징바 끝 -------------------------->
 															</div>
-															<!-------------------------- 페이징바 끝 -------------------------->
 														</div>
 													</div>
+												</section>
+											</c:if>
+											<c:if test="${ empty likeReviewList }">
+												<div style="text-align: center;">
+													<h3> 좋아한 리뷰가 없습니다.</h3>
+													<br>
 												</div>
-											</section>
+											</c:if>
 										</div>
 										</div>
 										<!--------------------- 라이크_리뷰 끝 ---------------------->
 										
 						   	            <!--------------------- 라이크_유저 시작 --------------------->
 										<div id="tab4" class="tabcontent"><br>
-											<div class="container">
-												<c:if test="${ !empty likeUserList }">
+											<c:if test="${ !empty likeUserList }">
+												<div class="container">
+													<c:if test="${ !empty likeUserList }">
+														<div class="row">
+															<c:forEach items="${ likeUserList }" var="likeUserList">
+																<!-- width * 1.425 -->
+																<div class="podo-user-card col-3">
+																	<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
+																	<div class="image_cover">
+																			<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
+																	</div>
+																	<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
+																		${ likeUserList.nickName }
+																	</div>
+																</div>
+															</c:forEach>
+														</div>
+													</c:if>
+													<c:if test="${ UserlistCount eq 0 }">
+														<div style="text-align: center;">
+															<h3> 좋아요 한 영화가 없습니다.</h3>
+															<br>
+														</div>
+													</c:if>
+													<!-------------------------- 페이징바 시작 ------------------------>
 													<div class="row">
-														<c:forEach items="${ likeUserList }" var="likeUserList">
-															<!-- width * 1.425 -->
-															<div class="podo-user-card col-3">
-																<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
-																<div class="image_cover">
-																		<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
-																</div>
-																<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
-																	${ likeUserList.nickName }
-																</div>
-															</div>
-														</c:forEach>
-													</div>
-												</c:if>
-												<c:if test="${ UserlistCount eq 0 }">
-													<div style="text-align: center;">
-														<h3> 좋아요 한 영화가 없습니다.</h3>
-														<br>
-													</div>
-												</c:if>
-												<!-------------------------- 페이징바 시작 ------------------------>
-												<div class="row">
-													<div class="col-lg-12">
-														<nav class="blog-pagination justify-content-center d-flex">
-															<ul class="pagination">
-																<!------ [이전] ------>
-																<c:if test="${ userPi.currentPage eq 1 }">
-																	<li class="page-item">
-																		<a class="page-link disabled" aria-label="Previous">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-left"></i>
-																			</span>
-																		</a>
-																	</li>
-																</c:if>
-																<c:if test="${ userPi.currentPage ne 1 }">
-																	<c:url value="myPageSelectLikeUser.do" var="before">
-																		<c:param name="currentPage" value="${ userPi.currentPage-1 }"/>
-																		<c:param name="tab" value="tab4"/>
-																		<c:param name="id" value="${userPageMem.id}"/>
-																	</c:url>
-																	<li class="page-item">
-																		<a href="${ before }" class="page-link" aria-label="Previous">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-left"></i>
-																			</span>
-																		</a>
-																	</li>
-																</c:if>
-																<!-- ------------- -->
-																<!------ [페이지] ----->
-																<c:forEach begin="${ userPi.startPage }" end="${ userPi.endPage }" var="p">
-																	<c:if test="${ p eq fuserPi.currentPage }">
-																		<li class="page-item disabled"><a class="page-link" >${p}</a></li>
+														<div class="col-lg-12">
+															<nav class="blog-pagination justify-content-center d-flex">
+																<ul class="pagination">
+																	<!------ [이전] ------>
+																	<c:if test="${ userPi.currentPage eq 1 }">
+																		<li class="page-item">
+																			<a class="page-link disabled" aria-label="Previous">
+																				<span aria-hidden="true">
+																					<i class="ti-angle-left"></i>
+																				</span>
+																			</a>
+																		</li>
 																	</c:if>
-																
-																	<c:if test="${ p ne userPi.currentPage }">
-																		<c:url value="myPageSelectLikeUser.do" var="page">
-																			<c:param name="currentPage" value="${ p }"/>
+																	<c:if test="${ userPi.currentPage ne 1 }">
+																		<c:url value="myPageSelectLikeUser.do" var="before">
+																			<c:param name="currentPage" value="${ userPi.currentPage-1 }"/>
 																			<c:param name="tab" value="tab4"/>
 																			<c:param name="id" value="${userPageMem.id}"/>
 																		</c:url>
-																		<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																		<li class="page-item">
+																			<a href="${ before }" class="page-link" aria-label="Previous">
+																				<span aria-hidden="true">
+																					<i class="ti-angle-left"></i>
+																				</span>
+																			</a>
+																		</li>
 																	</c:if>
-																</c:forEach>
-																<!-- --------------- -->
-																<!------- [다음] ------->
-																<c:if test="${ userPi.currentPage eq userPi.maxPage }">
-																	<li class="page-item">
-																		<a class="page-link disabled" aria-label="Next" >
-																			<span aria-hidden="true">
-																				<i class="ti-angle-right"></i>
-																			</span>
-																		</a>
-																	</li>
-																</c:if>
-																<c:if test="${ userPi.currentPage ne userPi.maxPage }">
-																	<c:url value="myPageSelectLikeUser.do" var="after">
-																		<c:param name="currentPage" value="${ userPi.currentPage+1 }"/>
-																		<c:param name="tab" value="tab4"/>
-																		<c:param name="id" value="${userPageMem.id}"/>
-																	</c:url>
-																	<li class="page-item">
-																		<a href="${ after }" class="page-link" aria-label="Next">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-right"></i>
-																			</span>
-																		</a>
-																	</li>
-																</c:if>
-																<!-- --------------- -->
-															</ul>
-														</nav>
+																	<!-- ------------- -->
+																	<!------ [페이지] ----->
+																	<c:forEach begin="${ userPi.startPage }" end="${ userPi.endPage }" var="p">
+																		<c:if test="${ p eq fuserPi.currentPage }">
+																			<li class="page-item disabled"><a class="page-link" >${p}</a></li>
+																		</c:if>
+																	
+																		<c:if test="${ p ne userPi.currentPage }">
+																			<c:url value="myPageSelectLikeUser.do" var="page">
+																				<c:param name="currentPage" value="${ p }"/>
+																				<c:param name="tab" value="tab4"/>
+																				<c:param name="id" value="${userPageMem.id}"/>
+																			</c:url>
+																			<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
+																		</c:if>
+																	</c:forEach>
+																	<!-- --------------- -->
+																	<!------- [다음] ------->
+																	<c:if test="${ userPi.currentPage eq userPi.maxPage }">
+																		<li class="page-item">
+																			<a class="page-link disabled" aria-label="Next" >
+																				<span aria-hidden="true">
+																					<i class="ti-angle-right"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</c:if>
+																	<c:if test="${ userPi.currentPage ne userPi.maxPage }">
+																		<c:url value="myPageSelectLikeUser.do" var="after">
+																			<c:param name="currentPage" value="${ userPi.currentPage+1 }"/>
+																			<c:param name="tab" value="tab4"/>
+																			<c:param name="id" value="${userPageMem.id}"/>
+																		</c:url>
+																		<li class="page-item">
+																			<a href="${ after }" class="page-link" aria-label="Next">
+																				<span aria-hidden="true">
+																					<i class="ti-angle-right"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</c:if>
+																	<!-- --------------- -->
+																</ul>
+															</nav>
+														</div>
 													</div>
+													<!-------------------------- 페이징바 끝 -------------------------->
 												</div>
-												<!-------------------------- 페이징바 끝 -------------------------->
-											</div>
+											</c:if>
+											<c:if test="${ empty likeUserList }">
+												<div style="text-align: center;">
+													<h3> 좋아한 유저가 없습니다.</h3>
+													<br>
+												</div>
+											</c:if>
 										</div>
 										<!---------------------- 라이크_유저 끝 --------------------->
 										
@@ -697,6 +729,6 @@
 		});
 
 	</script>
-	
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
