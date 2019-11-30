@@ -185,11 +185,6 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping("memberUpdateForm.do")
-	public String memberUpdateForm() {
-		return "member/memberUpdateForm";
-	}
-	
 	@RequestMapping("updateMember.do")
 	public ModelAndView updateMember(Member mem, HttpSession session, ModelAndView mv, HttpServletRequest request,
 									@RequestParam(value="uploadFile", required=false) MultipartFile file) {
@@ -201,7 +196,7 @@ public class MemberController {
 				String renameFileName = saveFile(file, request);	
 				mem.setImage(renameFileName);
 			}else {
-				mem.setImage("podoImage.png");
+				mem.setImage(mem.getImage());
 			}
 			
 		  // 비밀번호만 변경 한 경우
@@ -217,7 +212,7 @@ public class MemberController {
 			session.setAttribute("loginUser", mem);
 			mv.addObject("msg", "회원정보 수정 성공").setViewName("redirect:myPage.do?id="+mem.getId());
 		}else {
-			mv.addObject("msg", "회원정보 수정 실패").setViewName("member/memberUpdateForm");
+			mv.addObject("msg", "회원정보 수정 실패").setViewName("member/mypage");
 		}
 		
 		return mv;
@@ -237,9 +232,6 @@ public class MemberController {
 			return "fail";
 		}
 	}
-	
-	
-	
 	
 	
 	
@@ -282,7 +274,8 @@ public class MemberController {
 		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(userId,pi);
 		
 		session.setAttribute("reviewListCount", reviewListCount);
-		mv.addObject("likeUser", likeUser).addObject("userPageMem", userPageMem).addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/userPage");
+		session.setAttribute("userPageMem", userPageMem);
+		mv.addObject("likeUser", likeUser).addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("reviewPi", pi).addObject("reviewCount", reviewListCount).setViewName("member/userPage");
 		return mv;
 	}
 	
