@@ -136,6 +136,14 @@
 
 	<jsp:include page="../common/header.jsp"/>
 	
+	<c:if test="${ empty loginUser}">
+		<div style="text-align: center; color:white">
+			<h3> 로그인해주세요</h3>
+			<br>
+		</div>
+	</c:if>
+	
+	<c:if test="${ !empty loginUser}">
 	<section class="blog-post-area section-margin">
 		<div class="container">
 			<div class="row">
@@ -921,10 +929,8 @@
 			</div>
 		</div>
 	</div> --%>
-	
-		
 
-
+	</c:if>
 
 	<script>
 	
