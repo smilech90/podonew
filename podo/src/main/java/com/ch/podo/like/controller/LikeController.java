@@ -69,7 +69,7 @@ public class LikeController {
 		ArrayList<Like> likeReviewList = likeService.myPageSelectLikeReview(id, reviewPi);
 		System.out.println("리뷰리스트 : "+likeReviewList);
 		
-		mv.addObject("likeReviewList", likeReviewList).addObject("ReviewlistCount", ReviewlistCount).addObject("reviewPi", reviewPi).addObject("tab", tab).setViewName("member/myPage");
+		mv.addObject("likeReviewList", likeReviewList).addObject("ReviewlistCount", ReviewlistCount).addObject("reviewlikePi", reviewPi).addObject("tab", tab).setViewName("member/myPage");
 		return mv;
 	}
 	
