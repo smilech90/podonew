@@ -240,9 +240,6 @@ public class MemberController {
 	
 	
 	
-	
-	
-	
 	// 관리자 회원 리스트 조회
 	@RequestMapping("mlist.do")
 	public ModelAndView memberList(ModelAndView mv, 
@@ -282,7 +279,8 @@ public class MemberController {
 		ArrayList<Review> reviewList = reviewService.myPageSelectReviewList(userId,pi);
 		
 		session.setAttribute("reviewListCount", reviewListCount);
-		mv.addObject("likeUser", likeUser).addObject("userPageMem", userPageMem).addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("pi", pi).addObject("reviewCount", reviewListCount).setViewName("member/userPage");
+		session.setAttribute("userPageMem", userPageMem);
+		mv.addObject("likeUser", likeUser).addObject("review", reviewList).addObject("reviewCount", reviewListCount).addObject("reviewPi", pi).addObject("reviewCount", reviewListCount).setViewName("member/userPage");
 		return mv;
 	}
 	

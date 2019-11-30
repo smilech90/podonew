@@ -47,20 +47,23 @@
 	<delete id="deleteLikeFilm">
 		delete from tb_like
 		where user_id = #{userId}
-			and target_id = #{targetId}
+			and target_id = #{targetId} and
+			type=1
 	</delete>
 	
 	<select id="selectLikedFilmMap" resultMap="likeResultSet">
 		select *
 		from tb_like
-		where user_id = #{id}
+		where user_id = #{id} and
+			  type=1
 	</select>
 	
 	<select id="selectLikeUser" resultMap="likeResultSet">
 		select *
 		from tb_like
 		where target_id=#{userId} and
-			  user_id=#{loginUserId}
+			  user_id=#{loginUserId} and
+              type = 2
 	</select>
 	
 	<insert id="insertLikeMem">
@@ -70,7 +73,8 @@
 	<delete id="deleteLikeMem">
 		delete from tb_like
 		where user_id = #{userId} and
-			  target_id = #{targetId}
+			  target_id = #{targetId} and
+			  type=2
 	</delete>
 	
 	<select id="myPageLikeFilmListCount" resultType="_int">
@@ -102,7 +106,7 @@
 		select l.*, nickname, image
 		from tb_like l
         join tb_member m on(l.target_id = m.id)
-		where user_id=8 and
+		where user_id=#{id} and
 		      type=2 
 	</select>
 	
