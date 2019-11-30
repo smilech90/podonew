@@ -360,17 +360,17 @@
 	            }
 	            reader.readAsDataURL(input.files[0]);
 	        }
-	    };
+	    }
 	    
 		// 이미지 변경 될 때마다 이미지 미리보기
-		$(document).on("change","#poster",function(){
+		$(document).on("change","#uploadPBtn",function(){
 			readURL(this);
 		});
 	    
 	    // 이미지 삭제 = 완성
 	    function cancel(){
 	    	$("#mdfPosterBtn input").remove();
-	    	$("#poster").attr('src','resources/detailFilmImage/${i.changeName}').css({'width':'50%','height':'100%'});
+	    	$("#poster").attr('src','resources/detailFilmImage/${i.changeName}').css({'width':'100%','height':'100%'});
 	    	var newInput = "<input type='file' id='uploadPBtn' name='uploadPoster'>";
 	    	$("#mdfPosterBtn").append(newInput);
 	    }
