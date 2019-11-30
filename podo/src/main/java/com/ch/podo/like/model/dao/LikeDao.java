@@ -55,9 +55,31 @@ public class LikeDao {
 		 return list; 
 	}
 	 
-	
-	public int myPageLikewReviewListCount(String id) {
-		return sqlSession.selectOne("likeMapper.myPageLikewReviewListCount", id);
+	public int myPageLikeFilmListCount(String id) {
+		return sqlSession.selectOne("likeMapper.myPageLikeFilmListCount", id);
 	}
 	
+	public int myPageLikeUserListCount(String id) {
+		return sqlSession.selectOne("likeMapper.myPageLikeUserListCount", id);
+	}
+
+	public ArrayList<Like> myPageSelectLikeUser(String id, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit(); 
+		RowBounds rowBounds =new RowBounds(offset, pi.getBoardLimit()); 
+		ArrayList<Like> list = (ArrayList)sqlSession.selectList("likeMapper.myPageSelectLikeUser", id, rowBounds); 
+		 
+		return list; 
+	}
+
+	public int myPageLikeReviewListCount(String id) {
+		return sqlSession.selectOne("likeMapper.myPageLikeReviewListCount", id);
+	}
+
+	public ArrayList<Like> myPageSelectLikeReview(String id, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit(); 
+		RowBounds rowBounds =new RowBounds(offset, pi.getBoardLimit()); 
+		ArrayList<Like> list = (ArrayList)sqlSession.selectList("likeMapper.myPageSelectLikeReview", id, rowBounds); 
+		 
+		return list; 
+	}
 }

@@ -28,11 +28,21 @@ public interface LikeService {
 	int deleteLikeMem(Like like);
 	
 	// 7_1. 마이페이지_ 영화좋아요 리스트 카운트
-	int myPageLikeReviewListCount(String id);
-	
+	int myPageLikeFilmListCount(String id);
 	
 	// 7_2. 마이페이지_ 영화좋아요 조회 
 	ArrayList<Like> myPageSelectLikeFilm(String id,PageInfo pi);
 	 
+	// 8_1. 마이페이지_유저좋아요 리스트 카운트
+	int myPageLikeUserListCount(String id);
+	
+	// 8_2. 마이페이지_유저좋아요 조회
+	ArrayList<Like> myPageSelectLikeUser(String id, PageInfo pi);
+	
+	// 9_1. 마이페이지_리뷰좋아요 리스트 카운트
+	int myPageLikeReviewListCount(String id);
+	
+	// 8_2. 마이페이지_리뷰좋아요 조회
+	ArrayList<Like> myPageSelectLikeReview(String id, PageInfo pi);
 	
 }

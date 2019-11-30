@@ -18,6 +18,8 @@ public class Like {
    private int targetId;   // 대상번호
    private int userId;      // 회원번호
    private String titleKor;	// 영화제목
-   private String changeName;	// 영화 포스터
+   private String changeName;	// 영화 포스터, 멤버 프로필
+   private String content;		// 리뷰내용
+   private String nickName;		// 회원 닉네임
 
 }

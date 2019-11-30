@@ -19,6 +19,25 @@
 		<result property="changeName" column="change_name"/>
 	</resultMap>
 	
+	<resultMap type="Like" id="likeUserResultSet">
+		<id property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="targetId" column="target_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="nickName" column="nickname"/>
+		<result property="changeName" column="image"/>
+	</resultMap>
+	
+	<resultMap type="Like" id="likeReviewResultSet">
+		<id property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="targetId" column="target_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="content" column="content"/>
+		<result property="titleKor" column="title_kor"/>
+		<result property="changeName" column="change_name"/>
+	</resultMap>
+
 	
 	<insert id="insertLikeFilm">
 		insert into tb_like
@@ -54,10 +73,11 @@
 			  target_id = #{targetId}
 	</delete>
 	
-	<select id="myPageLikewReviewListCount" resultType="_int">
+	<select id="myPageLikeFilmListCount" resultType="_int">
 		select count(*)
 		from tb_like
-		where user_id=#{id}
+		where user_id=#{id} and
+			  type=1
 	</select>
 	
 	<select id="myPageSelectLikeFilm" resultMap="likeFilmResultSet">
@@ -71,5 +91,40 @@
 		      user_id=#{id}    
 	</select>
 	
+	<select id="myPageLikeUserListCount" resultType="_int">
+		select count(*)
+		from tb_like
+		where user_id=#{id} and
+			  type=2
+	</select>
+	
+	<select id="myPageSelectLikeUser" resultMap="likeUserResultSet">
+		select l.*, nickname, image
+		from tb_like l
+		join tb_member m on(l.target_id = m.id)
+		where user_id=#{id} and
+		      type=2   
+	</select>
+	
+	<select id="myPageLikeReviewListCount" resultType="_int">
+		select count(*)
+		from tb_like
+		where user_id=#{id} and
+			  type=3
+	</select>
+	
+	<select id="myPageSelectLikeReview" resultMap="likeReviewResultSet">
+		select l.*, r.content, fr.title_kor, di.change_name
+		from tb_like l
+		join tb_review r on(r.id = l.target_id)
+		join (select f.id, title_kor
+		        from tb_film f
+		        join tb_review r on( r.film_id = f.id))fr on(fr.id = r.film_id)
+		join (select d.film_id, i.change_name
+		        from tb_detail_film d
+		        join tb_film_image i on(d.id = i.dfilm_id))di on(di.film_id = r.film_id)
+		where user_id=#{id} and
+		      type=3
+	</select>
 	
 </mapper>
