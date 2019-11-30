@@ -105,18 +105,19 @@ public class DetailFilmDao {
 		
 		String[] actorList = actorIdList.split(",");
 		int[] actorIntList = new int[actorList.length];
+		int result=0;
 		
 		// 인트형으로 변환
 		for(int i=0; i<actorList.length; i++) {
 			actorIntList[i] = Integer.parseInt(actorList[i]);
 		}
 		
-		int result=0;
-		
 		for(int i=0; i<actorIntList.length; i++) {
 			
 			result = sqlSession.insert("detailFilmmapper.wikiAddActor", actorIntList[i]);		
 		}
+			
+		
 		return result;
 	}
 }

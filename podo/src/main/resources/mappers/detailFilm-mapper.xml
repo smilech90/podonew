@@ -133,7 +133,6 @@
 		where name like '%'||#{searchName}||'%'
 	</select>
 	
-	
 	<!-- 배우 추가 -->
 	<insert id="addActor" parameterType="hashMap">
 		insert into tb_film_actor

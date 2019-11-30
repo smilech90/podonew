@@ -39,22 +39,7 @@
         width: 60%;
         float:right;
     }
-    .icon{
-        position: absolute;
-        z-index: 1;
-        width: 30px;
-        height: 30px;
-    }
-    #collection{
-        left:90%;
-    }
-    #likeBtn{
-        top:90%;
-    }
-    #modifyBtn{
-        top:90%;
-        left:90%;
-    }
+    
     #movie_poster{
         position: relative;
     }
@@ -89,7 +74,7 @@
     	background-color: rgb(9, 15, 33);
     	color:grey;
     }
-    #addActor, .deleteActor{
+    #addActor, .deleteActor, .modifyPoster, #cancel{
     	cursor:pointer;
     }
     #actor_cover, #actor_cover1{
@@ -124,6 +109,9 @@
     .check_actor{
     	cursor:pointer;
     }
+    #mdfPosterBtn{
+    	display:none;
+    }
 </style>
 <body>
 	<!-- 헤더  -->
@@ -133,19 +121,15 @@
     <div id="body">
 
         <div class="movie_info2">
-            <div class="movie_poster_cover">    <!-- 왼쪽 영화 포스터 -->
-                <div class="icon" id="likeBtn">      <!-- 좋아요 -->
-                    <img id="heart" src="resources/detailFilmImage/heart.jpg" style="width:30px; height:30px;">
-                </div>
-
-                <div class="icon" id="modifyBtn">    <!-- 수  정 -->
-                    <img id="memo" src="resources/detailFilmImage/modifyBtn.jpg" style="width:30px; height:30px;">
-                </div>
-                
-                <div id="movie_poster"> <!-- 포스터 -->
+        <!-- 왼쪽 영화 포스터 -->
+        <!-- 포스터 -->
+            <div class="movie_poster_cover">    
+                <div id="movie_poster"> 
                     <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
                 </div>
-                
+                <div class="modifyPoster" id="modify_p_Btn">수정하기</div>
+                <div id="cancel" onclick="cancel();">취소하기</div>
+                <div id="mdfPosterBtn"><input type="file" id="uploadPBtn" name="uploadPoster"></div>
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
             <form action="detailFilmInsert.do" method="post">
@@ -192,9 +176,8 @@
                     </div>
                     <br>
                     <div class="cover">
-                    	<button type="submit" id="modifyBtn">내용 저장</button>
-                    </div>	<!-- 버튼 클릭시, updateForm 으로 이동 -->
-                    		<!-- updateForm 에서 수정하고 저장 누르면 다시 이 페이지 -->
+                    	<button type="submit" class="btn" style="background:purple; color:white;" id="modifyBtn">내용 저장</button>
+                    </div>	
                 </div>
             </form>
             </div>
@@ -356,10 +339,40 @@
 	    	});
 	    }
 	    
+	    // 배우 삭제
 	    function deleteActor(actorId){
-	    	
 	    	location.href='deleteActor.do?id=${df.id}&filmId=${df.filmId}&actorId='+actorId;
-	    	
+	    }
+	    
+		// 포스터 변경 버튼
+		$('#modify_p_Btn').on('click',function(e){
+			// input type="file" 버튼 클릭하게 해줌
+			e.preventDefault();
+			$("#uploadPBtn").click();
+		});
+	    
+	    // 포스터 변경전 미리보기 ===================미리보기 안됨
+	    function readURL(input){
+	    	if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+	            reader.onload = function(e) {
+	                $('#poster').attr('src', e.target.result);
+	            }
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    };
+	    
+		// 이미지 변경 될 때마다 이미지 미리보기
+		$(document).on("change","#poster",function(){
+			readURL(this);
+		});
+	    
+	    // 이미지 삭제 = 완성
+	    function cancel(){
+	    	$("#mdfPosterBtn input").remove();
+	    	$("#poster").attr('src','resources/detailFilmImage/${i.changeName}').css({'width':'50%','height':'100%'});
+	    	var newInput = "<input type='file' id='uploadPBtn' name='uploadPoster'>";
+	    	$("#mdfPosterBtn").append(newInput);
 	    }
     </script>   
     

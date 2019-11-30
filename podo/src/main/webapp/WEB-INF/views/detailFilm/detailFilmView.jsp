@@ -142,7 +142,14 @@
 			    </c:if>
                                 
                 <div id="movie_poster"> <!-- 포스터 -->	
-                    <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
+                	
+ 	               	<c:if test="${i  ne null}">
+    	                <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
+                	</c:if>
+                	<c:if test="${i  eq null}">
+    	                <img id="poster" src="resources/detailFilmImage/defaultImg.png" style="width:100%; height:100%;">
+                	</c:if>
+                    
                 </div>
 
             </div>

@@ -109,27 +109,40 @@ public class DetailFilmController {
 		String actorIdList = "";
 		
 		// 배우 리스트에서 배우 번호만 String으로 한줄로 저장
-		for(int i=0; i<al.size(); i++) {
+		if(al.size() != 0){
+			System.out.println("if");
+			for(int i=0; i<al.size(); i++) {
+				
+				actorIdList += al.get(i).getId();
+				
+				// 마지막 인덱스면 , 붙여주지 않음
+				if (i != al.size()-1){
+					// 구분자
+					actorIdList += ",";
+				}
+			}
 			
-			actorIdList += al.get(i).getId();
-    		
-    		// 마지막 인덱스면 , 붙여주지 않음
-    		if (i != al.size()-1){
-    			// 구분자
-    			actorIdList += ",";
-    		}
+			// 이미지 저장용 select 한번 더
+			int result = dfService.detailFilmInsert(df, uId);
+			int result2 = dfService.filmImageInsert(filmImage, df.getId());
+			int result3 = dfService.actorInsert(actorIdList);
+
+		}else {
+			System.out.println("else");
+			int result = dfService.detailFilmInsert(df, uId);
+			int result2 = dfService.filmImageInsert(filmImage, df.getId());
 		}
-		
-		// 이미지 저장용 select 한번 더
-		int result = dfService.detailFilmInsert(df, uId);
-		int result2 = dfService.filmImageInsert(filmImage, df.getId());
-		int result3 = dfService.actorInsert(actorIdList);
 		
 		mv.addObject("filmId", df.getFilmId()).setViewName("redirect:detailFilm.do");
 		
 		return mv;
 
 	}
+	
+	// poster 저장
+	
+	
+	
 	
 	// 영화 디테일 정보 Rollback
 	@RequestMapping("detailFilmRollback.do")
