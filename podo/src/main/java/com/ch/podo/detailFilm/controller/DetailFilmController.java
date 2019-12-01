@@ -110,13 +110,14 @@ public class DetailFilmController {
 										@RequestParam(value="uploadPoster", required=false) MultipartFile file) {
 		
 		
-		
 		if(!file.getOriginalFilename().equals("")) {
 			String renameFileName = saveFile(file, request);
 			
 			filmImage = renameFileName;
 		}else {
-			filmImage = "podoposter.jpg";
+			if(filmImage == "") {
+				filmImage = "podoposter.jpg";				
+			}
 		}
 		
 		// 배우 리스트 한번 쫙 빼기
