@@ -71,10 +71,10 @@
 		</choose>
 		<where>
 			<if test='releaseYear != "all" and releaseYear != null and releaseYear != ""'>
-				release_year = #{ releaseYear }
+				f.release_year = #{ releaseYear }
 			</if>
 			<if test='productionCountry != "all" and productionCountry != null and productionCountry != ""'>
-				and production_country = #{ productionCountry }
+				and f.production_country = #{ productionCountry }
 			</if>
 			<if test='genreId != "0" and genreId != null and genreId != ""'>
 				and f.genre_id = #{ genreId }
@@ -117,10 +117,10 @@
 		</choose>
 		<where>
 			<if test='releaseYear != "all" and releaseYear != null and releaseYear != ""'>
-				release_year = #{ releaseYear }
+				f.release_year = #{ releaseYear }
 			</if>
 			<if test='productionCountry != "all" and productionCountry != null and productionCountry != ""'>
-				and production_country = #{ productionCountry }
+				and f.production_country = #{ productionCountry }
 			</if>
 			<if test='genreId != "0" and genreId != null and genreId != ""'>
 				and f.genre_id = #{ genreId }
@@ -185,12 +185,6 @@
 		join tb_genre using(id)
 		order by id
 	</select>
-	
-	<insert id="insertFilm">
-		insert into tb_film
-		values(seq_film_id.nextval, #{ titleKor }, #{ titleEng }, #{ director }, 
-			   #{ releaseYear }, #{ productionCountry }, #{ productionStatus }, #{ genreId })
-	</insert>
 	
 	<select id="selectFilm" resultMap="filmResultSet">
 		select * 
@@ -282,6 +276,12 @@
 			where rownum <= 10
 		]]>
 	</select>
+	
+	<insert id="insertFilm">
+		insert into tb_film
+		values(seq_film_id.nextval, #{ titleKor }, #{ titleEng }, #{ director }, 
+			   #{ releaseYear }, #{ productionCountry }, #{ productionStatus }, #{ genreId })
+	</insert>
 	
 	<insert id="insertInitDetailFilm">
 		insert into tb_detail_film
