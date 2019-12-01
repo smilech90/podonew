@@ -79,8 +79,6 @@ public class DetailFilmDao {
 	// 배우 등록
 	public int addActor(int newActorId, int id) {
 		
-		System.out.println("newActor : "+newActorId);
-		
 		HashMap map= new HashMap();
 		
 		map.put("newActorId", newActorId);

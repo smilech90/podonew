@@ -123,22 +123,27 @@
         <div class="movie_info2">
         <!-- 왼쪽 영화 포스터 -->
         <!-- 포스터 -->
-            <div class="movie_poster_cover">    
+            <form action="detailFilmInsert.do" method="post" enctype="multipart/form-data">
+	            <input type="hidden" name="id" value="${df.id}">	<!-- 영화 상세 정보 번호 -->
+	            <input type="hidden" name="filmId" value="${df.filmId}">  <!-- 영화 번호  -->
+	            <input type="hidden" name="actorList" value="${al}">	 <!-- 배우 리스트 -->
+	            
+	            <input type="hidden" id="filmImage" name="filmImage" value="${ i.changeName }">
+	            <input type="hidden" name="uId" value="${ loginUser.id }">
+            <div class="movie_poster_cover"> 
                 <div id="movie_poster"> 
-                    <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
+               		<c:if test="${i ne null}">
+                    	<img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
+                    </c:if>
+                    <c:if test="${i eq null}">
+    	                <img id="poster" src="resources/detailFilmImage/defaultImg.png" style="width:100%; height:100%;">
+                	</c:if>
                 </div>
                 <div class="modifyPoster" id="modify_p_Btn">수정하기</div>
                 <div id="cancel" onclick="cancel();">취소하기</div>
                 <div id="mdfPosterBtn"><input type="file" id="uploadPBtn" name="uploadPoster"></div>
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
-            <form action="detailFilmInsert.do" method="post">
-	            <input type="hidden" name="id" value="${df.id}">	<!-- 영화 상세 정보 번호 -->
-	            <input type="hidden" name="filmId" value="${df.filmId}">  <!-- 영화 번호  -->
-	            <input type="hidden" name="actorList" value="${al}">	 <!-- 배우 리스트 -->
-	            
-	            <input type="hidden" name="filmImage" value="${ i.changeName }">
-	            <input type="hidden" name="uId" value="${ loginUser.id }">
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
@@ -179,8 +184,8 @@
                     	<button type="submit" class="btn" style="background:purple; color:white;" id="modifyBtn">내용 저장</button>
                     </div>	
                 </div>
-            </form>
             </div>
+            </form>
         </div>
        
         <!-- actor 모달 -->
@@ -218,7 +223,7 @@
 						<!-- 배우 검색부 모달창 -->
 						<form action="#" onsubmit='return false;'>
 							<div class="form-group">
-								<lavel>배우 검색</label>
+								<label>배우 검색</label>
 								<input type="text" id="searchName" class="form-control" name="searchName" placeholder="이름을 입력해주세요">
 							</div>
 						</form>
