@@ -225,7 +225,6 @@
     	</div>
     <br>
     
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script async src="https://www.youtube.com/iframe_api"></script>
 	<script type="text/javascript">
 		
@@ -233,7 +232,6 @@
 		var trailer = "${df.trailer}";
 		var trSplit = trailer.split('=');
 		var trailer1 = trSplit[1];
-		
 		var player;
 		
         function onYouTubePlayerAPIReady(){
