@@ -476,19 +476,20 @@ public class FilmController {
 	public ModelAndView finsert(ModelAndView mv, Film film, DetailFilm df, Image img,
 															HttpServletRequest request, HttpSession session,
 															@RequestParam(value = "uploadFile", required = false) MultipartFile file) {
-		System.out.println("film : " + film);
+		// logger.info("film : " + film);
+		// logger.info("file : " + file);
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		if (!file.getOriginalFilename().equals("")) {
-			String renameFileName = PodoRenamePolicy.rename(file, request);
+			String renameFileName = PodoRenamePolicy.rename(file, request, "/detailFilmImage");
 			img.setChangeName(renameFileName);
 			logger.info("renameFileName : " + renameFileName);
 		}
 		// logger.info("img : " + img);
 		
 		int result = filmService.insertFilm(film, loginUser.getId(), img);
-		logger.info("result : " + result);
+		// logger.info("result : " + result);
 		
 		if (result > 0) {
 			mv.setViewName("redirect:flist.do");
