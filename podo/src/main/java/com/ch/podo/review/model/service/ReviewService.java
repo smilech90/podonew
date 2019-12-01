@@ -75,4 +75,6 @@ public interface ReviewService {
 	
 	// 리뷰 댓글 등록
 	int insertReviewComment(Comment c);
+	// 댓글 신고
+	int insertDeclarationComment(Report rep);
 }

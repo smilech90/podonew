@@ -151,6 +151,12 @@ public class ReviewDao {
 	}
 
 
+	public int insertDeclarationComment(Report rep) {
+		
+		return sqlSession.insert("reviewMapper.insertDeclarationComment", rep);
+	}
+
+
 
 	/*
 	public Review selectReview() {
