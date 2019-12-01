@@ -11,24 +11,6 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	
-  <link rel="icon" href="img/Fevicon.png" type="image/png">
-
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-  <link rel="stylesheet" href="vendors/linericon/style.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-<!-- 제이쿼리 -->
-  <script src="https://code.jquery.com/jquery-latest.js"></script> 
-  <link rel="stylesheet" href="css/style.css">
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="js/jquery.ajaxchimp.min.js"></script>
-  <script src="js/mail-script.js"></script>
-  <script src="js/main.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <title>Insert title here</title>
 <style>
 
@@ -211,8 +193,8 @@
 
 										</div>
 										<div class="d-flex">
-											<img width="42" height="42"
-												src="resources/bootstrap/img/blog/user-img.png" alt="">
+											공간1
+												
 										</div>
 									</div>
 								</div>
@@ -326,7 +308,17 @@
 						<p class="main_blog_details">${r.content }</p>
 
 						<div class="likedeclaration">
-							<a class="likeReview btn-reply text-uppercase" href="#">좋아요</a> 
+							  		<div class="thumb">
+										<br><br>
+										<c:if test="${ not empty likeUser }">
+		                                	<button class='btn btn-danger likeReviewBtn'>LIKED</button>
+		                                	<input type="hidden" class="likeInp" value="1"/>
+		                                </c:if>
+		                                <c:if test="${ empty likeUser }">
+		                                    <button class='btn btn-secondary likeReviewBtn'>LIKE</button>
+		                                   <input type="hidden" class="likeInp" value="0"/>
+		                                </c:if>
+									</div>
 							<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">신고하기</a>
 						</div>
 						<div></div>
@@ -336,7 +328,7 @@
 
 
 		</section>
-  
+
   <!-- 댓글 등록 -->
   <table class="table table-striped table-dark" align="center" border="1" cellspacing="0">
 	  <tr>
@@ -378,7 +370,7 @@
 				
 				var content = $("#review-comment").val();
 				var boardId = ${r.id};
-				var memberId = "${r.nickName}";
+				var memberId = "${r.memberId}";
 					
 				$.ajax({
 					url:"insertReviewComment.do",
@@ -428,18 +420,18 @@
 						$.each(data, function(index, value){
 							$tr = $("<tr></tr>");
 							
+							console.log(value.nickName);
 							
-							
-							$nickNameTd = $("<td width='100'></td>").text(value.nickName);
+							$writerTd = $("<td width='100'></td>").text(value.memberId);
 							$contentTd = $("<td width='300'></td>").text(value.content);
 							$dateTd = $("<td width='100'></td>").text(value.createDate+'에 작성');
-							$deleteButton = $("<input class='btn' type='button'>").val('삭제')
+							$deleteButton = $("<input class='delComment btn' type='button'>").val('삭제')
 							$updateButton = $("<input class='btn' type='button'>").val('수정')
-							$deButton = $("<input class='btn' type='button'>").val('신고')
+							$deButton = $("<a class='comment-modal btn-reply text-uppercase' href='#' data-toggle='modal'>댓글신고하기</a>")
 							
 							
 							
-							$tr.append($nickNameTd);
+							$tr.append($writerTd);
 							$tr.append($contentTd);
 							$tr.append($dateTd);
 							$tr.append($deleteButton);
@@ -466,6 +458,23 @@
 				}
 				
 			});
+		}
+		
+		
+		function deleteReviewComment(id){
+			if(confirm("댓글을 삭제하시겠습니까")){
+				$.ajax({
+					type:"post",
+					url:"deleteReviewComment.do",
+					data:{"COMMENT_ID":id},
+					success:function(){
+						alert("댓글이 삭제되었습니다.");
+					},
+					error:function(){
+						alert("댓글 삭제 실패");
+					}
+				});
+			}
 		}
 		
 		
@@ -625,8 +634,63 @@
 
 
 	<script>
-	
-	
+	// 리뷰 좋아요
+	$(function() {
+		//var likeUser = $(".likeInp").val();
+		//console.log("처음인풋 : " + likeUser);
+		
+		$(".likeReviewBtn").on("click", function(){
+			var targetId = "${ r.id }";
+			var userId = "${loginUser.id}";
+			var likeInp = $(".likeInp").val();
+			var status = "";
+			
+			//console.log("버튼클릭시 : " + likeInp);
+			
+			if(likeInp == '0'){
+				status = "like";
+			}else if(likeInp == '1'){
+				status = "nonlike";
+			}
+			//console.log(status);
+			$.ajax({
+					url:"likeClick.do",
+					data:{userId:userId,
+						  targetId:targetId,
+						  status:status},
+					type:"post",
+					success:function(data){
+						//console.log(data);
+						if(status == "like"){ // 좋아요클릭시
+							if(data == 1){
+								$(".likeBtn").removeClass("btn-danger");
+								$(".likeBtn").removeClass("btn-secondary");
+								$(".likeBtn").addClass("btn-danger");
+								$(".likeBtn").text('LIKED');
+								$(".likeInp").val('1');
+							}else{
+								alert("좋아요 실패");
+							}
+						}else if(status == "nonlike"){ // 좋아요 취소
+							if(data == 1){
+								$(".likeBtn").removeClass("btn-danger");
+								$(".likeBtn").removeClass("btn-secondary");
+								$(".likeBtn").addClass("btn-secondary");
+								$(".likeBtn").text('LIKE');
+								$(".likeInp").val('0');
+							}else{
+								alert("좋아요 실패");
+							}
+						}
+						//console.log("에이작스 후 : " + likeInp);
+							
+					},error:function(){
+						console.log("라이크 ajax 통신 실패");
+					}
+				});  
+		});
+		
+	});
 	// 신고하기 모달
 
 		
@@ -640,9 +704,12 @@
         $(".cm_modal").modal();
         //console.log("${ loginUser.id }");
     });
-
-	
-
+	// 댓글 삭제
+	$(".delComment").on( "click", function() {
+		$(function () {
+			deleteReviewComment();
+		});
+	});
 	//리뷰 클릭시
 	function reviewClick() {
 		if($("#reviewDe").is(":checked") == true) {
@@ -683,6 +750,7 @@
 		
 
 	} */
+	
 
 	</script>
 </body>

@@ -75,5 +75,17 @@ public class LikeServiceImpl implements LikeService{
 	public ArrayList<Like> myPageSelectLikeReview(String id, PageInfo pi) {
 		return likeDao.myPageSelectLikeReview(id, pi);
 	}
+
+	@Override
+	public int insertLikeReview(Like like) {
+		
+		return likeDao.insertLikeReview(like);
+	}
+
+	@Override
+	public int deleteLikeReview(Like like) {
+		
+		return likeDao.deleteLikeReview(like);
+	}
 	 
 }

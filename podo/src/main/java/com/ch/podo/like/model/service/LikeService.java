@@ -44,5 +44,11 @@ public interface LikeService {
 	
 	// 8_2. 마이페이지_리뷰좋아요 조회
 	ArrayList<Like> myPageSelectLikeReview(String id, PageInfo pi);
+
+	// 리뷰 좋아요 
+	int insertLikeReview(Like like);
+	
+	// 리뷰 좋아요 취소
+	int deleteLikeReview(Like like);
 	
 }

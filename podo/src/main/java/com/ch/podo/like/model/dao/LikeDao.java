@@ -82,4 +82,14 @@ public class LikeDao {
 		 
 		return list; 
 	}
+
+	public int insertLikeReview(Like like) {
+		return sqlSession.insert("likeMapper.insertLikeReview", like);
+		
+	}
+
+	public int deleteLikeReview(Like like) {
+		
+		return sqlSession.insert("likeMapper.deleteLikeReview", like);
+	}
 }
