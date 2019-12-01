@@ -785,7 +785,7 @@
 					".star-input>.input",
 					function() {
 						var $checked = $(this).closest(".star-input").find(":checked");
-						// console.log($checked);
+						
 						if ($checked.length === 0) {
 							$(this).siblings("output").find("b").text("0");
 						} else {
@@ -794,20 +794,15 @@
 					})
 			// 별을 클릭했을 때 DB에 별점을 기록하기 위한 AJAX
 			.on("click", ".star-input label", function() {
-				// var fid = $(this).closest("tr").find("td").eq(1).text();
-				var fid = $(this).closest("div").siblings(":hidden").val();
-				var star = $(this).text();
-				// console.log("fid : " + fid);
-				// console.log("star : " + star);
-
-				// var $checked = $(this).closest(".star-input").find(":checked");
-				// console.log($checked);
+				var $this = $(this);
+				var $fid = $(this).closest("div").siblings(":hidden").val();
+				var $star = $(this).text();
 
 				$.ajax({
 					url : "rateFilm.do",
 					data : {
-						"fid" : fid,
-						"star" : star
+						"fid" : $fid,
+						"star" : $star
 					},
 					type : "post",
 					dataType : "json",
@@ -815,7 +810,14 @@
 						// console.log(data);
 					},
 					error : function() {
+						// 비회원일 경우 별점 checked false
 						alert("로그인 해주세요!");
+						
+						// jQuery 1.6 이후 부터 라디오버튼과 체크박스를 다루기 위해서는 .prop() 함수를 사용해야 한다.
+						$($this).closest(".star-input").find("[name*=star-input]")
+																					 .prop("checked", false)
+																					 .trigger("blur");
+						$($this).parent().siblings("output").find("b").text("0");
 					}
 				});
 			});

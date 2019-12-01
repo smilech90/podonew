@@ -1,10 +1,6 @@
 
 package com.ch.podo.member.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
@@ -26,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
+import com.ch.podo.common.PodoRenamePolicy;
 import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.like.model.vo.Like;
 import com.ch.podo.member.model.service.MemberService;
@@ -71,19 +68,20 @@ public class MemberController {
 				Cookie[] cookies = request.getCookies();
 				for (int i = 0; i < cookies.length; i++) {
 					if (cookies[i].getName().equals("email") || cookies[i].getName().equals("pwd")) {
-						// System.out.println("cookies[" + i + "].name : " + cookies[i].getName());
+						// logger.info("cookies[" + i + "].name : " + cookies[i].getName());
 						cookies[i].setMaxAge(0);
 						response.addCookie(cookies[i]);
 					}
 				}
 			}
-			
+
 			session.setAttribute("loginUser", loginUser);
+			
 			String referer = request.getHeader("Referer");
 			mv.setViewName("redirect:" + referer);
 			
 		} else {
-			mv.addObject("msg", "로그인 실패").setViewName("error/errorPage");
+			mv.addObject("loginFail", true);
 		}
 		return mv;
 	}
@@ -104,10 +102,9 @@ public class MemberController {
 							 @RequestParam(value="uploadFile", required=false) MultipartFile file) {
 		
 		if(!file.getOriginalFilename().equals("")) {	// 프로필 사진 등록하는 경우
-			String renameFileName = saveFile(file, request);	// 공통 메소드(saveFile)를 만들어서 파일 수정명 반환(수정할 때 재사용하려고 메소드 뺌)
-			
+			String renameFileName = PodoRenamePolicy.rename(file, request, "/memberProfileImage");
 			mem.setImage(renameFileName);
-		}else {
+		} else {
 			mem.setImage("podoImage.png");
 		}
 		
@@ -122,32 +119,6 @@ public class MemberController {
 			model.addAttribute("msg", "회원가입 실패");
 			return "redirect:login.do";
 		}
-	}
-	
-	public String saveFile(MultipartFile file, HttpServletRequest request) {
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "/memberProfileImage";
-		
-		File folder = new File(savePath);	// 저장 folder를 한번 알아옴
-		
-		if(!folder.exists()) {	// savePath 경로가 없으면 폴더 생성하기
-			folder.mkdir();
-		}
-		
-		String originFileName = file.getOriginalFilename();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "."
-								+ originFileName.substring(originFileName.lastIndexOf(".") + 1);	// .뒷자리부터 뽑아내기 위해 +1
-		
-		String renamePath = savePath + "/" + renameFileName;
-		
-		try {
-			file.transferTo(new File(renamePath));	//수정명으로 파일 업로드
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}	
-		
-		return renameFileName;
 	}
 	
 	@ResponseBody
@@ -193,8 +164,8 @@ public class MemberController {
 		// 정보수정만 한 경우
 		if(mem.getUpdatePwd().equals("")) {
 			
-			if(!file.getOriginalFilename().equals("")) {	
-				String renameFileName = saveFile(file, request);	
+			if(!file.getOriginalFilename().equals("")) {
+				String renameFileName = PodoRenamePolicy.rename(file, request, "/memberProfileImage");
 				mem.setImage(renameFileName);
 			}else {
 				mem.setImage(mem.getImage());
