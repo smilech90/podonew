@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.member.model.dao.MemberDao;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.member.model.vo.Pay;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
@@ -74,6 +75,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member selectUserPageMem(String userId) {
 		return memberDao.selectUserPageMem(userId);
+	}
+
+	@Override
+	public int insertPaymentInfo(Pay pay) {
+		int result1 = memberDao.insertPaymentInfo(pay);
+		int result2 = memberDao.updatePremiumInfo(pay.getMemberId());
+		if (result1 > 0 && result2 > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+		
 	}
 
 }

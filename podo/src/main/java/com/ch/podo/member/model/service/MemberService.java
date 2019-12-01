@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.member.model.vo.Pay;
 
 public interface MemberService {
 
@@ -27,6 +28,9 @@ public interface MemberService {
 	
 	// 6. 유저페이지_유저조회
 	Member selectUserPageMem(String userId);
+	
+	// 7. 결제정보 저장
+	int insertPaymentInfo(Pay pay);
 	
 	
 	// 관리자

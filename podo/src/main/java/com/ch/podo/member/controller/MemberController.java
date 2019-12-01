@@ -30,6 +30,7 @@ import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.like.model.vo.Like;
 import com.ch.podo.member.model.service.MemberService;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.member.model.vo.Pay;
 import com.ch.podo.review.model.dto.Review;
 import com.ch.podo.review.model.service.ReviewService;
 
@@ -292,4 +293,10 @@ public class MemberController {
 		return "member/premium";
 	}
 	
+	@ResponseBody
+	@RequestMapping("pay.do")
+	public int pay(Pay pay) {
+		logger.info("payment info : " + pay);
+		return memberService.insertPaymentInfo(pay);
+	}
 }
