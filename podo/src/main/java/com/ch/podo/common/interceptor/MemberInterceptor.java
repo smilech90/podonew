@@ -35,7 +35,6 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 			logger.info("비로그인 상태에서 작성하려고 함");
 			out.println("<script>alert('회원이 아니면 접근 불가능한 서비스입니다.');history.back();</script>");
 			out.flush();
-			out.close();
 			return false; // 실행 실패
 		} else {
 			int bid = loginUser.getId();
@@ -45,11 +44,8 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 				logger.info("블랙리스트인 상태에서 게시물 작성하려 함");
 				out.println("<script>alert('블랙리스트 회원은 접근 불가능한 서비스입니다.');history.back();</script>");
 				out.flush();
-				out.close();
 				return false;
 			}
-
-			out.close();
 			return true;
 		}
 	}
