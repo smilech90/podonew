@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<jsp:include page="../common/header.jsp"/>
+		<title>영화 검색</title>
 		<style>
 			
 			#search-film-result {
@@ -18,10 +18,20 @@
 				border: 1px solid;
 			}
 			
+			.card-img {
+				object-fit: cover;
+				height: 420px;
+			}
+			
+			.single-recent-blog-post .thumb {
+		    overflow: hidden;
+		    border-radius: 10px;
+		    border: 1px solid #b3bfdd;
+			}
+			
 		</style>
 	</head>
 	<body>
-		<jsp:include page="../common/header.jsp"/>
 
 		  <!--================ Start Blog Post Area =================-->
 		  <section class="blog-post-area section-margin">
@@ -165,48 +175,22 @@
 		                <h4 class="single-sidebar-widget__title">박스 오피스</h4>
 		                <div class="popular-post-list">
 		                  <div class="single-post-list">
-		                    <div class="thumb">
-		                      <img class="card-img rounded-0" src="img/blog/thumb/thumb1.png" alt="">
-		                      <ul class="thumb-info">
-		                        <li><a href="#">Adam Colinge</a></li>
-		                        <li><a href="#">Dec 15</a></li>
-		                      </ul>
-		                    </div>
-		                    <div class="details mt-20">
-		                      <a href="blog-single.html">
-		                        <h6>Accused of assaulting flight attendant miktake alaways</h6>
-		                      </a>
-		                    </div>
-		                  </div>
-		                  <div class="single-post-list">
-		                    <div class="thumb">
-		                      <img class="card-img rounded-0" src="img/blog/thumb/thumb2.png" alt="">
-		                      <ul class="thumb-info">
-		                        <li><a href="#">Adam Colinge</a></li>
-		                        <li><a href="#">Dec 15</a></li>
-		                      </ul>
-		                    </div>
-		                    <div class="details mt-20">
-		                      <a href="blog-single.html">
-		                        <h6>Tennessee outback steakhouse the
-		                          worker diagnosed</h6>
-		                      </a>
-		                    </div>
-		                  </div>
-		                  <div class="single-post-list">
-		                    <div class="thumb">
-		                      <img class="card-img rounded-0" src="img/blog/thumb/thumb3.png" alt="">
-		                      <ul class="thumb-info">
-		                        <li><a href="#">Adam Colinge</a></li>
-		                        <li><a href="#">Dec 15</a></li>
-		                      </ul>
-		                    </div>
-		                    <div class="details mt-20">
-		                      <a href="blog-single.html">
-		                        <h6>Tennessee outback steakhouse the
-		                          worker diagnosed</h6>
-		                      </a>
-		                    </div>
+		                  	<table>
+		                  		<thead>
+		                  			<tr>
+		                  				<th>1</th>
+		                  				<th>2</th>
+		                  				<th>3</th>
+		                  			</tr>
+		                  		</thead>
+		                  		<tbody>
+		                  			<tr>
+		                  				<td>a</td>
+		                  				<td>s</td>
+		                  				<td>d</td>
+		                  			</tr>
+		                  		</tbody>
+		                  	</table>
 		                  </div>
 		                </div>
 		              </div>

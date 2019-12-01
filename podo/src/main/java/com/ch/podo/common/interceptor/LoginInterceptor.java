@@ -43,7 +43,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			// logger.info("로그인 실패");
 			out.println("<script>alert('아이디와 비밀번호가 일치하지 않습니다.');history.back();</script>");
 			out.flush();
-			out.close();
 		}
 	}
 	
