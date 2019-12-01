@@ -256,6 +256,28 @@ public class ReviewController {
 		return mv;
 	}
 	
+	
+
+	// 댓글 신고하기
+	@RequestMapping("declarationCommentModal.do")
+	public ModelAndView insertDeclarationComment(Review r, Report rep, ModelAndView mv) {
+
+		// Review r = reviewService.selectReviewReport(reviewNo);
+		System.out.println("댓글신고" + rep);
+
+		int result = reviewService.insertDeclarationComment(rep);
+		System.out.println("성공할건가" + result);
+		if (result > 0) { // 성공
+			mv.addObject("id", rep.getTargetId()).setViewName("redirect:ratingDetailReview.do");
+
+		} else { // 실패
+			mv.addObject("msg", "신고하기 실풰").setViewName("error/errorPage");
+		}
+
+		return mv;
+	}
+	
+	
 	// 리부 댓글
 	
 	@ResponseBody
@@ -278,6 +300,7 @@ public class ReviewController {
 	public String insertReviewComment(Comment c, ModelAndView mv) {
 		
 		int result = reviewService.insertReviewComment(c);
+		
 		
 		System.out.println(result);
 		if(result > 0) {

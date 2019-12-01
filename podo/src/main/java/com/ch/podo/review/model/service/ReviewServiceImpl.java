@@ -138,6 +138,12 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.insertReviewComment(c);
 	}
 
+	@Override
+	public int insertDeclarationComment(Report rep) {
+		
+		return reviewDao.insertDeclarationComment(rep);
+	}
+
 	/*
 	@Override
 	public int reivewInsert(DetailFilm df) {

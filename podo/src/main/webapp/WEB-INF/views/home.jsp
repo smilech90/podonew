@@ -3,7 +3,9 @@
 <html>
 
 	<head>
+	
 		<jsp:include page="common/header.jsp"/>
+		
 		<title>포도포도</title>
 		<style>
 			
@@ -62,6 +64,7 @@
 				height:80%;
 				width:100%;
 				/* border: 1px solid black; */
+				border-radius:30;
 				float:left;
 				text-align:center;
 			}
@@ -123,6 +126,10 @@
 			#boardMore{
 				margin-left: 750px;
 			}
+			#ReviewMore{
+				margin-left: 850px;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -188,25 +195,27 @@
 		
 			
 			
-	        	<p align="center">리뷰 리스트</p>
+	        	<p align="center">리뷰</p>
 	        	
-	         
+	         			<a href="reviewList.do" id="ReviewMore">리뷰 더보기</a>
       		<c:forEach items="${ reviewList }" var="rs">
       	<div class="homeReviewArea">
 			        <div class="leftImage">
-			              <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }.jpg" height="100px">
+			              <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }1.jpg" height="100px">
 			               <div class="nickNameHome">${ rs.nickName }님</div>
 					</div>
 			   		<div class="rightContent">
 			   			<div class="titleKorea">${ rs.titleKor }</div>
 			            <div class="contentKorea"> ${ rs.content }</div>
-	             		 <div class="btns">${rs.modifyDate }에 작성</div>
+	             		 <div class="btns">${rs.modifyDate }에 작성 <button >추천</button><a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">신고하기</a><button>댓글</button> </div>
 			        </div>       
-	        
+			        
 
 
 	     </div>
+	     	<hr style="width: 600px;">
      			</c:forEach> 
+     			
     			
 	      
 
@@ -218,7 +227,7 @@
     	<div style="height:200px;"></div>
     </div>	
     <div class="table-responsive-xl">
-	    <p align="center">자유게시판 리스트</p>
+	    <p align="center">자유게시판</p>
 						<a href="blist.do" id="boardMore">더보기</a>
 	<table class="table table-striped table-dark" align="center" cellspacing="0">
 		<tr>
@@ -252,6 +261,42 @@
     
 	  <jsp:include page="common/footer.jsp"/>
 	  
+	  
+	  <!-- 신고하기 모달 -->
+	<div class="modal fade de_modal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					신고하기
+					<form action="declarationModal.do" method="post">
+						<input type="hidden" name="reportId" value="${ loginUser.id }">
+						<input type="hidden" name="targetId" value="${ rs.id }">
+						<input type="hidden" name="reportedId" value="${ rs.memberId }">
+						
+					<div class="eu">
+						
+						<p></p>
+							<input class="reviewType" type="radio" value="1" name="content">부적절한내용
+							<input class="reviewType" type="radio" value="2" name="content">스포일러
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<button  type="submit" class="btn btn-primary">신고보내기</button>
+						<button  class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	  
 	</body>
 		<script>
 			$(function(){
@@ -268,6 +313,14 @@
 
 					
 				});
+			});
+			
+			
+			// 신고하기
+
+			$(".declaration-modal").on("click", function() {
+				$(".de_modal").modal();
+				//console.log("${ loginUser.id }");
 			});
 		</script>
 </html>
