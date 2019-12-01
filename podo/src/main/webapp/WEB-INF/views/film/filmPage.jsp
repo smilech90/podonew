@@ -146,6 +146,11 @@
 				font-size: 18px;
 			}
 			
+			.nice-select .current,
+			.nice-select .list {
+				color: #090f21;
+			}
+			
 		</style>
 <!-- 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 	</head>

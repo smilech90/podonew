@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.member.model.vo.Pay;
 import com.ch.podo.board.model.vo.PageInfo;
 
 @Repository("memberDao")
@@ -64,6 +65,14 @@ public class MemberDao {
 
 	public int prohibitionBoard(int bid) {
 		return sqlSession.selectOne("memberMapper.prohibitionBoard", bid);
+	}
+
+	public int insertPaymentInfo(Pay pay) {
+		return sqlSession.insert("memberMapper.insertPaymentInfo", pay);
+	}
+
+	public int updatePremiumInfo(String memberId) {
+		return sqlSession.update("memberMapper.updatePremiumInfo", memberId);
 	}
 	
 	public int insertBlackList(String[] result) {
