@@ -44,8 +44,8 @@
 					            		</c:otherwise>
 					            	</c:choose>
 			                  <ul class="thumb-info">
-			                    <li><a href="#"><i class="ti-user"></i>${ f.director }</a></li>
-			                    <li><a href="#"><i class="ti-themify-favicon"></i>${ f.releaseYear }</a></li>
+			                    <li><a href="detailFilm.do?filmId=${f.id}"><i class="ti-user"></i>${ f.director }</a></li>
+			                    <li><a href="detailFilm.do?filmId=${f.id}"><i class="ti-themify-favicon"></i>${ f.releaseYear }</a></li>
 			                  </ul>
 			                </div>
 			                <div class="details mt-20">
@@ -53,7 +53,7 @@
 			                    <h3>${ f.titleKor }</h3>
 			                  </a>
 			                  <p>${ f.titleEng } / ${ f.productionCountry } / ${ f.genre }</p>
-			                  <a class="button" href="detailFilm.do?filmId=${f.id}">More Info<i class="ti-arrow-right"></i></a>
+			                  <a class="button" href="detailFilm.do?filmId=${f.id}">더보기<i class="ti-arrow-right"></i></a>
 			                </div>
 			              </div>
 			            </div>
@@ -114,8 +114,8 @@
 		                <h4 class="single-sidebar-widget__title">결과 내 재검색</h4>
 		                <div class="form-group mt-30">
 		                  <div class="col-autos">
-		                    <input type="search" class="form-control" id="inlineFormInputGroup" placeholder="키워드를 입력해주세요" onfocus="this.placeholder = ''"
-		                      onblur="this.placeholder = '키워드를 입력해주세요'">
+		                    <input type="search" class="form-control" id="inlineFormInputGroup" placeholder="키워드를 입력해주세요"
+		                    	onfocus="this.placeholder = ''" onblur="this.placeholder = '키워드를 입력해주세요'">
 		                  </div>
 		                </div>
 		                <button class="bbtns d-block mt-20 w-100">검색</button>
@@ -162,7 +162,7 @@
 		              </div>
 		
 		              <div class="single-sidebar-widget popular-post-widget">
-		                <h4 class="single-sidebar-widget__title">Popular Post</h4>
+		                <h4 class="single-sidebar-widget__title">박스 오피스</h4>
 		                <div class="popular-post-list">
 		                  <div class="single-post-list">
 		                    <div class="thumb">
@@ -212,31 +212,19 @@
 		              </div>
 		
 		                <div class="single-sidebar-widget tag_cloud_widget">
-		                  <h4 class="single-sidebar-widget__title">Popular Post</h4>
+		                  <h4 class="single-sidebar-widget__title">인기 키워드</h4>
 		                  <ul class="list">
 		                    <li>
-		                        <a href="#">project</a>
+		                        <a href="skFilm.do?keyword=조커">#조커</a>
 		                    </li>
 		                    <li>
-		                        <a href="#">love</a>
+		                        <a href="skFilm.do?keyword=미인어">#미인어</a>
 		                    </li>
 		                    <li>
-		                        <a href="#">technology</a>
+		                        <a href="skFilm.do?keyword=감쪽같은 그녀">#감쪽같은 그녀</a>
 		                    </li>
 		                    <li>
-		                        <a href="#">travel</a>
-		                    </li>
-		                    <li>
-		                        <a href="#">software</a>
-		                    </li>
-		                    <li>
-		                        <a href="#">life style</a>
-		                    </li>
-		                    <li>
-		                        <a href="#">design</a>
-		                    </li>
-		                    <li>
-		                        <a href="#">illustration</a>
+		                        <a href="skFilm.do?keyword=매드 맥스">#매드 맥스</a>
 		                    </li>
 		                  </ul>
 		                </div>

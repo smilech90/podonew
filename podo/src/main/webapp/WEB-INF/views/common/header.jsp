@@ -32,6 +32,15 @@
 			text-align: center;
 		}
 		
+		.owl-carousel .owl-item img {
+			height: 340px;
+			object-fit: cover;
+		}
+		
+		.blog__slide__img {
+			cursor: pointer;
+		}
+		
 	</style>
 
 </head>

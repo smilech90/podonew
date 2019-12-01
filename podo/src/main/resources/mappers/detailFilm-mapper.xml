@@ -48,7 +48,7 @@
 		      left join tb_actor a on(fa.actor_id = a.id)
               left join tb_member m on(df.member_id = m.id)
 		      where f.id = #{filmId}
-		      and df.status='Y'
+		      and (df.status='Y' or df.status is null)
 		      order by df.insertdate desc) m
 		where rownum = 1
 	</select>

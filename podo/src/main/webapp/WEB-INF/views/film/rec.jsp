@@ -34,6 +34,22 @@
 				font-size: 18px;
 			}
 			
+			.podo-ad-banner {
+				background-color: #6617cb;
+				background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%);
+				height: 100px;
+				overflow: hidden;
+				cursor: pointer;
+			}
+			
+			.podo-ad-banner>div {
+				height: 100%;
+				line-height: 100px;
+				text-align: center;
+				font-size: 20px;
+				color: blanchedalmond;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -54,13 +70,17 @@
 			</div>
 		</section>
 		
-		<c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
+    <!--================ Advertisement start =================-->
+    <c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
 	    <div class="container" style="background-color: black; background-clip: content-box; margin-bottom: 30px;">
-	    	<div style="height: 100px;">
-		      <h1 style="text-align: center; color: white;">광고</h1>
+	    	<div class="podo-ad-banner" onclick="location.href='premium.do'">
+	    		<div>
+		      	무료로 가입하시고 단돈 1,100원에 광고를 제거해보세요!
+	    		</div>
 	    	</div>
 	    </div>
     </c:if>
+    <!--================Advertisement end =================-->
 		
 		<section class="blog-post-area section-margin">
 			<div class="container">
@@ -85,7 +105,7 @@
 						      	<!--================ Blog slider start =================-->
 						        	
 						          <div class="card blog__slide text-center">
-						            <div class="blog__slide__img">
+						            <div class="blog__slide__img" onclick="location.href='detailFilm.do?filmId=${ f.id }'">
 						            	<c:choose>
 						            		<c:when test="${ not empty f.poster }">
 								              <img class="card-img rounded-0" src="resources/detailFilmImage/${ f.poster }" alt="">
@@ -96,8 +116,8 @@
 						            	</c:choose>
 						            </div>
 						            <div class="blog__slide__content">
-						              <a class="blog__slide__label" href="#">${ f.avgStarRating }</a>
-						              <h3><a href="#">${ f.titleKor }</a></h3>
+						              <a class="blog__slide__label" href="detailFilm.do?filmId=${ f.id }">${ f.avgStarRating }</a>
+						              <h3><a href="detailFilm.do?filmId=${ f.id }">${ f.titleKor }</a></h3>
 						              <p>${ f.releaseYear }</p>
 						            </div>
 						          </div>
@@ -115,7 +135,7 @@
 						      	<!--================ Blog slider start =================-->
 						        	
 						          <div class="card blog__slide text-center">
-						            <div class="blog__slide__img">
+						            <div class="blog__slide__img" onclick="location.href='detailFilm.do?filmId=${ f.id }'">
 						            	<c:choose>
 						            		<c:when test="${ not empty f.poster }">
 								              <img class="card-img rounded-0" src="resources/detailFilmImage/${ f.poster }" alt="">
@@ -126,8 +146,8 @@
 						            	</c:choose>
 						            </div>
 						            <div class="blog__slide__content">
-						              <a class="blog__slide__label" href="#">${ f.avgStarRating }</a>
-						              <h3><a href="#">${ f.titleKor }</a></h3>
+						              <a class="blog__slide__label" href="detailFilm.do?filmId=${ f.id }">${ f.avgStarRating }</a>
+						              <h3><a href="detailFilm.do?filmId=${ f.id }">${ f.titleKor }</a></h3>
 						              <p>${ f.releaseYear }</p>
 						            </div>
 						          </div>
@@ -145,7 +165,7 @@
 						      	<!--================ Blog slider start =================-->
 						        	
 						          <div class="card blog__slide text-center">
-						            <div class="blog__slide__img">
+						            <div class="blog__slide__img" onclick="location.href='detailFilm.do?filmId=${ f.id }'">
 						            	<c:choose>
 						            		<c:when test="${ not empty f.poster }">
 								              <img class="card-img rounded-0" src="resources/detailFilmImage/${ f.poster }" alt="">
@@ -156,8 +176,8 @@
 						            	</c:choose>
 						            </div>
 						            <div class="blog__slide__content">
-						              <a class="blog__slide__label" href="#">${ f.avgStarRating }</a>
-						              <h3><a href="#">${ f.titleKor }</a></h3>
+						              <a class="blog__slide__label" href="detailFilm.do?filmId=${ f.id }">${ f.avgStarRating }</a>
+						              <h3><a href="detailFilm.do?filmId=${ f.id }">${ f.titleKor }</a></h3>
 						              <p>${ f.releaseYear }</p>
 						            </div>
 						          </div>

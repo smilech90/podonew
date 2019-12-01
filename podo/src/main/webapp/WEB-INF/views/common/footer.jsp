@@ -4,21 +4,14 @@
 <html>
 <head>
 <style>
-	div{
-		box-sizing: border-box;
-	}
 	#footer-wrapper{width: 100%;}
 	.footer-1>a{
-		color: white;
-		text-decoration: none;
-		font-weight: 700;
+		color: #b5b5b5;
 		margin: 10px;
-		line-height: 25px;
 	}
 	.footer-2>p{
 		margin: 0;
 		text-align: center;
-		font-weight: 500;
 	}
 	
 	.db-inquiry-btn{

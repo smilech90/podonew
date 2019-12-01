@@ -151,6 +151,24 @@
 				color: #090f21;
 			}
 			
+			/* .ad-banner { 광고 차단 어플에 자동으로 식별됨 */
+			/* .advertisement-banner { */
+			.podo-ad-banner {
+				background-color: #6617cb;
+				background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%);
+				height: 100px;
+				overflow: hidden;
+				cursor: pointer;
+			}
+			
+			.podo-ad-banner>div {
+				height: 100%;
+				line-height: 100px;
+				text-align: center;
+				font-size: 20px;
+				color: blanchedalmond;
+			}
+			
 		</style>
 <!-- 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 	</head>
@@ -170,13 +188,17 @@
 			</div>
 		</section>
 		
-		<c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
+    <!--================ Advertisement start =================-->
+    <c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
 	    <div class="container" style="background-color: black; background-clip: content-box; margin-bottom: 30px;">
-	    	<div style="height: 100px;">
-		      <h1 style="text-align: center; color: white;">광고</h1>
+	    	<div class="podo-ad-banner" onclick="location.href='premium.do'">
+	    		<div>
+		      	무료로 가입하시고 단돈 1,100원에 광고를 제거해보세요!
+	    		</div>
 	    	</div>
 	    </div>
     </c:if>
+    <!--================Advertisement end =================-->
 		
 		<!-- =================필터================= -->
 		<div class="container" style="margin-bottom: 40px; text-align: center;">
@@ -253,7 +275,7 @@
 						<!-- width * 1.425 -->
 						<div class="podo-film-card col-3">
 							<input class="hidden-filmId" type="hidden" value="${ film.id }">
-							<div class="poster">
+							<div class="poster" onclick="location.href='detailFilm.do?filmId=${ film.id }'">
 								<c:if test="${ not empty film.poster }">
 									<img src="resources/detailFilmImage/${ film.poster }">
 								</c:if>
@@ -261,7 +283,7 @@
 									<img src="resources/detailFilmImage/podoposter.jpg">
 								</c:if>
 							</div>
-							<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
+							<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
 								${ film.titleKor }
 							</div>
 							<div>

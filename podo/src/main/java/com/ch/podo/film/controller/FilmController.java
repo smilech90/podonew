@@ -60,6 +60,7 @@ public class FilmController {
 	@RequestMapping("skFilm.do")
 	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
 																				@RequestParam(value="currentPage", defaultValue = "1") int currentPage) {
+		logger.info("keyword : " + keyword);
 		int listCount = filmService.selectKeywordFilmListCount(keyword);
 		// page는 최대 3페이지, board는 최대 6개 보여지도록 set
 		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 3, 6);
@@ -113,7 +114,7 @@ public class FilmController {
 		if (loginUser != null) {
 			sc.setUserId(loginUser.getId());
 		}
-		// logger.info("sc : " + sc);
+		logger.info("sc : " + sc);
 		
 		// 필터 목록 조회
 		ArrayList<String> release = filmService.selectAllReleaseYearList();
@@ -121,7 +122,7 @@ public class FilmController {
 		ArrayList<Genre> genre = filmService.selectAllGenreList();
 		
 		int listCount = filmService.selectFilterFilmListCount(sc);
-		// logger.info("listCount : " + listCount);
+		logger.info("listCount : " + listCount);
 		
 		// page는 최대 3페이지, board는 최대 12개 보여지도록 set
 		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 5, 12);
@@ -165,6 +166,15 @@ public class FilmController {
 		return mv;
 	}
 	
+	/**
+	 * @deprecated
+	 * @param response
+	 * @param session
+	 * @param film
+	 * @throws JsonIOException
+	 * @throws IOException
+	 * @author Changsu Im
+	 */
 	@RequestMapping("sfFilm.do")
 	public void sfFilm(HttpServletResponse response, HttpSession session, Film film)
 			throws JsonIOException, IOException {

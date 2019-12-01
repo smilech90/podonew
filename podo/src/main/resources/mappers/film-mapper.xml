@@ -60,13 +60,13 @@
 			</when>
 			<otherwise>
 				select count(*)
-				from (select f.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, NVL(rf.member_id, null) as mem, fas.avg_star
-				      from tb_film f
-				      join tb_genre g on (f.genre_id = g.id)
-				      left outer join tb_detail_film df on (df.film_id = f.id)
+				from (select fff.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, rf.member_id as mem, fas.avg_star
+				      from tb_film fff
+				      join tb_genre g on (fff.genre_id = g.id)
+				      left outer join tb_detail_film df on (df.film_id = fff.id)
 				      left outer join tb_film_image fi on (df.id = fi.dfilm_id)
-				      left outer join tb_rating_film rf on (rf.film_id = f.id)
-      				join vi_film_avg_star fas on (fas.film_id = f.id)) t
+				      left outer join tb_rating_film rf on (rf.film_id = fff.id)
+      				join vi_film_avg_star fas on (fas.film_id = fff.id)) f
 			</otherwise>
 		</choose>
 		<where>
@@ -88,7 +88,7 @@
 						and saw = 'N'
 					</otherwise>
 				</choose>
-				and mem = #{ userId }
+						and (mem = #{ userId } or mem is null)
 			</if>
 		</where>
 		<!-- count만 가져오기 때문에 order 따로 해주지 않음 -->
@@ -105,14 +105,14 @@
  				join vi_film_avg_star fas on (fas.film_id = f.id)
 			</when>
 			<otherwise>
-				select t.*
-				from (select f.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, NVL(rf.member_id, null) as mem, fas.avg_star
-				      from tb_film f
-				      join tb_genre g on (f.genre_id = g.id)
-				      left outer join tb_detail_film df on (df.film_id = f.id)
+				select f.*
+				from (select fff.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, rf.member_id as mem, fas.avg_star
+				      from tb_film fff
+				      join tb_genre g on (fff.genre_id = g.id)
+				      left outer join tb_detail_film df on (df.film_id = fff.id)
 				      left outer join tb_film_image fi on (df.id = fi.dfilm_id)
-				      left outer join tb_rating_film rf on (rf.film_id = f.id)
-      				join vi_film_avg_star fas on (fas.film_id = f.id)) t
+				      left outer join tb_rating_film rf on (rf.film_id = fff.id)
+      				join vi_film_avg_star fas on (fas.film_id = fff.id)) f
 			</otherwise>
 		</choose>
 		<where>
@@ -134,7 +134,7 @@
 						and saw = 'N'
 					</otherwise>
 				</choose>
-				and mem = #{ userId }
+				and (mem = #{ userId } or mem is null)
 			</if>
 		</where>
 		<if test='order != "all" and order != null and order != ""'>
