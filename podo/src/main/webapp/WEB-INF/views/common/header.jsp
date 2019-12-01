@@ -82,8 +82,13 @@
 							   </c:choose>
 							</ul>
 						</div>
-						<form method="post" action="skFilm.do" class="form-inline my-4 my-lg-0">
-							<input class="form-control mr-sm-2" type="search" placeholder="키워드를 입력해주세요" aria-label="Search" name="keyword">
+						<form method="get" action="skFilm.do" class="form-inline my-4 my-lg-0">
+							<c:if test="${ !empty keyword }">
+								<input class="form-control mr-sm-2" type="search" placeholder="키워드를 입력해주세요" aria-label="Search" name="keyword" value="${ keyword }">
+							</c:if>
+							<c:if test="${ empty keyword }">
+								<input class="form-control mr-sm-2" type="search" placeholder="키워드를 입력해주세요" aria-label="Search" name="keyword">
+							</c:if>
 							<button class="button button--active my-2 my-sm-0" type="submit">검색</button>
 						</form>
 					</div>

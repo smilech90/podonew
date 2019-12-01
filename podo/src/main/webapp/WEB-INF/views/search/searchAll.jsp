@@ -70,44 +70,49 @@
 		          	</c:forEach>
 		          </div>
 		          
-		          <!-- 페이지 -->
+		          <c:url var="keywordSearchUrl" value="skFilm.do">
+								<c:param name="keyword" value="${ keyword }" />
+								<c:param name="skeyword" value="${ skeyword }" />
+							</c:url>
+		          <!-- Pagination -->
 		          <div class="row">
 		            <div class="col-lg-12">
 	                <nav class="blog-pagination justify-content-center d-flex">
                     <ul class="pagination">
                    		
                    		<!-- [PREV] -->
-                       <li class="page-item">
-                         <a href="skFilm.do?currentPage=${ pi.currentPage - 1 }" class="page-link" aria-label="Previous" disabled>
-                           <span aria-hidden="true">
-                             <i class="ti-angle-left"></i>
-                           </span>
+                      <c:if test="${ pi.currentPage eq 1 }">
+												<li class="page-item disabled">
+											</c:if>
+											<c:if test="${ pi.currentPage ne 1 }">
+												<li class="page-item">
+											</c:if>
+                         <a href=<c:out value="${ keywordSearchUrl }&p=${ pi.currentPage - 1 }"/> class="page-link" aria-label="Previous" disabled>
+                           &lt;
                         </a>
                       </li>
                        
-                      <!-- [페이지] -->
+                      <!-- [각 페이지] -->
 											<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+											
                      		<c:if test="${ p eq pi.currentPage }">
-													<c:url value="skFilm.do" var="page">
-														<c:param name="currentPage" value="${ p }"/>
-													</c:url>
-                     			<li class="page-item disabled"><a href="${ page }" class="page-link">${ p }</a></li>
+                     			<li class="page-item disabled"><a href=<c:out value="${ keywordSearchUrl }&p=${ p }"/> class="page-link">${ p }</a></li>
 												</c:if>
 												<c:if test="${ p ne pi.currentPage }">
-													<c:url value="skFilm.do" var="page">
-														<c:param name="currentPage" value="${ p }"/>
-													</c:url>
-                     			<li class="page-item"><a href="${ page }" class="page-link">${ p }</a></li>
+                     			<li class="page-item"><a href=<c:out value="${ keywordSearchUrl }&p=${ p }"/> class="page-link">${ p }</a></li>
 												</c:if>
                      		
                       </c:forEach>
                        
                       <!-- [NEXT] -->
-                      <li class="page-item">
-												<a href="skFilm.do?currentPage=${ pi.currentPage + 1 }" class="page-link" aria-label="Next">
-                           <span aria-hidden="true">
-                             <i class="ti-angle-right"></i>
-                           </span>
+                      <c:if test="${ pi.currentPage eq pi.maxPage }">
+												<li class="page-item disabled">
+											</c:if>
+											<c:if test="${ pi.currentPage ne pi.maxPage }">
+												<li class="page-item">
+											</c:if>
+												<a href=<c:out value="${ keywordSearchUrl }&p=${ pi.currentPage + 1 }"/> class="page-link" aria-label="Next">
+                           &gt;
                         </a>
                       </li>
                     </ul>
@@ -124,7 +129,7 @@
 		                <h4 class="single-sidebar-widget__title">결과 내 재검색</h4>
 		                <div class="form-group mt-30">
 		                  <div class="col-autos">
-		                    <input type="search" class="form-control" id="inlineFormInputGroup" placeholder="키워드를 입력해주세요"
+		                    <input type="search" class="form-control" id="inlineFormInputGroup" placeholder="키워드를 입력해주세요" name="skeyword"
 		                    	onfocus="this.placeholder = ''" onblur="this.placeholder = '키워드를 입력해주세요'">
 		                  </div>
 		                </div>
@@ -136,13 +141,13 @@
 		                <h4 class="single-sidebar-widget__title">카테고리</h4>
 		                <ul class="cat-list mt-20">
 		                  <li>
-		                    <a href="#" class="d-flex justify-content-between">
+		                    <a href="<c:out value="${ keywordSearchUrl }&p=1"/>" class="d-flex justify-content-between">
 		                      <p>영화</p>
-		                      <c:if test="${ listCount lt 10 }">
-			                      <p>(0${ listCount })</p>
+		                      <c:if test="${ filmCount lt 10 }">
+			                      <p>(0${ filmCount })</p>
 		                      </c:if>
-		                      <c:if test="${ listCount ge 10 }">
-			                      <p>(${ listCount })</p>
+		                      <c:if test="${ filmCount ge 10 }">
+			                      <p>(${ filmCount })</p>
 		                      </c:if>
 		                    </a>
 		                  </li>

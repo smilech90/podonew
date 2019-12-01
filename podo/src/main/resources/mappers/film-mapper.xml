@@ -32,18 +32,30 @@
 	
 	<select id="selectKeywordFilmListCount" resultType="_int">
 		select count(*)
-		from tb_film f
+		from (select f.id, max(nvl(df.id, 0)) as dfid
+		      from tb_film f
+		      left outer join tb_detail_film df on (df.film_id = f.id)
+		      group by f.id
+		      order by dfid desc) ff
+		join tb_film f on (f.id = ff.id)
 		join tb_genre g on (f.genre_id = g.id)
+		left outer join tb_detail_film df on (df.id = dfid)
+		left outer join tb_film_image fi on (fi.dfilm_id = df.id)
 		where title_kor like '%'||#{keyword}||'%'
 		   or title_eng like '%'||#{keyword}||'%'
 	</select>
 	
 	<select id="selectKeywordFilmList" resultMap="filmResultSet">
-		select f.*, g.name, fi.change_name
-		from tb_film f
+		select f.*, g.*, df.*, fi.*
+		from (select f.id, max(nvl(df.id, 0)) as dfid
+		      from tb_film f
+		      left outer join tb_detail_film df on (df.film_id = f.id)
+		      group by f.id
+		      order by dfid desc) ff
+		join tb_film f on (f.id = ff.id)
 		join tb_genre g on (f.genre_id = g.id)
-		left outer join tb_detail_film df on (df.film_id = f.id)
-		left outer join tb_film_image fi on (df.id = fi.dfilm_id)
+		left outer join tb_detail_film df on (df.id = dfid)
+		left outer join tb_film_image fi on (fi.dfilm_id = df.id)
 		where title_kor like '%'||#{keyword}||'%'
 		   or title_eng like '%'||#{keyword}||'%'
 	</select>

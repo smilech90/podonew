@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<jsp:include page="../common/header.jsp"/>
-		<title>평점 기반 영화 추천</title>
+		<title>영화 추천</title>
 		<style>
 			
 			@media (min-width: 1000px) {

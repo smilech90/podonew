@@ -59,18 +59,24 @@ public class FilmController {
 	 * @author Changsu Im
 	 */
 	@RequestMapping("skFilm.do")
-	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
-																				@RequestParam(value="currentPage", defaultValue = "1") int currentPage) {
+	public ModelAndView searchKeywordFilm(ModelAndView mv,
+																				String keyword, String skeyword,
+																				@RequestParam(value="p", defaultValue = "1") int currentPage) {
 		logger.info("keyword : " + keyword);
-		int listCount = filmService.selectKeywordFilmListCount(keyword);
+		logger.info("skeyword : " + skeyword);
+		logger.info("currentPage : " + currentPage);
+		
+		int filmCount = filmService.selectKeywordFilmListCount(keyword);
 		// page는 최대 3페이지, board는 최대 6개 보여지도록 set
-		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 3, 6);
-		// logger.info("pi : " + pi);
+		PageInfo pi = Pagination.setPageLimit(currentPage, filmCount, 3, 6);
+		logger.info("pi : " + pi);
 		
 		ArrayList<Film> list = filmService.selectKeywordFilmList(keyword, pi);
-		mv.addObject("listCount", listCount)
+		mv.addObject("filmCount", filmCount)
 			.addObject("pi", pi)
 			.addObject("list", list)
+			.addObject("keyword", keyword)
+			.addObject("skeyword", skeyword)
 			.setViewName("search/searchAll");
 		
 		return mv;
@@ -227,6 +233,7 @@ public class FilmController {
 											 String fid, @RequestParam("flag") int flag)
 			throws JsonIOException, IOException {
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		logger.info("loginUser : " + loginUser);
 		
 		if (loginUser == null) {
 			return 0;

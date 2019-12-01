@@ -39,9 +39,6 @@
 			<mapping path="/reviewDelete.do"/>
 			<mapping path="/insertQuestion.do"/>
 			<mapping path="/insertReviewComment.do"/>
-			<mapping path="/likeFilm.do"/>
-			<mapping path="/sawFilm.do"/>
-			<mapping path="/rateFilm.do"/>
 			<beans:bean id="MemberInterceptor" class="com.ch.podo.common.interceptor.MemberInterceptor"/>
 		</interceptor>
 		

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>프리미엄 회원 구독</title>
+		<title>유료 회원 가입</title>
 		<jsp:include page="../common/header.jsp"/>
 		<style>
 			
@@ -47,7 +47,7 @@
 
 	
 		<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-			<h1 class="display-4">프리미엄 회원 구독</h1>
+			<h1 class="display-4">유료 회원 가입</h1>
 			<p class="lead">단돈 1,100원으로 광고없이 포도를 이용해보세요!</p>
 		</div>
 	
