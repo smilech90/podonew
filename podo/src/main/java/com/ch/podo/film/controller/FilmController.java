@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,12 +78,12 @@ public class FilmController {
 	
 	/**
 	 * 필름 페이지 이동
+	 * @deprecated
 	 * @param model
 	 * @return
 	 * @author Changsu Im
 	 */
-	/*
-	@RequestMapping("film.do")
+	@RequestMapping("goFilm.do")
 	public String filmPage(Model model) {
 		ArrayList<String> release = filmService.selectAllReleaseYearList();
 		ArrayList<String> country = filmService.selectAllCountryList();
@@ -94,7 +95,7 @@ public class FilmController {
 		
 		return "film/filmPage";
 	}
-	*/
+	
 	/**
 	 * 영화 찾기 페이지에서 필터 검색
 	 * @param response
