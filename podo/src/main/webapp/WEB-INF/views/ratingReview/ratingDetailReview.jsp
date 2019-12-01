@@ -585,7 +585,7 @@
 						
 						<p></p>
 							<input class="commentType" type="radio" value="1" name="content">부적절한내용
-							<input class="commentType" type="radio" value="2" name="content">스포일러 
+							<input class="commentType" type="radio" value="2" name="content">스포일러 입니다
 						<p></p>
 					</div>
 					<div class="modal-footer">
