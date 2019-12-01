@@ -77,4 +77,8 @@ public interface ReviewService {
 	int insertReviewComment(Comment c);
 	// 댓글 신고
 	int insertDeclarationComment(Report rep);
+	
+	
+	// 댓글 삭제
+	int deleteReviewComment(int id);
 }

@@ -111,6 +111,22 @@ public class LikeController {
 		return mv;
 	}
 	
+	
+	// 리뷰 좋아요
+	@ResponseBody
+	@RequestMapping("likeReviewClick.do")
+	public int likeReviewClick(Like like, String status) {
+		
+		int result = 0;
+		
+		if(status.equals("like")) {
+			result = likeService.insertLikeReview(like);
+				
+		}else {
+			result = likeService.deleteLikeReview(like);
+		}
+		return result;
+	}
 
 	
 }

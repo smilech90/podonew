@@ -19,6 +19,7 @@ import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
+import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.report.model.vo.Report;
 import com.ch.podo.review.model.dto.Review;
@@ -35,6 +36,8 @@ public class ReviewController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private LikeService likeService;
 
 	// 전체리스트 조회 
 	@RequestMapping("reviewList.do")
@@ -308,6 +311,25 @@ public class ReviewController {
 		}else {
 			return "fail";
 		}
+	}
+	
+	// 리뷰 좋아요
+	
+	
+	//리뷰 삭제
+	// 글삭제 (아직 조건 안걸음 사용자 아이디 비교해서 그사람이 삭제할수있게끔해놓기)
+	@RequestMapping("deleteReviewComment.do")
+	public String deleteReviewComment(int id, ModelAndView mv) {
+		
+		
+		int result = reviewService.deleteReviewComment(id);
+		
+		if(result>0) {
+			return "redirect:ratingDetailReview.do";
+		}else {
+			return "error/errorPage";
+		}
+		
 	}
 
 }

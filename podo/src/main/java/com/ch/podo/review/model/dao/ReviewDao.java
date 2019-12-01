@@ -157,6 +157,12 @@ public class ReviewDao {
 	}
 
 
+	public int deleteReviewComment(int id) {
+		
+		return sqlSession.update("reviewMapper.deleteReviewComment",id);
+	}
+
+
 
 	/*
 	public Review selectReview() {
