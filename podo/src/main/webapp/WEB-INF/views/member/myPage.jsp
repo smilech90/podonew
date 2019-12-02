@@ -57,13 +57,13 @@
 	/* Style the tab content */
 	.tabcontent {
 		display: none;
-		background-color:rgb(230, 204, 255);
+		/* background-color:rgb(230, 204, 255); */
 		padding: 6px 12px;
 		color:#fff;
 	}
 	ul.tab li.current{
-		background-color: rgb(230, 204, 255);
-		color: #222;
+		/* background-color: rgb(230, 204, 255); */
+		color: rgb(230, 204, 255);
 	}
 	.tabcontent.current {
 		display: block;
@@ -148,13 +148,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="comments-area">
-						<h4>마이페이지</h4>
+					<div class="">
+						<h4>마이페이지</h4><br><br>
 						<div class="comment-list">
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
-										<img src="resources/memberProfileImage/${ loginUser.image }" width="70px" height="70px" alt=""><br><br>
+										<img src="resources/memberProfileImage/${ loginUser.image }" width='150' height='150' style="border-radius: 100px;"><br><br>
+										
 									</div>
 									<div class="desc">
 										<h2>${ loginUser.nickName }</h2>
@@ -216,8 +217,8 @@
 																			<c:if test="${ reviewPi.currentPage eq 1 }">
 																				<li class="page-item">
 																					<a class="page-link disabled" aria-label="Previous">
-																						<span aria-hidden="true">
-																							<i class="ti-angle-left"></i>
+																						<span aria-hidden="true" style="color:white;">&lt;
+																							<!-- <i class="ti-angle-left"></i> -->
 																						</span>
 																					</a>
 																				</li>
@@ -230,8 +231,8 @@
 																				</c:url>
 																				<li class="page-item">
 																					<a href="${ before }" class="page-link" aria-label="Previous">
-																						<span aria-hidden="true">
-																							<i class="ti-angle-left"></i>
+																						<span aria-hidden="true" style="color:white;"> &lt;
+																						<!-- 	<i class="ti-angle-left"></i> -->
 																						</span>
 																					</a>
 																				</li>
@@ -257,8 +258,8 @@
 																			<c:if test="${ reviewPi.currentPage eq reviewPi.maxPage }">
 																				<li class="page-item">
 																					<a class="page-link disabled" aria-label="Next" >
-																						<span aria-hidden="true">
-																							<i class="ti-angle-right"></i>
+																						<span aria-hidden="true" style="color:white;"> &gt;
+																							<!-- <i class="ti-angle-right"></i> -->
 																						</span>
 																					</a>
 																				</li>
@@ -271,8 +272,8 @@
 																				</c:url>
 																				<li class="page-item">
 																					<a href="${ after }" class="page-link" aria-label="Next">
-																						<span aria-hidden="true">
-																							<i class="ti-angle-right"></i>
+																						<span aria-hidden="true" style="color:white;"> &gt;
+																							<!-- <i class="ti-angle-right"></i> -->
 																						</span>
 																					</a>
 																				</li>
@@ -327,13 +328,6 @@
 															</div>
 														</c:forEach>
 													</div>
-												</c:if>
-												<c:if test="${ FilmlistCount eq 0 }">
-													<div style="text-align: center;">
-														<h3> 좋아한 영화가 없습니다.</h3>
-														<br>
-													</div>
-												</c:if>
 												<!-------------------------- 페이징바 시작 ------------------------>
 												<div class="row">
 													<div class="col-lg-12">
@@ -343,8 +337,8 @@
 																<c:if test="${ filmPi.currentPage eq 1 }">
 																	<li class="page-item">
 																		<a class="page-link disabled" aria-label="Previous">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-left"></i>
+																			<span aria-hidden="true" style="color:white;"> &lt;
+																				<!-- <i class="ti-angle-left"></i> -->
 																			</span>
 																		</a>
 																	</li>
@@ -357,8 +351,8 @@
 																	</c:url>
 																	<li class="page-item">
 																		<a href="${ before }" class="page-link" aria-label="Previous">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-left"></i>
+																			<span aria-hidden="true" style="color:white;"> &lt;
+																			<!-- 	<i class="ti-angle-left"></i> -->
 																			</span>
 																		</a>
 																	</li>
@@ -384,8 +378,8 @@
 																<c:if test="${ filmPi.currentPage eq filmPi.maxPage }">
 																	<li class="page-item">
 																		<a class="page-link disabled" aria-label="Next" >
-																			<span aria-hidden="true">
-																				<i class="ti-angle-right"></i>
+																			<span aria-hidden="true" style="color:white;"> &gt;
+																				<!-- <i class="ti-angle-right"></i> -->
 																			</span>
 																		</a>
 																	</li>
@@ -398,8 +392,8 @@
 																	</c:url>
 																	<li class="page-item">
 																		<a href="${ after }" class="page-link" aria-label="Next">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-right"></i>
+																			<span aria-hidden="true" style="color:white;"> &gt;
+																				<!-- <i class="ti-angle-right"></i> -->
 																			</span>
 																		</a>
 																	</li>
@@ -409,7 +403,14 @@
 														</nav>
 													</div>
 												</div>
+												</c:if>
 												<!-------------------------- 페이징바 끝 -------------------------->
+												<c:if test="${ FilmlistCount eq 0 }">
+													<div style="text-align: center;">
+														<h3> 좋아한 영화가 없습니다.</h3>
+														<br>
+													</div>
+												</c:if>
 											</div>
 										</div>
 										<!-- -------------------- 라이크_영화 끝--------------------->
@@ -451,8 +452,8 @@
 																				<c:if test="${ reviewlikePi.currentPage eq 1 }">
 																					<li class="page-item">
 																						<a class="page-link disabled" aria-label="Previous">
-																							<span aria-hidden="true">
-																								<i class="ti-angle-left"></i>
+																							<span aria-hidden="true" style="color:white;"> &lgt;
+																								<!-- <i class="ti-angle-left"></i> -->
 																							</span>
 																						</a>
 																					</li>
@@ -465,8 +466,8 @@
 																					</c:url>
 																					<li class="page-item">
 																						<a href="${ before }" class="page-link" aria-label="Previous">
-																							<span aria-hidden="true">
-																								<i class="ti-angle-left"></i>
+																							<span aria-hidden="true" style="color:white;">&lgt;
+																								<!-- <i class="ti-angle-left"></i> -->
 																							</span>
 																						</a>
 																					</li>
@@ -492,8 +493,8 @@
 																				<c:if test="${ reviewlikePi.currentPage eq reviewlikePi.maxPage }">
 																					<li class="page-item">
 																						<a class="page-link disabled" aria-label="Next" >
-																							<span aria-hidden="true">
-																								<i class="ti-angle-right"></i>
+																							<span aria-hidden="true" style="color:white;"> &gt;
+																								<!-- <i  class="ti-angle-right"></i> -->
 																							</span>
 																						</a>
 																					</li>
@@ -506,8 +507,8 @@
 																					</c:url>
 																					<li class="page-item">
 																						<a href="${ after }" class="page-link" aria-label="Next">
-																							<span aria-hidden="true">
-																								<i class="ti-angle-right"></i>
+																							<span aria-hidden="true" style="color:white;"> &gt;
+																								<!-- <i class="ti-angle-right"></i> -->
 																							</span>
 																						</a>
 																					</li>
@@ -559,13 +560,6 @@
 															</div>
 														</c:forEach>
 													</div>
-												</c:if>
-												<c:if test="${ UserlistCount eq 0 }">
-													<div style="text-align: center;">
-														<h3> 좋아요 한 유저가 없습니다.</h3>
-														<br>
-													</div>
-												</c:if>
 												<!-------------------------- 페이징바 시작 ------------------------>
 												<div class="row">
 													<div class="col-lg-12">
@@ -575,8 +569,8 @@
 																<c:if test="${ userPi.currentPage eq 1 }">
 																	<li class="page-item">
 																		<a class="page-link disabled" aria-label="Previous">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-left"></i>
+																			<span aria-hidden="true" style="color:white;"> &lt;
+																				<!-- <i class="ti-angle-left"></i> -->
 																			</span>
 																		</a>
 																	</li>
@@ -589,8 +583,8 @@
 																	</c:url>
 																	<li class="page-item">
 																		<a href="${ before }" class="page-link" aria-label="Previous">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-left"></i>
+																			<span aria-hidden="true" style="color:white;"> &lt;
+																			<!-- 	<i class="ti-angle-left"></i> -->
 																			</span>
 																		</a>
 																	</li>
@@ -616,8 +610,8 @@
 																<c:if test="${ userPi.currentPage eq userPi.maxPage }">
 																	<li class="page-item">
 																		<a class="page-link disabled" aria-label="Next" >
-																			<span aria-hidden="true">
-																				<i class="ti-angle-right"></i>
+																			<span aria-hidden="true" style="color:white;"> &gt;
+																				<!-- <i class="ti-angle-right"></i> -->
 																			</span>
 																		</a>
 																	</li>
@@ -630,8 +624,8 @@
 																	</c:url>
 																	<li class="page-item">
 																		<a href="${ after }" class="page-link" aria-label="Next">
-																			<span aria-hidden="true">
-																				<i class="ti-angle-right"></i>
+																			<span aria-hidden="true" style="color:white;"> &gt;
+																				<!-- <i class="ti-angle-right"></i> -->
 																			</span>
 																		</a>
 																	</li>
@@ -641,7 +635,15 @@
 														</nav>
 													</div>
 												</div>
+												</c:if>
 												<!-------------------------- 페이징바 끝 -------------------------->
+												
+													<c:if test="${ UserlistCount eq 0 }">
+													<div style="text-align: center;">
+														<h3> 좋아요 한 유저가 없습니다.</h3>
+														<br>
+													</div>
+												</c:if>
 											</div>
 										</div>
 										<!---------------------- 라이크_유저 끝 --------------------->
@@ -689,8 +691,8 @@
 															<c:if test="${ inquiryPi.currentPage eq 1 }">
 																<li class="page-item">
 																	<a class="page-link disabled" aria-label="Previous" >
-																		<span aria-hidden="true">
-																			<i class="ti-angle-left"></i>
+																		<span aria-hidden="true" style="color:white;">&lt;
+																			<!-- <i class="ti-angle-left"></i> -->
 																		</span>
 																	</a>
 																</li>
@@ -703,8 +705,8 @@
 																</c:url>
 																<li class="page-item">
 																	<a href="${ before }" class="page-link" aria-label="Previous">
-																		<span aria-hidden="true">
-																			<i class="ti-angle-left"></i>
+																		<span aria-hidden="true" style="color:white;">&lt;
+																			<!-- <i class="ti-angle-left"></i> -->
 																		</span>
 																	</a>
 																</li>
@@ -730,8 +732,8 @@
 															<c:if test="${ inquiryPi.currentPage eq pi.maxPage }">
 																<li class="page-item">
 																	<a class="page-link disabled" aria-label="Next" >
-																		<span aria-hidden="true">
-																			<i class="ti-angle-right"></i>
+																		<span aria-hidden="true" style="color:white;"> &gt;
+																			<!-- <i class="ti-angle-right"></i> -->
 																		</span>
 																	</a>
 																</li>
@@ -744,8 +746,8 @@
 																</c:url>
 																<li class="page-item">
 																	<a href="${ after }" class="page-link" aria-label="Next">
-																		<span aria-hidden="true">
-																			<i class="ti-angle-right"></i>
+																		<span aria-hidden="true" style="color:white;"> &gt;
+																			<!-- <i class="ti-angle-right"></i> -->
 																		</span>
 																	</a>
 																</li>
@@ -756,7 +758,7 @@
 												</div>
 												<!-------------------------- 페이징바 끝 -------------------------->
 										</div>
-										</c:if>
+										</c:if>	
 										<!-------------------------- 문의 끝 ----------------------->
 									</div>
 								</div>
