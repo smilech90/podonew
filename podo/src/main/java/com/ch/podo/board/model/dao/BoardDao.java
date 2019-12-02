@@ -38,9 +38,8 @@ public class BoardDao {
 	}
 	
 	
-	public int insertBoard(Board b) {		
+	public int insertBoard(Board b) {
 		return sqlSession.insert("boardMapper.insertBoard", b);
-		
 	}
 	
 	
@@ -58,9 +57,11 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.selectBoard", id);
 	}
 	
+	// 게시판 상세 조회 (파일)
 	public Image selectBoardFile(int id) {
 		return sqlSession.selectOne("boardMapper.selectBoardFile", id);
 	}
+	
 	
 	public int deleteBoard(int id) {
 		return sqlSession.update("boardMapper.deleteBoard", id);

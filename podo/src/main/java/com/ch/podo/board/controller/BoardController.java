@@ -72,6 +72,10 @@ public class BoardController {
 			
 			Image img = saveFile(file, request, i);
 			
+			b.setPath(img.getPath());
+			b.setOriginalName(img.getOriginalName());
+			b.setChangeName(img.getChangeName());
+						
 			i.setPath(img.getPath());
 			i.setOriginalName(img.getOriginalName());
 			i.setChangeName(img.getChangeName());
@@ -86,50 +90,21 @@ public class BoardController {
 			}
 			
 		}else {
+			
 			int result = boardService.insertBoard(b);
+			
+			if(result > 0) {
+				return "redirect:blist.do";
+			}
+			
 		}
 		
-		return "redirect:blist.do";
-		
-		
-//		int id = ((Board)session.getAttribute("boardId")).getId();
-//		
-//		if(!file.getOriginalFilename().equals("")) { // 파일이 존재할 경우
-//			
-//			Image img = saveFile(file, request, i);
-//			
-//			i.setOriginalName(file.getOriginalFilename());
-//			i.setChangeName(img.getChangeName());
-//			i.setPath(img.getPath());
-//			
-//			i.setBoardId(id);
-//			
-//			int result1 = boardService.insertBoard(b);
-//			int result2 = boardService.insertBoardFile(i);
-//			
-//			if(result1 > 0 && result2 > 0) {
-//				return "redirect:binsert.do";
-//			}else {
-//				return "";
-//			}			 
-//			
-//		}else {
-//			
-//			int result1 = boardService.insertBoard(b);
-//			
-//			if(result1 > 0) {
-//				return "redirect:binsert.do";
-//			}else {
-//				return "";
-//			}
-//			
-//		}
+		return null;
 		
 	}
 	
 	
-	
-	public Image saveFile(MultipartFile file, HttpServletRequest request , Image i) {
+	public Image saveFile(MultipartFile file, HttpServletRequest request, Image i) {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "/boardUploadFiles";
@@ -165,11 +140,11 @@ public class BoardController {
 	
 	// 수정 및 삭제 할 게시글 상세 조회
 	@RequestMapping("bdetail.do")
-	public ModelAndView boardDetail(HttpSession session, int id, ModelAndView mv) {
+	public ModelAndView boardDetail(int id, ModelAndView mv) {
 		
 		Board b = boardService.selectBoard(id);
 		Image i = boardService.selectBoardFile(id);
-			
+		
 		if(i != null) {
 			
 			mv.addObject("b", b).addObject("i", i).setViewName("board/boardDetailView");
@@ -177,7 +152,7 @@ public class BoardController {
 		}else{
 			mv.addObject("b", b).setViewName("board/boardDetailView");
 		}
-			
+		
 		return mv;
 		
 	}
@@ -223,9 +198,11 @@ public class BoardController {
 	@RequestMapping("bupdateView.do")
 	public ModelAndView boardUpdateView(int id, ModelAndView mv) {
 		
-		Board b = boardService.selectBoard(id);
-		Image i = boardService.selectBoardFile(id);
+		Board b = boardService.selectUpdateBoard(id);
+		Image i = boardService.selectUpdateBoardFile(id);
 		
+		System.out.println("i : " + i);
+		System.out.println("b : " + b);
 		mv.addObject("b", b).addObject("i", i).setViewName("board/boardUpdateForm");
 		
 		return mv;
@@ -235,40 +212,38 @@ public class BoardController {
 	
 	@RequestMapping("bupdate.do")
 	public ModelAndView boardUpdate(Board b, Image i, HttpServletRequest request, ModelAndView mv,
-									@RequestParam(value="board-upload-file", required=false) MultipartFile file) {
+			@RequestParam(value = "board-upload-file", required = false) MultipartFile file) {
 		
-		if(!file.getOriginalFilename().equals("")) {
+		System.out.println(i);
+		if(!i.getOriginalName().equals("")) {
 			
-			if(i.getOriginalName() != null) {
-				deleteFile(i.getChangeName(), request);
-			}
-						
-			Image img = saveFile(file, request, i);
+			deleteFile(i.getChangeName(), request);
 			
-			i.setPath(img.getPath());
-			i.setChangeName(img.getChangeName());
-			i.setOriginalName(img.getOriginalName());
+			Image img = saveFile(file, request, i);			
 			
 			int result1 = boardService.updateBoard(b);
 			int result2 = boardService.updateBoardFile(i);
 			
-			if(result1 > 0 && result2 > 0) {
-				
-				mv.addObject("id", b.getId()).addObject("i", i).setViewName("redirect:bdetail.do?id=" + b.getId());
-			}
+			i.setPath(img.getPath());
+			i.setOriginalName(img.getOriginalName());
+			i.setChangeName(img.getChangeName());
 			
-		}else {
-			
-			int result1 = boardService.updateBoard(b);
-			
-			if(result1 > 0) {
+			if (result1 > 0 && result2 > 0) {
 				mv.addObject("id", b.getId()).setViewName("redirect:bdetail.do");
 			}
-			
+
+		} else {
+
+			int result1 = boardService.updateBoard(b);
+
+			if (result1 > 0) {
+				mv.addObject("id", b.getId()).setViewName("redirect:bdetail.do");
+			}
+
 		}
-		
+
 		return mv;
-		
+
 	}
 	
 	// ----------------------------- 정말 모르겠다...

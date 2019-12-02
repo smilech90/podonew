@@ -57,14 +57,14 @@
 	</select>
 	
 	<select id="selectBoardList" resultMap="boardResultSet">
-		select *
+		select * 
 		from tb_board b
         join tb_member m on(b.member_id=m.id)
 		where b.status='Y'
 		order by b.id desc
 	</select>
 
-	<insert id="insertBoard">
+	<insert id="insertBoard" parameterType="hashmap">
 		insert into tb_board
 		values(seq_board_id.nextval, #{title}, #{content}, default, default, default, default,
 				sysdate, sysdate, default, #{memberId})
@@ -91,7 +91,7 @@
 	<select id="selectBoardFile" resultMap="imageResultSet">
 		select *
 		from tb_image
-		where board_id=#{b.id}
+		where board_id=#{boardId}
 	</select>
 	
 	<update id="deleteBoard">
@@ -109,7 +109,7 @@
 	<update id="updateBoardFile">
 		update tb_image
 		set path=#{path}, original_name=#{originalName}, change_name=#{changeName}
-		where id=#{id}
+		where board_id=#{boardId}
 	</update>
 	
 	 <!-- 댓글 -->

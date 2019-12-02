@@ -27,12 +27,14 @@
 	<br><br>
 	<form action="bupdate.do" method="post" enctype="multipart/form-data" class="boardInsertForm">
 	
-		<%-- <input type="hidden" name="id" value="${ i.id }">
+	  	<input type="hidden" name="memberId" value=${ loginUser.id }>
+	  	<input type="hidden" name="id" value=${ b.id }>
+		<input type="hidden" name="id" value="${ i.id }">
 		<input type="hidden" name="path" value="${ i.path }">
 		<input type="hidden" name="originalName" value="${ i.originalName }">
 		<input type="hidden" name="changeName" value="${ i.changeName }">
-		<input type="hidden" name="type" value="${ i.type }">
-		<input type="hidden" name="board" value="${ i.boardId }">		 --%>
+		<!-- <input type="hidden" name="type" value="${ i.type }"> -->
+		<input type="hidden" name="boardId" value="${ b.id }">
 		
 		<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">제목 </label>
@@ -40,7 +42,6 @@
 				<input type="text" class="form-control" name="title" value="${ b.title }" required>
 	    	</div>
 	  	</div>
-	  	<input type="hidden" name="memberId" value=${ loginUser.id }>
 	  	<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">작성일 </label>
 	    	<div class="col-sm-4">
@@ -57,12 +58,9 @@
 		<!-- 파일 -->
 		<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">첨부파일</label>
+			<input type="file" name="board-upload-file">
 			<c:if test="${ !empty i.originalName }">
-				<a href="${ pageContext.servletContext.contextPath }/resources/buploadFiles/${ i.changeName }" download="${ i.originalName }">${ i.originalName }
-				</a>
-			</c:if>
-			<c:if test="${ empty i.originalName }">
-				<input type="file" name="board-upload-file">
+				<a href="${ pageContext.servletContext.contextPath }/resources/buploadFiles/${ i.changeName }" download="${ i.originalName }">${ i.originalName }</a>
 			</c:if>
 		</div>
 		
@@ -71,7 +69,7 @@
 		<div class="form-group row" id="button">
 			<button type="button" class="btn btn-secondary btn-lg" onclick="location.href='blist.do';">취소</button>
 			&nbsp; &nbsp; &nbsp;
-			<button type="submit" class="btn btn-lg btn-primary">수정하기</button>
+			<button type="submit" class="btn btn-lg btn-primary">수정완료</button>
 		</div>
 	</form>
 	
