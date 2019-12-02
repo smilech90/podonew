@@ -180,7 +180,7 @@
                     <div class="cover" id="nickName_cover">
                     	<div id="df_nickName"><h5>작성자</h5>${ df.nickName }</div>
                     </div>
-                    <c:if test="${ loginUser.id ne null }">
+                    <c:if test="${ loginUser.autho eq 2 }">
                     	<div class="cover" id="rollbackBtn">
                     		<a href="detailFilmRollback.do?filmId=${df.filmId}">되돌리기</a>
                     	</div>

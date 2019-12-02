@@ -27,7 +27,7 @@ import com.ch.podo.common.Pagination;
 import com.ch.podo.common.PodoRenamePolicy;
 import com.ch.podo.common.SearchCondition;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
-import com.ch.podo.film.model.service.FilmService;
+import com.ch.podo.film.model.service.FilmService; 
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.film.model.vo.Genre;
 import com.ch.podo.image.model.vo.Image;
