@@ -3,7 +3,9 @@
 <html>
 
 	<head>
+	
 		<jsp:include page="common/header.jsp"/>
+		
 		<title>포도포도</title>
 		<style>
 			
@@ -22,21 +24,33 @@
 		    z-index: 1;
 			}
 			
-			.owl-carousel .owl-item img {
-				height: 360px;
-				object-fit: contain;
+			.podo-ad-banner {
+				background-color: #6617cb;
+				background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%);
+				height: 100px;
+				overflow: hidden;
+				cursor: pointer;
 			}
+			
+			.podo-ad-banner>div {
+				height: 100%;
+				line-height: 100px;
+				text-align: center;
+				font-size: 20px;
+				color: blanchedalmond;
+			}
+			
 			.homeReviewArea{
 				margin-left:auto;
 				margin-right:auto;
 				
 				height: 150px;
-				border: 1px solid blue;
+				/* border: 1px solid blue; */
 				width: 600px;
 			}
 
 			.leftImage{
-				border: 1px solid green;
+				/* border: 1px solid green; */
 				width: 20%;
 				height: 100%;
 				margin-left:auto;
@@ -49,46 +63,43 @@
 				border-radius: 100px;
 				height:80%;
 				width:100%;
-				border: 1px solid black;
+				/* border: 1px solid black; */
+				border-radius:30;
 				float:left;
 				text-align:center;
 			}
 			.nickNameHome{
 				height:20%;
 				width:100%;
-				border: 1px solid purple;
+				/* border: 1px solid purple; */
 				float:left;
 				text-align:center;
-
 			}
 			
-			
 			.rightContent{
-				border: 1px solid red;
+				/* border: 1px solid red; */
 				height:100%;
 				width: 80%;
 				float: left;
-
 			}
+			
 			.homeContent{
 				width:100%;
 				height:100%;
 				float:left;
-				
-				
 			}
 			
 			.titleKorea{
 				width:100%;
 				float: left;
-				border: 1px solid yellow;
+				/* border: 1px solid yellow; */
 				height: 20%;
 			}
 			.contentKorea{
 				float: left;
 				width:100%;
 				height:65%;
-				border: 1px solid orange;
+				/* border: 1px solid orange; */
 			}
 			.btns{
 				float: left;
@@ -115,6 +126,10 @@
 			#boardMore{
 				margin-left: 750px;
 			}
+			#ReviewMore{
+				margin-left: 850px;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -132,15 +147,17 @@
     </section>
     <!--================Hero Banner end =================-->
     
-    <!--================ Ad start =================-->
+    <!--================ Advertisement start =================-->
     <c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
 	    <div class="container" style="background-color: black; background-clip: content-box; margin-bottom: 30px;">
-	    	<div style="height: 100px;">
-		      <h1 style="text-align: center; color: white;">광고</h1>
+	    	<div class="podo-ad-banner" onclick="location.href='premium.do'">
+	    		<div>
+		      	무료로 가입하시고 단돈 1,100원에 광고를 제거해보세요!
+	    		</div>
 	    	</div>
 	    </div>
     </c:if>
-    <!--================Ad end =================-->
+    <!--================Advertisement end =================-->
 		
     <!--================ Blog slider start =================-->
     <!-- 창수가 구현한 위페이지 -->
@@ -152,7 +169,7 @@
 	      	<!--================ Blog slider start =================-->
 	        	
 	          <div class="card blog__slide text-center">
-	            <div class="blog__slide__img">
+	            <div class="blog__slide__img" onclick="location.href='detailFilm.do?filmId=${ film.id }'">
 	            	<c:choose>
 	            		<c:when test="${ not empty film.poster }">
 			              <img class="card-img rounded-0" src="resources/detailFilmImage/${ film.poster }" alt="">
@@ -163,8 +180,8 @@
 	            	</c:choose>
 	            </div>
 	            <div class="blog__slide__content">
-	              <a class="blog__slide__label" href="#">${ film.avgStarRating }</a>
-	              <h3><a href="#">${ film.titleKor }</a></h3>
+	              <a class="blog__slide__label" href="detailFilm.do?filmId=${ film.id }">${ film.avgStarRating }</a>
+	              <h3><a href="detailFilm.do?filmId=${ film.id }">${ film.titleKor }</a></h3>
 	              <p>${ film.releaseYear }</p>
 	            </div>
 	            
@@ -178,25 +195,27 @@
 		
 			
 			
-	        	<p align="center">리뷰 리스트</p>
+	        	<p align="center">리뷰</p>
 	        	
-	         
+	         			<a href="reviewList.do" id="ReviewMore">리뷰 더보기</a>
       		<c:forEach items="${ reviewList }" var="rs">
       	<div class="homeReviewArea">
 			        <div class="leftImage">
-			              <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }.jpg" height="100px">
+			              <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }1.jpg" height="100px">
 			               <div class="nickNameHome">${ rs.nickName }님</div>
 					</div>
 			   		<div class="rightContent">
 			   			<div class="titleKorea">${ rs.titleKor }</div>
 			            <div class="contentKorea"> ${ rs.content }</div>
-	             		 <div class="btns">${rs.modifyDate }에 작성</div>
+	             		 <div class="btns">${rs.modifyDate }에 작성 <button >추천</button><a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">신고하기</a><button>댓글</button> </div>
 			        </div>       
-	        
+			        
 
 
 	     </div>
+	     	<hr style="width: 600px;">
      			</c:forEach> 
+     			
     			
 	      
 
@@ -208,7 +227,7 @@
     	<div style="height:200px;"></div>
     </div>	
     <div class="table-responsive-xl">
-	    <p align="center">자유게시판 리스트</p>
+	    <p align="center">자유게시판</p>
 						<a href="blist.do" id="boardMore">더보기</a>
 	<table class="table table-striped table-dark" align="center" cellspacing="0">
 		<tr>
@@ -242,6 +261,42 @@
     
 	  <jsp:include page="common/footer.jsp"/>
 	  
+	  
+	  <!-- 신고하기 모달 -->
+	<div class="modal fade de_modal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					신고하기
+					<form action="declarationModal.do" method="post">
+						<input type="hidden" name="reportId" value="${ loginUser.id }">
+						<input type="hidden" name="targetId" value="${ rs.id }">
+						<input type="hidden" name="reportedId" value="${ rs.memberId }">
+						
+					<div class="eu">
+						
+						<p></p>
+							<input class="reviewType" type="radio" value="1" name="content">부적절한내용
+							<input class="reviewType" type="radio" value="2" name="content">스포일러
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<button  type="submit" class="btn btn-primary">신고보내기</button>
+						<button  class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	  
 	</body>
 		<script>
 			$(function(){
@@ -258,6 +313,14 @@
 
 					
 				});
+			});
+			
+			
+			// 신고하기
+
+			$(".declaration-modal").on("click", function() {
+				$(".de_modal").modal();
+				//console.log("${ loginUser.id }");
 			});
 		</script>
 </html>

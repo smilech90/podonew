@@ -134,17 +134,14 @@
         <div class="movie_info">
         	<!-- 왼쪽 영화 포스터 -->
             <div class="movie_poster_cover">
-            
-            	<c:if test="${ loginUser.id ne null }">
-	                <div class="icon" id="likeBtn">      <!-- 좋아요 -->
-	                    <img id="heart" src="resources/detailFilmImage/heart.jpg" style="width:30px; height:30px;">
-	                </div>
-			    </c:if>
-                                
-                <div id="movie_poster"> <!-- 포스터 -->	
-                    <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
+                <div id="movie_poster"> <!-- 포스터 -->
+ 	               	<c:if test="${i  ne null}">
+    	                <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
+                	</c:if>
+                	<c:if test="${i  eq null}">
+    	                <img id="poster" src="resources/detailFilmImage/defaultImg.png" style="width:100%; height:100%;">
+                	</c:if>
                 </div>
-
             </div>
             <!-- 오른쪽 영화 정보 -->
             <div class="movie_info_cover">
@@ -220,8 +217,6 @@
 	    <br>
     	</div>
     <br>
-    
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script async src="https://www.youtube.com/iframe_api"></script>
 	<script type="text/javascript">
 		
@@ -229,7 +224,6 @@
 		var trailer = "${df.trailer}";
 		var trSplit = trailer.split('=');
 		var trailer1 = trSplit[1];
-		
 		var player;
 		
         function onYouTubePlayerAPIReady(){

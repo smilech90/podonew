@@ -47,12 +47,45 @@ public class LikeServiceImpl implements LikeService{
 	}
 
 	@Override
-	public int myPageLikeReviewListCount(String id) {
-		return likeDao.myPageLikewReviewListCount(id);
+	public int myPageLikeFilmListCount(String id) {
+		return likeDao.myPageLikeFilmListCount(id);
 	}
 
-	/*
-	 * @Override public ArrayList<Like> myPageSelectLikeFilm(String id, PageInfo pi)
-	 * { return likeDao.myPageSelectLikeFilm(id, pi); }
-	 */
+	
+	@Override public ArrayList<Like> myPageSelectLikeFilm(String id, PageInfo pi){
+		return likeDao.myPageSelectLikeFilm(id, pi); 
+	}
+
+	@Override
+	public int myPageLikeUserListCount(String id) {
+		return likeDao.myPageLikeUserListCount(id);
+	}
+
+	@Override
+	public ArrayList<Like> myPageSelectLikeUser(String id, PageInfo pi) {
+		return likeDao.myPageSelectLikeUser(id, pi);
+	}
+
+	@Override
+	public int myPageLikeReviewListCount(String id) {
+		return likeDao.myPageLikeReviewListCount(id);
+	}
+
+	@Override
+	public ArrayList<Like> myPageSelectLikeReview(String id, PageInfo pi) {
+		return likeDao.myPageSelectLikeReview(id, pi);
+	}
+
+	@Override
+	public int insertLikeReview(Like like) {
+		
+		return likeDao.insertLikeReview(like);
+	}
+
+	@Override
+	public int deleteLikeReview(Like like) {
+		
+		return likeDao.deleteLikeReview(like);
+	}
+	 
 }

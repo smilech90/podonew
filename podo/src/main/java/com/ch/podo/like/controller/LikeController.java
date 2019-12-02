@@ -39,17 +39,94 @@ public class LikeController {
 	@RequestMapping("myPageSelectLikeFilm.do")
 	public ModelAndView myPageSelectLikeFilm(String tab, String id, ModelAndView mv,  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		
-		int FilmlistCount = likeService.myPageLikeReviewListCount(id);
-		System.out.println( FilmlistCount);
-		PageInfo pi = Pagination.getPageInfo(currentPage, FilmlistCount);
-		System.out.println(pi);
-		//ArrayList<Like> likeFilmList = likeService.myPageSelectLikeFilm(id, pi);
+		int FilmlistCount = likeService.myPageLikeFilmListCount(id);
+		PageInfo filmPi = Pagination.setPageLimit(currentPage, FilmlistCount, 5, 12);
+		ArrayList<Like> likeFilmList = likeService.myPageSelectLikeFilm(id, filmPi);
 		
-		//addObject("likeFilmList", likeFilmList)
-		mv.addObject("tab", tab).setViewName("member/myPage");
+		mv.addObject("likeFilmList", likeFilmList).addObject("FilmlistCount", FilmlistCount).addObject("filmPi", filmPi).addObject("tab", tab).setViewName("member/myPage");
+		return mv;
+	}
+	
+	@RequestMapping("myPageSelectLikeUser.do")
+	public ModelAndView myPageSelectLikeUser(String tab, String id, ModelAndView mv,  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		
+		int UserlistCount = likeService.myPageLikeUserListCount(id);
+		PageInfo userPi = Pagination.getPageInfo(currentPage, UserlistCount);
+		ArrayList<Like> likeUserList = likeService.myPageSelectLikeUser(id, userPi);
+		
+		mv.addObject("likeUserList", likeUserList).addObject("UserlistCount", UserlistCount).addObject("userPi", userPi).addObject("tab", tab).setViewName("member/myPage");
+		return mv;
+	}
+	
+	@RequestMapping("myPageSelectLikeReview.do")
+	public ModelAndView myPageSelectLikeReview(String tab, String id, ModelAndView mv,  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		
+		int ReviewlistCount = likeService.myPageLikeReviewListCount(id);
+		PageInfo reviewPi = Pagination.getPageInfo(currentPage, ReviewlistCount);
+		ArrayList<Like> likeReviewList = likeService.myPageSelectLikeReview(id, reviewPi);
+		
+		mv.addObject("likeReviewList", likeReviewList).addObject("ReviewlistCount", ReviewlistCount).addObject("reviewlikePi", reviewPi).addObject("tab", tab).setViewName("member/myPage");
 		return mv;
 	}
 	
 	
+	
+	
+	
+	
+	
+	@RequestMapping("userPageSelectLikeReview.do")
+	public ModelAndView userPageSelectLikeReview(String tab, String id, String loginUserId, ModelAndView mv,  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		String userId = id;
+		Like likeUser = likeService.selectLikeUser(userId,loginUserId);	// 유저페이지 조회 시 라이크 여부
+		int ReviewlistCount = likeService.myPageLikeReviewListCount(id);
+		PageInfo reviewPi = Pagination.getPageInfo(currentPage, ReviewlistCount);
+		ArrayList<Like> likeReviewList = likeService.myPageSelectLikeReview(id, reviewPi);
+		
+		mv.addObject("likeUser", likeUser).addObject("likeReviewList", likeReviewList).addObject("ReviewlistCount", ReviewlistCount).addObject("reviewlikePi", reviewPi).addObject("tab", tab).setViewName("member/userPage");
+		return mv;
+	}
+	
+	@RequestMapping("userPageSelectLikeFilm.do")
+	public ModelAndView userPageSelectLikeFilm(String tab, String id, String loginUserId, ModelAndView mv,  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		String userId = id;
+		Like likeUser = likeService.selectLikeUser(userId,loginUserId);	// 유저페이지 조회 시 라이크 여부
+		int FilmlistCount = likeService.myPageLikeFilmListCount(id);
+		PageInfo filmPi = Pagination.setPageLimit(currentPage, FilmlistCount, 5, 12);
+		ArrayList<Like> likeFilmList = likeService.myPageSelectLikeFilm(id, filmPi);
+		
+		mv.addObject("likeUser", likeUser).addObject("likeFilmList", likeFilmList).addObject("FilmlistCount", FilmlistCount).addObject("filmPi", filmPi).addObject("tab", tab).setViewName("member/userPage");
+		return mv;
+	}
+	
+	@RequestMapping("userPageSelectLikeUser.do")
+	public ModelAndView userPageSelectLikeUser(String tab, String id, String loginUserId, ModelAndView mv,  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		String userId = id;
+		Like likeUser = likeService.selectLikeUser(userId,loginUserId);	// 유저페이지 조회 시 라이크 여부
+		int UserlistCount = likeService.myPageLikeUserListCount(id);
+		PageInfo userPi = Pagination.getPageInfo(currentPage, UserlistCount);
+		ArrayList<Like> likeUserList = likeService.myPageSelectLikeUser(id, userPi);
+		
+		mv.addObject("likeUser", likeUser).addObject("likeUserList", likeUserList).addObject("UserlistCount", UserlistCount).addObject("userPi", userPi).addObject("tab", tab).setViewName("member/userPage");
+		return mv;
+	}
+	
+	
+	// 리뷰 좋아요
+	@ResponseBody
+	@RequestMapping("likeReviewClick.do")
+	public int likeReviewClick(Like like, String status) {
+		
+		int result = 0;
+		
+		if(status.equals("like")) {
+			result = likeService.insertLikeReview(like);
+				
+		}else {
+			result = likeService.deleteLikeReview(like);
+		}
+		return result;
+	}
+
 	
 }

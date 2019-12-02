@@ -146,6 +146,29 @@
 				font-size: 18px;
 			}
 			
+			.nice-select .current,
+			.nice-select .list {
+				color: #090f21;
+			}
+			
+			/* .ad-banner { 광고 차단 어플에 자동으로 식별됨 */
+			/* .advertisement-banner { */
+			.podo-ad-banner {
+				background-color: #6617cb;
+				background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%);
+				height: 100px;
+				overflow: hidden;
+				cursor: pointer;
+			}
+			
+			.podo-ad-banner>div {
+				height: 100%;
+				line-height: 100px;
+				text-align: center;
+				font-size: 20px;
+				color: blanchedalmond;
+			}
+			
 		</style>
 <!-- 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 	</head>
@@ -165,13 +188,17 @@
 			</div>
 		</section>
 		
-		<c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
+    <!--================ Advertisement start =================-->
+    <c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
 	    <div class="container" style="background-color: black; background-clip: content-box; margin-bottom: 30px;">
-	    	<div style="height: 100px;">
-		      <h1 style="text-align: center; color: white;">광고</h1>
+	    	<div class="podo-ad-banner" onclick="location.href='premium.do'">
+	    		<div>
+		      	무료로 가입하시고 단돈 1,100원에 광고를 제거해보세요!
+	    		</div>
 	    	</div>
 	    </div>
     </c:if>
+    <!--================Advertisement end =================-->
 		
 		<!-- =================필터================= -->
 		<div class="container" style="margin-bottom: 40px; text-align: center;">
@@ -248,7 +275,7 @@
 						<!-- width * 1.425 -->
 						<div class="podo-film-card col-3">
 							<input class="hidden-filmId" type="hidden" value="${ film.id }">
-							<div class="poster">
+							<div class="poster" onclick="location.href='detailFilm.do?filmId=${ film.id }'">
 								<c:if test="${ not empty film.poster }">
 									<img src="resources/detailFilmImage/${ film.poster }">
 								</c:if>
@@ -256,7 +283,7 @@
 									<img src="resources/detailFilmImage/podoposter.jpg">
 								</c:if>
 							</div>
-							<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
+							<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
 								${ film.titleKor }
 							</div>
 							<div>
@@ -359,10 +386,10 @@
 							<c:if test="${ pi.currentPage ne 1 }">
 								<li class="page-item">
 							</c:if>
-									<a href=<c:out value="${ filmUrl }&p=${ pi.currentPage - 1 }"/> class="page-link" aria-label="Previous">
-										&lt;
-									</a>
-								</li>
+								<a href=<c:out value="${ filmUrl }&p=${ pi.currentPage - 1 }"/> class="page-link" aria-label="Previous">
+									&lt;
+								</a>
+							</li>
 		
 							<!-- [각 페이지] -->
 							<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
@@ -758,7 +785,7 @@
 					".star-input>.input",
 					function() {
 						var $checked = $(this).closest(".star-input").find(":checked");
-						// console.log($checked);
+						
 						if ($checked.length === 0) {
 							$(this).siblings("output").find("b").text("0");
 						} else {
@@ -767,20 +794,15 @@
 					})
 			// 별을 클릭했을 때 DB에 별점을 기록하기 위한 AJAX
 			.on("click", ".star-input label", function() {
-				// var fid = $(this).closest("tr").find("td").eq(1).text();
-				var fid = $(this).closest("div").siblings(":hidden").val();
-				var star = $(this).text();
-				// console.log("fid : " + fid);
-				// console.log("star : " + star);
-
-				// var $checked = $(this).closest(".star-input").find(":checked");
-				// console.log($checked);
+				var $this = $(this);
+				var $fid = $(this).closest("div").siblings(":hidden").val();
+				var $star = $(this).text();
 
 				$.ajax({
 					url : "rateFilm.do",
 					data : {
-						"fid" : fid,
-						"star" : star
+						"fid" : $fid,
+						"star" : $star
 					},
 					type : "post",
 					dataType : "json",
@@ -788,7 +810,14 @@
 						// console.log(data);
 					},
 					error : function() {
+						// 비회원일 경우 별점 checked false
 						alert("로그인 해주세요!");
+						
+						// jQuery 1.6 이후 부터 라디오버튼과 체크박스를 다루기 위해서는 .prop() 함수를 사용해야 한다.
+						$($this).closest(".star-input").find("[name*=star-input]")
+																					 .prop("checked", false)
+																					 .trigger("blur");
+						$($this).parent().siblings("output").find("b").text("0");
 					}
 				});
 			});
