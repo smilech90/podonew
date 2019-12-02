@@ -25,11 +25,32 @@
 			}
 			
 			.podo-ad-banner {
-				background-color: #6617cb;
-				background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%);
+				background: linear-gradient(133deg, #7b08c8, #e67518, #554dc6, #f776e7);
+				background-size: 800% 800%;
+				
+				-webkit-animation: AnimationName 10s ease infinite;
+				-moz-animation: AnimationName 10s ease infinite;
+				animation: AnimationName 10s ease infinite;
+
 				height: 100px;
 				overflow: hidden;
 				cursor: pointer;
+			}
+			
+			@-webkit-keyframes AnimationName {
+			    0%{background-position:0% 50%}
+			    50%{background-position:100% 50%}
+			    100%{background-position:0% 50%}
+			}
+			@-moz-keyframes AnimationName {
+			    0%{background-position:0% 50%}
+			    50%{background-position:100% 50%}
+			    100%{background-position:0% 50%}
+			}
+			@keyframes AnimationName {
+			    0%{background-position:0% 50%}
+			    50%{background-position:100% 50%}
+			    100%{background-position:0% 50%}
 			}
 			
 			.podo-ad-banner>div {
