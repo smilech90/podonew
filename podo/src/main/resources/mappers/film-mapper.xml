@@ -35,6 +35,8 @@
 		from (select f.id, max(nvl(df.id, 0)) as dfid
 		      from tb_film f
 		      left outer join tb_detail_film df on (df.film_id = f.id)
+          where status = 'Y'
+         		 or status is null
 		      group by f.id
 		      order by dfid desc) ff
 		join tb_film f on (f.id = ff.id)
@@ -50,6 +52,8 @@
 		from (select f.id, max(nvl(df.id, 0)) as dfid
 		      from tb_film f
 		      left outer join tb_detail_film df on (df.film_id = f.id)
+          where status = 'Y'
+         		 or status is null
 		      group by f.id
 		      order by dfid desc) ff
 		join tb_film f on (f.id = ff.id)
@@ -72,13 +76,14 @@
 			</when>
 			<otherwise>
 				select count(*)
-				from (select fff.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, rf.member_id as mem, fas.avg_star
-				      from tb_film fff
-				      join tb_genre g on (fff.genre_id = g.id)
-				      left outer join tb_detail_film df on (df.film_id = fff.id)
-				      left outer join tb_film_image fi on (df.id = fi.dfilm_id)
-				      left outer join tb_rating_film rf on (rf.film_id = fff.id)
-      				join vi_film_avg_star fas on (fas.film_id = fff.id)) f
+				from (select fff.*, NVL(rf.saw, 'N') as saw
+							from (select f.*, g.name, fas.dfid, fi.change_name, nvl(fas.avg_star, 0) as avg_star
+							      from tb_film f
+							      join tb_genre g on (f.genre_id = g.id)
+							      join vi_film_avg_star fas on (fas.film_id = f.id)
+							      left outer join tb_detail_film df on (df.id = dfid)
+							      left outer join tb_film_image fi on (df.id = fi.dfilm_id)) fff
+							left outer join tb_rating_film rf on (rf.film_id = fff.id and rf.member_id = #{ userId })) f
 			</otherwise>
 		</choose>
 		<where>
@@ -100,7 +105,6 @@
 						and saw = 'N'
 					</otherwise>
 				</choose>
-						and (mem = #{ userId } or mem is null)
 			</if>
 		</where>
 		<!-- count만 가져오기 때문에 order 따로 해주지 않음 -->
@@ -109,22 +113,23 @@
 	<select id="selectFilterFilmList" resultMap="filmResultSet">
 		<choose>
 			<when test='userId == "0" or userId == null or saw == "all" or saw == null'>
-				select f.*, g.name, fi.change_name, nvl(fas.avg_star, 0) as avg_star
-	      from tb_film f
-	      join tb_genre g on (f.genre_id = g.id)
-	      left outer join tb_detail_film df on (df.film_id = f.id)
-	      left outer join tb_film_image fi on (df.id = fi.dfilm_id)
- 				join vi_film_avg_star fas on (fas.film_id = f.id)
+				select f.*, g.name, fas.dfid, fi.change_name, nvl(fas.avg_star, 0) as avg_star
+				from tb_film f
+				join tb_genre g on (f.genre_id = g.id)
+				join vi_film_avg_star fas on (fas.film_id = f.id)
+				left outer join tb_detail_film df on (df.id = dfid)
+				left outer join tb_film_image fi on (df.id = fi.dfilm_id)
 			</when>
 			<otherwise>
-				select f.*
-				from (select fff.*, g.name, fi.change_name, NVL(rf.saw, 'N') as saw, rf.member_id as mem, fas.avg_star
-				      from tb_film fff
-				      join tb_genre g on (fff.genre_id = g.id)
-				      left outer join tb_detail_film df on (df.film_id = fff.id)
-				      left outer join tb_film_image fi on (df.id = fi.dfilm_id)
-				      left outer join tb_rating_film rf on (rf.film_id = fff.id)
-      				join vi_film_avg_star fas on (fas.film_id = fff.id)) f
+				select *
+				from (select fff.*, NVL(rf.saw, 'N') as saw, rf.member_id as mem
+						  from (select f.*, g.name, fas.dfid, fi.change_name, nvl(fas.avg_star, 0) as avg_star
+						        from tb_film f
+						        join tb_genre g on (f.genre_id = g.id)
+						        join vi_film_avg_star fas on (fas.film_id = f.id)
+						        left outer join tb_detail_film df on (df.id = dfid)
+						        left outer join tb_film_image fi on (df.id = fi.dfilm_id)) fff
+						  left outer join tb_rating_film rf on (rf.film_id = fff.id and rf.member_id = #{ userId })) f
 			</otherwise>
 		</choose>
 		<where>
@@ -146,7 +151,6 @@
 						and saw = 'N'
 					</otherwise>
 				</choose>
-				and (mem = #{ userId } or mem is null)
 			</if>
 		</where>
 		<if test='order != "all" and order != null and order != ""'>

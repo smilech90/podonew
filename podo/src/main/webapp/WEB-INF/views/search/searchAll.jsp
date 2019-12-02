@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -27,6 +28,14 @@
 		    overflow: hidden;
 		    border-radius: 10px;
 		    border: 1px solid #b3bfdd;
+			}
+			
+			a {
+		    color: #c69ce6;
+			}
+			
+			a:hover {
+				color : #d4d4d4;
 			}
 			
 		</style>
@@ -76,48 +85,51 @@
 							</c:url>
 		          <!-- Pagination -->
 		          <div class="row">
-		            <div class="col-lg-12">
-	                <nav class="blog-pagination justify-content-center d-flex">
-                    <ul class="pagination">
-                   		
-                   		<!-- [PREV] -->
-                      <c:if test="${ pi.currentPage eq 1 }">
-												<li class="page-item disabled">
-											</c:if>
-											<c:if test="${ pi.currentPage ne 1 }">
-												<li class="page-item">
-											</c:if>
-                         <a href=<c:out value="${ keywordSearchUrl }&p=${ pi.currentPage - 1 }"/> class="page-link" aria-label="Previous" disabled>
-                           &lt;
-                        </a>
-                      </li>
-                       
-                      <!-- [각 페이지] -->
-											<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-											
-                     		<c:if test="${ p eq pi.currentPage }">
-                     			<li class="page-item disabled"><a href=<c:out value="${ keywordSearchUrl }&p=${ p }"/> class="page-link">${ p }</a></li>
+		          	<h2>검색결과가 없습니다.</h2>
+		          <c:if test="${ pi.listCount ne 0 }">
+			            <div class="col-lg-12">
+		                <nav class="blog-pagination justify-content-center d-flex">
+	                    <ul class="pagination">
+	                   		
+	                   		<!-- [PREV] -->
+	                      <c:if test="${ pi.currentPage eq 1 }">
+													<li class="page-item disabled">
 												</c:if>
-												<c:if test="${ p ne pi.currentPage }">
-                     			<li class="page-item"><a href=<c:out value="${ keywordSearchUrl }&p=${ p }"/> class="page-link">${ p }</a></li>
+												<c:if test="${ pi.currentPage ne 1 }">
+													<li class="page-item">
 												</c:if>
-                     		
-                      </c:forEach>
-                       
-                      <!-- [NEXT] -->
-                      <c:if test="${ pi.currentPage eq pi.maxPage }">
-												<li class="page-item disabled">
-											</c:if>
-											<c:if test="${ pi.currentPage ne pi.maxPage }">
-												<li class="page-item">
-											</c:if>
-												<a href=<c:out value="${ keywordSearchUrl }&p=${ pi.currentPage + 1 }"/> class="page-link" aria-label="Next">
-                           &gt;
-                        </a>
-                      </li>
-                    </ul>
-	                </nav>
-		            </div>
+	                         <a href=<c:out value="${ keywordSearchUrl }&p=${ pi.currentPage - 1 }"/> class="page-link" aria-label="Previous" disabled>
+	                           &lt;
+	                        </a>
+	                      </li>
+	                       
+	                      <!-- [각 페이지] -->
+												<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+												
+	                     		<c:if test="${ p eq pi.currentPage }">
+	                     			<li class="page-item disabled"><a href=<c:out value="${ keywordSearchUrl }&p=${ p }"/> class="page-link">${ p }</a></li>
+													</c:if>
+													<c:if test="${ p ne pi.currentPage }">
+	                     			<li class="page-item"><a href=<c:out value="${ keywordSearchUrl }&p=${ p }"/> class="page-link">${ p }</a></li>
+													</c:if>
+	                     		
+	                      </c:forEach>
+	                       
+	                      <!-- [NEXT] -->
+	                      <c:if test="${ pi.currentPage eq pi.maxPage }">
+													<li class="page-item disabled">
+												</c:if>
+												<c:if test="${ pi.currentPage ne pi.maxPage }">
+													<li class="page-item">
+												</c:if>
+													<a href=<c:out value="${ keywordSearchUrl }&p=${ pi.currentPage + 1 }"/> class="page-link" aria-label="Next">
+	                           &gt;
+	                        </a>
+	                      </li>
+	                    </ul>
+		                </nav>
+			            </div>
+		          </c:if>
 		          </div>
 		          
 		        </div>
@@ -133,7 +145,7 @@
 		                    	onfocus="this.placeholder = ''" onblur="this.placeholder = '키워드를 입력해주세요'">
 		                  </div>
 		                </div>
-		                <button class="bbtns d-block mt-20 w-100">검색</button>
+		                <button class="bbtns d-block mt-20 w-100" onclick="">검색</button>
 		              </div>
 		
 		
@@ -180,20 +192,24 @@
 		                <h4 class="single-sidebar-widget__title">박스 오피스</h4>
 		                <div class="popular-post-list">
 		                  <div class="single-post-list">
-		                  	<table>
+		                  	<table style="width: 100%;">
 		                  		<thead>
-		                  			<tr>
-		                  				<th>1</th>
-		                  				<th>2</th>
-		                  				<th>3</th>
+		                  			<tr style="border-bottom: 2px solid white;">
+		                  				<th style="text-align: center;">순위</th>
+		                  				<th style="text-align: center;">영화명</th>
+		                  				<th style="text-align: center;">누적관객수</th>
 		                  			</tr>
 		                  		</thead>
 		                  		<tbody>
-		                  			<tr>
-		                  				<td>a</td>
-		                  				<td>s</td>
-		                  				<td>d</td>
-		                  			</tr>
+		                  			<c:if test="${ not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }">
+		                  			<c:forEach items="${ dailyResult.boxOfficeResult.dailyBoxOfficeList }" var="boxoffice">
+			                  			<tr style="border-bottom: 1px solid rgba(144, 144, 144, 0.29);">
+			                  				<td style="text-align: center;"><c:out value="${ boxoffice.rank }"/></td>
+			                  				<td style="text-align: center;"><a href="skFilm.do?keyword=<c:out value="${ boxoffice.movieNm }"/>"><c:out value="${ boxoffice.movieNm }"/></a></td>
+			                  				<td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ boxoffice.audiAcc }"/>명</td>
+			                  			</tr>
+		                  			</c:forEach>
+		                  			</c:if>
 		                  		</tbody>
 		                  	</table>
 		                  </div>

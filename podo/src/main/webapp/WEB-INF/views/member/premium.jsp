@@ -67,7 +67,7 @@
 							<li>무료 가입</li>
 							<li>무제한 이용</li>
 						</ul>
-						<button type="button" class="btn btn-lg btn-block btn-primary" onclick="location.href='insertFormMember.do'">
+						<button type="button" class="btn btn-lg btn-block btn-primary" onclick="freeJoin();">
 							가입하기
 						</button>
 					</div>
@@ -98,6 +98,7 @@
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 		<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 		<script>
+			
 			$(function(){
 				IMP.init("imp88684528");
 			});
@@ -106,6 +107,15 @@
 				IMP.init("imp88684528");
 			});
 			
+			function freeJoin(){
+				var email = '${ loginUser.email }';
+				if (email != '') {
+					alert('이미 로그인 상태입니다.');
+				} else {
+					location.href='insertFormMember.do';
+				}
+			}
+			
 			function pay(){
 				// 테스트 모드 전환시 아임포트에서 자정에 일괄 결제취소하기 때문에 환불기능은 생략
 				var email = '${ loginUser.email }';
@@ -113,7 +123,7 @@
 				var premium = '${ loginUser.premium }';
 				
 				if (premium === 'Y') {
-					alert("이미 유료회원입니다!");
+					alert("이미 유료회원입니다.");
 				} else if (email != '') {
 					
 					IMP.request_pay({
