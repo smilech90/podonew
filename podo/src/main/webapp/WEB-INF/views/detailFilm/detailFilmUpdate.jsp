@@ -77,6 +77,14 @@
     #addActor, .deleteActor, .modifyPoster, #cancel{
     	cursor:pointer;
     }
+    #addActor, #cancel{
+    	float:right;
+    }
+    #poster{
+    	border-radius: 10px;
+    	border : 1px solid white;
+    }
+    
     #actor_cover, #actor_cover1{
     	border : 0px solid lightgrey;
     	height: 200px;
@@ -132,22 +140,23 @@
 	            <input type="hidden" name="uId" value="${ loginUser.id }">
             <div class="movie_poster_cover"> 
                 <div id="movie_poster"> 
-               		<c:if test="${i ne null}">
+               		<c:if test="${i.changeName ne null}">
                     	<img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
                     </c:if>
-                    <c:if test="${i eq null}">
-    	                <img id="poster" src="resources/detailFilmImage/defaultImg.png" style="width:100%; height:100%;">
+                    <c:if test="${i.changeName eq null}">
+    	                <img id="poster" src="resources/detailFilmImage/podoposter.jpg" style="width:100%; height:100%;">
                 	</c:if>
                 </div>
-                <div class="modifyPoster" id="modify_p_Btn">수정하기</div>
-                <div id="cancel" onclick="cancel();">취소하기</div>
+                <br>
+                <div class="modifyPoster btn" style="background:purple; color:white;"  id="modify_p_Btn">수정하기</div>
+                <div id="cancel" class="btn" style="background:#6c757d; color:white;" onclick="cancel();">취소하기</div>
                 <div id="mdfPosterBtn"><input type="file" id="uploadPBtn" name="uploadPoster"></div>
             </div>
             <div class="movie_info_cover">      <!-- 오른쪽 영화 정보 -->
                 <div id="movie_detail_info">
                 	<div class="cover" id="title_cover">
 	                    <span id="movie_title">${ df.titleKor }(${ df.titleEng })</span>
-	                    <textarea class="movie_clip textArea" name="trailer" placeholder="유튜브 링크를 연결해주세요!" rows="2" cols="40" style="border:0px; resize: none;">${ df.trailer }</textarea>
+	                    <textarea class="movie_clip textArea" name="trailer" placeholder="유튜브 링크를 연결해주세요!" rows="2" cols="30" style="border:0px; resize: none;">${ df.trailer }</textarea>
                 	</div>
                 	<br>
                     <div class="cover" id="sysnobsis_cover">
@@ -162,12 +171,12 @@
    		                	<div class="image_cover">
 	   	                		<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
 				                <div class="actorName">${a.actorName}</div>
-				                <div class="deleteActor" onclick="deleteActor('${a.id}');">삭제</div>
+				                <div class="deleteActor " onclick="deleteActor('${a.id}');">삭제</div>
 	   	                	</div>	
 					    </c:forEach>   
    	                </div>
     	            <br>
-                    <div id="addActor">추가하기</div>
+                    <div id="addActor" class="btn" style="background:purple; color:white;">추가하기</div>
                     </div>
                     <br>
                     <div class="cover" id="sysnobsis_cover">
@@ -379,6 +388,11 @@
 	    	var newInput = "<input type='file' id='uploadPBtn' name='uploadPoster'>";
 	    	$("#mdfPosterBtn").append(newInput);
 	    }
+	    
+//////////////////////////////  이미지 클릭만으로 선택되게 하려고 시도 중 /////////////////////////////////
+	    $('.check_actor').on('click',function(){
+	    	$('.test').prop('checked', true);
+	    });
     </script>   
     
 </body>
