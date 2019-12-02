@@ -180,7 +180,7 @@
                     <div class="cover" id="nickName_cover">
                     	<div id="df_nickName"><h5>작성자</h5>${ df.nickName }</div>
                     </div>
-                    <c:if test="${ loginUser.id ne null }">
+                    <c:if test="${ loginUser.autho eq 2 }">
                     	<div class="cover" id="rollbackBtn">
                     		<a href="detailFilmRollback.do?filmId=${df.filmId}">되돌리기</a>
                     	</div>
@@ -208,7 +208,7 @@
 				        <c:if test="${ r.spoilerCheck eq 'N' }">
 				            <div>내용 : ${ r.content }</div>
 				        </c:if>
-				            <div>별점 : 아직 처리 못함</div>			        
+				            <div>별점 : ${ r.star }</div>			        
 				            <div>작성자 : ${ r.nickName}</div>
 				            <div>좋아요 : ${ r.likeCount }</div>
 			        </div>   
