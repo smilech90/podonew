@@ -41,8 +41,13 @@
 				cursor: pointer;
 			}
 			
+			.modal-dialog,
+			.modal-title {
+				color: #495057;
+			}
+			
 		</style>
-	
+		
 	</head>
 	<body>
 		<header class="header_area">
@@ -129,7 +134,7 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button type="submit" id="btn-sign-in" class="btn" style="background:purple; color:white;">Sign in</button>
-								<button type="button" class="btn btn-default" id="myBtn"  style="background:pink; color:white; width:60px;" onclick="location.href='insertFormMember.do';">Join</button>
+								<button type="button" class="btn btn-default" id="myBtn"  style="background:#ff79fb; color:white; width:60px;" onclick="location.href='insertFormMember.do';">Join</button>
 							</div>
 						</form>
 					</div>
@@ -175,6 +180,14 @@
 				}
 				return unescape(cookieValue);
 			}
+			
+			$(function(){
+				var msg = '${msg}';
+				if (msg != '') {
+					alert(msg);
+					<% session.removeAttribute("msg"); %>
+				}
+			});
 			
 		</script>
 	</body>
