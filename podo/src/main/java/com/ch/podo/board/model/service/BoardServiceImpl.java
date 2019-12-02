@@ -29,16 +29,18 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<Board> selectBoardList(PageInfo pi) {
 		return boardDao.selectBoardList(pi);
 	}
-
+	
+	// 게시글 작성
 	@Override
 	public int insertBoard(Board b) {
 		return boardDao.insertBoard(b);
 	}
-	
+	// 게시글 첨부파일
 	@Override
 	public int insertBoardFile(Image i) {
 		return boardDao.insertBoardFile(i);
 	}
+	
 	
 	@Override
 	public Board selectBoard(int id) {
@@ -51,6 +53,11 @@ public class BoardServiceImpl implements BoardService {
 			return null;
 		}
 		
+	}
+	
+	@Override
+	public Image selectBoardFile(int id) {
+		return boardDao.selectBoardFile(id);
 	}
 
 	@Override
@@ -66,6 +73,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int updateBoard(Board b) {
 		return boardDao.updateBoard(b);
+	}
+	
+	@Override
+	public int updateBoardFile(Image i) {
+		return boardDao.updateBoardFile(i);
 	}
 	
 	// 댓글

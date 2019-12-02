@@ -24,6 +24,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
@@ -33,21 +37,17 @@
 	<br>
 	<h1 align="center">자유게시판</h1>
 	<br><br>
-	
-	<form action="binsert.do" method="post" enctype="multipart/form-data" class="boardInsertForm">
+	<form action="binsert.do" method="post" enctype="multipart/form-data" class="boardInsertForm" id="boardInsertForm">
 		<div class="form-group row">
+		
+		<%-- <input type="hidden" name="boardId" value="${ b.id }"> --%>
+		
 			<label for="" class="col-sm-2 col-form-label">제목 </label>
 	    	<div class="col-sm-4">
 				<input type="text" class="form-control" name="title" placeholder="제목" required>
 	    	</div>
 	  	</div>
-	  	<div class="form-group row">
-			<label for="" class="col-sm-2 col-form-label">작성자 </label>
-	    	<div class="col-sm-4">
-				<input type="text" class="form-control" name="memberId" value="${ m.nickName }" readonly>
-				<input type="hidden" name="uId" value="${ loginUser.id }">
-	    	</div>
-	  	</div>
+	  	<input type="hidden" name="memberId" value=${ loginUser.id }>
 	  	<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">작성일 </label>
 	    	<div class="col-sm-4">
@@ -60,6 +60,7 @@
 				<textarea class="form-control" name="content" cols="20" rows="7"></textarea>
 			</div>
 		</div>
+		
 		
 		<!-- 파일 업로드 하는 부분 -->
 		<div class="form-group row">
@@ -80,5 +81,6 @@
 	
 	
 	<jsp:include page="../common/footer.jsp"/>
+	
 </body>
 </html>

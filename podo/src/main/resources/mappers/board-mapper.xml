@@ -63,23 +63,16 @@
 		where b.status='Y'
 		order by b.id desc
 	</select>
-	
-	
-	<select id="selectMem" resultMap="memberListResultSet">
-		select id, nickname
-		from tb_member
-		where id = #{}
-	</select>
-	
+		
 	<insert id="insertBoard">
 		insert into tb_board
-		values(seq_board_id.nextval, #{title}, #{content}, default, 0, 0, 0,
+		values(seq_board_id.nextval, #{title}, #{content}, default, default, default, default,
 				sysdate, sysdate, default, #{memberId})
 	</insert>
 	
 	<insert id="insertBoardFile">
 		insert into tb_image
-		values(seq_image_id.nextval, #{i.path}, #{i.originalName}, #{i.changeName}, 1, #{b.id}, null)
+		values(seq_image_id.nextval, #{path}, #{originalName}, #{changeName}, 1, seq_board_id.currval, null)
 	</insert>
 	
 	<update id="updateCount">
@@ -101,12 +94,18 @@
 		where id=#{id}
 	</update>
 	
-	<!-- 
 	<update id="updateBoard">
-		
+		update tb_board
+		set title=#{title}, content=#{content}, modify_date=sysdate
+		where id=#{id}
 	</update>
-	 -->
-	 
+	
+	<update id="updateBoardFile">
+		update tb_image
+		set path=#{i.path}, original_name=#{originalName}, change_name=#{changeName}
+		where id=#{id}
+	</update>
+	
 	 <!-- 댓글 -->
 	 <select id="selectCommentList" resultMap="commentResultSet">
 	 	select *
@@ -127,6 +126,10 @@
         join tb_member m on(b.member_id=m.id)
 		where b.status='Y'
 		order by b.id desc
+	</select>
+	
+	<select id="selectBoardFile" resultMap="">
+		
 	</select>
 	
 	
