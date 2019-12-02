@@ -31,7 +31,7 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 
 	@Override
-	public int dbInquiryInsert(String content, String loginUser) {
-		return inquiryDao.dbInquiryInsert(content, loginUser);
+	public int dbInquiryInsert(String content, String userId) {
+		return inquiryDao.dbInquiryInsert(content, userId);
 	}
 }
