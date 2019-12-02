@@ -88,6 +88,10 @@
         width: 30%;
         float:right;
     }
+    #rollbackBtn{
+    	width:50%;
+    	float:left;
+    }
     #modifyBtn{    
     	float:right;
     }
@@ -98,13 +102,10 @@
     	color:red;
 	    cursor:pointer;
     	display : block;
-
-    	
     }
     .df_r_content{
     	float:left;
     	display : none;
-
     }
     .actorImage{
     	border: 0px solid black;
@@ -122,92 +123,83 @@
     	float:left;
     }
     .homeReviewArea{
-				margin-left:auto;
-				margin-right:auto;
-				
-				height: 150px;
-				/* border: 1px solid blue; */
-				width: 1150px;
-			}
+		margin-left:auto;
+		margin-right:auto;
+		
+		height: 150px;
+		/* border: 1px solid blue; */
+		width: 1150px;
+	}
     .leftImage{
-				 background:rgba(49,58,102,0.75);
-				/* border: 1px solid green; */
-				width: 20%;
-				height: 100%;
-				margin-left:auto;
-				margin-right:auto;
-				float: left;
-
-			}
-
+		 background:rgba(49,58,102,0.75);
+		/* border: 1px solid green; */
+		width: 20%;
+		height: 100%;
+		margin-left:auto;
+		margin-right:auto;
+		float: left;
+	}
 	.userImageHome{
-			    
-				border-radius: 100%;
-				height:60%;
-				width:100%;
-				/* border: 1px solid black; */
-				border-radius:30;
-				float:left;
-				text-align:center;
-			}
-			.nickNameHome{
-				font-size:10px;
-				font-weight:bold;
-				height:10%;
-				width:100%;
-				/* border: 1px solid purple; */
-				float:left;
-				text-align:center;
-			}
-			.countReview{
-				height:15%;
-				width:100%;
-				float:left;
-				text-align:center;
-			}
-			.starReview{
-				height:15%;
-				width:100%;
-				float:left;
-				text-align:center;
-			}
-			
-			
-			.rightContent{
-				background:rgba(49,58,102,0.75);
-				/* border: 1px solid red; */
-				height:100%;
-				width: 80%;
-				float: left;
-			}
-			
-			.homeContent{
-				width:100%;
-				height:100%;
-				float:left;
-			}
-			
-			.titleKorea{
-				
-				width:100%;
-				float: left;
-				/* border: 1px solid yellow; */
-				height: 20%;
-			}
-			.contentKorea{
-				background:rgb(18,22,49);
-				float: left;
-				width:95%;
-				height:65%;
-				/* border: 1px solid orange; */
-			}
-			.btns{
-			 	float:left;
-				margin-left:610px;
-				width:100%;
-				height: 15%;
-			}
-    
+		border-radius: 100%;
+		height:60%;
+		width:100%;
+		border-radius:30;
+		float:left;
+		text-align:center;
+	}
+	.nickNameHome{
+		font-size:10px;
+		font-weight:bold;
+		height:10%;
+		width:100%;
+		/* border: 1px solid purple; */
+		float:left;
+		text-align:center;
+	}
+	.countReview{
+		height:15%;
+		width:100%;
+		float:left;
+		text-align:center;
+	}
+	.starReview{
+		height:15%;
+		width:100%;
+		float:left;
+		text-align:center;
+	}
+	.rightContent{
+		background:rgba(49,58,102,0.75);
+		height:100%;
+		width: 80%;
+		float: left;
+	}
+	.homeContent{
+		width:100%;
+		height:100%;
+		float:left;
+	}
+	.titleKorea{
+		width:100%;
+		float: left;
+		height: 20%;
+	}
+	.contentKorea{
+		background:rgb(18,22,49);
+		float: left;
+		width:95%;
+		height:65%;
+	}
+	.btns{
+	 	float:left;
+		margin-left:610px;
+		width:100%;
+		height: 15%;
+	}
+	#poster{
+		border-radius: 10px;
+    	border : 1px solid white;
+	}
 </style>
 <body>
 	<!-- 헤더  -->
@@ -225,11 +217,11 @@
         	<!-- 왼쪽 영화 포스터 -->
             <div class="movie_poster_cover">
                 <div id="movie_poster"> <!-- 포스터 -->
- 	               	<c:if test="${i  ne null}">
+ 	               	<c:if test="${i.changeName ne null}">
     	                <img id="poster" src="resources/detailFilmImage/${i.changeName}" style="width:100%; height:100%;">
                 	</c:if>
-                	<c:if test="${i  eq null}">
-    	                <img id="poster" src="resources/detailFilmImage/defaultImg.png" style="width:100%; height:100%;">
+                	<c:if test="${i.changeName eq null}">
+    	                <img id="poster" src="resources/detailFilmImage/podoposter.jpg" style="width:100%; height:100%;">
                 	</c:if>
                 </div>
             </div>
@@ -270,29 +262,30 @@
                     <div class="cover" id="nickName_cover">
                     	<div id="df_nickName"><h5>작성자</h5>${ df.nickName }</div>
                     </div>
+                    <br>
                     <c:if test="${ loginUser.autho eq 2 }">
                     	<div class="cover" id="rollbackBtn">
-                    		<a href="detailFilmRollback.do?filmId=${df.filmId}">되돌리기</a>
+                    		<a href="detailFilmRollback.do?filmId=${df.filmId}" class="btn" style="background:purple; color:white;">되돌리기</a>
                     	</div>
                     </c:if>
-                 
-	                    <div class="cover" id="modifyBtn">
-	                    	<a href="detailFilmUpdate.do?filmId=${ df.filmId }">정보 수정</a>
-	                    </div>
+                    <div class="cover" id="modifyBtn">
+                    	<a href="detailFilmUpdate.do?filmId=${ df.filmId }" class="btn" style="background:purple; color:white;">정보 수정</a>
+                    </div>
+                    <br>
                 </div>
             </div>
-        </div>
+        </div>        
+		<hr>
         <div class="df_review_list">
-        	
-		    <div><a href="reviewWriteForm.do?filmId=${df.filmId}&loginUserId=${loginUser.id}">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
-		 
+        <br>
+		    <div>
+	        	<h5>리뷰</h5><a href="reviewWriteForm.do?filmId=${df.filmId}&loginUserId=${loginUser.id}" class="btn" style="background:purple; color:white;">작성하기</a>
+	    	</div>		<!-- 버튼 -->
 		        <c:forEach items="${ rl }" var="r">
 				<div class="homeReviewArea">
 					
 						<div class="leftImage">
-						<img class="userImageHome"
-							src="resources/memberProfileImage/${ r.userImage }"
-							height="100px">
+						<img class="userImageHome" src="resources/memberProfileImage/${ r.userImage }" height="100%" width="100%">
 						<div class="nickNameHome">${ r.nickName }님</div>
 						<div class="starReview">★점:${ r.star }점</div>
 						<div class="countReview">추천수:${ r.likeCount }회</div>
@@ -308,7 +301,7 @@
 						</div>
 					
 				</div>
-				<hr style="width: 600px; margin: 0;">
+				<br>
 			</c:forEach>
     	</div>
 	    <br>

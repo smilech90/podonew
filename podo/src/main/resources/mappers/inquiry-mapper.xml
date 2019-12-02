@@ -32,7 +32,7 @@
 	</select>
 	
 	<insert id="dbInquiryInsert">
-		insert into tb_inquiry values(seq_inquery_id.nextval, 2, #{content}, sysdate, default, #{loginUser}, null, null, 1)
+		insert into tb_inquiry values(seq_inquery_id.nextval, 2, #{content}, sysdate, default, #{userId}, null, null, 1)
 	</insert>
 </mapper>
 
