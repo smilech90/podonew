@@ -131,7 +131,7 @@
 					    pay_method : 'card',
 					    merchant_uid : 'merchant_' + new Date().getTime(),
 					    name : '포도 유료회원 결제 테스트',
-					    amount : 100,
+					    amount : 1100,
 					    buyer_email : '${ login }',
 					    buyer_tel : '010-1234-5678', // (필수항목) 누락되거나 blank일 때 일부 PG사에서 오류 발생
 					}, function(rsp) { // callback
@@ -153,7 +153,6 @@
 					        }).done(function (data) {
 					          // 가맹점 서버 결제 API 성공시 로직
 					          alert("결제가 완료되었습니다. 다시 로그인해주세요!")
-					          console.log(data);
 					          if (data > 0) {
 					        	  console.log("결제정보 DB 저장 완료");
 					          }

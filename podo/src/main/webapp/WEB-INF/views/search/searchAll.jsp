@@ -85,8 +85,10 @@
 							</c:url>
 		          <!-- Pagination -->
 		          <div class="row">
-		          	<h2>검색결과가 없습니다.</h2>
-		          <c:if test="${ pi.listCount ne 0 }">
+		          	<c:if test="${ pi.listCount eq 0 }">
+			          	<h2>검색결과가 없습니다.</h2>
+		          	</c:if>
+			          <c:if test="${ pi.listCount ne 0 }">
 			            <div class="col-lg-12">
 		                <nav class="blog-pagination justify-content-center d-flex">
 	                    <ul class="pagination">
@@ -129,7 +131,7 @@
 	                    </ul>
 		                </nav>
 			            </div>
-		          </c:if>
+			          </c:if>
 		          </div>
 		          
 		        </div>
@@ -137,16 +139,21 @@
 		        <!-- Start Blog Post Siddebar -->
 		        <div class="col-lg-4 sidebar-widgets">
 		            <div class="widget-wrap">
-		              <div class="single-sidebar-widget newsletter-widget">
-		                <h4 class="single-sidebar-widget__title">결과 내 재검색</h4>
-		                <div class="form-group mt-30">
-		                  <div class="col-autos">
-		                    <input type="search" class="form-control" id="inlineFormInputGroup" placeholder="키워드를 입력해주세요" name="skeyword"
-		                    	onfocus="this.placeholder = ''" onblur="this.placeholder = '키워드를 입력해주세요'">
-		                  </div>
-		                </div>
-		                <button class="bbtns d-block mt-20 w-100" onclick="">검색</button>
-		              </div>
+		            	
+		            	<form action="skFilm.do" method="get">
+			              <div class="single-sidebar-widget newsletter-widget">
+			                <h4 class="single-sidebar-widget__title">결과 내 재검색</h4>
+			                <div class="form-group mt-30">
+			                  <div class="col-autos">
+			                  	<input type="hidden" name="keyword" value="${ keyword }">
+			                    <input type="search" class="form-control" id="inlineFormInputGroup" placeholder="키워드를 입력해주세요" name="skeyword"
+			                    	onfocus="this.placeholder = ''" onblur="this.placeholder = '키워드를 입력해주세요'">
+			                  </div>
+			                </div>
+			                <%-- <a class="bbtns d-block mt-20 w-100" style="text-align:center;" href=<c:out value="${ keywordSearchUrl }"/>>재검색</a> --%>
+			                <button class="bbtns d-block mt-20 w-100" onclick="submit">재검색</button>
+			              </div>
+		            	</form>
 		
 		
 		              <div class="single-sidebar-widget post-category-widget">

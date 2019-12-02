@@ -25,11 +25,32 @@
 			}
 			
 			.podo-ad-banner {
-				background-color: #6617cb;
-				background-image: linear-gradient(315deg, #6617cb 0%, #cb218e 74%);
+				background: linear-gradient(133deg, #7b08c8, #e67518, #554dc6, #f776e7);
+				background-size: 800% 800%;
+				
+				-webkit-animation: AnimationName 10s ease infinite;
+				-moz-animation: AnimationName 10s ease infinite;
+				animation: AnimationName 10s ease infinite;
+
 				height: 100px;
 				overflow: hidden;
 				cursor: pointer;
+			}
+			
+			@-webkit-keyframes AnimationName {
+			    0%{background-position:0% 50%}
+			    50%{background-position:100% 50%}
+			    100%{background-position:0% 50%}
+			}
+			@-moz-keyframes AnimationName {
+			    0%{background-position:0% 50%}
+			    50%{background-position:100% 50%}
+			    100%{background-position:0% 50%}
+			}
+			@keyframes AnimationName {
+			    0%{background-position:0% 50%}
+			    50%{background-position:100% 50%}
+			    100%{background-position:0% 50%}
 			}
 			
 			.podo-ad-banner>div {
@@ -50,6 +71,7 @@
 			}
 
 			.leftImage{
+				 background:rgba(49,58,102,0.75);
 				/* border: 1px solid green; */
 				width: 20%;
 				height: 100%;
@@ -60,8 +82,9 @@
 			}
 
 			.userImageHome{
-				border-radius: 100px;
-				height:80%;
+			    
+				border-radius: 100%;
+				height:60%;
 				width:100%;
 				/* border: 1px solid black; */
 				border-radius:30;
@@ -69,14 +92,30 @@
 				text-align:center;
 			}
 			.nickNameHome{
-				height:20%;
+				font-size:10px;
+				font-weight:bold;
+				height:10%;
 				width:100%;
 				/* border: 1px solid purple; */
 				float:left;
 				text-align:center;
 			}
+			.countReview{
+				height:15%;
+				width:100%;
+				float:left;
+				text-align:center;
+			}
+			.starReview{
+				height:15%;
+				width:100%;
+				float:left;
+				text-align:center;
+			}
+			
 			
 			.rightContent{
+				background:rgba(49,58,102,0.75);
 				/* border: 1px solid red; */
 				height:100%;
 				width: 80%;
@@ -90,19 +129,22 @@
 			}
 			
 			.titleKorea{
+				
 				width:100%;
 				float: left;
 				/* border: 1px solid yellow; */
 				height: 20%;
 			}
 			.contentKorea{
+				background:rgb(18,22,49);
 				float: left;
-				width:100%;
+				width:95%;
 				height:65%;
 				/* border: 1px solid orange; */
 			}
 			.btns{
-				float: left;
+			 	float:left;
+				margin-left:200px;
 				width:100%;
 				height: 15%;
 			}
@@ -201,18 +243,17 @@
       		<c:forEach items="${ reviewList }" var="rs">
       	<div class="homeReviewArea">
 			        <div class="leftImage">
-			              <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }1.jpg" height="100px">
+			              <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }" height="100px">
 			               <div class="nickNameHome">${ rs.nickName }님</div>
+			               <div class="starReview">★점:${ rs.star }점</div>
+			               <div class="countReview">추천수:${ rs.likeCount }회</div>
 					</div>
 			   		<div class="rightContent">
 			   			<div class="titleKorea">${ rs.titleKor }</div>
 			            <div class="contentKorea"> ${ rs.content }</div>
-	             		 <div class="btns">${rs.modifyDate }에 작성 <button >추천</button><a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">신고하기</a><button>댓글</button> </div>
+	             		 <div class="btns">${rs.modifyDate }에 작성 <a href="">추천</a><a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">신고하기</a><a href="#">댓글</a> </div>
 			        </div>       
-			        
-
-
-	     </div>
+	    </div>
 	     	<hr style="width: 600px;">
      			</c:forEach> 
      			

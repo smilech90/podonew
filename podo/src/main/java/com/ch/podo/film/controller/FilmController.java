@@ -71,14 +71,16 @@ public class FilmController {
 																				String keyword, String skeyword,
 																				@RequestParam(value="p", defaultValue = "1") int currentPage)
 																						throws OpenAPIFault, Exception {
-		log.info("keyword : " + keyword);
-		log.info("skeyword : " + skeyword);
-		log.info("currentPage : " + currentPage);
+		// log.info("keyword : " + keyword);
+		// log.info("skeyword : " + skeyword);
+		// log.info("currentPage : " + currentPage);
 		
-		int filmCount = filmService.selectKeywordFilmListCount(keyword);
+		int filmCount = filmService.selectKeywordFilmListCount(keyword, skeyword);
 		// page는 최대 3페이지, board는 최대 6개 보여지도록 set
 		PageInfo pi = Pagination.setPageLimit(currentPage, filmCount, 3, 6);
-		log.info("pi : " + pi);
+		// log.info("pi : " + pi);
+
+		ArrayList<Film> list = filmService.selectKeywordFilmList(keyword, skeyword, pi);
 		
 		// http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=734ea4839ec968cbcd71b13515f7c5ee&targetDt=20191201
 		// http://www.kobis.or.kr/kobisopenapi/homepg/board/findTutorial.do
@@ -115,7 +117,6 @@ public class FilmController {
 		HashMap<String, Object> codeResult = mapper.readValue(codeResponse, HashMap.class);
 		mv.addObject("codeResult", codeResult);
 		
-		ArrayList<Film> list = filmService.selectKeywordFilmList(keyword, pi);
 		mv.addObject("filmCount", filmCount)
 			.addObject("pi", pi)
 			.addObject("list", list)

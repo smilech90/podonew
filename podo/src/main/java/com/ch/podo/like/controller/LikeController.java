@@ -118,6 +118,7 @@ public class LikeController {
 	public int likeReviewClick(Like like, String status) {
 		
 		int result = 0;
+//		int result1 = 
 		
 		if(status.equals("like")) {
 			result = likeService.insertLikeReview(like);
