@@ -31,5 +31,49 @@
 	</select>
 	
 	
+	<!-- 신고 게시글 블라인드 처리(타입별 따로) 
+	<update id="blindReport1" parameterType="hashMap">
+		update tb_review r
+		set status = 'N'
+		where r.id = #{targetId}
+	</update>
 	
+	<update id="blindReport2" parameterType="hashMap">
+		update tb_comment c
+		set status = 'N'
+		where c.id = #{targetId}
+	</update>
+	
+	<update id="blindReport3" parameterType="hashMap">
+		update tb_board b
+		set status = 'N'
+		where b.id = #{targetId}
+	</update>
+	
+	<update id="blindReport4" parameterType="hashMap">
+		update tb_collection l
+		set status = 'N'
+		where l.id = #{targetId}
+	</update>
+	-->
+	
+	<update id="blindReport">
+	    update tb_board
+		set status = 'N'
+   		<where>
+			<foreach item="item" index="index" collection="list">
+				<if test="index == 0">
+					id = #{item.targetId}
+				</if>
+				<if test="index != 0">
+					or id = #{item.targetId}
+				</if>
+			</foreach>
+		</where>
+		
+	</update>
+	
+	
+
+
 </mapper>

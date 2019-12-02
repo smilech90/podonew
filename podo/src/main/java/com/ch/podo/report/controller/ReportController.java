@@ -1,15 +1,12 @@
 package com.ch.podo.report.controller;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ch.podo.board.model.service.BoardService;
 import com.ch.podo.report.model.service.ReportService;
 import com.ch.podo.report.model.vo.Report;
 
@@ -18,9 +15,7 @@ public class ReportController {
 	
 	@Autowired
 	private ReportService reportService;
-	
-	@Autowired
-	private BoardService boardService;
+
 	
 	// 관리자 신고 회원 리스트
 	@RequestMapping("rlist.do")
@@ -49,12 +44,6 @@ public class ReportController {
 		
 		return mv;
 	}
-	
-	
-	
-	// 관리자 게시물 블라인드 처리
-
-	
 	
 
 }
