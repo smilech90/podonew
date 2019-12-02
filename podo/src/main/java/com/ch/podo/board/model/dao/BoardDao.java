@@ -1,6 +1,7 @@
 package com.ch.podo.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -43,7 +44,7 @@ public class BoardDao {
 	}
 	
 	
-	public int insertBoardFile(Image i) {
+	public int insertBoardFile(Image i) {		
 		return sqlSession.insert("boardMapper.insertBoardFile", i);
 	}
 	
@@ -52,11 +53,14 @@ public class BoardDao {
 		return sqlSession.update("boardMapper.updateCount", id);
 	}
 	
-	
+	// 게시판 상세 조회
 	public Board selectBoard(int id) {
 		return sqlSession.selectOne("boardMapper.selectBoard", id);
 	}
 	
+	public Image selectBoardFile(int id) {
+		return sqlSession.selectOne("boardMapper.selectBoardFile", id);
+	}
 	
 	public int deleteBoard(int id) {
 		return sqlSession.update("boardMapper.deleteBoard", id);
@@ -65,6 +69,11 @@ public class BoardDao {
 	
 	public int updateBoard(Board b) {
 		return sqlSession.update("boardMapper.updateBoard", b);
+	}
+	
+	
+	public int updateBoardFile(Image i) {
+		return sqlSession.update("boardMapper.updateBoardFile", i);
 	}
 	
 	

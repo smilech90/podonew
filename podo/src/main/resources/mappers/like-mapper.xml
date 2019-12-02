@@ -128,4 +128,16 @@
 		      l.type=3
 	</select>
 	
+	
+	<insert id="insertLikeReview">
+		insert into tb_like values (seq_like_id.nextval, 3, #{targetId}, #{userId})
+	</insert>
+	
+	<delete id="deleteLikeReview">
+		delete from tb_like
+		where user_id = #{userId} and
+			  target_id = #{targetId} and
+			  type=3
+	</delete>
+	
 </mapper>
