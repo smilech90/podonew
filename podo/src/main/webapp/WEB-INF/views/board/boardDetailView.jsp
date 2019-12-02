@@ -63,6 +63,7 @@
 				<textarea class="form-control" name="content" cols="20" rows="7" readonly>${ b.content }</textarea>
 			</div>
 		</div>
+		
 		<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">첨부파일</label>
 			<c:if test="${ !empty i.originalName }">

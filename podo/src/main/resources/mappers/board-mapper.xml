@@ -108,7 +108,7 @@
 	
 	<update id="updateBoardFile">
 		update tb_image
-		set path=#{i.path}, original_name=#{originalName}, change_name=#{changeName}
+		set path=#{path}, original_name=#{originalName}, change_name=#{changeName}
 		where id=#{id}
 	</update>
 	

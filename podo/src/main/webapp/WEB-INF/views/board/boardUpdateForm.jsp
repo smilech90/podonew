@@ -26,6 +26,14 @@
 	<h1 align="center">자유게시판</h1>
 	<br><br>
 	<form action="bupdate.do" method="post" enctype="multipart/form-data" class="boardInsertForm">
+	
+		<%-- <input type="hidden" name="id" value="${ i.id }">
+		<input type="hidden" name="path" value="${ i.path }">
+		<input type="hidden" name="originalName" value="${ i.originalName }">
+		<input type="hidden" name="changeName" value="${ i.changeName }">
+		<input type="hidden" name="type" value="${ i.type }">
+		<input type="hidden" name="board" value="${ i.boardId }">		 --%>
+		
 		<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">제목 </label>
 	    	<div class="col-sm-4">
@@ -50,7 +58,8 @@
 		<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">첨부파일</label>
 			<c:if test="${ !empty i.originalName }">
-				<a href="${ pageContext.servletContext.contextPath }/resources/buploadFiles/${ i.changeName }" download="${ i.originalName }">${ i.originalName }</a>
+				<a href="${ pageContext.servletContext.contextPath }/resources/buploadFiles/${ i.changeName }" download="${ i.originalName }">${ i.originalName }
+				</a>
 			</c:if>
 			<c:if test="${ empty i.originalName }">
 				<input type="file" name="board-upload-file">

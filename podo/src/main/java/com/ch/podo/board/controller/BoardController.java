@@ -172,7 +172,8 @@ public class BoardController {
 			
 		if(i != null) {
 			
-			mv.addObject("b", b).addObject("i", i).setViewName("board/boardDetailView");				
+			mv.addObject("b", b).addObject("i", i).setViewName("board/boardDetailView");
+			
 		}else{
 			mv.addObject("b", b).setViewName("board/boardDetailView");
 		}
@@ -241,7 +242,7 @@ public class BoardController {
 			if(i.getOriginalName() != null) {
 				deleteFile(i.getChangeName(), request);
 			}
-			
+						
 			Image img = saveFile(file, request, i);
 			
 			i.setPath(img.getPath());
@@ -253,7 +254,7 @@ public class BoardController {
 			
 			if(result1 > 0 && result2 > 0) {
 				
-				mv.addObject("id", b.getId()).setViewName("redirect:bdetail.do");
+				mv.addObject("id", b.getId()).addObject("i", i).setViewName("redirect:bdetail.do?id=" + b.getId());
 			}
 			
 		}else {
