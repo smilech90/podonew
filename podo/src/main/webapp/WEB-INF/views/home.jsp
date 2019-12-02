@@ -67,7 +67,7 @@
 				
 				height: 150px;
 				/* border: 1px solid blue; */
-				width: 600px;
+				width: 1110px;
 			}
 
 			.leftImage{
@@ -144,7 +144,7 @@
 			}
 			.btns{
 			 	float:left;
-				margin-left:200px;
+				margin-left:575px;
 				width:100%;
 				height: 15%;
 			}
@@ -251,7 +251,11 @@
 			   		<div class="rightContent">
 			   			<div class="titleKorea">${ rs.titleKor }</div>
 			            <div class="contentKorea"> ${ rs.content }</div>
-	             		 <div class="btns">${rs.modifyDate }에 작성 <a href="">추천</a><a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">신고하기</a><a href="#">댓글</a> </div>
+	             		 <div class="btns">${rs.modifyDate } 작성 &nbsp;
+						<a href="">추천</a>&nbsp;
+						<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">신고하기</a>&nbsp;
+						<a href="#">댓글 0개</a>
+						</div>
 			        </div>       
 	    </div>
 	     	<hr style="width: 600px;">
