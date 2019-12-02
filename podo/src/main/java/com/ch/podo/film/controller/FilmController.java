@@ -1,15 +1,18 @@
 package com.ch.podo.film.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,9 +36,15 @@ import com.ch.podo.like.model.vo.Like;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.ratingFilm.model.service.RatingFilmService;
 import com.ch.podo.ratingFilm.model.vo.RatingFilm;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
+import kr.or.kobis.kobisopenapi.consumer.rest.KobisOpenAPIRestService;
+import kr.or.kobis.kobisopenapi.consumer.rest.exception.OpenAPIFault;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class FilmController {
 	
@@ -48,8 +57,6 @@ public class FilmController {
 	@Autowired
 	private RatingFilmService ratingFilmService;
 	
-	private Logger logger = LoggerFactory.getLogger(FilmController.class);
-	
 	/**
 	 * 키워드 검색
 	 * @param mv
@@ -57,20 +64,64 @@ public class FilmController {
 	 * @param currentPage
 	 * @return
 	 * @author Changsu Im
+	 * @throws Exception 
+	 * @throws OpenAPIFault 
 	 */
 	@RequestMapping("skFilm.do")
-	public ModelAndView searchKeywordFilm(ModelAndView mv, String keyword,
-																				@RequestParam(value="currentPage", defaultValue = "1") int currentPage) {
-		logger.info("keyword : " + keyword);
-		int listCount = filmService.selectKeywordFilmListCount(keyword);
+	public ModelAndView searchKeywordFilm(HttpServletRequest request, ModelAndView mv,
+																				String keyword, String skeyword,
+																				@RequestParam(value="p", defaultValue = "1") int currentPage)
+																						throws OpenAPIFault, Exception {
+		log.info("keyword : " + keyword);
+		log.info("skeyword : " + skeyword);
+		log.info("currentPage : " + currentPage);
+		
+		int filmCount = filmService.selectKeywordFilmListCount(keyword);
 		// page는 최대 3페이지, board는 최대 6개 보여지도록 set
-		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 3, 6);
-		// logger.info("pi : " + pi);
+		PageInfo pi = Pagination.setPageLimit(currentPage, filmCount, 3, 6);
+		log.info("pi : " + pi);
+		
+		// http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=734ea4839ec968cbcd71b13515f7c5ee&targetDt=20191201
+		// http://www.kobis.or.kr/kobisopenapi/homepg/board/findTutorial.do
+		// 조회일자
+		Calendar cal = new GregorianCalendar(Locale.KOREA);
+		cal.add(Calendar.DATE, -1); // 오늘날짜로부터 -1
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		// log.info("yesterday : " + sdf.format(cal.getTime()));
+		String targetDt = request.getParameter("targetDt") == null ? sdf.format(cal.getTime()):request.getParameter("targetDt");
+		// 결과  ROW 수
+		String itemPerPage = request.getParameter("itemPerPage") == null ? "10":request.getParameter("itemPerPage");
+		// "Y" : 다양성 영화, "N" : 상업 영화 (default : 전체)
+		String multiMovieYn = request.getParameter("multiMovieYn") == null ? "":request.getParameter("multiMovieYn");
+		// "K" : 한국 영화, "F" : 외국 영화 (default : 전체)
+		String repNationCd = request.getParameter("repNationCd") == null ? "":request.getParameter("repNationCd");
+		// "0105000000" 로서 조회된 지역코드
+		String wideAreaCd = request.getParameter("wideAreaCd") == null ? "":request.getParameter("wideAreaCd");
+		// 키로 서비스 객체 생성
+		String key = "734ea4839ec968cbcd71b13515f7c5ee";
+		KobisOpenAPIRestService kobisOpenAPIRestService = new KobisOpenAPIRestService(key);
+		
+		// 일일 박스오피스 서비스 호출
+		// (boolean isJson, String targetDt, String itemPerPage, String multiMovieYn, String repNationCd, String wideAreaCd)
+		String dailyResponse = kobisOpenAPIRestService.getDailyBoxOffice(true, targetDt, itemPerPage, multiMovieYn, repNationCd, wideAreaCd);
+		
+		// Json 라이브러리(jackson-databind)를 통해 Handling
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String, Object> dailyResult = mapper.readValue(dailyResponse, HashMap.class);
+		mv.addObject("dailyResult", dailyResult);
+		// log.info("dailyResult : " + dailyResult);
+		
+		// KOBIS 오픈 API Rest Client를 통해 코드 서비스 호출 (boolean isJson, String comCode)
+		String codeResponse = kobisOpenAPIRestService.getComCodeList(true, "0105000000");
+		HashMap<String, Object> codeResult = mapper.readValue(codeResponse, HashMap.class);
+		mv.addObject("codeResult", codeResult);
 		
 		ArrayList<Film> list = filmService.selectKeywordFilmList(keyword, pi);
-		mv.addObject("listCount", listCount)
+		mv.addObject("filmCount", filmCount)
 			.addObject("pi", pi)
 			.addObject("list", list)
+			.addObject("keyword", keyword)
+			.addObject("skeyword", skeyword)
 			.setViewName("search/searchAll");
 		
 		return mv;
@@ -115,7 +166,7 @@ public class FilmController {
 		if (loginUser != null) {
 			sc.setUserId(loginUser.getId());
 		}
-		logger.info("sc : " + sc);
+		log.info("sc : " + sc);
 		
 		// 필터 목록 조회
 		ArrayList<String> release = filmService.selectAllReleaseYearList();
@@ -123,7 +174,7 @@ public class FilmController {
 		ArrayList<Genre> genre = filmService.selectAllGenreList();
 		
 		int listCount = filmService.selectFilterFilmListCount(sc);
-		logger.info("listCount : " + listCount);
+		log.info("listCount : " + listCount);
 		
 		// page는 최대 3페이지, board는 최대 12개 보여지도록 set
 		PageInfo pi = Pagination.setPageLimit(currentPage, listCount, 5, 12);
@@ -227,6 +278,7 @@ public class FilmController {
 											 String fid, @RequestParam("flag") int flag)
 			throws JsonIOException, IOException {
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		log.info("loginUser : " + loginUser);
 		
 		if (loginUser == null) {
 			return 0;
@@ -237,10 +289,10 @@ public class FilmController {
 		like.setUserId(loginUser.getId());
 		
 		if (flag > 0) {
-			logger.info("like insert 실행");
+			log.info("like insert 실행");
 			return likeService.insertLikeFilm(like);
 		} else {
-			logger.info("like delete 실행");
+			log.info("like delete 실행");
 			return likeService.deleteLikeFilm(like);
 		}
 		
@@ -273,10 +325,10 @@ public class FilmController {
 		rate.setUserId(loginUser.getId());
 		
 		if (flag > 0) {
-			logger.info("saw insert 실행");
+			log.info("saw insert 실행");
 			return ratingFilmService.insertSawFilm(rate);
 		} else {
-			logger.info("saw delete 실행");
+			log.info("saw delete 실행");
 			return ratingFilmService.deleteSawFilm(rate);
 		}
 		
@@ -307,16 +359,16 @@ public class FilmController {
 
 		// 이미 기존에 있는 별점을 다시 눌렀을 경우 취소되면서 삭제
 		if (flag != null && Integer.parseInt(star) == flag.getStar()) {
-			logger.info("rate delete 실행");
+			log.info("rate delete 실행");
 			return ratingFilmService.deleteRateFilm(rate);
 		} else {
 			// 기존에 별점이 없다면 삽입
 			if (flag == null) {
-				logger.info("rate insert 실행");
+				log.info("rate insert 실행");
 				return ratingFilmService.insertRateFilm(rate);
 			// 이미 기존에 별점이 있다면 수정
 			} else {
-				logger.info("rate update실행");
+				log.info("rate update실행");
 				return ratingFilmService.updateLikeFilm(rate);
 			}
 		}
@@ -485,7 +537,7 @@ public class FilmController {
 		if (!file.getOriginalFilename().equals("")) {
 			String renameFileName = PodoRenamePolicy.rename(file, request, "/detailFilmImage");
 			img.setChangeName(renameFileName);
-			logger.info("renameFileName : " + renameFileName);
+			log.info("renameFileName : " + renameFileName);
 		}
 		// logger.info("img : " + img);
 		

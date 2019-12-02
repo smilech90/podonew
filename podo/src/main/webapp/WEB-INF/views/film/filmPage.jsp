@@ -386,10 +386,10 @@
 							<c:if test="${ pi.currentPage ne 1 }">
 								<li class="page-item">
 							</c:if>
-									<a href=<c:out value="${ filmUrl }&p=${ pi.currentPage - 1 }"/> class="page-link" aria-label="Previous">
-										&lt;
-									</a>
-								</li>
+								<a href=<c:out value="${ filmUrl }&p=${ pi.currentPage - 1 }"/> class="page-link" aria-label="Previous">
+									&lt;
+								</a>
+							</li>
 		
 							<!-- [각 페이지] -->
 							<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
