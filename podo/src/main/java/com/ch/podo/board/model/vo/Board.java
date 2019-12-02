@@ -30,5 +30,8 @@ public class Board {
    private String nickName;			// 사용자 닉네임
    
    
+   private String originalName; 	// 원본 파일명
+   private String changeName; 		// 수정된 파일명
+   
 
 }

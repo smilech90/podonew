@@ -18,11 +18,13 @@ public interface BoardService {
 	
 	// 게시판 작성
 	int insertBoard(Board b);
-	
+	// 게시판 파일 insert
 	int insertBoardFile(Image i);
 	
 	// 게시판 상세 조회
 	Board selectBoard(int id);
+	
+	Image selectBoardFile(int id);
 	
 	// 수정 및 삭제하고자 하는 게시판 조회
 	Board selectUpdateBoard(int id);
@@ -32,6 +34,8 @@ public interface BoardService {
 	
 	// 게시판 수정
 	int updateBoard(Board b);
+	
+	int updateBoardFile(Image i);
 	
 	// 댓글 리스트
 	ArrayList<Comment> selectCommentList(int id);
