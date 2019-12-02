@@ -163,31 +163,43 @@ public class BoardController {
 	}
 	
 	
-	
 	// 수정 및 삭제 할 게시글 상세 조회
 	@RequestMapping("bdetail.do")
-	public ModelAndView boardDetail(HttpSession session, int id, ModelAndView mv, Image i) {
+	public ModelAndView boardDetail(HttpSession session, int id, ModelAndView mv) {
 		
-		Member m = (Member)session.getAttribute("loginUser");
 		Board b = boardService.selectBoard(id);
-		
-		if(b != null) {
-			mv.addObject("b", b).addObject("i", i).setViewName("board/boardDetailView");
-		}else {
-			mv.addObject("message", "error");
+		Image i = boardService.selectBoardFile(id);
+			
+		if(i != null) {
+			
+			mv.addObject("b", b).addObject("i", i).setViewName("board/boardDetailView");				
+		}else{
+			mv.addObject("b", b).setViewName("board/boardDetailView");
 		}
-		
+			
 		return mv;
 		
 	}
 	
 	
+	// 게시글 삭제
 	@RequestMapping("bdelete.do")
-	public ModelAndView boardDelete(int id, HttpServletRequest request, ModelAndView mv, Image i) {
+	public String boardDelete(int id, HttpServletRequest request, ModelAndView mv, Image i) {
 		
 		Board b = boardService.selectUpdateBoard(id);
 		
-		return mv;
+		if(i.getOriginalName() != null) {
+			deleteFile(i.getChangeName(), request);
+		}
+		
+		int result = boardService.deleteBoard(id);
+		
+		if(result > 0) {
+			return "redirect:blist.do";
+		}else {
+			return "redirect:blist.do";
+		}
+		
 		
 	}
 	
@@ -241,7 +253,7 @@ public class BoardController {
 			
 			if(result1 > 0 && result2 > 0) {
 				
-				mv.addObject("id", b.getId()).addObject("iId", i.getId()).setViewName("redirect:bdetail.do");
+				mv.addObject("id", b.getId()).setViewName("redirect:bdetail.do");
 			}
 			
 		}else {

@@ -18,7 +18,7 @@
 		<result property="nickName" column="nickname"/>
 	</resultMap>
 	
-	<resultMap id="ImageResultSet" type="Image">
+	<resultMap id="imageResultSet" type="Image">
 		<id property="id" column="id"/>
 		<result property="path" column="path"/>
 		<result property="originalName" column="original_name"/>
@@ -63,19 +63,7 @@
 		where b.status='Y'
 		order by b.id desc
 	</select>
-<<<<<<< HEAD
-		
-=======
-	
-	<!--  해당 부분 주석
-	<select id="selectMem" resultMap="memberListResultSet">
-		select id, nickname
-		from tb_member
-		where id = #{memberId}
-	</select>
-	 -->
-	
->>>>>>> branch 'develop' of https://github.com/humormagnate/podo
+
 	<insert id="insertBoard">
 		insert into tb_board
 		values(seq_board_id.nextval, #{title}, #{content}, default, default, default, default,
@@ -98,6 +86,12 @@
 		from tb_board b
 		left join tb_member m on(b.member_id=m.id) 
 		where b.id=#{id}
+	</select>
+	
+	<select id="selectBoardFile" resultMap="imageResultSet">
+		select *
+		from tb_image
+		where board_id=#{b.id}
 	</select>
 	
 	<update id="deleteBoard">
@@ -138,10 +132,6 @@
         join tb_member m on(b.member_id=m.id)
 		where b.status='Y'
 		order by b.id desc
-	</select>
-	
-	<select id="selectBoardFile" resultMap="">
-		
 	</select>
 	
 	

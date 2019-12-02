@@ -53,7 +53,7 @@ public class BoardDao {
 		return sqlSession.update("boardMapper.updateCount", id);
 	}
 	
-	
+	// 게시판 상세 조회
 	public Board selectBoard(int id) {
 		return sqlSession.selectOne("boardMapper.selectBoard", id);
 	}
