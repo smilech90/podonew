@@ -40,8 +40,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		PrintWriter out = response.getWriter();
 		
 		if (modelMap.get("loginFail") != null) {
-			// logger.info("로그인 실패");
-			out.println("<script>alert('아이디와 비밀번호가 일치하지 않습니다.');history.back();</script>");
+			logger.info("로그인 실패");
+			
+			
+			
+			out.println("<script>alert('아이디와 비밀번호가 일치하지 않습니다.');</script>");
 			out.flush();
 		}
 	}

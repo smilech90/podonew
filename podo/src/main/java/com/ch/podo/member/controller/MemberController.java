@@ -49,7 +49,7 @@ public class MemberController {
 	
 	// @CookieValue(value="storeIdCookie", required = false) Cookie storeIdCookie
 	@RequestMapping("login.do")
-	public ModelAndView loginMember(Member mem, HttpSession session, ModelAndView mv,
+	public String loginMember(Member mem, HttpSession session, ModelAndView mv,
 																	boolean rememberMe, HttpServletResponse response, HttpServletRequest request) {
 		
 		Member loginUser = memberService.selectLoginMember(mem);
@@ -74,16 +74,11 @@ public class MemberController {
 					}
 				}
 			}
-
 			session.setAttribute("loginUser", loginUser);
-			
-			String referer = request.getHeader("Referer");
-			mv.setViewName("redirect:" + referer);
-			
 		} else {
-			mv.addObject("loginFail", true);
+			session.setAttribute("msg", "아이디와 비밀번호를 확인해주세요!");
 		}
-		return mv;
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	@RequestMapping("logout.do")

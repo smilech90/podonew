@@ -42,10 +42,10 @@
 			<beans:bean id="MemberInterceptor" class="com.ch.podo.common.interceptor.MemberInterceptor"/>
 		</interceptor>
 		
-		<interceptor>
+		<!-- <interceptor>
 			<mapping path="/login.do"/>
 			<beans:bean id="LoginInterceptor" class="com.ch.podo.common.interceptor.LoginInterceptor"/>
-		</interceptor>
+		</interceptor> -->
 		
 	</interceptors>
 
