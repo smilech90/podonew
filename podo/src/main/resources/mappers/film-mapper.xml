@@ -43,8 +43,8 @@
 		join tb_genre g on (f.genre_id = g.id)
 		left outer join tb_detail_film df on (df.id = dfid)
 		left outer join tb_film_image fi on (fi.dfilm_id = df.id)
-		where title_kor like '%'||#{keyword}||'%'
-		   or title_eng like '%'||#{keyword}||'%'
+		where (title_kor like '%'||#{keyword}||'%' or title_eng like '%'||#{keyword}||'%')
+			and (title_kor like '%'||#{skeyword}||'%' or title_eng like '%'||#{skeyword}||'%')
 	</select>
 	
 	<select id="selectKeywordFilmList" resultMap="filmResultSet">
@@ -60,8 +60,8 @@
 		join tb_genre g on (f.genre_id = g.id)
 		left outer join tb_detail_film df on (df.id = dfid)
 		left outer join tb_film_image fi on (fi.dfilm_id = df.id)
-		where title_kor like '%'||#{keyword}||'%'
-		   or title_eng like '%'||#{keyword}||'%'
+		where (title_kor like '%'||#{keyword}||'%' or title_eng like '%'||#{keyword}||'%')
+			and (title_kor like '%'||#{skeyword}||'%' or title_eng like '%'||#{skeyword}||'%')
 	</select>
 	
 	<select id="selectFilterFilmListCount" resultType="_int">
