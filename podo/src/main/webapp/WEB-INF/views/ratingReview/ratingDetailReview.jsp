@@ -370,17 +370,21 @@
 				
 				var content = $("#review-comment").val();
 				var boardId = ${r.id};
-				var memberId = "${r.memberId}";
+				var memberId = ${r.memberId};
+				var reviewId = ${r.ratingReviewId};
+				var nickName = "${r.nickName}";
 					
 				$.ajax({
 					url:"insertReviewComment.do",
 					data:{content:content,
 						  boardId:boardId,
-						  memberId:memberId
+						  memberId:memberId,
+						  reviewId:reviewId,
+						  nickName:nickName
 					},
 					success:function(data){
 						if(data == "success"){
-							console.log(data);
+							console.log(data.nickName);
 							getReplyReviewCommentList();
 							$("#review-comment").val("");
 						}else{
@@ -421,8 +425,9 @@
 							$tr = $("<tr></tr>");
 							
 							console.log(value.nickName);
+						
 							
-							$writerTd = $("<td width='100'></td>").text(value.memberId);
+							$writerTd = $("<td width='100'></td>").text(value.nickName); 
 							$contentTd = $("<td width='300'></td>").text(value.content);
 							$dateTd = $("<td width='100'></td>").text(value.createDate+'에 작성');
 							$deleteButton = $("<input class='delComment btn' type='button'>").val('삭제')
@@ -654,7 +659,7 @@
 			}
 			//console.log(status);
 			$.ajax({
-					url:"likeClick.do",
+					url:"likeReviewClick.do",
 					data:{userId:userId,
 						  targetId:targetId,
 						  status:status},
@@ -704,6 +709,13 @@
         $(".cm_modal").modal();
         //console.log("${ loginUser.id }");
     });
+	
+	
+/*  신고..에이작스?   $(document).on("click","cm_modal", function() {
+    	$(".cm_modal").modal(this);
+    }); */
+    
+    
 	// 댓글 삭제
 	$(".delComment").on( "click", function() {
 		$(function () {

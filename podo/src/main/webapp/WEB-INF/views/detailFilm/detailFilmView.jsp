@@ -98,9 +98,13 @@
     	color:red;
 	    cursor:pointer;
     	display : block;
+
+    	
     }
     .df_r_content{
+    	float:left;
     	display : none;
+
     }
     .actorImage{
     	border: 0px solid black;
@@ -117,6 +121,92 @@
     	width:32%;
     	float:left;
     }
+    .homeReviewArea{
+				margin-left:auto;
+				margin-right:auto;
+				
+				height: 150px;
+				/* border: 1px solid blue; */
+				width: 1150px;
+			}
+    .leftImage{
+				 background:rgba(49,58,102,0.75);
+				/* border: 1px solid green; */
+				width: 20%;
+				height: 100%;
+				margin-left:auto;
+				margin-right:auto;
+				float: left;
+
+			}
+
+	.userImageHome{
+			    
+				border-radius: 100%;
+				height:60%;
+				width:100%;
+				/* border: 1px solid black; */
+				border-radius:30;
+				float:left;
+				text-align:center;
+			}
+			.nickNameHome{
+				font-size:10px;
+				font-weight:bold;
+				height:10%;
+				width:100%;
+				/* border: 1px solid purple; */
+				float:left;
+				text-align:center;
+			}
+			.countReview{
+				height:15%;
+				width:100%;
+				float:left;
+				text-align:center;
+			}
+			.starReview{
+				height:15%;
+				width:100%;
+				float:left;
+				text-align:center;
+			}
+			
+			
+			.rightContent{
+				background:rgba(49,58,102,0.75);
+				/* border: 1px solid red; */
+				height:100%;
+				width: 80%;
+				float: left;
+			}
+			
+			.homeContent{
+				width:100%;
+				height:100%;
+				float:left;
+			}
+			
+			.titleKorea{
+				
+				width:100%;
+				float: left;
+				/* border: 1px solid yellow; */
+				height: 20%;
+			}
+			.contentKorea{
+				background:rgb(18,22,49);
+				float: left;
+				width:95%;
+				height:65%;
+				/* border: 1px solid orange; */
+			}
+			.btns{
+			 	float:left;
+				margin-left:610px;
+				width:100%;
+				height: 15%;
+			}
     
 </style>
 <body>
@@ -197,22 +287,29 @@
 		    <div><a href="reviewWriteForm.do?filmId=${df.filmId}&loginUserId=${loginUser.id}">리뷰 작성하기 버튼</a></div>		<!-- 버튼 -->
 		 
 		        <c:forEach items="${ rl }" var="r">
-			        <div class="review">
-				        <div>리뷰</div>
-				        <c:if test="${ r.spoilerCheck eq 'Y' }">
-				            <div class="df_r_spoContent">
-					            <div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
-					            <div class="df_r_content">내용 : ${ r.content }</div>
-				            </div>
-				        </c:if>
-				        <c:if test="${ r.spoilerCheck eq 'N' }">
-				            <div>내용 : ${ r.content }</div>
-				        </c:if>
-				            <div>별점 : ${ r.star }</div>			        
-				            <div>작성자 : ${ r.nickName}</div>
-				            <div>좋아요 : ${ r.likeCount }</div>
-			        </div>   
-		        </c:forEach>
+				<div class="homeReviewArea">
+					
+						<div class="leftImage">
+						<img class="userImageHome"
+							src="resources/memberProfileImage/${ r.userImage }"
+							height="100px">
+						<div class="nickNameHome">${ r.nickName }님</div>
+						<div class="starReview">★점:${ r.star }점</div>
+						<div class="countReview">추천수:${ r.likeCount }회</div>
+					</div>
+					<div class="rightContent">
+						<div class="titleKorea">${ r.titleKor }</div>
+						<div class="contentKorea"> ${ r.content }</div>
+						<div class="btns">${r.modifyDate }에
+							작성 &nbsp;<a href="">추천</a>&nbsp;<a
+								class="declaration-modal btn-reply text-uppercase" href="#"
+								data-toggle="modal">신고하기</a> &nbsp;<a href="#">댓글 0개</a>
+						</div>
+						</div>
+					
+				</div>
+				<hr style="width: 600px; margin: 0;">
+			</c:forEach>
     	</div>
 	    <br>
     	</div>
