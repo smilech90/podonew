@@ -46,17 +46,15 @@ public class InquiryController {
 	
 	@ResponseBody
 	@RequestMapping("dbInquiryInsert.do")
-	public String dbInquiryInsert(String content, String loginUser) {
-		int result = inquiryService.dbInquiryInsert(content, loginUser);
-		System.out.println(content);
-		System.out.println(loginUser);
+	public String dbInquiryInsert(String content, String userId) {
+		System.out.println("컨트" + content);
+		System.out.println("컨트아이디" +userId);
+		int result = inquiryService.dbInquiryInsert(content, userId);
 		
-		String str = "";
-		if(result>0) {
-			str = "1";
+		if(result > 0) {
+			return "success";
 		}else {
-			str = "0";
+			return "fail";
 		}
-		return str;
 	}
 }

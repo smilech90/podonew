@@ -32,10 +32,10 @@ public class InquiryDao {
 		return list;
 	}
 	
-	public int dbInquiryInsert(String content, String loginUser) {
+	public int dbInquiryInsert(String content, String userId) {
 		HashMap map = new HashMap();
 		map.put("content", content);
-		map.put("loginUser", loginUser);
+		map.put("userId", userId);
 		
 		return sqlSession.insert("inquiryMapper.dbInquiryInsert", map);
 	}

@@ -4,7 +4,6 @@
 <html>
 <head>
 <style>
-<<<<<<< HEAD
 	#footer-wrapper{width: 100%;}
 	.footer-1>a{
 		color: #b5b5b5;
@@ -46,7 +45,7 @@
 			<a href="#" data-toggle="modal" data-target="#db-inquiry-modal">영화 DB 제보</a>
 			</c:if>
 			<c:if test="${empty loginUser }">
-			<a  href="#" data-toggle="modal" data-target="#login2Modal">영화 DB 제보</a>
+			<a  href="#" onclick="btn();">영화 DB 제보</a>
 			</c:if>
 		</div>
 		
@@ -97,71 +96,30 @@
 		</div>	
 	</div>
 	
-	
-	
-	<!-- 로그인 모달 -->
-		<hr style="margin: 0;">
-		<div class="modal fade" id="login2Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Login</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					
-					<div class="modal-body">
-						<form class="" action="login.do" method="post">
-							<div class="form-group">
-								<h3 class="modal-title" id="caution">*로그인 후 DB 제보가 가능합니다.</h3>
-								<label for="email">Email address</label>
-								<input type="email" class="form-control" name="email" id="email" placeholder="email@address.com">
-							</div>
-							<div class="form-group">
-								<label for="pwd">Password</label>
-								<input type="password" class="form-control" name="pwd" id="pwd" placeholder="Password">
-							</div>
-							<div class="form-group">
-								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
-									<label class="form-check-label" for="rememberMe">
-								  		Remember me
-									</label>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="submit" id="btn-sign-in" class="btn" style="background:purple; color:white;">Sign in</button>
-								<button type="button" class="btn btn-default" id="myBtn"  style="background:pink; color:white; width:60px;" onclick="location.href='insertFormMember.do';">Join</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	
 	<script>
+		function btn(){
+			alert("로그인 후 DB 제보가 가능합니다.");
+		}
 		function validate(){
 			var content = $("#content").val();
-			var loginUser = "${loginUser.id}";
+			var userId = "${loginUser.id}";
 			
 			// 미입력
 			if($("#content").val().length == 0){	
 				alert("내용을 입력해주세요.")
 				$("#content").focus();
 				return false;
+				
 			}else{	
-				
-				
 				$.ajax({
 					url:"dbInquiryInsert.do",
 					data:{content:content,
-						  loginUser:loginUser},
+						  userId:userId},
 					type:"post",
 					success:function(data){
-						if(data==1){
+						if(data=="success"){
 							alert("DB제보 완료");
+							
 						}else{
 							alert("DB제보 실패");
 						}
@@ -170,45 +128,11 @@
 					}
 					
 				});
+				return true;
 			}
 		}
 		
-		$(function(){
-			$("#login-modal, #rec-login-modal").on("click",function(){
-				$('#loginModal').modal('toggle');
-			});
-		});
-	
-		$(function(){
-		    if (getCookie("email")) {
-		       var email = getCookie("email").split(";")
-		       $("#email").val(email[0]);
-			}
-		    
-		    if (getCookie("pwd")) {
-		    	var pwd = getCookie("pwd").split(";")
-				$("#pwd").val(pwd[0]);
-			}  
-		    
-		    if ($("#email").val() != "" && $("#pwd").val() != ""){
-		        $("#rememberMe").attr("checked", true);
-		    }
-		});
-	 	
-		function getCookie(cookieName) {
-			cookieName = cookieName + '=';
-			var cookieData = document.cookie;
-			var start = cookieData.indexOf(cookieName);
-			var cookieValue = '';
-			if (start != -1) {
-				start += cookieName.length;
-				var end = cookieData.indexOf(';', start);
-				if (end == -1)
-					end = cookieData.length;
-				cookieValue = cookieData.substring(start, end);
-			}
-			return unescape(cookieValue);
-		}
+		
 	</script>
 </body>
 </html>

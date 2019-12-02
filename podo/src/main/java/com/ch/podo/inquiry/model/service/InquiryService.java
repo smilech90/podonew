@@ -17,5 +17,5 @@ public interface InquiryService {
 	ArrayList<Inquiry> myPageSelectInquiryList(String id, PageInfo pi);
 	
 	// 3. DB제보
-	int dbInquiryInsert(String content, String loginUser);
+	int dbInquiryInsert(String content, String userId);
 }
