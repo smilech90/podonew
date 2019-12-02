@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.inquiry.model.service.InquiryService;
 import com.ch.podo.inquiry.model.vo.Inquiry;
-import com.ch.podo.review.model.dto.Review;
 
 @Controller
 public class InquiryController {
@@ -42,5 +42,21 @@ public class InquiryController {
 		mv.addObject("inquiry", inquiryList).addObject("inquiryPi", pi).addObject("tab", tab).setViewName("member/myPage");
 		
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("dbInquiryInsert.do")
+	public String dbInquiryInsert(String content, String loginUser) {
+		int result = inquiryService.dbInquiryInsert(content, loginUser);
+		System.out.println(content);
+		System.out.println(loginUser);
+		
+		String str = "";
+		if(result>0) {
+			str = "1";
+		}else {
+			str = "0";
+		}
+		return str;
 	}
 }
