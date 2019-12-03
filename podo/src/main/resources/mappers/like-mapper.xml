@@ -85,14 +85,14 @@
 	</select>
 	
 	<select id="myPageSelectLikeFilm" resultMap="likeFilmResultSet">
-		select l.id, type, target_id, user_id, title_kor, change_name
+		select l.id, l.type, l.target_id, l.user_id, f.title_kor, b.change_name
 		from tb_like l
 		join tb_film f on(l.target_id = f.id)  
-		left join (select film_id, change_name
+		left join (select df.film_id, fi.change_name
 		            from tb_detail_film df
 		            join tb_film_image fi on(df.id = fi.dfilm_id))b on(b.film_id = f.id)
-		where type=1 and
-		      user_id=#{id}    
+		where l.type=1 and
+		      l.user_id=#{id}   
 	</select>
 	
 	<select id="myPageLikeUserListCount" resultType="_int">
