@@ -256,4 +256,17 @@ public class MemberController {
 		log.info("payment info : " + pay);
 		return memberService.insertPaymentInfo(pay);
 	}
+	
+	@RequestMapping("exit.do")
+	public ModelAndView exit(String id, ModelAndView mv, HttpSession session) {
+		int result = memberService.exit(id);
+		
+		if(result > 0) {
+			session.removeAttribute("loginUser");
+			mv.setViewName("member/myPage");
+		}else {
+			mv.addObject("msg", "탈퇴실패").setViewName("member/myPage");
+		}
+		return mv;
+	}
 }
