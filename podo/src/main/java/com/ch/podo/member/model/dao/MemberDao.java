@@ -94,4 +94,7 @@ public class MemberDao {
 		return 1;
 	}
 	
+	public int exit(String id) {
+		return sqlSession.update("memberMapper.exit", id);
+	}
 }

@@ -631,7 +631,6 @@
 								</div>
 								</c:if>
 								<!-------------------------- 페이징바 끝 -------------------------->
-								
 									<c:if test="${ UserlistCount eq 0 }">
 									<div style="text-align: center;">
 										<h3> 좋아요 한 회원이 없습니다.</h3>
@@ -649,6 +648,7 @@
 									<h3> 문의한 내용이 없습니다.</h3>
 									<br>
 								</div>
+								<p style="font-size:9px" onclick="bye();">회원탈퇴</p>
 							</div>
 						</c:if>
 						
@@ -752,6 +752,7 @@
 								</div>
 								<!-------------------------- 페이징바 끝 -------------------------->
 						</div>
+						<p style="font-size:9px" onclick="bye();">회원탈퇴</p>
 						</c:if>	
 						<!-------------------------- 문의 끝 ----------------------->
 				</div>
@@ -929,6 +930,15 @@
 	</c:if>
 
 	<script>
+		function bye(){
+			console.log("anjdi");
+			if (confirm("진짜루 탈퇴할꼬양?") == true){    //확인
+			    location.href="exit.do?id=${loginUser.id}";
+			}else{   //취소
+			    return;
+			}
+
+		}
 	
 		$(function() {
 			var likeUser = $(".likeInp").val();

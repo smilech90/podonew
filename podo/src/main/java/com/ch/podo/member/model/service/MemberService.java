@@ -24,7 +24,7 @@ public interface MemberService {
 	int updateMember(Member mem);
 	
 	// 5. 회원 탈퇴
-	int deleteMember(String id);
+	int exit(String id);
 	
 	// 6. 유저페이지_유저조회
 	Member selectUserPageMem(String userId);

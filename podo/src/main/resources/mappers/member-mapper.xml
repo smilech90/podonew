@@ -125,4 +125,10 @@
 		where id = #{memberId}
 	</update>
 	
+	<update id="exit">
+		update tb_member
+		set status = 'N'
+		where id = #{id}
+	</update>
+	
 </mapper>
