@@ -786,7 +786,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">회원정보 수정</h5>3.
+					<h5 class="modal-title" id="exampleModalLabel">회원정보 수정</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -818,7 +818,12 @@
 						<div class="form-group">
 							<label for="userId">Profile</label><br>
 							* 이미지를 삭제하면 기본이미지로 등록됩니다.<br>
-						<img id="preview" src="resources/memberProfileImage/${ loginUser.image }" width="70px" height="70px"><br>
+						<c:if test="${loginUser.image != null }">
+							<img id="preview" src="resources/memberProfileImage/${ loginUser.image }" width="70px" height="70px"><br>
+						</c:if>
+						<c:if test="${loginUser.image == null }">
+							<img id="preview" src="resources/memberProfileImage/podoImage.png" width="70px" height="70px"><br>
+						</c:if>
 						<button type="button" id="uploadBtn">이미지 변경</button>
 						<button type="button" onclick="fileReset();">이미지 삭제</button><br>
 						<div id="imgArea"><input type='file' id='imgInp' name='uploadFile'></div><br>
