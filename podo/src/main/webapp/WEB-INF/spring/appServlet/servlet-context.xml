@@ -39,6 +39,8 @@
 			<mapping path="/reviewDelete.do"/>
 			<mapping path="/insertQuestion.do"/>
 			<mapping path="/declarationModal.do"/>
+			<mapping path="/likeReviewClick.do"/>
+			
 			<!-- <mapping path="/insertReviewComment.do"/> -->
 			<beans:bean id="MemberInterceptor" class="com.ch.podo.common.interceptor.MemberInterceptor"/>
 		</interceptor>

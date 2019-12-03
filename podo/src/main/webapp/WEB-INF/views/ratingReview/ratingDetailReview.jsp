@@ -6,9 +6,7 @@
 <head>
 	<jsp:include page="../common/header.jsp"/>
 <meta charset="UTF-8">
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 <title>리뷰 상세 보기</title>
 <style>
 
@@ -305,18 +303,21 @@
 						<div class="likeReview">
 							  		<div class="thumb">
 										<br><br>
-										<c:if test="${ not empty likeUser }">
-		                                	<button class='btn btn-danger likeReviewBtn'>LIKED</button>
+										<c:if test="${ not empty likeReivew }">
+		                                	<button class='likeReviewBtn btn-danger'>LIKED</button>
 		                                	<input type="hidden" class="likeInp" value="1"/>
 		                                </c:if>
-		                                <c:if test="${ empty likeUser }">
-		                                    <button class='btn btn-secondary likeReviewBtn'>LIKE</button>
+		                                <c:if test="${ empty likeReivew }">
+		                                    <button class='likeReviewBtn btn-secondary'>LIKE</button>
 		                                   <input type="hidden" class="likeInp" value="0"/>
 		                                </c:if>
 									</div>
 							<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">리뷰신고하기</a>
 							<c:if test="${loginUser.id eq r.memberId }">
-							<a href="reviewUpdateView.do?id=${r.id}">수정하기</a>
+								<a href="reviewUpdateView.do?id=${r.id}">수정하기</a>
+							</c:if>
+							<c:if test="${ loginUser.id eq r.memberId }">
+								<button class="btn" class="btn-secondary" onclick="location.href='reviewDelete.do?id=${r.id}';">삭제하기</button>
 							</c:if>
 						</div>
 						<div></div>
@@ -637,14 +638,14 @@
 
 
 	<script>
-	// 리뷰 좋아요
+	// 리뷰 좋아요		
 	$(function() {
-		//var likeUser = $(".likeInp").val();
-		//console.log("처음인풋 : " + likeUser);
+		//var likeReivew = $(".likeInp").val();
+		//console.log("값 : " + likeReivew);
 		
 		$(".likeReviewBtn").on("click", function(){
-			var targetId = "${ r.id }";
 			var userId = "${loginUser.id}";
+			var targetId = "${ r.id }";
 			var likeInp = $(".likeInp").val();
 			var status = "";
 			
@@ -666,20 +667,20 @@
 						//console.log(data);
 						if(status == "like"){ // 좋아요클릭시
 							if(data == 1){
-								$(".likeBtn").removeClass("btn-danger");
-								$(".likeBtn").removeClass("btn-secondary");
-								$(".likeBtn").addClass("btn-danger");
-								$(".likeBtn").text('LIKED');
+								$(".likeReviewBtn").removeClass("btn-danger");
+								$(".likeReviewBtn").removeClass("btn-secondary");
+								$(".likeReviewBtn").addClass("btn-danger");
+								$(".likeReviewBtn").text('LIKED');
 								$(".likeInp").val('1');
 							}else{
 								alert("좋아요 실패");
 							}
 						}else if(status == "nonlike"){ // 좋아요 취소
-							if(data == 1){
-								$(".likeBtn").removeClass("btn-danger");
-								$(".likeBtn").removeClass("btn-secondary");
-								$(".likeBtn").addClass("btn-secondary");
-								$(".likeBtn").text('LIKE');
+							if(data >0){
+								$(".likeReviewBtn").removeClass("btn-danger");
+								$(".likeReviewBtn").removeClass("btn-secondary");
+								$(".likeReviewBtn").addClass("btn-secondary");
+								$(".likeReviewBtn").text('LIKE');
 								$(".likeInp").val('0');
 							}else{
 								alert("좋아요 실패");

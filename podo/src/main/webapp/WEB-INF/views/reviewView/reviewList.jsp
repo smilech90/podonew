@@ -94,18 +94,13 @@
 										<small><div>${review.nickName }님이작성</div></small>
 										<small><div>${review.createDate }에작성됨</div></small>
 										<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${review.id}';">더보기</button>
-										<c:if test="${ loginUser.id eq review.memberId }">
-										<button class="btn btn-secondary" onclick="location.href='reviewDelete.do?id=${review.id}';">삭제하기</button>
-										</c:if>
+										
 								</c:if>
 								<c:if test="${ review.spoilerCheck eq 'N' }">
 									<div>${ review.content }</div>
 									<small><div>${review.nickName }님이작성</div></small>
 									<small><div>${review.createDate }에작성됨</div></small>
 								<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${review.id}';">더보기</button>
-								<c:if test="${ loginUser.id eq review.memberId }">
-								<button class="btn btn-secondary" onclick="location.href='reviewDelete.do?id=${review.id}';">삭제하기</button>
-								</c:if>
 								</c:if>
 							</p>
 								</div>

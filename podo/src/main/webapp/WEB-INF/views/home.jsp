@@ -144,7 +144,7 @@
 			}
 			.btns{
 			 	float:left;
-				margin-left:575px;
+				margin-left:440px;
 				width:100%;
 				height: 15%;
 			}
@@ -251,32 +251,49 @@
 	        	<p align="center">리뷰</p>
 	        	
 	         			<a href="reviewList.do" id="ReviewMore">리뷰 더보기</a>
-      		<c:forEach items="${ reviewList }" var="rs">
+      		<c:forEach items="${ reviewList }" var="r">
       	<div class="homeReviewArea">
 			        <div class="leftImage">
-			              <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }" height="100px">
-			               <div class="nickNameHome">${ rs.nickName }님</div>
-			               <div class="starReview">★점:${ rs.star }점</div>
-			               <div class="countReview">추천수:${ rs.likeCount }회</div>
+			              <img class="userImageHome"  src="resources/memberProfileImage/${ r.userImage }" height="100px">
+			               <div class="nickNameHome">${ r.nickName }님</div>
+			               <div class="starReview">★점:${ r.star }점</div>
+			               <div class="countReview">추천수:${ r.likeCount }회</div>
 					</div>
 			   		<div class="rightContent">
-			   			<div class="titleKorea">${ rs.titleKor }</div>
+			   			<div class="titleKorea">
+			   				${ r.titleKor }
+			   				<c:if test="${loginUser.id eq r.memberId }">
+								<a href="reviewUpdateView.do?id=${r.id}" style="margin-left: 725px;">수정하기</a>
+							</c:if>
+							<c:if test="${ loginUser.id eq r.memberId }">
+								<a href="reviewDelete.do?id=${r.id}" >삭제하기</a>
+							</c:if>
+			   			</div>
+			   			
 			   			<p id="reviewContentFont" class="title">
-								<c:if test="${ rs.spoilerCheck eq 'Y' }">
+								<c:if test="${ r.spoilerCheck eq 'Y' }">
 									<div class="contentKorea df_r_spoContent">
 										<div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
-										<div class="df_r_content">${ rs.content }</div>
+										<div class="df_r_content">${ r.content }</div>
 									</div>
 								</c:if>
-								<c:if test="${ rs.spoilerCheck eq 'N' }">
-			            			<div class="contentKorea"> ${ rs.content }</div>
+								<c:if test="${ r.spoilerCheck eq 'N' }">
+			            			<div class="contentKorea"> ${ r.content }</div>
 									
 								</c:if>
 
 							</p>
-	             		 <div class="btns">${rs.modifyDate } 작성 &nbsp;
-						<a href="">추천</a>&nbsp;
-						<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">신고하기</a>&nbsp;
+	             		 <div class="btns">${r.modifyDate } 작성 &nbsp;
+										<c:if test="${ r.like==loginUser.id }">
+		                                	<button class='likeReviewBtn btn-danger'>LIKED</button>
+		                                	<input type="hidden" class="likeInp" value="1"/>
+		                                </c:if>
+		                                <c:if test="${ r.like!=loginUser.id }">
+		                                    <button class='likeReviewBtn btn-secondary'>LIKE</button>
+		                                   <input type="hidden" class="likeInp" value="0"/>
+		                                </c:if>
+							<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">리뷰신고하기</a>
+						<a class="declaration-modal" href="#" data-toggle="modal">신고하기</a>&nbsp;
 						<a href="#">댓글 0개</a>
 						</div>
 			        </div>       
@@ -345,8 +362,8 @@
 					신고하기
 					<form action="declarationModal.do" method="post">
 						<input type="hidden" name="reportId" value="${ loginUser.id }">
-						<input type="hidden" name="targetId" value="${ rs.id }">
-						<input type="hidden" name="reportedId" value="${ rs.memberId }">
+						<input type="hidden" name="targetId" value="${ r.id }">
+						<input type="hidden" name="reportedId" value="${ r.memberId }">
 						
 					<div class="eu">
 						
@@ -402,6 +419,64 @@
 					      return;
 					  }
 				});
+			});
+			
+			//좋아요
+				$(function() {
+		//var likeReivew = $(".likeInp").val();
+		//console.log("값 : " + likeReivew);
+		
+		$(".likeReviewBtn").on("click", function(){
+			var userId = "${loginUser.id}";
+			var targetId = "${ r.id }"; /* 타겟넘버를 다른방법으로 3개 가져와야합니다. */
+			var likeInp = $(".likeInp").val();
+			var status = "";
+			
+			//console.log("버튼클릭시 : " + likeInp);
+			
+			if(likeInp == '0'){
+				status = "like";
+			}else if(likeInp == '1'){
+				status = "nonlike";
+			}
+			//console.log(status);
+			$.ajax({
+					url:"likeReviewClick.do",
+					data:{userId:userId,
+						  targetId:targetId,
+						  status:status},
+					type:"post",
+					success:function(data){
+						//console.log(data);
+						if(status == "like"){ // 좋아요클릭시
+							if(data == 1){
+								$(".likeReviewBtn").removeClass("btn-danger");
+								$(".likeReviewBtn").removeClass("btn-secondary");
+								$(".likeReviewBtn").addClass("btn-danger");
+								$(".likeReviewBtn").text('LIKED');
+								$(".likeInp").val('1');
+							}else{
+								alert("좋아요 실패");
+							}
+						}else if(status == "nonlike"){ // 좋아요 취소
+							if(data >0){
+								$(".likeReviewBtn").removeClass("btn-danger");
+								$(".likeReviewBtn").removeClass("btn-secondary");
+								$(".likeReviewBtn").addClass("btn-secondary");
+								$(".likeReviewBtn").text('LIKE');
+								$(".likeInp").val('0');
+							}else{
+								alert("좋아요 실패");
+							}
+						}
+						//console.log("에이작스 후 : " + likeInp);
+							
+					},error:function(){
+						console.log("라이크 ajax 통신 실패");
+					}
+				});  
+			});
+		
 			});
 		</script>
 </html>
