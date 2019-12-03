@@ -130,7 +130,7 @@
 		text-align: center;
 		}
 		#profile{object-fit: cover;}
-		.t:hover{cursor:pointer;}
+		.t:hover, .image_cover:hover{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -302,12 +302,12 @@
 															<div class="podo-film-card col-3">
 																<input class="hidden-filmId" type="hidden" value="${ likeFilm.id }">
 																<c:if test="${ not empty likeFilm.changeName }">
-																	<div class="poster" onclick="location.href='ratingDetailReview.do?id=${likeFilm.targetId}'">
+																	<div class="poster" onclick="location.href='detailFilm.do?filmId=${likeFilm.targetId}'">
 																		<img src="resources/detailFilmImage/${ likeFilm.changeName }">
 																	</div>
 																</c:if>
 																<c:if test="${ empty likeFilm.changeName }">
-																	<div class="poster">
+																	<div class="poster" onclick="location.href='detailFilm.do?filmId=${likeFilm.targetId}'">
 																		<img src="resources/detailFilmImage/podoposter.jpg">
 																	</div>
 																</c:if>
@@ -533,7 +533,7 @@
 															<!-- width * 1.425 -->
 															<div class="podo-user-card col-3">
 																<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
-																<div class="image_cover">
+																<div class="image_cover" onclick="location.href='userPage.do?userId=${likeUserList.id}&loginUserId=${loginUser.id}'">
 																		<c:if test="${likeUserList.changeName != null }">
 																			<img src="resources/memberProfileImage/${likeUserList.changeName}" id="profile" width='200' height='200' style="border-radius: 100px;">
 																		</c:if>
