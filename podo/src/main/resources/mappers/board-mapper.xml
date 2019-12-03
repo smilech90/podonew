@@ -135,6 +135,12 @@
 	</select>
 	
 	
+	<!-- 신고 -->
+	<insert id="insertInappro">
+		insert into tb_report
+		values(seq_report_id.nextval, 2, #{targetId}, #{content}, #{reportId}, #{reportedId})
+	</insert>
+	
 	
 	
 </mapper>

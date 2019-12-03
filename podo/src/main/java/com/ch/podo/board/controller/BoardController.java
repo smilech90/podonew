@@ -24,6 +24,7 @@ import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.report.model.vo.Report;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -35,7 +36,7 @@ public class BoardController {
 
 	
 	@RequestMapping("blist.do")
-	public ModelAndView boardList(ModelAndView mv,
+	public ModelAndView boardList(ModelAndView mv,  
 								  @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		
 		int listCount = boardService.getBoardCount(); // 게시판 총 개수 조회
@@ -71,10 +72,6 @@ public class BoardController {
 		if(!file.getOriginalFilename().equals("")) { // 파일이 존재할 경우
 			
 			Image img = saveFile(file, request, i);
-			
-			b.setPath(img.getPath());
-			b.setOriginalName(img.getOriginalName());
-			b.setChangeName(img.getChangeName());
 						
 			i.setPath(img.getPath());
 			i.setOriginalName(img.getOriginalName());
@@ -219,10 +216,14 @@ public class BoardController {
 			
 			deleteFile(i.getChangeName(), request);
 			
-			Image img = saveFile(file, request, i);			
+			Image img = saveFile(file, request, i);
 			
 			int result1 = boardService.updateBoard(b);
 			int result2 = boardService.updateBoardFile(i);
+			
+			b.setPath(img.getPath());
+			b.setOriginalName(img.getOriginalName());
+			b.setChangeName(img.getChangeName());
 			
 			i.setPath(img.getPath());
 			i.setOriginalName(img.getOriginalName());
@@ -246,7 +247,6 @@ public class BoardController {
 
 	}
 	
-	// ----------------------------- 정말 모르겠다...
 	
 	
 	// 댓글
@@ -288,7 +288,26 @@ public class BoardController {
 		return mv;		
 		
 	}
-
+	
+	
+	// --- 신고 ---
+	@ResponseBody
+	@RequestMapping("bReportModal.do")
+	public ModelAndView inapproCount(Board b, Report r, ModelAndView mv) {
+		
+		int result = boardService.insertInappro(r);
+		System.out.println("r : " + result);
+		
+		if(result > 0) {
+			mv.addObject("id", r.getTargetId()).setViewName("redirect:bdetail.do");
+		}else {
+			mv.addObject("msg", "신고하기 실패").setViewName("");
+		}
+		
+		return mv;
+		
+	}
+	
 	
 
 }

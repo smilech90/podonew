@@ -240,6 +240,7 @@ public class ReviewController {
 	}
 	
 	//  리뷰 신고하기
+	@ResponseBody
 	@RequestMapping("declarationModal.do")
 	public ModelAndView insertDeclaration(Review r,Report rep,ModelAndView mv) {
 		

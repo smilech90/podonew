@@ -16,6 +16,7 @@ import com.ch.podo.board.model.vo.Board;
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.image.model.vo.Image;
+import com.ch.podo.report.model.vo.Report;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -126,7 +127,13 @@ public class BoardServiceImpl implements BoardService {
 		
 		return boardDao.selectboardListHome();
 	}
-
+	
+	
+	// 신고
+	@Override
+	public int insertInappro(Report r) {
+		return boardDao.insertInappro(r);
+	}
 	
 
 

@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
 
@@ -28,9 +28,9 @@
 	}
 </style>
 </head>
+<jsp:include page="../common/header.jsp"/>
 <body>
 
-	<jsp:include page="../common/header.jsp"/>
 	
 	<br>
 	
@@ -39,6 +39,14 @@
 	<br>
 	
 	<div class="board-detail-form">
+		<div>
+		<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal" data-target="#boardReport">신고</a>
+		&nbsp; &nbsp;
+		<button class="btn btn-secondary btn-lg">좋아요</button>
+		</div>
+		
+		<br>
+		
 		<div class="form-group row">
 			<label for="" class="col-sm-2 col-form-label">제목 </label>
 	    	<div class="col-sm-5">
@@ -232,6 +240,37 @@
 		}
 		
 	</script>
+	
+	<!-- 게시판 신고하기 모달 -->
+	<div class="modal fade de_modal" id="boardReport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">게시글 신고</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="bReportModal.do" method="post">
+						<input type="hidden" name="targetId" value="${ b.id }">
+						<input type="hidden" name="reportId" value="${ loginUser.id }">
+						<input type="hidden" name="reportedId" value="${ b.memberId }">
+						
+					<div class="form-group">
+						<input class="commentType" type="radio" value="1" name="content">부적절한내용
+						<input class="commentType" type="radio" value="2" name="content">스포일러
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">신고보내기</button>
+						<button class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	
 	
