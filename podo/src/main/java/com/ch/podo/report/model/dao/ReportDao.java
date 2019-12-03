@@ -42,9 +42,10 @@ public class ReportDao {
 			return sqlSession.update("reportMapper.blindReport2", r);
 		}else if(type == 3) {
 			return sqlSession.update("reportMapper.blindReport3", r);
-		}else {
+		}else if(type == 4) {
 			return sqlSession.update("reportMapper.blindReport4", r);
 		}
+		return type;
 		
 
 	}

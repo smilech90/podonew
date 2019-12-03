@@ -87,5 +87,10 @@ public class LikeServiceImpl implements LikeService{
 		
 		return likeDao.deleteLikeReview(like);
 	}
+
+//	@Override
+//	public ArrayList<Like> likeList() {
+//		return likeDao.likeList();
+//	}
 	 
 }

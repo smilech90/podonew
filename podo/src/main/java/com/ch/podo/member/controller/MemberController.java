@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
 import com.ch.podo.common.PodoRenamePolicy;
+import com.ch.podo.film.model.service.FilmService;
 import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.like.model.vo.Like;
 import com.ch.podo.member.model.service.MemberService;
@@ -40,6 +41,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private FilmService filmService;
 	@Autowired
 	private LikeService likeService;
 	@Autowired
@@ -213,8 +216,7 @@ public class MemberController {
 		  .setViewName("admin/memberListView");
 		
 		return mv;
-	}
-	
+	}	
 	
 	// 관리자 블랙 리스트 조회
 	@RequestMapping("blackList.do")

@@ -248,12 +248,9 @@
 		$(function() {
 			$('.btn_blind').click(function() {
 								
-//				$(this).css('color', 'red');
-//				$(this).addClass("active");
 				var btn= $(this);
 				
 
-				
 				var blinds = $(this).data('id');
 				var jbSplit = blinds.split(', ');
 

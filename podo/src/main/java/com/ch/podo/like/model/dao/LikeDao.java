@@ -92,4 +92,22 @@ public class LikeDao {
 		
 		return sqlSession.insert("likeMapper.deleteLikeReview", like);
 	}
+	
+//	public ArrayList<Like> likeList(){
+//		ArrayList<Like> list;
+//		
+//		int type = list.get(0).getType();
+//		
+//
+//		if(type == 1) {
+//			return (ArrayList)sqlSession.selectList("likeMapper.likeList1", list);
+//		}else if(type == 2) {
+//			return (ArrayList)sqlSession.selectList("likeMapper.likeList2", list);
+//		}else if(type == 3) {
+//			return (ArrayList)sqlSession.selectList("likeMapper.likeList3", list);
+//		}
+//		
+//		
+//		return list;
+//	}
 }
