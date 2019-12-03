@@ -283,7 +283,6 @@
 	    	</div>		<!-- 버튼 -->
 		        <c:forEach items="${ rl }" var="r">
 				<div class="homeReviewArea">
-					
 						<div class="leftImage">
 						<c:if test="${ not empty r.userImage }">
 							<img class="userImageHome" src="resources/memberProfileImage/${ r.userImage }" height="100%" width="100%">
