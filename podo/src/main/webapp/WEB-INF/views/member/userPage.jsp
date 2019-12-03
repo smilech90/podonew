@@ -145,7 +145,12 @@
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
-										<img src="resources/memberProfileImage/${ userPageMem.image }" width='150' height='150' style="border-radius: 100px;"><br><br>
+										<c:if test="${ userPageMem.image  != null }">
+											<img src="resources/memberProfileImage/${ userPageMem.image }" width='150' height='150' style="border-radius: 100px;"><br><br>
+										</c:if>
+										<c:if test="${ userPageMem.image == null }">
+											<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;"><br><br>
+										</c:if>
 										<c:if test="${ not empty likeUser }">
 		                                	<button class='btn btn-danger likeBtn'>LIKED</button>
 		                                	<input type="hidden" class="likeInp" value="1"/>
@@ -190,12 +195,12 @@
 																		<div class="details mt-20">
 																			<div class="thumb" style="float:left">
 																				<div class="col-lg-12" id="moviePoster" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
-																					<img class='img-fluid' src='resources/detailFilmImage/${list.posterImage}' width='100%' height='100%'>
+																					<a href="ratingDetailReview.do?id=${list.ratingReviewId}"><img class='img-fluid' src='resources/detailFilmImage/${list.posterImage}' width='100%' height='100%'></a>
 																				</div>
 																			</div>
 																			<div style="float:left">
 																				<div style="float:left">
-																					<a href="#"><h3>${list.titleKor}</h3><br></a>
+																					<a href="ratingDetailReview.do?id=${list.ratingReviewId}"><h3>${list.titleKor}</h3><br></a>
 																					<p>${list.content}</p>
 																				</div>
 																			</div>
@@ -368,7 +373,7 @@
 																		<li class="page-item">
 																			<a class="page-link disabled" aria-label="Next" >
 																				<span aria-hidden="true" style="color:white;">&gt;
-																					<i class="ti-angle-right"></i>
+																					<!-- <i class="ti-angle-right"></i> -->
 																				</span>
 																			</a>
 																		</li>
@@ -382,7 +387,7 @@
 																		<li class="page-item">
 																			<a href="${ after }" class="page-link" aria-label="Next" >
 																				<span aria-hidden="true" style="color:white;">&gt;
-																					<i class="ti-angle-right"></i>
+																					<!-- <i class="ti-angle-right"></i> -->
 																				</span>
 																			</a>
 																		</li>
@@ -531,7 +536,12 @@
 																<div class="podo-user-card col-3">
 																	<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
 																	<div class="image_cover">
+																		<c:if test="${likeUserList.changeName != null }">
 																			<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
+																		</c:if>
+																		<c:if test="${likeUserList.changeName == null }">
+																			<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;">
+																		</c:if>
 																	</div>
 																	<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
 																		${ likeUserList.nickName }
