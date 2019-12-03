@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,13 @@ import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.report.model.vo.Report;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 
 @Controller
 public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
-
 	
 	@RequestMapping("blist.do")
 	public ModelAndView boardList(ModelAndView mv,  
@@ -211,19 +212,19 @@ public class BoardController {
 	public ModelAndView boardUpdate(Board b, Image i, HttpServletRequest request, ModelAndView mv,
 			@RequestParam(value = "board-upload-file", required = false) MultipartFile file) {
 		
-		System.out.println(i);
-		if(!i.getOriginalName().equals("")) {
+		if(!file.getOriginalFilename().equals("")) {
 			
-			deleteFile(i.getChangeName(), request);
+			if(i.getOriginalName() != null) {
+								
+				deleteFile(i.getChangeName(), request);
+				
+			}
 			
+			// 새로운 첨부파일
 			Image img = saveFile(file, request, i);
 			
 			int result1 = boardService.updateBoard(b);
 			int result2 = boardService.updateBoardFile(i);
-			
-			b.setPath(img.getPath());
-			b.setOriginalName(img.getOriginalName());
-			b.setChangeName(img.getChangeName());
 			
 			i.setPath(img.getPath());
 			i.setOriginalName(img.getOriginalName());
@@ -250,22 +251,36 @@ public class BoardController {
 	
 	
 	// 댓글
+	/*
 	@ResponseBody
 	@RequestMapping(value="commentList.do", produces="application/json; charset=UTF-8")
-	public String CommentList(int id) {
+	public void CommentList(int id) {
+		
+		ArrayList<Comment> cList = boardService.selectCommentList(id);
+		System.out.println(cList);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		gson.toJson(cList);
+		
+	}
+	*/
+	@RequestMapping("commentList.do")
+	public void CommentList(int id, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		ArrayList<Comment> cList = boardService.selectCommentList(id);
 		
+		response.setContentType("application/json; charset=UTF-8");
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
-		return gson.toJson(cList);
+		gson.toJson(cList, response.getWriter());
 		
 	}
 	
 	
 	@ResponseBody
 	@RequestMapping("commentInsert.do")
-	public String insertComment(Comment c, ModelAndView mv) {
+	public String insertComment(Comment c) {
 		
 		int result = boardService.insertComment(c);
 		
@@ -274,6 +289,7 @@ public class BoardController {
 		}else {
 			return "fail";
 		}
+		
 	}
 	
 
@@ -285,12 +301,12 @@ public class BoardController {
 		
 		mv.addObject("list", list).setViewName("board/boardListHome");
 		
-		return mv;		
+		return mv;
 		
 	}
 	
 	
-	// --- 신고 ---
+	// ----- 신고 -----
 	@ResponseBody
 	@RequestMapping("bReportModal.do")
 	public ModelAndView inapproCount(Board b, Report r, ModelAndView mv) {
@@ -308,6 +324,8 @@ public class BoardController {
 		
 	}
 	
+	
+	// ----- 좋아요 -----
 	
 
 }
