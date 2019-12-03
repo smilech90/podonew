@@ -285,7 +285,12 @@
 				<div class="homeReviewArea">
 					
 						<div class="leftImage">
-						<img class="userImageHome" src="resources/memberProfileImage/${ r.userImage }" height="100%" width="100%">
+						<c:if test="${ not empty r.userImage }">
+							<img class="userImageHome" src="resources/memberProfileImage/${ r.userImage }" height="100%" width="100%">
+						</c:if>
+						<c:if test="${ empty r.userImage }">
+							<img class="userImageHome" src="resources/memberProfileImage/podoImage.png" height="100%" width="100%">
+						</c:if>
 						<div class="nickNameHome">${ r.nickName }님</div>
 						<div class="starReview">★점:${ r.star }점</div>
 						<div class="countReview">추천수:${ r.likeCount }회</div>
