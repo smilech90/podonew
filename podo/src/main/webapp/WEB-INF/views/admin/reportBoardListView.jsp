@@ -16,7 +16,14 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
  
-  <title>AdminPage</title>
+  <title>관리자 페이지</title>
+  <style>
+	
+	td .active { color:red ; }
+	
+  </style>
+  
+  
   <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 
   <!-- Custom fonts for this template-->
@@ -138,7 +145,7 @@
                   	<th>체크</th>
 					<th>NO</th>
 					<th>타입</th>
-					<th>신고게시글</th>
+					<th>신고게시글 번호</th>
 					<th>신고내용</th>
 					<th>신고대상자</th>
 					<th>신고자</th>
@@ -179,7 +186,7 @@
 								</c:choose>
 							</td>
 							<td>${ r.reportedName }</td>
-							<td>${ r.reportName }</td>
+							<td>${ r.reportName }</td>			
 							<td><a href="javascript:;" class="btn_blind" data-id="${r.targetId}, ${r.type}">블라인드</a></td>
 						</tr>
 					</c:forEach>
@@ -240,10 +247,16 @@
 	<script>
 		$(function() {
 			$('.btn_blind').click(function() {
+								
+//				$(this).css('color', 'red');
+//				$(this).addClass("active");
+				$(this).toggleClass("active");
+
 				
 				var blinds = $(this).data('id');
 				var jbSplit = blinds.split(', ');
-				
+
+
 				console.log(jbSplit);
 				
 				$.ajax({
@@ -253,7 +266,6 @@
 						   type: jbSplit[1]},
 					success: function(data){
 						console.log(data);
-						
 						if (data) {
 							location.reload();
 						} else {

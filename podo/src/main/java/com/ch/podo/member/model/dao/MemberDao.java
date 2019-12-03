@@ -66,6 +66,10 @@ public class MemberDao {
 	public int prohibitionBoard(int bid) {
 		return sqlSession.selectOne("memberMapper.prohibitionBoard", bid);
 	}
+	
+	public int adminCheck(int adminNum) {
+		return sqlSession.selectOne("memberMapper.adminCheck", adminNum);
+	}
 
 	public int insertPaymentInfo(Pay pay) {
 		return sqlSession.insert("memberMapper.insertPaymentInfo", pay);
