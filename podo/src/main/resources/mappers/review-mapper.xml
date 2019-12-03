@@ -98,6 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="status" column="status"/>
 		<result property="modifyDate" column="MODIFY_DATE"/>
 		<result property="posterImage" column="change_name"/>
+		<result property="ratingReviewId" column="id"/>
 	</resultMap>
 	
 	<resultMap type="Report" id="reportReview">
@@ -219,12 +220,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="myPageSelectReviewList" resultMap="myPageSelectReviewListResultSet">
-		select r.member_id, r.content, f.title_kor, f.id as f_id, r.status, r.modify_date, b.change_name
+		select r.member_id, r.content, f.title_kor, f.id as f_id, r.status, r.modify_date, b.change_name, rr.id
 		from tb_review r
 		join tb_film f on(r.film_id = f.id)
 		join (select df.film_id, i.change_name
 		        from tb_detail_film df
 		        join tb_film_image i on(i.dfilm_id = df.id))b on(b.film_id=f.id)
+        join tb_rating_review rr on(r.id= rr.review_id)
 		where r.member_id=#{id} and
 		      r.status='Y'
 		order by r.modify_date desc
