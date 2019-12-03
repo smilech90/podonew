@@ -74,10 +74,10 @@
 	/* --------------------- 리뷰_영화 관련---------------------  */
 	.podo-film-card {
 		/*border: 1px solid; */
-		padding-top: 40px;
+/* 		padding-top: 40px; */
 		display: inline-block;
-		width: 241px;
-		height: 620px;
+ 		width: 241px;
+/* 		height: 620px; */
 		text-align: center;
 	}
 	
@@ -89,7 +89,6 @@
 	}
 	
 	.podo-film-card .poster img {
-	/* 	width: 240px; */
 		width: 100%;
 		height: 342px;
 		object-fit: cover;
@@ -129,7 +128,9 @@
 		width: 241px;
 		height: 400px;
 		text-align: center;
-	}
+		}
+		#profile{object-fit: cover;}
+		.t:hover{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -147,44 +148,39 @@
 	<section class="blog-post-area section-margin">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
-					<div class="">
-						<h4>마이페이지</h4><br><br>
-						<div class="comment-list">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<c:if test="${ loginUser.image != null }">
-											<img src="resources/memberProfileImage/${ loginUser.image }" width='150' height='150' style="border-radius: 100px;"><br><br>
-										</c:if>		
-										<c:if test="${ loginUser.image == null }">
-											<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;"><br><br>
-										</c:if>									
-									</div>
-									<div class="desc">
-										<h2>${ loginUser.nickName }</h2>
-										<p class="date">작성리뷰 - ${reviewListCount}개  </p>
-									</div>
-								</div>
-								<div class="reply-btn">
-									<a id="update-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); text-align:center;color:white;">정보수정</a>
-									<a id="updatePwd-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:rgb(218, 179, 255); color:white;">비밀번호 변경</a>
-									<a id="question-modal" class="btn-reply text-uppercase" href="#" data-toggle="modal" style="background:pink; text-align:center; color:white;">문의하기</a>
-									<a class="btn-reply text-uppercase" href="premium.do" style="background:pink; text-align:center; color:white;">프리미엄</a>
-								</div>
-							</div>
-							<br><br>
-							<div style='border:1px solid lightgray'></div><br>
-							
+				<div class="col-4">
+					<h4>마이페이지</h4>
+					<div class="user justify-content-between d-flex">
+						<div class="thumb">
+							<c:if test="${ loginUser.image != null }">
+								<img src="resources/memberProfileImage/${ loginUser.image }"  id="profile" width='200' height='200' style="border-radius: 100px;"><br><br>
+							</c:if>		
+							<c:if test="${ loginUser.image == null }">
+								<img src="resources/memberProfileImage/podoImage.png"  id="profile" width='200' height='200' style="border-radius: 100px;"><br><br>
+							</c:if>									
+						</div>
+						<div class="desc">
+							<h2>${ loginUser.nickName }</h2>
+							<p class="date">작성리뷰 - ${reviewListCount}개  </p>
+						</div>
+					</div>
+				</div>
+				<div class="col-8">
+					<a id="update-modal" class="button" href="#" data-toggle="modal">정보수정</a>
+					<a id="updatePwd-modal" class="button" href="#" data-toggle="modal">비밀번호 변경</a>
+					<a id="question-modal" class="button" href="#" data-toggle="modal">문의하기</a>
+					<a class="button" href="premium.do">프리미엄</a>
+				</div>
+			</div>
 							<!------------------------- 탭 메뉴 시작 ----------------------->
 							<div class="col-lg-12">
 								<div id="container">
 									<ul class="tab">
-											<li class="tab1 current" data-tab="tab1" ><a>Review</a></li>
-											<li class="tab2" data-tab="tab2" ><a>Like_Film</a></li>
-											<li class="tab3" data-tab="tab3"><a>Like_Review</a></li>
-											<li class="tab4" data-tab="tab4"><a>Like_User</a></li>
-											<li class="tab5" data-tab="tab5"><a>Question</a></li>
+											<li class="t tab1 current" data-tab="tab1" ><a>Review</a></li>
+											<li class="t tab2" data-tab="tab2" ><a>Like_Film</a></li>
+											<li class="t tab3" data-tab="tab3"><a>Like_Review</a></li>
+											<li class="t tab4" data-tab="tab4"><a>Like_User</a></li>
+											<li class="t tab5" data-tab="tab5"><a>Question</a></li>
 									</ul>
 							
 										<!-- -------------------- 리뷰 --------------------------->
@@ -193,25 +189,21 @@
 											<!-------------------------- 리뷰 탭메뉴 바디 ------------------------>
 											<section class="blog-post-area section-margin mt-4">
 												<div class="container">
+													<c:forEach items="${review}" var="list" >
 													<div class="row">
-														<div class="col-lg-12">
-															<c:forEach items="${review}" var="list" >
-																<div class="single-recent-blog-post" style="height:300px">
-																	<div class="details mt-20">
-																		<div class="thumb" style="float:left">
-																			<div class="col-lg-12" id="moviePoster" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
-																				<img class='img-fluid' src='resources/detailFilmImage/${list.posterImage}' width='100%' height='100%'>
-																			</div>
-																		</div>
-																		<div style="float:left">
-																			<div style="float:left">
-																				<a href="#"><h3>${list.titleKor}</h3><br></a>
-																				<p>${list.content}</p>
-																			</div>
-																		</div>
-																	</div>
+														<div class="col-3 single-recent-blog-post">
+															<div class="thumb podo-film-card">
+																<div class="poster">
+																	<a href="ratingDetailReview.do?id=${list.ratingReviewId}"><img class='img-fluid' src='resources/detailFilmImage/${list.posterImage}' width='100%' height='100%'></a>
 																</div>
-															</c:forEach>
+															</div>
+														</div>
+														<div class="col-9">
+															<a href="ratingDetailReview.do?id=${list.ratingReviewId}"><h3>${list.titleKor}</h3><br></a>
+															<p>${list.content}</p>
+														</div>
+													</div>
+													</c:forEach>
 															<!-------------------------- 페이징바 시작 ------------------------>
 															<div class="row">
 																<div class="col-lg-12">
@@ -288,8 +280,6 @@
 																</div> 
 															</div>
 															<!-------------------------- 페이징바 끝 -------------------------->
-														</div>
-													</div>
 												</div>
 											</section>
 											</c:if>
@@ -311,24 +301,27 @@
 															<!-- width * 1.425 -->
 															<div class="podo-film-card col-3">
 																<input class="hidden-filmId" type="hidden" value="${ likeFilm.id }">
-																<div class="poster">
-																	<c:if test="${ not empty likeFilm.changeName }">
-																		<a href="ratingDetailReview.do?id=${likeFilm.targetId}"><img src="resources/detailFilmImage/${ likeFilm.changeName }"></a>
-																	</c:if>
-																	<c:if test="${ empty likeFilm.changeName }">
+																<c:if test="${ not empty likeFilm.changeName }">
+																	<div class="poster" onclick="location.href='ratingDetailReview.do?id=${likeFilm.targetId}'">
+																		<img src="resources/detailFilmImage/${ likeFilm.changeName }">
+																	</div>
+																</c:if>
+																<c:if test="${ empty likeFilm.changeName }">
+																	<div class="poster">
 																		<img src="resources/detailFilmImage/podoposter.jpg">
-																	</c:if>
-																</div>
+																	</div>
+																</c:if>
 																<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
 																	${ likeFilm.titleKor }
 																</div>
 																<div class="row" style="margin-top: 10px;">
 																	<div class="col">
-									                                	<button class='btn btn-danger likeBtn'>LIKED</button>
-									                                	<input type="hidden" class="likeInp" value="1"/>
-									                                	<input type="hidden" class="targetInp" value="${ likeFilm.targetId }"/>
+	                                	<button class='btn btn-danger likeBtn'>LIKED</button>
+	                                	<input type="hidden" class="likeInp" value="1"/>
+	                                	<input type="hidden" class="targetInp" value="${ likeFilm.targetId }"/>
 																	</div>
 																</div>
+																<br>
 															</div>
 														</c:forEach>
 													</div>
@@ -424,29 +417,24 @@
 											<c:if test="${ !empty likeReviewList }">
 												<section class="blog-post-area section-margin mt-4">
 													<div class="container">
-														<div class="row">
-															<div class="col-lg-12">
-																<c:forEach items="${likeReviewList}" var="list" >
-																	<div class="single-recent-blog-post" style="height:300px">
-																		<div class="details mt-20">
-																			<div class="thumb" style="float:left">
-																				<div class="col-lg-12" id="moviePoster" style="width: 200px; height: 200px;  align-items: center; justify-content: center;overflow: hidde; display: flex">
-																					<img class='img-fluid' src='resources/detailFilmImage/${list.changeName}' width='100%' height='100%'>
-																				</div>
-																				
-																			</div>
-																			<div style="float:left">
-																				<div style="float:left">
-										                                	<button class='btn btn-danger likeBtn'>LIKED</button>
-										                                	<input type="hidden" class="likeInp" value="1"/>
-										                                	<input type="hidden" class="targetInp" value="${ list.targetId }"/><br><br>
-																					<a href="#"><h3>${list.titleKor}</h3><br></a>
-																					<p>${list.content}</p>
-																				</div>
-																			</div>
+														<c:forEach items="${likeReviewList}" var="list" >
+															<div class="row">
+																<div class="col-3 single-recent-blog-post">
+																	<div class="thumb podo-film-card">
+																		<div class="poster" onclick="location.href='ratingDetailReview.do?id=${list.rrId}';">										
+																			<img class='img-fluid' src='resources/detailFilmImage/${list.changeName}'>
 																		</div>
 																	</div>
-																</c:forEach>
+																</div>
+																<div class="col-9">
+																	<button class='btn btn-danger likeBtn'>LIKED</button>
+                                	<input type="hidden" class="likeInp" value="1"/>
+                                	<input type="hidden" class="targetInp" value="${ list.targetId }"/><br><br>
+																	<a href="#"><h3>${list.titleKor}</h3><br></a>
+																	<p>${list.content}</p>
+																</div>
+															</div>
+														</c:forEach>
 																<!-------------------------- 페이징바 시작 ------------------------>
 																<div class="row">
 																	<div class="col-lg-12">
@@ -456,7 +444,7 @@
 																				<c:if test="${ reviewlikePi.currentPage eq 1 }">
 																					<li class="page-item">
 																						<a class="page-link disabled" aria-label="Previous">
-																							<span aria-hidden="true" style="color:white;"> &lgt;
+																							<span aria-hidden="true" style="color:white;"> &lt;
 																								<!-- <i class="ti-angle-left"></i> -->
 																							</span>
 																						</a>
@@ -524,8 +512,6 @@
 																</div>
 																<!-------------------------- 페이징바 끝 -------------------------->
 															</div>
-														</div>
-													</div>
 												</section>
 											</c:if>
 											<c:if test="${ empty likeReviewList }">
@@ -538,7 +524,7 @@
 										</div>
 										<!--------------------- 라이크_리뷰 끝 ---------------------->
 										
-						   	            <!--------------------- 라이크_유저 시작 --------------------->
+						   	    <!--------------------- 라이크_유저 시작 --------------------->
 										<div id="tab4" class="tabcontent"><br>
 											<div class="container">
 												<c:if test="${ !empty likeUserList }">
@@ -549,10 +535,10 @@
 																<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
 																<div class="image_cover">
 																		<c:if test="${likeUserList.changeName != null }">
-																			<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
+																			<img src="resources/memberProfileImage/${likeUserList.changeName}" id="profile" width='200' height='200' style="border-radius: 100px;">
 																		</c:if>
 																		<c:if test="${likeUserList.changeName == null }">
-																			<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;">
+																			<img src="resources/memberProfileImage/podoImage.png" id="profile" width='200' height='200' style=" border-radius: 100px;">
 																		</c:if>
 																		
 																</div>
@@ -562,9 +548,9 @@
 																
 																<div class="row" style="margin-top: 10px;">
 																	<div class="col">
-									                                	<button class='btn btn-danger likeBtn'>LIKED</button>
-									                                	<input type="hidden" class="likeInp" value="1"/>
-									                                	<input type="hidden" class="targetInp" value="${ likeUserList.targetId }"/>
+	                                	<button class='btn btn-danger likeBtn'>LIKED</button>
+	                                	<input type="hidden" class="likeInp" value="1"/>
+	                                	<input type="hidden" class="targetInp" value="${ likeUserList.targetId }"/>
 																	</div>
 																</div>
 															</div>
@@ -770,14 +756,9 @@
 										</div>
 										</c:if>	
 										<!-------------------------- 문의 끝 ----------------------->
-									</div>
 								</div>
 								<!-------------------------- 탭 메뉴 끝 ------------------------>
-						</div>
-					</div>
-				</div>
 			</div>
-		</div>
 	</section>
   
 	<!-- 정보수정 모달 -->

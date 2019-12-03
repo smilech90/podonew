@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.comment.model.vo.Comment;
-import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
+import com.ch.podo.like.model.vo.Like;
 import com.ch.podo.member.model.vo.Member;
-import com.ch.podo.ratingReview.model.vo.RatingReview;
 import com.ch.podo.report.model.vo.Report;
 import com.ch.podo.review.model.dao.ReviewDao;
 import com.ch.podo.review.model.dto.Review;
@@ -148,6 +147,11 @@ public class ReviewServiceImpl implements ReviewService{
 	public int deleteReviewComment(int id) {
 		
 		return reviewDao.deleteReviewComment(id);
+	}
+
+	@Override
+	public ArrayList<Like> checkLike(Member m) {
+		return reviewDao.checkLike(m);
 	}
 
 	/*

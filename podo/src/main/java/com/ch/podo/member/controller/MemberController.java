@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -32,8 +30,9 @@ import com.ch.podo.member.model.vo.Pay;
 import com.ch.podo.review.model.dto.Review;
 import com.ch.podo.review.model.service.ReviewService;
 
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Controller
 public class MemberController {
 	
@@ -47,8 +46,6 @@ public class MemberController {
 	private LikeService likeService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
-	
-	Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	// @CookieValue(value="storeIdCookie", required = false) Cookie storeIdCookie
 	@RequestMapping("login.do")
@@ -256,7 +253,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("pay.do")
 	public int pay(Pay pay) {
-		logger.info("payment info : " + pay);
+		log.info("payment info : " + pay);
 		return memberService.insertPaymentInfo(pay);
 	}
 }

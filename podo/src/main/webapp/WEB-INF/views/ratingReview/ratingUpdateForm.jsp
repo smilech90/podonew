@@ -245,6 +245,7 @@
     <form action="reviewUpdate.do" method="post" id="movieform">
       	<input type="hidden" name="id" value="${r.id}">
       	<input type="hidden" name="ratingReviewId" value="${r.ratingReviewId }">
+      	<input type="checkbox" name="spoilerCheck" value="${r.spoilerCheck }">스포일러 유무
       <table align="center" id="vv">
          <tr>
             <td class="alert alert-primary">영화제목</td>
@@ -252,27 +253,27 @@
          </tr>
          <tr>
             <td class="alert alert-primary">음악</td>
-            <td><input type="number" name="ratingSound" class="insertRating" id="ratingSound" value="${r.ratingSound }"></td>
+            <td><input type="number" name="ratingSound" class="insertRating" id="ratingSound" value="${r.ratingSound }" min="0" max="10"></td>
          </tr>
          <tr>   
             <td class="alert alert-primary">영상</td>
-            <td><input type="number" name="ratingVisual" class="insertRating" id="ratingVisual" value="${r.ratingVisual }"></td>
+            <td><input type="number" name="ratingVisual" class="insertRating" id="ratingVisual" value="${r.ratingVisual }" min="0" max="10"></td>
          </tr>
          <tr>
             <td class="alert alert-primary">연기</td>
-            <td><input type="number" name="ratingActing" class="insertRating" id="ratingActing" value="${r.ratingActing }"></td>
+            <td><input type="number" name="ratingActing" class="insertRating" id="ratingActing" value="${r.ratingActing }" min="0" max="10"></td>
          </tr>
          <tr>
             <td class="alert alert-primary">대중성</td>
-            <td><input type="number" name="ratingPop" class="insertRating" id="ratingPop" value="${r.ratingPop }"></td>
+            <td><input type="number" name="ratingPop" class="insertRating" id="ratingPop" value="${r.ratingPop }" min="0" max="10"></td>
          </tr>
          <tr>
             <td class="alert alert-primary">각본</td>
-            <td><input type="number" name="ratingScript" class="insertRating" id="ratingScript" value="${r.ratingScript }"></td>
+            <td><input type="number" name="ratingScript" class="insertRating" id="ratingScript" value="${r.ratingScript }" min="0" max="10"></td>
          </tr>
          <tr>
             <td class="alert alert-primary">연출</td>
-            <td><input type="number" name="ratingDirect" class="insertRating" id="ratingDirect" value="${r.ratingDirect }" ></td>
+            <td><input type="number" name="ratingDirect" class="insertRating" id="ratingDirect" value="${r.ratingDirect }" min="0" max="10"></td>
          </tr>
 
       </table>
@@ -296,7 +297,7 @@
 	</div>
 	
 	 <script>
-	 console.log(${r.id})
+	
       $('.insertRating').on('input',function(){
          var ctx = document.getElementById('myChart');
          var chart = new Chart(ctx, {
