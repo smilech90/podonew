@@ -67,12 +67,12 @@
    <select id="selectFilterFilmListCount" resultType="_int">
       <choose>
          <when test='userId == "0" or userId == null or saw == "all" or saw == null'>
-            select count(*)
-         from tb_film f
-         join tb_genre g on (f.genre_id = g.id)
-         left outer join tb_detail_film df on (df.film_id = f.id)
-         left outer join tb_film_image fi on (df.id = fi.dfilm_id)
-             join vi_film_avg_star fas on (fas.film_id = f.id)
+						select count(*)
+						from tb_film f
+						join tb_genre g on (f.genre_id = g.id)
+						left outer join tb_detail_film df on (df.film_id = f.id)
+						left outer join tb_film_image fi on (df.id = fi.dfilm_id)
+				    join vi_film_avg_star fas on (fas.film_id = f.id)
          </when>
          <otherwise>
             select count(*)
@@ -169,7 +169,7 @@
       select f.*, g.name, l.user_id
       from tb_film f
       left outer join tb_genre g on (f.genre_id = g.id)
-    left outer join tb_like l on (l.target_id = f.id)
+    	left outer join tb_like l on (l.target_id = f.id)
       where user_id = #{ mid }
       <if test='film.releaseYear != "all" and film.releaseYear != null'>
          and release_year = #{ film.releaseYear }
@@ -296,7 +296,7 @@
    <insert id="insertFilm">
       insert into tb_film
       values(seq_film_id.nextval, #{ titleKor }, #{ titleEng }, #{ director }, 
-            #{ releaseYear }, #{ productionCountry }, #{ productionStatus }, #{ genreId })
+            #{ releaseYear }, #{ productionCountry }, #{ productionStatus }, #{ genreId }, null)
    </insert>
    
    <insert id="insertInitDetailFilm">
@@ -308,10 +308,10 @@
       insert into tb_film_image
       <choose>
          <when test="changeName != null">
-            values(seq_fimage_id.nextval, 1, #{ changeName }, seq_dfilm_id.currval)
+            values(seq_fimage_id.nextval, 1, #{ changeName }, seq_dfilm_id.currval, seq_film_id.currval)
          </when>
          <otherwise>
-            values(seq_fimage_id.nextval, 1, null, seq_dfilm_id.currval)
+            values(seq_fimage_id.nextval, 1, null, seq_dfilm_id.currval, seq_film_id.currval)
          </otherwise>
       </choose>
    </insert>
