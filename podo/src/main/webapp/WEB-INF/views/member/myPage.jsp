@@ -130,7 +130,7 @@
 		text-align: center;
 		}
 		#profile{object-fit: cover;}
-		
+		.t:hover{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -176,11 +176,11 @@
 							<div class="col-lg-12">
 								<div id="container">
 									<ul class="tab">
-											<li class="tab1 current" data-tab="tab1" ><a>Review</a></li>
-											<li class="tab2" data-tab="tab2" ><a>Like_Film</a></li>
-											<li class="tab3" data-tab="tab3"><a>Like_Review</a></li>
-											<li class="tab4" data-tab="tab4"><a>Like_User</a></li>
-											<li class="tab5" data-tab="tab5"><a>Question</a></li>
+											<li class="t tab1 current" data-tab="tab1" ><a>Review</a></li>
+											<li class="t tab2" data-tab="tab2" ><a>Like_Film</a></li>
+											<li class="t tab3" data-tab="tab3"><a>Like_Review</a></li>
+											<li class="t tab4" data-tab="tab4"><a>Like_User</a></li>
+											<li class="t tab5" data-tab="tab5"><a>Question</a></li>
 									</ul>
 							
 										<!-- -------------------- 리뷰 --------------------------->
