@@ -67,7 +67,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title" id="myModalLabel">영화 DB 제보</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-lable="Close">
+					<button type="button" id="close" class="close" data-dismiss="modal" aria-lable="Close">
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -87,7 +87,7 @@
 						<div class="db-inquiry-btn">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 						&nbsp;
-						<button type="submit" class="btn" id="db-submit-btn" style="background:purple; color:white;" onclick="return validate();">보내기</button>
+						<button type="button" class="btn" id="db-submit-btn" style="background:purple; color:white;" onclick="return validate();">보내기</button>
 						</div>
 					</div>
 				</form>
@@ -119,6 +119,8 @@
 					success:function(data){
 						if(data=="success"){
 							alert("DB제보 완료");
+							 $("#content").val("");
+							$(".close").click();
 							
 						}else{
 							alert("DB제보 실패");
