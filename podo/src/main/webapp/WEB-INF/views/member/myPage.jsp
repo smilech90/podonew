@@ -731,7 +731,7 @@
 																<c:if test="${ p ne inquiryPi.currentPage }">
 																	<c:url value="myPageSelectQuestion.do" var="page">
 																		<c:param name="currentPage" value="${ p }"/>
-																		<c:param name="tab" value="tab5"/>
+																		<c:param name="tab" value="myPageSelectQuestion.do"/>
 																		<c:param name="id" value="${loginUser.id}"/>
 																	</c:url>
 																	<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
@@ -739,7 +739,7 @@
 															</c:forEach>
 															<!-- --------------- -->
 															<!------- [다음] ------->
-															<c:if test="${ inquiryPi.currentPage eq pi.maxPage }">
+															<c:if test="${ inquiryPi.currentPage eq inquiryPi.maxPage }">
 																<li class="page-item">
 																	<a class="page-link disabled" aria-label="Next" >
 																		<span aria-hidden="true" style="color:white;"> &gt;
