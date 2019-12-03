@@ -154,8 +154,12 @@
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
-										<img src="resources/memberProfileImage/${ loginUser.image }" width='150' height='150' style="border-radius: 100px;"><br><br>
-										
+										<c:if test="${ loginUser.image != null }">
+											<img src="resources/memberProfileImage/${ loginUser.image }" width='150' height='150' style="border-radius: 100px;"><br><br>
+										</c:if>		
+										<c:if test="${ loginUser.image == null }">
+											<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;"><br><br>
+										</c:if>									
 									</div>
 									<div class="desc">
 										<h2>${ loginUser.nickName }</h2>
@@ -544,7 +548,13 @@
 															<div class="podo-user-card col-3">
 																<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
 																<div class="image_cover">
-																		<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
+																		<c:if test="${likeUserList.changeName != null }">
+																			<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
+																		</c:if>
+																		<c:if test="${likeUserList.changeName == null }">
+																			<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;">
+																		</c:if>
+																		
 																</div>
 																<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
 																	${ likeUserList.nickName }
@@ -721,7 +731,7 @@
 																<c:if test="${ p ne inquiryPi.currentPage }">
 																	<c:url value="myPageSelectQuestion.do" var="page">
 																		<c:param name="currentPage" value="${ p }"/>
-																		<c:param name="tab" value="tab5"/>
+																		<c:param name="tab" value="myPageSelectQuestion.do"/>
 																		<c:param name="id" value="${loginUser.id}"/>
 																	</c:url>
 																	<li class="page-item active"><a href="${ page }" class="page-link">${p}</a></li>
@@ -729,7 +739,7 @@
 															</c:forEach>
 															<!-- --------------- -->
 															<!------- [다음] ------->
-															<c:if test="${ inquiryPi.currentPage eq pi.maxPage }">
+															<c:if test="${ inquiryPi.currentPage eq inquiryPi.maxPage }">
 																<li class="page-item">
 																	<a class="page-link disabled" aria-label="Next" >
 																		<span aria-hidden="true" style="color:white;"> &gt;
@@ -776,7 +786,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">회원정보 수정</h5>3.
+					<h5 class="modal-title" id="exampleModalLabel">회원정보 수정</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -808,7 +818,12 @@
 						<div class="form-group">
 							<label for="userId">Profile</label><br>
 							* 이미지를 삭제하면 기본이미지로 등록됩니다.<br>
-						<img id="preview" src="resources/memberProfileImage/${ loginUser.image }" width="70px" height="70px"><br>
+						<c:if test="${loginUser.image != null }">
+							<img id="preview" src="resources/memberProfileImage/${ loginUser.image }" width="70px" height="70px"><br>
+						</c:if>
+						<c:if test="${loginUser.image == null }">
+							<img id="preview" src="resources/memberProfileImage/podoImage.png" width="70px" height="70px"><br>
+						</c:if>
 						<button type="button" id="uploadBtn">이미지 변경</button>
 						<button type="button" onclick="fileReset();">이미지 삭제</button><br>
 						<div id="imgArea"><input type='file' id='imgInp' name='uploadFile'></div><br>

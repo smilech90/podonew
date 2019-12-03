@@ -529,8 +529,8 @@ public class FilmController {
 	public ModelAndView finsert(ModelAndView mv, Film film, DetailFilm df, Image img,
 															HttpServletRequest request, HttpSession session,
 															@RequestParam(value = "uploadFile", required = false) MultipartFile file) {
-		// logger.info("film : " + film);
-		// logger.info("file : " + file);
+		// log.info("film : " + film);
+		// log.info("file : " + file);
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
