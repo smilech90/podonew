@@ -1,9 +1,8 @@
 package com.ch.podo.review.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +19,13 @@ import com.ch.podo.common.Pagination;
 import com.ch.podo.detailFilm.model.vo.DetailFilm;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.like.model.service.LikeService;
+import com.ch.podo.like.model.vo.Like;
 import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.report.model.vo.Report;
 import com.ch.podo.review.model.dto.Review;
 import com.ch.podo.review.model.service.ReviewService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 
 
 
@@ -79,17 +78,27 @@ public class ReviewController {
 	// 글 쓰기(별점은 어떻게 가져올지 아직 ..)
 	@RequestMapping("reviewWrite.do")
 	public String reviewWrite(DetailFilm df, ModelAndView mv,Review r,Model model) {
-
+		System.out.println("스포변경전의 r"+r);
 		System.out.println("스포 변경 전 : "+ r.getSpoilerCheck());
-		if (r.getSpoilerCheck().equals("0")) {
-			r.setSpoilerCheck("Y");
-		} else {
+		
+		
+		
+		if(r.getSpoilerCheck()!=null) {//체크값이 널이 아닐때
+			if(r.getSpoilerCheck().equals("0")){
+				
+				r.setSpoilerCheck("Y");
+			}else {
+				r.setSpoilerCheck("N");
+			}
+		}else {
 			r.setSpoilerCheck("N");
 		}
+		
+		
 		System.out.println("스포 변경 후 : "+ r.getSpoilerCheck());
 		
+
 		//int result = reviewService.reivewInsert(df);
-		System.out.println(r);
 		int result = reviewService.reviewWrite(r);
 		int result2 = reviewService.reviewRating(r);
 	
@@ -137,10 +146,19 @@ public class ReviewController {
 	
 	//글 리뷰 리스트 조회용
 	@RequestMapping("ratingDetailReview.do")
-	public ModelAndView selectRatingReviewDetailView(int id,ModelAndView mv) {
+	public ModelAndView selectRatingReviewDetailView(int id,ModelAndView mv,HttpSession session,HttpServletRequest request) {
 		
 		Review r = reviewService.selectRatingReviewDetailView(id);
-		
+		if(session.getAttribute("loginUser")!=null) {
+			Member m=(Member)session.getAttribute("loginUser");
+			ArrayList<Like> list=reviewService.checkLike(m);
+			for(Like l:list) {
+				if(l.getTargetId()==id) {
+					System.out.println(id);
+					request.setAttribute("likeReivew",l.getTargetId());
+				}
+			}
+		}
 		System.out.println("글 리뷰 리스트 조회용여기가 나와야 지금의 시작: " + r);
 		mv.addObject("r",r).setViewName("ratingReview/ratingDetailReview");
 		
@@ -168,6 +186,28 @@ public class ReviewController {
 	@RequestMapping("reviewUpdate.do")
 	public ModelAndView reviewUpdate(Review r, ModelAndView mv, HttpSession session ) {
 		//레이팅 6개
+		
+		System.out.println("스포 업데이트 전 : "+ r.getSpoilerCheck());
+		
+		
+		
+		if(r.getSpoilerCheck()!=null) {//체크값이 널이 아닐때
+			if(r.getSpoilerCheck().equals("N")){
+				
+				r.setSpoilerCheck("Y");
+			}else {
+				r.setSpoilerCheck("N");
+			}
+		}else {
+			r.setSpoilerCheck("N");
+		}
+		
+		System.out.println("스포 업데이트 후 : "+ r.getSpoilerCheck());
+		/*if (r.getSpoilerCheck().equals("Y")) {
+			r.setSpoilerCheck("N");
+		} else {
+			r.setSpoilerCheck("Y");
+		}*/
 		
 		int result = reviewService.reviewUpdate(r);
 		//id, 레이팅6개 점수 뿌리기

@@ -16,7 +16,14 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
  
-  <title>AdminPage</title>
+  <title>관리자 페이지</title>
+  <style>
+	
+	td .unblind { color:red ; }
+	
+  </style>
+  
+  
   <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 
   <!-- Custom fonts for this template-->
@@ -138,7 +145,7 @@
                   	<th>체크</th>
 					<th>NO</th>
 					<th>타입</th>
-					<th>신고게시글</th>
+					<th>신고게시글 번호</th>
 					<th>신고내용</th>
 					<th>신고대상자</th>
 					<th>신고자</th>
@@ -179,7 +186,7 @@
 								</c:choose>
 							</td>
 							<td>${ r.reportedName }</td>
-							<td>${ r.reportName }</td>
+							<td>${ r.reportName }</td>			
 							<td><a href="javascript:;" class="btn_blind" data-id="${r.targetId}, ${r.type}">블라인드</a></td>
 						</tr>
 					</c:forEach>
@@ -227,7 +234,7 @@
         <div class="modal-body">관리자 페이지를 종료하시려면 아래 Logout을 선택하십시오.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="home.do">Logout</a>
+          <a class="btn btn-primary" href="logout.do">Logout</a>
         </div>
       </div>
     </div>
@@ -240,9 +247,13 @@
 	<script>
 		$(function() {
 			$('.btn_blind').click(function() {
+								
+				var btn= $(this);
 				
+
 				var blinds = $(this).data('id');
 				var jbSplit = blinds.split(', ');
+
 				
 				console.log(jbSplit);
 				
@@ -253,9 +264,12 @@
 						   type: jbSplit[1]},
 					success: function(data){
 						console.log(data);
-						
 						if (data) {
-							location.reload();
+							//location.reload();
+							alert("해당 게시물이 블라인드 처리 되었습니다.");
+							btn.addClass("unblind");
+							
+							btn.removeClass("btn_blind");
 						} else {
 							alert('blind에 실패했습니다.');
 						}
@@ -265,6 +279,7 @@
 					}
 				});
 			});
+			
 			
 			var $checkboxTarget = $('.checkbox_target');
 			var checkedIds = [];
@@ -289,7 +304,7 @@
 						console.log(data);
 						
 		 				if (data) {
-							location.reload();
+							//location.reload();
 						} else {
 							alert('blind에 실패했습니다.');
 						}

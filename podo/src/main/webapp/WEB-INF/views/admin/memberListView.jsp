@@ -196,7 +196,7 @@
         <div class="modal-body">관리자 페이지를 종료하시려면 아래 Logout을 선택하십시오.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="home.do">Logout</a>
+          <a class="btn btn-primary" href="logout.do">Logout</a>
         </div>
       </div>
     </div>

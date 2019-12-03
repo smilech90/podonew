@@ -93,7 +93,7 @@
     	overflow-x: hidden;
     }
     .actor{
-    	width: 40%;
+    	width: 33%;
     	height: 180px;
     	float:left;
     	border : 0px solid lightgrey;
@@ -219,8 +219,8 @@
 									<div class="actor">
 										<input type="hidden" class="actor_id" name="uId" value="${a.id}">
 										<!-- 배우 사진 -->
-										<div class="actor_profile">
-											<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 100px;">
+										<div class="actor_profile" style="border-radius: 50%;">
+											<img src="resources/detailFilmImage/actor/${a.profileImage}" width='150' height='150' style="border-radius: 50%;">
 										</div>
 										<!-- 배우 이름 -->
 										<div class="actor_name">${a.actorName}</div>
@@ -300,15 +300,16 @@
 	    			$.each(list, function(index, value){
 	    				
 	    				var $div = $("<div class='actor check_actor'>");	// actor 틀
-	    				var $check = $("<input type='radio' class='test' name='resultSearch'>").attr("value",value.id);				// 이거 됨
-	    				
-	    				var $profile = $("<div class='actor_profile'>");	// 배우 사진 틀
-	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage).css({'width':'150', 'height':'150' ,'border-radius':'100px'});
+	    				var $check = $("<input type='radio' class='test' name='resultSearch'>").attr("value",value.id).css("display","none");				// 이거 됨
+	    				var $profile = $("<div class='actor_profile'>").css({'border-radius':'50%'});	// 배우 사진 틀
+	    				var $img = $("<img>").attr('src','resources/detailFilmImage/actor/'+value.profileImage).css({'width':'150', 'height':'150' ,'border-radius':'50%'});
 	    				var $aName = $("<div class='actor_name'>").text(value.actorName).css('border-radius','100px');
 	    				
+	    				
+	    				$profile.append($img);
+	    				
+	    				$div.append($check);
 	    				$div.append($profile);
-	    				$div.append($check);	    				
-	    				$div.append($img);
 	    				$div.append($aName);
 	    				
 	    				$aList.append($div);
@@ -389,10 +390,12 @@
 	    	$("#mdfPosterBtn").append(newInput);
 	    }
 	    
-//////////////////////////////  이미지 클릭만으로 선택되게 하려고 시도 중 /////////////////////////////////
-	    $('.check_actor').on('click',function(){
-	    	$('.test').prop('checked', true);
-	    });
+	    $(document).on("click",".check_actor", function() {
+	    	$(this).children('.test').prop('checked', true);
+	    	console.log('클릭');
+	    	$(this).parent().children('.check_actor').children('.actor_profile').css("border","none");
+	    	$(this).children().eq(1).css("border","2px solid purple");	    	
+		});
     </script>   
     
 </body>

@@ -36,6 +36,13 @@
 		<result property="content" column="content"/>
 		<result property="titleKor" column="title_kor"/>
 		<result property="changeName" column="change_name"/>
+		<result property="rrId" column="rId"/>
+	</resultMap>
+	
+	<resultMap type="Like" id="manyLikeResultSet">
+		<id property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="targetId" column="target_id"/>
 	</resultMap>
 
 	
@@ -118,12 +125,13 @@
 	</select>
 	
 	<select id="myPageSelectLikeReview" resultMap="likeReviewResultSet">
-		select l.*, r.content, f.title_kor, change_name
+		select l.*, r.content, f.title_kor, change_name, rr.id as rId
 		from tb_like l
 		join tb_review r on(r.id = l.target_id)
 		join tb_film f on(r.film_id = f.id)
 		join tb_detail_film df on(f.id = df.film_id)
 		join tb_film_image i on(df.id = i.dfilm_id)
+        join tb_rating_review rr on(rr.review_id = r.id)
 		where user_id=#{id} and
 		      l.type=3
 	</select>
@@ -139,5 +147,11 @@
 			  target_id = #{targetId} and
 			  type=3
 	</delete>
+	
+	<!-- 관리자 메인 - 좋아요 제일 많이 받은 영화, 회원, 리뷰 -->
+	<select id="likeList" resultMap="manyLikeResultSet">
+		select type, target_id
+		from tb_like
+	</select>
 	
 </mapper>
