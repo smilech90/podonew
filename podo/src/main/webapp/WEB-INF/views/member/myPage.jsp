@@ -154,8 +154,12 @@
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
-										<img src="resources/memberProfileImage/${ loginUser.image }" width='150' height='150' style="border-radius: 100px;"><br><br>
-										
+										<c:if test="${ loginUser.image != null }">
+											<img src="resources/memberProfileImage/${ loginUser.image }" width='150' height='150' style="border-radius: 100px;"><br><br>
+										</c:if>		
+										<c:if test="${ loginUser.image == null }">
+											<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;"><br><br>
+										</c:if>									
 									</div>
 									<div class="desc">
 										<h2>${ loginUser.nickName }</h2>
@@ -544,7 +548,13 @@
 															<div class="podo-user-card col-3">
 																<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
 																<div class="image_cover">
-																		<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
+																		<c:if test="${likeUserList.changeName != null }">
+																			<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
+																		</c:if>
+																		<c:if test="${likeUserList.changeName == null }">
+																			<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;">
+																		</c:if>
+																		
 																</div>
 																<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden;">
 																	${ likeUserList.nickName }
