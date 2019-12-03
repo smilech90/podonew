@@ -128,7 +128,9 @@
 		width: 241px;
 		height: 400px;
 		text-align: center;
-	}
+		}
+		#profile{object-fit: cover;}
+		
 </style>
 </head>
 <body>
@@ -151,10 +153,10 @@
 					<div class="user justify-content-between d-flex">
 						<div class="thumb">
 							<c:if test="${ loginUser.image != null }">
-								<img src="resources/memberProfileImage/${ loginUser.image }" width='150' height='150' style="border-radius: 100px;"><br><br>
+								<img src="resources/memberProfileImage/${ loginUser.image }"  id="profile" width='200' height='200' style="border-radius: 100px;"><br><br>
 							</c:if>		
 							<c:if test="${ loginUser.image == null }">
-								<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;"><br><br>
+								<img src="resources/memberProfileImage/podoImage.png"  id="profile" width='200' height='200' style="border-radius: 100px;"><br><br>
 							</c:if>									
 						</div>
 						<div class="desc">
@@ -522,7 +524,7 @@
 										</div>
 										<!--------------------- 라이크_리뷰 끝 ---------------------->
 										
-						   	            <!--------------------- 라이크_유저 시작 --------------------->
+						   	    <!--------------------- 라이크_유저 시작 --------------------->
 										<div id="tab4" class="tabcontent"><br>
 											<div class="container">
 												<c:if test="${ !empty likeUserList }">
@@ -533,10 +535,10 @@
 																<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
 																<div class="image_cover">
 																		<c:if test="${likeUserList.changeName != null }">
-																			<img src="resources/memberProfileImage/${likeUserList.changeName}" width='150' height='150' style="border-radius: 100px;">
+																			<img src="resources/memberProfileImage/${likeUserList.changeName}" id="profile" width='200' height='200' style="border-radius: 100px;">
 																		</c:if>
 																		<c:if test="${likeUserList.changeName == null }">
-																			<img src="resources/memberProfileImage/podoImage.png" width='150' height='150' style="border-radius: 100px;">
+																			<img src="resources/memberProfileImage/podoImage.png" id="profile" width='200' height='200' style=" border-radius: 100px;">
 																		</c:if>
 																		
 																</div>
