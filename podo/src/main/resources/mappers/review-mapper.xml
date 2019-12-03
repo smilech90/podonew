@@ -161,7 +161,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 리뷰업데이트 관련 -->
 	<update id="reviewUpdateContent">
 		update tb_review
-		set CONTENT=#{content},MODIFY_DATE=sysdate
+		set CONTENT=#{content},MODIFY_DATE=sysdate,SPOILER_CHECK=#{spoilerCheck}
 		where id=#{id}
 	</update>
 	<!-- 리뷰 레이팅리뷰 업데이트관련 -->
@@ -197,7 +197,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 합친부분 -->
 	<select id="selectRatingReviewDetailView" resultMap="reviewListSet">
-    select r.id as id,m.id as member_Id,m.image, fi.change_name,f.title_kor,rf.star,r.modify_date,r.create_date,m.nickname,r.content,rr.rating_Sound,rr.rating_Visual,rr.rating_Acting,rr.rating_Pop,rr.rating_Script,rr.rating_Direct,rr.id as rr_id
+    select r.id as id,m.id as member_Id,m.image, r.spoiler_check, fi.change_name,f.title_kor,rf.star,r.modify_date,r.create_date,m.nickname,r.content,rr.rating_Sound,rr.rating_Visual,rr.rating_Acting,rr.rating_Pop,rr.rating_Script,rr.rating_Direct,rr.id as rr_id
 	from  TB_REVIEW r
 	left join tb_rating_review rr on(r.film_id=rr.id)
 	left join tb_member m on(r.member_id = m.id)

@@ -79,17 +79,27 @@ public class ReviewController {
 	// 글 쓰기(별점은 어떻게 가져올지 아직 ..)
 	@RequestMapping("reviewWrite.do")
 	public String reviewWrite(DetailFilm df, ModelAndView mv,Review r,Model model) {
-
+		System.out.println("스포변경전의 r"+r);
 		System.out.println("스포 변경 전 : "+ r.getSpoilerCheck());
-		if (r.getSpoilerCheck().equals("0")) {
-			r.setSpoilerCheck("Y");
-		} else {
+		
+		
+		
+		if(r.getSpoilerCheck()!=null) {//체크값이 널이 아닐때
+			if(r.getSpoilerCheck().equals("0")){
+				
+				r.setSpoilerCheck("Y");
+			}else {
+				r.setSpoilerCheck("N");
+			}
+		}else {
 			r.setSpoilerCheck("N");
 		}
+		
+		
 		System.out.println("스포 변경 후 : "+ r.getSpoilerCheck());
 		
+
 		//int result = reviewService.reivewInsert(df);
-		System.out.println(r);
 		int result = reviewService.reviewWrite(r);
 		int result2 = reviewService.reviewRating(r);
 	
@@ -168,6 +178,28 @@ public class ReviewController {
 	@RequestMapping("reviewUpdate.do")
 	public ModelAndView reviewUpdate(Review r, ModelAndView mv, HttpSession session ) {
 		//레이팅 6개
+		
+		System.out.println("스포 업데이트 전 : "+ r.getSpoilerCheck());
+		
+		
+		
+		if(r.getSpoilerCheck()!=null) {//체크값이 널이 아닐때
+			if(r.getSpoilerCheck().equals("N")){
+				
+				r.setSpoilerCheck("Y");
+			}else {
+				r.setSpoilerCheck("N");
+			}
+		}else {
+			r.setSpoilerCheck("N");
+		}
+		
+		System.out.println("스포 업데이트 후 : "+ r.getSpoilerCheck());
+		/*if (r.getSpoilerCheck().equals("Y")) {
+			r.setSpoilerCheck("N");
+		} else {
+			r.setSpoilerCheck("Y");
+		}*/
 		
 		int result = reviewService.reviewUpdate(r);
 		//id, 레이팅6개 점수 뿌리기

@@ -172,6 +172,17 @@
 				margin-left: 850px;
 			}
 			
+			
+		#reviewContentFont{
+			margin-top: 20px; text-overflow: ellipsis; overflow: hidden;
+		}
+		.df_r_content{
+    		display : none;
+    	}
+    	.df_r_spoContent{
+    		cursor: pointer;
+    	}
+			
 		</style>
 	</head>
 	<body>
@@ -250,7 +261,19 @@
 					</div>
 			   		<div class="rightContent">
 			   			<div class="titleKorea">${ rs.titleKor }</div>
-			            <div class="contentKorea"> ${ rs.content }</div>
+			   			<p id="reviewContentFont" class="title">
+								<c:if test="${ rs.spoilerCheck eq 'Y' }">
+									<div class="contentKorea df_r_spoContent">
+										<div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
+										<div class="df_r_content">${ rs.content }</div>
+									</div>
+								</c:if>
+								<c:if test="${ rs.spoilerCheck eq 'N' }">
+			            			<div class="contentKorea"> ${ rs.content }</div>
+									
+								</c:if>
+
+							</p>
 	             		 <div class="btns">${rs.modifyDate } 작성 &nbsp;
 						<a href="">추천</a>&nbsp;
 						<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">신고하기</a>&nbsp;
@@ -366,6 +389,19 @@
 			$(".declaration-modal").on("click", function() {
 				$(".de_modal").modal();
 				//console.log("${ loginUser.id }");
+			});
+			
+			
+			// 스퍼일러 유무 체크 관련
+			$(document).ready(function(){
+				$(".df_r_spoContent").on("click",function(){
+					  if (confirm("정말 확인하시겠습니까??") == true){    //확인
+							$(this).children(".df_r_spoilerCheck").css("display","none");
+				        	$(this).children(".df_r_content").css("display","block");
+					  }else{   //취소
+					      return;
+					  }
+				});
 			});
 		</script>
 </html>

@@ -4,8 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="../common/header.jsp"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>리뷰리스트</title>
 <style>
 	body{
 		width: 100%;
@@ -21,7 +22,7 @@
 	.pTitle{
 		font-size: 20px;
 		font-weight: bold;
-		color: black;
+		/* color: black; */
 	}
 	.blog__slide__img{
 		margin-left:auto;
@@ -47,20 +48,145 @@
     .df_r_spoContent{
     	cursor: pointer;
     }
+    .df_r_spoilerCheck{
+    	color:red;
+	    cursor:pointer;
+    }
 </style>
 </head>
 <body>
 
-	<jsp:include page="../common/header.jsp"/>
 	
 	
 	
 	
 	
-	<div id="body">
+
 	<h1 align="center">리뷰 리스트</h1>
+	
+	
+	
+	
+			<div class="container">
+			
+				<div class="row">
+					<c:forEach items="${ list }" var="review">
+						<!-- width * 1.425 -->
+						<div class="podo-review-card col-4">
+							<div class="poster" onclick="location.href='detailFilm.do?filmId=${ film.id }'">
+									<img class="card-img rounded-0" src="resources/detailFilmImage/${review.posterImage}" alt="" id="posterImage">
+							</div>
+							<div style="margin-top: 20px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+								<p class="pTitle">${review.titleKor }</p>
+							
+							</div>
+							<div>
+								<small>${ review.name }</small>
+							</div>
+							<div class="row" style="margin-top: 10px;">
+								<div class="col">
+							<p id="reviewContentFont" class="title">
+								<c:if test="${ review.spoilerCheck eq 'Y' }">
+									<div class="df_r_spoContent">
+										<div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
+										<div class="df_r_content">${ review.content }</div>
+									</div>
+										<small><div>${review.nickName }님이작성</div></small>
+										<small><div>${review.createDate }에작성됨</div></small>
+										<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${review.id}';">더보기</button>
+										<c:if test="${ loginUser.id eq review.memberId }">
+										<button class="btn btn-secondary" onclick="location.href='reviewDelete.do?id=${review.id}';">삭제하기</button>
+										</c:if>
+								</c:if>
+								<c:if test="${ review.spoilerCheck eq 'N' }">
+									<div>${ review.content }</div>
+									<small><div>${review.nickName }님이작성</div></small>
+									<small><div>${review.createDate }에작성됨</div></small>
+								<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${review.id}';">더보기</button>
+								<c:if test="${ loginUser.id eq review.memberId }">
+								<button class="btn btn-secondary" onclick="location.href='reviewDelete.do?id=${review.id}';">삭제하기</button>
+								</c:if>
+								</c:if>
+							</p>
+								</div>
+							</div>
 
+						</div>
+					</c:forEach>
+				</div>
+			
+		</div>
+	
+	
+	
+	<!-- 페이징 처리 -->
+ 		 <div align="center" height="20">
+			<!-- [이전] -->
+			<c:if test="${ pi.currentPage eq 1 }">
+				[이전]
+			</c:if>
+			
+			<c:if test="${ pi.currentPage ne 1 }">
+				<c:url value="reviewList.do" var="before">
+					<c:param name="currentPage" value="${pi.currentPage-1 }"/>
+				</c:url>
+				<a href="${ before }">[이전]</a>
+			</c:if>
+			
+			<!-- [페이지] -->
+			<c:forEach begin="${pi.startPage }" end="${ pi.endPage }" var="p">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4">[${ pi.currentPage }]</font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url value="reviewList.do" var="page">
+						<c:param name="currentPage" value="${p }"/>
+					</c:url>
+					<a href="${ page }">[${ p }]</a>
+				</c:if>
+			</c:forEach>
+			<!-- [다음] -->
 
+			<c:if test="${ pi.currentPage eq pi.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pi.currentPage ne pi.maxPage }">
+					<c:url value="reviewList.do" var="after">
+						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+					</c:url>
+					<a href="${ after }">[다음]</a>
+				</c:if>
+		
+		</div>  
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+<!--  
 		<c:forEach items="${ list }" var="review">
 			<div class="container">
 				<div class="card blog__slide text-center">
@@ -99,50 +225,12 @@
 					</div>
 				</div>
 			</div>
-		</c:forEach>
+		</c:forEach> -->
 
-		<!-- 페이징 처리 -->
- 		 <div align="center" height="20">
-			<!-- [이전] -->
-			<c:if test="${ pi.currentPage eq 1 }">
-				[이전]
-			</c:if>
-			
-			<c:if test="${ pi.currentPage ne 1 }">
-				<c:url value="reviewList.do" var="before">
-					<c:param name="currentPage" value="${pi.currentPage-1 }"/>
-				</c:url>
-				<a href="${ before }">[이전]</a>
-			</c:if>
-			
-			<!-- [페이지] -->
-			<c:forEach begin="${pi.startPage }" end="${ pi.endPage }" var="p">
-				<c:if test="${ p eq pi.currentPage }">
-					<font color="red" size="4">[${ pi.currentPage }]</font>
-				</c:if>
-				<c:if test="${ p ne pi.currentPage }">
-					<c:url value="reviewList.do" var="page">
-						<c:param name="currentPage" value="${p }"/>
-					</c:url>
-					<a href="${ page }">[${ p }]</a>
-				</c:if>
-			</c:forEach>
-			<!-- [다음] -->
 
-			<c:if test="${ pi.currentPage eq pi.maxPage }">
-					[다음]
-				</c:if>
-				<c:if test="${ pi.currentPage ne pi.maxPage }">
-					<c:url value="reviewList.do" var="after">
-						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
-					</c:url>
-					<a href="${ after }">[다음]</a>
-				</c:if>
-		
-		</div> 
 
 	<%-- <p id=mide>총개시글 : ${pi.listCount } 페이지 : ${ pi.currentPage } / ${ pi.maxPage }</p> --%>
-	 <button onclick="location.href='star.do';">스타 보기</button>
+	<!--  <button onclick="location.href='star.do';">스타 보기</button> -->
 	 
 	<%-- ${list.get(2).titleKor} --%>
 	
@@ -192,9 +280,9 @@
 	
 	</div>
 	</c:forEach> --%>
-	<br>
 
-	</div>
+
+
 	
 	
 	
