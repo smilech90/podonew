@@ -30,13 +30,8 @@
 		    border: 1px solid #b3bfdd;
 			}
 			
-			a {
-		    color: #c69ce6;
-			}
-			
-			a:hover {
-				color : #d4d4d4;
-			}
+			a { color: #c69ce6; }
+			a:hover { color : #d4d4d4; }
 			
 		</style>
 	</head>
