@@ -19,7 +19,7 @@
   <title>관리자 페이지</title>
   <style>
 	
-	td .active { color:red ; }
+	td .unblind { color:red ; }
 	
   </style>
   
@@ -234,7 +234,7 @@
         <div class="modal-body">관리자 페이지를 종료하시려면 아래 Logout을 선택하십시오.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="home.do">Logout</a>
+          <a class="btn btn-primary" href="logout.do">Logout</a>
         </div>
       </div>
     </div>
@@ -250,13 +250,14 @@
 								
 //				$(this).css('color', 'red');
 //				$(this).addClass("active");
-				$(this).toggleClass("active");
+				var btn= $(this);
+				
 
 				
 				var blinds = $(this).data('id');
 				var jbSplit = blinds.split(', ');
 
-
+				
 				console.log(jbSplit);
 				
 				$.ajax({
@@ -267,7 +268,11 @@
 					success: function(data){
 						console.log(data);
 						if (data) {
-							location.reload();
+							//location.reload();
+							alert("해당 게시물이 블라인드 처리 되었습니다.");
+							btn.addClass("unblind");
+							
+							btn.removeClass("btn_blind");
 						} else {
 							alert('blind에 실패했습니다.');
 						}
@@ -277,6 +282,7 @@
 					}
 				});
 			});
+			
 			
 			var $checkboxTarget = $('.checkbox_target');
 			var checkedIds = [];
@@ -301,7 +307,7 @@
 						console.log(data);
 						
 		 				if (data) {
-							location.reload();
+							//location.reload();
 						} else {
 							alert('blind에 실패했습니다.');
 						}

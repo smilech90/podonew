@@ -51,7 +51,5 @@ public interface MemberService {
 	// 5. 신고회원 블랙리스트로 이동
 	int insertBlackList(String[] result);
 	
-	// 6. 관리자 번호 확인
-	int adminCheck(int adminNum);
 	
 }

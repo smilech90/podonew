@@ -32,51 +32,21 @@ public class ReportDao {
 	
 	
 	public int blindReport(ArrayList<Report> r) {
-		/*
-		for(int i=0; i<result.length; i++) {
-			String item = result[i];
-			
-			//int targetId = Integer.parseInt(result[0]);
-			//int type = Integer.parseInt(result[1]);
-			
-			//String targetId = result[0];
-			//String type = result[1];
-			
-			sqlSession.update("reportMapper.blindReport", item);
-			//sqlSession.update("reportMapper.blindReport", type);
-		}
-		return 1;
-		*/
+	
+		int type = r.get(0).getType();
 		
-		/*
-		HashMap map = new HashMap();
-		
-		if(btype == 1) {
-			map.put("targetId", targetId);
-			map.put("btype", btype);
-			return sqlSession.update("reportMapper.blindReport1", map);
-		}else if(btype == 2) {
-			map.put("targetId", targetId);
-			map.put("btype", btype);
-			return sqlSession.update("reportMapper.blindReport2", map);
-		}else if(btype == 3) {
-			map.put("targetId", targetId);
-			map.put("btype", btype);
-			return sqlSession.update("reportMapper.blindReport3", map);
+
+		if(type == 1) {
+			return sqlSession.update("reportMapper.blindReport1", r);
+		}else if(type == 2) {
+			return sqlSession.update("reportMapper.blindReport2", r);
+		}else if(type == 3) {
+			return sqlSession.update("reportMapper.blindReport3", r);
 		}else {
-			map.put("targetId", targetId);
-			map.put("btype", btype);
-			return sqlSession.update("reportMapper.blindReport4", map);
+			return sqlSession.update("reportMapper.blindReport4", r);
 		}
 		
-		*/
-		System.out.println(r);
-		return sqlSession.update("reportMapper.blindReport", r);
-		
-		
-		
-		
-		
+
 	}
 	
 

@@ -83,17 +83,9 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return 0;
 		
-		//return memberDao.insertBlackList(result);
 	}
 	
-	@Override
-	public int adminCheck(int adminNum) {
-		return memberDao.adminCheck(adminNum);
-	}
-	
-	
-	
-	
+
 
 	@Override
 	public Member selectUserPageMem(String userId) {

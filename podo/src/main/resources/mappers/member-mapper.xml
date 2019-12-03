@@ -102,12 +102,6 @@
 		where target_id = #{bid}
 	</select>
 	
-	<!-- 관리자 아이디 확인 -->
-	<select id="adminCheck" resultType="_int">
-		select count(*)
-		from tb_member
-		where autho = #{adminNum}
-	</select>
 	
 	<!-- 신고회원 블랙리스트로 추가 -->
 	<insert id="insertBlackList">
