@@ -263,11 +263,16 @@
 	         			<a href="reviewList.do" id="ReviewMore">리뷰 더보기</a>
       		<c:forEach items="${ reviewList }" var="r">
       	<div class="homeReviewArea">
-			        <div class="leftImage">
-			              <img class="userImageHome"  src="resources/memberProfileImage/${ r.userImage }" height="100px">
-			               <div class="nickNameHome">${ r.nickName }님</div>
-			               <div class="starReview">★점:${ r.star }점</div>
-			               <div class="countReview">추천수:${ r.likeCount }회</div>
+	        <div class="leftImage">
+	       	<c:if test="${ !empty rs.userImage }">
+	            <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }" height="100px">
+	       	</c:if>
+	       	<c:if test="${ empty rs.userImage }">
+	            <img class="userImageHome"  src="resources/memberProfileImage/podoImage.png" height="100px">
+	       	</c:if>
+	              <div class="nickNameHome">${ rs.nickName }님</div>
+	              <div class="starReview">★점:${ rs.star }점</div>
+	              <div class="countReview">추천수:${ rs.likeCount }회</div>
 					</div>
 			   		<div class="rightContent">
 			   			<div class="titleKorea">

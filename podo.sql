@@ -13,7 +13,6 @@ DROP TABLE "TB_FILM_COLLECTION";
 DROP TABLE "TB_REPORT";
 DROP TABLE "TB_BLACK_MEMBER";
 DROP TABLE "TB_ACTOR" CASCADE CONSTRAINTS;
-DROP TABLE "TB_IMAGE";
 DROP TABLE "TB_FILM_IMAGE";
 DROP TABLE "TB_FILM_ACTOR";
 DROP TABLE "TB_RATING_REVIEW";
@@ -138,7 +137,8 @@ CREATE TABLE "TB_BOARD" (
    "MODIFY_DATE"   TIMESTAMP      NOT NULL,
    "CREATE_DATE"   TIMESTAMP      NOT NULL,
    "STATUS"   VARCHAR2(2)   DEFAULT 'Y'   NOT NULL,
-   "MEMBER_ID"   NUMBER      NOT NULL
+   "MEMBER_ID"   NUMBER      NOT NULL,
+   "IMAGE_NAME" VARCHAR2(50)
 );
 
 CREATE TABLE "TB_RATING_FILM" (
@@ -160,7 +160,7 @@ CREATE TABLE "TB_COMMENT" (
    "MODIFY_DATE"   TIMESTAMP      NOT NULL,
    "STATUS"   VARCHAR2(2)   DEFAULT 'Y'   NOT NULL,
    "LEVEL"   NUMBER   DEFAULT 0   NOT NULL,
-   "MEMBER_ID"   NUMBER      NULL,
+   "MEMBER_ID"   NUMBER NULL,
    "BOARD_ID"   NUMBER      NULL,
    "REVIEW_ID"   NUMBER      NULL
 );
@@ -228,16 +228,6 @@ CREATE TABLE "TB_ACTOR" (
    "PROFILE_IMG"   VARCHAR2(300)      NOT NULL
 );
 
-CREATE TABLE "TB_IMAGE" (
-   "ID"   NUMBER      NOT NULL,
-   "PATH"   VARCHAR2(1000)      NOT NULL,
-   "ORIGINAL_NAME"   VARCHAR2(1000)      NOT NULL,
-   "CHANGE_NAME"   VARCHAR2(1000)      NOT NULL,
-   "TYPE"   NUMBER      NOT NULL,
-   "BOARD_ID" NUMBER NULL,
-   "NOTICE_ID" NUMBER NULL
-);
-
 CREATE TABLE "TB_FILM_IMAGE" (
    "ID"   NUMBER      NOT NULL,
    "TYPE"   NUMBER      NOT NULL,
@@ -283,7 +273,6 @@ ALTER TABLE "TB_COLLECTION" ADD CONSTRAINT "PK_TB_COLLECTION" PRIMARY KEY ("ID")
 ALTER TABLE "TB_REPORT" ADD CONSTRAINT "PK_TB_REPORT" PRIMARY KEY ("ID");
 ALTER TABLE "TB_BLACK_MEMBER" ADD CONSTRAINT "PK_TB_BLACK_MEMBER" PRIMARY KEY ("ID");
 ALTER TABLE "TB_ACTOR" ADD CONSTRAINT "PK_TB_ACTOR" PRIMARY KEY ("ID");
-ALTER TABLE "TB_IMAGE" ADD CONSTRAINT "PK_TB_IMAGE" PRIMARY KEY ("ID");
 ALTER TABLE "TB_FILM_IMAGE" ADD CONSTRAINT "PK_TB_FILM_IMAGE" PRIMARY KEY ("ID");
 ALTER TABLE "TB_RATING_REVIEW" ADD CONSTRAINT "PK_TB_RATING_REVIEW" PRIMARY KEY ("ID");
 ALTER TABLE "TB_GENRE" ADD CONSTRAINT "PK_TB_GENRE" PRIMARY KEY ("ID");
@@ -3414,7 +3403,11 @@ VALUES(SEQ_REVIEW_ID.NEXTVAL, '뤼뷰 내용 04', DEFAULT, DEFAULT, DEFAULT, DEFAULT
 INSERT INTO TB_REVIEW
 VALUES(SEQ_REVIEW_ID.NEXTVAL, '리뷰 내용 05', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, default , default , 6, 6);
 INSERT INTO TB_REVIEW
-VALUES(SEQ_REVIEW_ID.NEXTVAL, '이것은 리뷰 내용 06', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, default , default , 2, 8);
+VALUES(SEQ_REVIEW_ID.NEXTVAL, '황금시대의 구하지 그들은 내는 놀이 노래하며 많이 사막이다. 피가 스며들어 인류의 얼음과 것이다. 유소년에게서 심장의 위하여, 찾아 위하여서. 가는 사랑의 뛰노는 원질이 날카로우나 꽃이 있는가? 그와 것은 길지 대한 끓는 황금시대를 수 끓는다. 얼마나 꽃 바이며, 위하여서, 방황하였으며, 맺어, 것이다. 청춘을 피어나는 끓는 바이며, 대중을 이것을 같이, 이성은 할지니, 부패뿐이다. 그들의 작고 있는 간에 불어 노래하며 실현에 있다. 그들은 위하여 풀밭에 반짝이는 생생하며, 사막이다. 낙원을 그와 거친 간에 새 끓는다. 우는 이성은 피어나는 것이 대한 같이, 끝까지 뿐이다.
+
+고동을 새 지혜는 있으랴? 이성은 공자는 천지는 몸이 것이다. 길을 밥을 이상은 그림자는 방황하였으며, 청춘은 우리의 것이다. 피가 보내는 오직 청춘의 우리의 쓸쓸하랴? 밥을 노래하며 크고 뜨고, 그것을 것이다.보라, 교향악이다. 인생을 얼음에 광야에서 우리 있는 피고 위하여서 교향악이다. 생생하며, 살 만물은 반짝이는 평화스러운 부패를 것이다. 가슴이 커다란 듣기만 가는 황금시대다. 설산에서 군영과 설레는 우리 거친 힘있다. 소금이라 속에서 밝은 주며, 뛰노는 보라.
+
+얼음 주며, 보이는 인도하겠다는 꽃이 이 같은 품으며, 때까지 때문이다. 위하여, 싶이 청춘을 소금이라 밝은 힘차게 군영과 가치를 듣는다. 간에 꽃 평화스러운 것이다. 피에 인생에 동산에는 힘차게 있는 얼음에 못할 무엇을 부패뿐이다. 무한한 보이는 심장은 발휘하기 사막이다. 구하기 목숨이 청춘은 창공에 것이다. 이상의 하는 용기가 옷을 인생을 눈이 살 듣기만 길을 황금시대다. 온갖 피는 간에 원질이 우리의 보는 구할 동력은 사막이다. 온갖 인간에 목숨을 평화스러운 충분히 기쁘며, 착목한는 쓸쓸하랴? 그러므로 대한 광야에서 대중을 생명을 어디 노년에게서 찾아 원질이 것이다. 같이 원대하고, 얼마나 아니다.', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, default , default , 2, 8);
 INSERT INTO TB_REVIEW
 VALUES(SEQ_REVIEW_ID.NEXTVAL, '이것은 리뷰 내용 07', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, default , default , 3, 6);
 INSERT INTO TB_REVIEW
@@ -3676,29 +3669,33 @@ VALUES (SEQ_RATING_FILM_ID.NEXTVAL, 4, 'Y', 8, 1);
 
 -- BOARD SAMPLE DATA
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '1', '1', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 1);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '1', '1', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 1, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '1번째 제목입니다', '1번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 1);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '1번째 제목입니다', '1번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 1, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '22번째 제목입니다', '22번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 2);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '22번째 제목입니다', '22번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 2, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '333번째 제목입니다', '333번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 3);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '333번째 제목입니다', '333번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 3, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '4444번째 제목입니다', '4444번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 4);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '4444번째 제목입니다', '4444번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 4, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '55555번째 제목입니다', '55555번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 5);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '55555번째 제목입니다', '55555번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 5, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '666666번째 제목입니다', '6번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 6);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '666666번째 제목입니다', '6번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 6, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '777777번째 제목입니다', '7번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 7);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '777777번째 제목입니다', '7번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 7, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '8888888번째 제목입니다', '8번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 8);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '8888888번째 제목입니다', '고행을 따뜻한 그와 하였으며, 것이다. 우리 그들에게 못할 찾아다녀도, 끓는 보라. 넣는 길을 놀이 품었기 무엇을 사랑의 없으면 얼음 때까지 것이다. 뭇 이것이야말로 자신과 없으면, 무엇을 산야에 대중을 위하여, 대고, 있는가? 구하기 이것을 인간은 뛰노는 주는 운다. 불어 인간의 우리 찾아다녀도, 말이다. 목숨을 못하다 충분히 있으랴? 설레는 너의 천하를 더운지라 품에 구할 사랑의 피어나기 그들의 사막이다. 힘차게 인도하겠다는 내는 희망의 것은 반짝이는 생의 있다. 웅대한 가치를 꽃 인간은 노래하며 얼마나 부패를 산야에 있다.
+
+위하여서 살 맺어, 위하여, 오직 미인을 뭇 이것이다. 인간이 풍부하게 사라지지 남는 끓는다. 이것이야말로 만천하의 같이 동력은 피가 튼튼하며, 교향악이다. 남는 인간은 천지는 바이며, 군영과 있는 것은 운다. 인간의 공자는 위하여 모래뿐일 피어나기 황금시대다. 예수는 청춘의 생명을 것이다. 더운지라 영원히 너의 현저하게 인간은 그리하였는가? 이것을 실로 속에 운다. 인생의 노래하며 청춘은 따뜻한 투명하되 보는 교향악이다. 인생을 것은 방황하였으며, 인생의 있다.
+
+싹이 온갖 든 힘차게 사막이다. 할지니, 심장은 물방아 작고 가치를 긴지라 힘차게 얼음에 피어나기 것이다. 새가 이상 보이는 품고 하는 끓는 곧 싹이 봄바람이다. 과실이 실로 위하여서, 그들의 웅대한 공자는 교향악이다. 싹이 것은 사랑의 만물은 거선의 이 없는 뛰노는 그들은 그리하였는가? 오아이스도 속에 별과 불어 힘있다. 봄바람을 방지하는 피고, 보이는 생명을 하는 기쁘며, 원질이 살았으며, 약동하다. 속에 인생에 군영과 기쁘며, 이것이다. 듣기만 있는 피고, 피가 가슴이 있는가? 고동을 곧 없는 이것이야말로 소담스러운 간에 얼마나 이것이다.', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 8, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '99999999번째 제목입니다', '9번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 5);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '99999999번째 제목입니다', '9번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 5, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '101010101010번째 제목입니다', '10번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 6);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '101010101010번째 제목입니다', '10번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 6, NULL);
 INSERT INTO TB_BOARD
-VALUES(SEQ_BOARD_ID.NEXTVAL, '11111111111111번째 제목입니다', '11번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 3);
+VALUES(SEQ_BOARD_ID.NEXTVAL, '11111111111111번째 제목입니다', '11번째 내용입니다', DEFAULT, NULL, NULL, NULL, SYSDATE, SYSDATE, DEFAULT, 3, NULL);
 
 
 COMMIT;
