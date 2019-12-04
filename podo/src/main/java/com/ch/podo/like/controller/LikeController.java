@@ -3,11 +3,9 @@ package com.ch.podo.like.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,9 +19,14 @@ import com.ch.podo.common.Pagination;
 import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.like.model.service.LikeService;
 import com.ch.podo.like.model.vo.Like;
+import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.review.model.dto.Review;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class LikeController {
 
@@ -124,10 +127,10 @@ public class LikeController {
 	
 	// 리뷰 좋아요
 	@RequestMapping("likeReviewClick.do")
-	public void likeReviewClick(Like like, String status,HttpServletResponse response) throws JsonIOException, IOException {
+	public void likeReviewClick(Like like, String status, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		int result = 0;
-
+		log.info("like : " + like);
 		
 		if(status.equals("like")) {
 			result = likeService.insertLikeReview(like);
@@ -139,55 +142,5 @@ public class LikeController {
 		gson.toJson(result,response.getWriter());
 	}
 	
-
-	
-	// 관리자 메인 - 좋아요 제일 많이 받은 영화, 회원, 리뷰
-/*	@RequestMapping("manyLike.do")
-	public ModelAndView manyLike(HttpSession session, ModelAndView mv) {
-		
-		ArrayList<Like> list = likeService.likeList();
-		String fNolist="";
-		String mNolist="";
-		String rNolist="";
-				
-		for(int i=0;i<list.size();i++) {
-			
-			if(list.get(i).getType() == 1) {
-				fNolist += list.get(i).getTargetId();
-	
-				if(i != list.size()-1) {
-					fNolist += ",";
-				}
-				
-//				int result1 = likeService.filmLike(fNolist);
-				
-			}else if(list.get(i).getType() == 2) {
-				mNolist += list.get(i).getTargetId();
-				
-				if(i != list.size()-1) {
-					mNolist += ",";
-				}
-				
-//				int result2 = likeService.memberLike(mNolist);
-				
-			}else if(list.get(i).getType() == 3) {
-				rNolist += list.get(i).getTargetId();
-				
-				if(i != list.size()-1) {
-					rNolist += ",";
-				}
-				
-//				int result3 = likeService.reviewLike(rNolist);
-				
-			}
-		}
-		
-		mv.addObject("list", list)
-		  .setViewName("admin.do");
-		
-		return mv;
-		
-	}
-*/
 
 }
