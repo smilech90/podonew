@@ -7,6 +7,12 @@
 
 <head>
 
+<style>
+	td {
+		padding: 10px;
+		}
+</style>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -124,28 +130,29 @@
 		  <!-- Page Content -->
 
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active">영화 등록하기</li>
+          <li class="breadcrumb-item active"><ion-icon name="film"></ion-icon>영화 등록하기</li>
         </ol>
 		<form action="finsert.do" method="post" enctype="multipart/form-data">
 			<table align="center">
 				<tr>
-					<td>장르</td>
+					<td><ion-icon name="done-all"></ion-icon>&nbsp;&nbsp;장르</td>
 					<td>
-						<select name="genreId" required>
-							<option value="">장르별</option>
-							<c:forEach items="${ genre }" var="g">
-								<option value="${ g.id }">${ g.name }</option>
+						<select class="custom-select" name="genreId" required>
+						  <option selected>장르별</option>
+						  	<c:forEach items="${ genre }" var="g">
+						  		<option value="${ g.id }">${ g.name }</option>
 							</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td>포스터</td>
+					<td><ion-icon name="done-all"></ion-icon>&nbsp;&nbsp;포스터</td>
 					<td>
 						<div class="form-group">
 							* 이미지를 삭제하면 기본이미지로 등록됩니다.<br>
-							<img id="preview" src="resources/detailFilmImage/podoposter.jpg" style="width: 107px; height: 152px; object-fit: cover; cursor: pointer;"><br>
-							<button type="button" onclick="fileReset();">이미지 삭제</button><br>
+							<img id="preview" src="resources/detailFilmImage/podoposter.jpg" style="width: 107px; height: 152px; object-fit: cover; cursor: pointer;">
+							<button type="button" class="btn btn-danger" onclick="fileReset();" style="margin-top: 110px;">이미지 삭제</button><br>
+							
 							<div style="display: none;">
 								<button type="button" id="uploadBtn">이미지 변경</button>
 								<div id="imgArea"><input type='file' id='imgInp' name='uploadFile'></div><br>
@@ -154,38 +161,46 @@
 					</td>
 				</tr>
 				<tr>
-					<td>제목(국문)</td>
-					<td><input type="text" name="titleKor" required></td>
+					<td><ion-icon name="done-all"></ion-icon>&nbsp;&nbsp;제목(국문)</td>
+					<td><input class="form-control" type="text" name="titleKor" required></td>
 				</tr>
 				<tr>
-					<td>제목(영문)</td>
-					<td><input type="text" name="titleEng"></td>
+					<td><ion-icon name="done-all"></ion-icon>&nbsp;&nbsp;제목(영문)</td>
+					<td><input class="form-control" type="text" name="titleEng" required></td>
 				</tr>
 				<tr>
-					<td>감독</td>
-					<td><input type="text" name="director" required></td>
+					<td><ion-icon name="done-all"></ion-icon>&nbsp;&nbsp;감독</td>
+					<td><input class="form-control" type="text" name="director" required></td>
 				</tr>
 				<tr>
-					<td>제작년도</td>
-					<td><input type="number" min="1895" max="2050" step="1" name="releaseYear" required></td>
+					<td><ion-icon name="done-all"></ion-icon>&nbsp;&nbsp;제작년도</td>
+					<td><input class="form-control" type="number" min="1895" max="2050" step="1" name="releaseYear" required></td>
 				</tr>
 				<tr>
-					<td>제작국가</td>
-					<td><input type="text" name="productionCountry" required></td>
+					<td><ion-icon name="done-all"></ion-icon>&nbsp;&nbsp;제작국가</td>
+					<td><input class="form-control" type="text" name="productionCountry" required></td>
 				</tr>
 				<tr>
-					<td>개봉상태</td>
+					<td><ion-icon name="done-all"></ion-icon>&nbsp;&nbsp;개봉상태</td>
 					<td>
-						<input type="radio" id="released" name="productionStatus" value="개봉" required>
-						<label for="released">개봉</label>
-						<input type="radio" id="releasing" name="productionStatus" value="개봉예정" required>
-						<label for="releasing">개봉예정</label>
+						<div class="form-check">
+						  <input class="form-check-input" type="radio" id="released" name="productionStatus" value="개봉" required checked>
+						  <label class="form-check-label" for="exampleRadios1">
+						    개봉
+						  </label>
+						</div>
+						<div class="form-check">
+						  <input class="form-check-input" type="radio" id="releasing" name="productionStatus" value="개봉예정" required>
+						  <label class="form-check-label" for="exampleRadios2">
+						    개봉예정
+						  </label>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<button type="submit">등록하기</button> 
-						<button type="button" onclick="location.href='flist.do';">목록으로</button>
+						<button type="submit" class="btn btn-info">등록하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-secondary" onclick="location.href='flist.do';">목록으로</button>
 					</td>
 				</tr>
 			</table>

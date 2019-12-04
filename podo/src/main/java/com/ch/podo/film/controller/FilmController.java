@@ -556,4 +556,22 @@ public class FilmController {
 		return mv;
 	}
 	
+	
+	// 관리자 메인 별점 top3 영화
+	@RequestMapping("manyStar.do")
+	public ModelAndView starTop3(ModelAndView mv) {
+		
+		ArrayList<Film> list = filmService.manyStar();
+		
+		System.out.println(list);
+		
+		mv.addObject("list", list).setViewName("admin/admin");
+		
+		return mv;
+	}
+	 
+	
+	
+	
+	
 }
