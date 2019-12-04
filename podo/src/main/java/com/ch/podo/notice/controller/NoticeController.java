@@ -27,16 +27,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@RequestMapping("nlist.do")
-	public ModelAndView noticeList(ModelAndView mv) {
-		
-		Notice notice = noticeService.selectNoticeList();
-		
-		mv.addObject("notice", notice).setViewName("board/boardListView");
-		
-		return mv;
-		
-	}
+	
 	
 	
 	@RequestMapping("ninsertForm.do")
@@ -104,21 +95,15 @@ public class NoticeController {
 	@RequestMapping("ndelete.do")
 	public String noticeDelete(int id, HttpServletRequest request) {
 		
-		Notice notice = noticeService.selectUpdateNotice(id);
-		
 		int result = noticeService.deleteNotice(id);
 		
 		if(result > 0) {
 			
-			if(!notice.getImageName().equals("")) {
-				
-			}
-			
-			return "redirect:nlist.do";	
+			return "redirect:blist.do";	
 			
 			
 		}else {
-			return "redirect:nlist.do";
+			return "redirect:blist.do";
 		}
 		
 	}
@@ -140,7 +125,7 @@ public class NoticeController {
 		int result = noticeService.updateNotice(notice);
 		
 		if(result > 0) {
-			mv.addObject("notice", notice).setViewName("redirect:nlist.do?id=" + notice.getId());
+			mv.addObject("notice", notice).setViewName("redirect:ndetail.do?id=" + notice.getId());
 		}else {
 			mv.setViewName("error/errorPage");
 		}

@@ -24,6 +24,8 @@ import com.ch.podo.common.Pagination;
 import com.ch.podo.common.PodoRenamePolicy;
 import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.notice.model.service.NoticeService;
+import com.ch.podo.notice.model.vo.Notice;
 import com.ch.podo.report.model.vo.Report;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,6 +39,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private NoticeService noticeService;
 
 	@RequestMapping("blist.do")
 	public ModelAndView boardList(ModelAndView mv,
@@ -45,9 +50,11 @@ public class BoardController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 
 		ArrayList<Board> list = boardService.selectBoardList(pi); // 페이지에 보여질 리스트 조회
+		Notice notice = noticeService.selectNoticeList();
 
 		mv.addObject("pi", pi)
 			.addObject("list", list)
+			.addObject("notice", notice)
 			.setViewName("board/boardListView");
 		return mv;
 	}
