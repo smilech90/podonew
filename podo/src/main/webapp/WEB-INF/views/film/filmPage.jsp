@@ -336,7 +336,7 @@
 									</c:if>
 								</div>
 							</div>
-							<div style="margin-top: 10px;">
+							<div class="star-area" style="margin-top: 10px;">
 								<span class="star-input">
 									<span class="input">
 										<input type="radio" name="star-input${ status.count }" value="1" id="p${ (status.count - 1) * 5 + 1 }" <c:if test="${ rate[film.id].star eq 1 }">checked</c:if>>
@@ -483,10 +483,7 @@
 		});
 
 		/* 영화 검색목록 불러오기 Synchronous 통신 */
-		$(document).on(
-				"click",
-				"li.option",
-				function() {
+		$(document).on("click", "li.option", function() {
 					// 연도별, 국가별 데이터도 같이 가져와야하기 때문에 $(this)가 무엇인지 고민해봐야하고 이벤트도 같이 걸어줘야함
 					// 먼저 selected 클래스가 걸려있는 data-value 값을 가져옴
 					// var releaseYear = $("select[name=releaseYear]").val();
@@ -739,7 +736,7 @@
 							}
 						},
 						error : function() {
-							console.log("통신 실패!");
+							// console.log("통신 실패!");
 						}
 					});
 				});
@@ -791,10 +788,15 @@
 												.html("<img src='resources/common/img/see.png' style='width: 35px; height: 35px; display: block; margin: 0 auto;'>")
 												.blur();
 								$(".tooltip-inner").html("봤어요");
+
+								$($this).closest(".row").siblings(".star-area").find("[name*=star-input]")
+																															 .prop("checked", false)
+																														   .trigger("blur");
+								$($this).closest(".row").siblings(".star-area").find("b").text("0");
 							}
 						},
 						error : function() {
-							console.log("통신 실패!");
+							// console.log("통신 실패!");
 						}
 					});
 				});
@@ -836,12 +838,12 @@
 					type : "post",
 					dataType : "json",
 					success : function(data) {
-						console.log(data);
+						// console.log(data);
 						if (data === 414) {
 							// jQuery 1.6 이후 부터 라디오버튼과 체크박스를 다루기 위해서는 .prop() 함수를 사용해야 한다.
 							$($this).closest(".star-input").find("[name*=star-input]")
 																						 .prop("checked", false)
-																						 .trigger("blur");
+																					   .trigger("blur");
 							$($this).parent().siblings("output").find("b").text("0");
 						} else {
 							$this.closest(".podo-film-card")

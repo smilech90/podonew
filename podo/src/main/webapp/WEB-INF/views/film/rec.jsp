@@ -75,19 +75,21 @@
 	</head>
 	<body>
 		
-		<div class="container">
-			<div class="rec-page-banner">
-				<br>
-				<span class="title">영화 추천</span>
-				<br>
-				<c:if test="${ not empty loginUser }">
-					<span class="content">${ loginUser.nickName }님을 위한 포도의 추천 영화</span>
-				</c:if>
-				<c:if test="${ empty loginUser }">
-					<span class="content">로그인 해주세요!</span>
-				</c:if>
+		<section class="mb-30px">
+			<div class="container">
+				<div class="rec-page-banner">
+					<br>
+					<span class="title">영화 추천</span>
+					<br>
+					<c:if test="${ not empty loginUser }">
+						<span class="content">${ loginUser.nickName }님을 위한 포도의 추천 영화</span>
+					</c:if>
+					<c:if test="${ empty loginUser }">
+						<span class="content">로그인 해주세요!</span>
+					</c:if>
+				</div>
 			</div>
-		</div>
+		</section>
 		
     <!--================ Advertisement start =================-->
     <c:if test="${ (empty loginUser) or (loginUser.premium eq 'N')}">
