@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<table class="table table-striped table-dark my-5">
+			<table class="table table-hover table-striped table-dark my-5">
 				<thead>
 					<tr>
 			      <th scope="col">#</th>

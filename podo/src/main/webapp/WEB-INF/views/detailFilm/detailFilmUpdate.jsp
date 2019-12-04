@@ -361,12 +361,11 @@
 	    
 		// 포스터 변경 버튼
 		$('#modify_p_Btn').on('click',function(e){
-			// input type="file" 버튼 클릭하게 해줌
 			e.preventDefault();
 			$("#uploadPBtn").click();
 		});
 	    
-	    // 포스터 변경전 미리보기 ===================미리보기 안됨
+	    // 포스터 변경전 미리보기 
 	    function readURL(input){
 	    	if (input.files && input.files[0]) {
 	            var reader = new FileReader();
