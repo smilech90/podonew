@@ -27,26 +27,15 @@ public class BoardDao {
 	
 	
 	public ArrayList<Board> selectBoardList(PageInfo pi){
-		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
 		ArrayList<Board> list = (ArrayList)sqlSession.selectList("boardMapper.selectBoardList", null, rowBounds);
-		
 		return list;		
-		
 	}
 	
-	
-	public int insertBoard(Board b) {
-		return sqlSession.insert("boardMapper.insertBoard", b);
+	public int insertBoard(Board board) {
+		return sqlSession.insert("boardMapper.insertBoard", board);
 	}
-	
-	
-	public int insertBoardFile(Image i) {		
-		return sqlSession.insert("boardMapper.insertBoardFile", i);
-	}
-	
 	
 	public int updateCount(int id) {
 		return sqlSession.update("boardMapper.updateCount", id);
