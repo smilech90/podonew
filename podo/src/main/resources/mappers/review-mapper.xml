@@ -247,15 +247,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[	
         select rownum, r.*
 		from (select * from tb_review r
-        left join tb_rating_review rr on(r.film_id=rr.id)
-        left join tb_member m on(r.member_id = m.id)
-        left join tb_film f on(f.id=r.film_id)
-        left join tb_genre g on(genre_id = g.id)
-        left join tb_detail_film df on(df.film_id=f.id)
-        left join tb_film_image fi on(df.id=fi.dfilm_id)
-        left join tb_rating_film rf on(f.id = rf.id)
-		where r.status='Y' 
-        order by r.like_count desc) r
+		        left join tb_rating_review rr on(r.film_id=rr.id)
+		        left join tb_member m on(r.member_id = m.id)
+		        left join tb_film f on(f.id=r.film_id)
+		        left join tb_genre g on(genre_id = g.id)
+		        left join tb_detail_film df on(df.film_id=f.id)
+		        left join tb_film_image fi on(df.id=fi.dfilm_id)
+		        left join tb_rating_film rf on(f.id = rf.id)
+				where r.status='Y' 
+		        order by r.like_count desc) r
         where rownum <=3
      ]]>
 	</select>

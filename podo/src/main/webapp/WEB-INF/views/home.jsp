@@ -469,20 +469,21 @@
 		
 		$(".likeReviewBtn").on("click", function(){
 			var userId = "${loginUser.id}";
-			var targetId = $(this).prev().val(); /* 타겟넘버를 다른방법으로 3개 가져와야합니다. */
+			var targetId = $(this).next().next().val(); /* 타겟넘버를 다른방법으로 3개 가져와야합니다. */
 			var likeInp = $(this).next().val();
 			var status = "";
 			
 			var btn = $(this);
 			
-			//console.log("버튼클릭시 : " + likeInp);
+			console.log("버튼클릭시 : " + likeInp);
 			
 			if(likeInp == '0'){
 				status = "like";
 			}else if(likeInp == '1'){
 				status = "nonlike";
 			}
-			//console.log(status);
+			console.log(status);
+			
 			$.ajax({
 				
 					url:"likeReviewClick.do",
@@ -491,7 +492,7 @@
 						  status:status},
 					type:"post",
 					success:function(data){
-						//console.log(data);
+						console.log(data);
 						if(status == "like"){ // 좋아요클릭시
 							if(data == 1){
 								btn.removeClass("btn-danger");

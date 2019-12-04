@@ -339,7 +339,7 @@ public class ReviewController {
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
-		log.info("댓글" + reviewCommentList);
+		// log.info("댓글" + reviewCommentList);
 		return gson.toJson(reviewCommentList);
  
 	}
@@ -359,8 +359,6 @@ public class ReviewController {
 			return "fail";
 		}
 	}
-	
-	// 리뷰 좋아요
 	
 	
 	// 리뷰 삭제
