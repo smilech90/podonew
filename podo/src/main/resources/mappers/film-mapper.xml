@@ -25,6 +25,20 @@
       <result property="poster" column="change_name"/>
    </resultMap>
    
+      <resultMap type="Film" id="manyStar2">
+	      <id property="id" column="film_id"/>
+	      <result property="titleKor" column="title_kor"/>
+	      <result property="avgStarRating" column="avg_star"/>
+	      <result property="releaseYear" column="release_year"/>
+	      <result property="productionCountry" column="production_country"/>
+          <result property="productionStatus" column="production_status"/>
+	      <result property="genreId" column="genre_id"/>
+	      <result property="genre" column="name"/>
+	      <result property="poster" column="change_name"/>
+	   </resultMap>
+   
+   
+   
    <select id="getListCount" resultType="_int">
       select count(*)
       from tb_film
@@ -315,5 +329,19 @@
          </otherwise>
       </choose>
    </insert>
+   
+   <select id="manyStar" resultMap="manyStar2">
+         <![CDATA[
+   		select rownum,at.*
+		from(select f.*, g.name, fas.dfid, fi.change_name, nvl(fas.avg_star, 0) as avg_star
+		        from tb_film f
+		        join tb_genre g on (f.genre_id = g.id)
+		        join vi_film_avg_star fas on (fas.film_id = f.id)
+		        left outer join tb_detail_film df on (df.id = dfid)
+		        left outer join tb_film_image fi on (df.id = fi.dfilm_id)
+		        order by avg_star desc) at
+		 where rownum <=3
+		       ]]>
+   </select>
    
 </mapper>
