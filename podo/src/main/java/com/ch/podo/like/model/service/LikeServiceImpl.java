@@ -79,12 +79,12 @@ public class LikeServiceImpl implements LikeService{
 	@Override
 	public int insertLikeReview(Like like) {
 		
-		int result=0;
-		result = likeDao.insertLikeReview(like);
-		result =likeDao.updateLikeCount(like);
+		//int result=0;
+		//result = 
+		//result =likeDao.updateLikeCount(like);
 		
 		//return likeDao.insertLikeReview(like);
-		return result;
+		return likeDao.insertLikeReview(like);
 	}
 
 	@Override
