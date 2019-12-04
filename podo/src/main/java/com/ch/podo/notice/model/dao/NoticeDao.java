@@ -20,15 +20,9 @@ public class NoticeDao {
 		return sqlSession.selectOne("noticeMapper.getNoticeCount");
 	}
 	
-	public ArrayList<Notice> selectNoticeList(PageInfo pi){
+	public Notice selectNoticeList(){
 		
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
-		ArrayList<Notice> list = (ArrayList)sqlSession.selectList("noticeMapper.selectList", null, rowBounds);
-		
-		return list;
+		return sqlSession.selectOne("noticeMapper.selectNoticeList");
 		
 	}
 	

@@ -3,16 +3,21 @@ package com.ch.podo.notice.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springsource.loaded.Log;
 
 import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.common.Pagination;
+import com.ch.podo.common.PodoRenamePolicy;
+import com.ch.podo.member.model.vo.Member;
 import com.ch.podo.notice.model.service.NoticeService;
 import com.ch.podo.notice.model.vo.Notice;
 
@@ -22,15 +27,12 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	public ModelAndView noticeList(ModelAndView mv, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+	@RequestMapping("nlist.do")
+	public ModelAndView noticeList(ModelAndView mv) {
 		
-		int listCount = noticeService.getNoticeCount();
+		Notice notice = noticeService.selectNoticeList();
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<Notice> list = noticeService.selectNoticeList(pi);
-		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("notice/noticeListView");
+		mv.addObject("notice", notice).setViewName("board/boardListView");
 		
 		return mv;
 		
@@ -38,35 +40,62 @@ public class NoticeController {
 	
 	
 	@RequestMapping("ninsertForm.do")
-	public String NoticeInsertView() {
-		return "notice/noticeInsertForm";
+	public ModelAndView NoticeInsertView(HttpSession session, ModelAndView mv) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		mv.addObject("m", m).setViewName("notice/noticeInsertForm");
+		
+		return mv;
 	}
 	
 	
+	// 공지사항 작성
 	@RequestMapping("ninsert.do")
-	public String insertNotice(Notice n, HttpServletRequest request, Model model) {
+	public ModelAndView insertNotice(Notice notice, HttpServletRequest request, ModelAndView mv, HttpSession session, 
+										@RequestParam(value="notice-upload-file", required=false) MultipartFile file) {
 		
-		int result = noticeService.insertNotice(n);
+		if(!file.getOriginalFilename().equals("")) {
+			
+			String renameFileName = PodoRenamePolicy.rename(file, request, "/noticeUploadFiles");
+			
+			notice.setImageName(renameFileName);
+			
+		}
+		
+		System.out.println(notice);
+		int result = noticeService.insertNotice(notice);
 		
 		if(result > 0) {
-			return "redirect:nlist.do";
+			mv.setViewName("redirect:blist.do");
 		}else {
-			model.addAttribute("");
-			return "redirect:nlist.do";
+			mv.setViewName("error/errorPage");
 		}
+		
+		return mv;
 	}
 	
 	
+	// 수정 및 삭제 할 공지사항
 	@RequestMapping("ndetail.do")
 	public ModelAndView noticeDetail(int id, ModelAndView mv) {
 		
-		Notice n = noticeService.selectNotice(id);
+		Notice notice = noticeService.selectNotice(id);
 		
-		if(n != null) {
-			mv.addObject("n", n).setViewName("notice/noticeDetailView");
-		}else {
-			mv.addObject("msg", "게시글 작성 실패").setViewName("");
-		}
+		notice.setContent(notice.getContent().replaceAll("(\\r\\n|\\n)", "<br>"));
+		
+		mv.addObject("notice", notice).setViewName("notice/noticeDetailView");
+		
+		return mv;
+	}
+	
+	
+	@RequestMapping("nupdateView.do")
+	public ModelAndView noticeUpdateView(int id, ModelAndView mv) {
+		
+		Notice notice = noticeService.selectUpdateNotice(id);
+		
+		mv.addObject("notice", notice).setViewName("notice/noticeUpdateForm");
 		
 		return mv;
 	}
@@ -75,38 +104,45 @@ public class NoticeController {
 	@RequestMapping("ndelete.do")
 	public String noticeDelete(int id, HttpServletRequest request) {
 		
-		Notice n = noticeService.selectUpdateNotice(id);
-		
+		Notice notice = noticeService.selectUpdateNotice(id);
 		
 		int result = noticeService.deleteNotice(id);
 		
 		if(result > 0) {
-			return "redirect:nlist.do";
+			
+			if(!notice.getImageName().equals("")) {
+				
+			}
+			
+			return "redirect:nlist.do";	
+			
+			
 		}else {
-			return "";
+			return "redirect:nlist.do";
 		}
 		
 	}
 	
 	
-	public ModelAndView noticeUpdateView(int id, ModelAndView mv) {
-		
-		Notice n = noticeService.selectUpdateNotice(id);
-		
-		mv.addObject("n", n).setViewName("notice/noticeUpdateForm");
-		
-		return mv;
-	}
 	
 	
-	public ModelAndView noticeUpdate(Notice n, HttpServletRequest request, ModelAndView mv) {
+	@RequestMapping("nupdate.do")
+	public ModelAndView noticeUpdate(Notice notice, HttpServletRequest request, ModelAndView mv, 
+										@RequestParam(value="notice-upload-file", required=false) MultipartFile file) {
 		
-		int result = noticeService.updateNotice(n);
+		if(!file.getOriginalFilename().equals("")) {
+			
+			String renameFileName = PodoRenamePolicy.rename(file, request, "/noticeUploadFiles");
+			notice.setImageName(renameFileName);
+			
+		}
+		
+		int result = noticeService.updateNotice(notice);
 		
 		if(result > 0) {
-			mv.addObject("id", n.getId()).setViewName("redirect:ndetail.do");
+			mv.addObject("notice", notice).setViewName("redirect:nlist.do?id=" + notice.getId());
 		}else {
-			mv.addObject("msg", "공지사항 수정 실패").setViewName("");
+			mv.setViewName("error/errorPage");
 		}
 		
 		return mv;
