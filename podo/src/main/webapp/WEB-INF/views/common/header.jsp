@@ -76,7 +76,7 @@
 								<c:choose>
 							       <c:when test="${ loginUser.autho eq 2}">
 							       		<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>
-										<li class="nav-item"><a id="logout" class="nav-link" href="admin.do">관리자</a>
+										<li class="nav-item"><a id="logout" class="nav-link" href="manyStar.do">관리자</a>
 							       </c:when>
 							       <c:when test="${ loginUser ne null }">
 							       		<li class="nav-item"><a id="logout" class="nav-link" href="logout.do">로그아웃</a>

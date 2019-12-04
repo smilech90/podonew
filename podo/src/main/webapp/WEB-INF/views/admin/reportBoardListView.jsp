@@ -142,7 +142,7 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead align="center">                
                   <tr>
-                  	<th>체크</th>
+<!--                <th>체크</th> --> 
 					<th>NO</th>
 					<th>타입</th>
 					<th>신고게시글 번호</th>
@@ -155,7 +155,7 @@
                 <tbody align="center">
 					<c:forEach items="${ list }" var="r">	
 						<tr>
-							<td><input type="checkbox" value="${r.id}" class="checkbox_target" /></td>
+<!--						<td><input type="checkbox" value="${r.id}" class="checkbox_target" /></td> -->
 							<td>${ r.id }</td>
 							<td>
 								<input type="hidden" value="${ r.type }">
@@ -192,7 +192,7 @@
 					</c:forEach>
                 </tbody>
               </table>
-              <a href="javascript:;" id="btn_multi_blind">블라인드</a>
+<!--             <a href="javascript:;" id="btn_multi_blind">블라인드</a>  --> 
             </div>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -281,7 +281,7 @@
 			});
 			
 			
-			var $checkboxTarget = $('.checkbox_target');
+/* 			var $checkboxTarget = $('.checkbox_target');
 			var checkedIds = [];
 			
 			$('#btn_multi_blind').click(function() {
@@ -313,7 +313,7 @@
 						console.log("아이디 ajax 통신 실패");
 					}
 				});
-			});
+			}); */
 		});
 	</script>
   

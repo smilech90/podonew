@@ -123,43 +123,94 @@
       <div class="container-fluid">
 
      
+     <nav aria-label="breadcrumb">
+	  <ol class="breadcrumb">
+	    <li class="breadcrumb-item active" aria-current="page">★★★가장 높은 <b>별점</b>을 받은 영화★★★</li>
+	  </ol>
+	</nav>
+	     
+     
+<!--    
+     <div class="card-deck">
+	  <div class="card" align="center">
+	    <img src="resources/adminImage/겨울왕국.jpg" class="card-img-top" alt="...">
+	    <div class="card-body">
+	      <h5 class="card-title" align="center">겨울왕국</h5>
+	      <button type="button" class="btn btn-danger">상세페이지로</button>
+	    </div>
+	    <div class="card-footer">
+	      <small class="text-muted">Last updated 3 mins ago</small>
+	    </div>
+	  </div>
+	  <div class="card" align="center">
+	    <img src="resources/adminImage/나를찾아줘.jpg" class="card-img-top" alt="...">
+	    <div class="card-body">
+	      <h5 class="card-title" align="center">나를 찾아줘</h5>
+	      <button type="button" class="btn btn-danger">상세페이지로</button>
+	      
+	    </div>
+	    <div class="card-footer">
+	      <small class="text-muted">Last updated 3 mins ago</small>
+	    </div>
+	  </div>
+	  <div class="card" align="center">
+	    <img src="resources/adminImage/블랙머니.jpg" class="card-img-top" alt="...">
+	    <div class="card-body">
+	      <h5 class="card-title" align="center">블랙 머니</h5>
+	      <button type="button" class="btn btn-danger">상세페이지로</button>
+	      
+	    </div>
+	    <div class="card-footer">
+	      <small class="text-muted">Last updated 3 mins ago</small>
+	    </div>
+	  </div>
+	</div>
+ -->  
      
      
-     
-     	<div class="card-deck">
-		  <div class="card">
-		    <img src="..." class="card-img-top" alt="...">
+     	
+     	
+          <div class="card-deck">
+		  <div class="card" align="center">
+		    <img src="resources/detailFilmImage/${ list.get(0).poster }" class="card-img-top" alt="★1순위">
 		    <div class="card-body">
-		      <h5 class="card-title">Card title</h5>
-		      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-		      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+		      <h5 class="card-title" align="center">${ list.get(0).titleKor } / ${ list.get(0).titleEng }</h5>
+		      <p class="card-text">별점 : ${ list.get(0).avgStarRating }</p>
+		      <button type="button" class="btn btn-danger" onclick="detailGo1();">상세페이지로</button>
+		      
+		    </div>
+		    <div class="card-footer">
+		      <small class="text-muted">Last updated 3 mins ago</small>
 		    </div>
 		  </div>
-		  <div class="card">
-		    <img src="..." class="card-img-top" alt="...">
+
+		  
+ 		  <div class="card" align="center">
+		    <img src="resources/detailFilmImage/${ list.get(1).poster }" class="card-img-top" alt="★2순위">
 		    <div class="card-body">
-		      <h5 class="card-title">Card title</h5>
-		      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-		      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+		      <h5 class="card-title" align="center">${ list.get(1).titleKor } / ${ list.get(1).titleEng }</h5>
+		      <p class="card-text">별점 : ${ list.get(1).avgStarRating }</p>
+		      <button type="button" class="btn btn-danger" onclick="detailGo2();">상세페이지로</button>
+		      
+		    </div>
+		    <div class="card-footer">
+		      <small class="text-muted">Last updated 3 mins ago</small>
 		    </div>
 		  </div>
-		  <div class="card">
-		    <img src="..." class="card-img-top" alt="...">
+		  <div class="card" align="center">
+		    <img src="resources/detailFilmImage/${ list.get(2).poster }" class="card-img-top" alt="★3순위">
 		    <div class="card-body">
-		      <h5 class="card-title">Card title</h5>
-		      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-		      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+		      <h5 class="card-title" align="center">${ list.get(2).titleKor } / ${ list.get(2).titleEng }</h5>
+		      <p class="card-text">별점 : ${ list.get(2).avgStarRating }</p>
+		      <button type="button" class="btn btn-danger" onclick="detailGo3();">상세페이지로</button>
+		      
 		    </div>
+		    <div class="card-footer">
+		      <small class="text-muted">Last updated 3 mins ago</small>
+		    </div>
+
 		  </div>
 		</div>
-     
-     
-     
-     
-     
-     
-     
-     
      
 
       </div>
@@ -203,6 +254,25 @@
       </div>
     </div>
   </div>
+  
+  
+  <script>
+  	function detailGo1() {
+		location.href='detailFilm.do?filmId=${ list.get(0).id }';
+	}
+  	
+  	function detailGo2() {
+		location.href='detailFilm.do?filmId=${ list.get(1).id }';
+	}
+  	
+  	function detailGo3() {
+		location.href='detailFilm.do?filmId=${ list.get(2).id }';
+	}
+  
+  </script>
+  
+  
+  
 
   <!-- Bootstrap core JavaScript-->
   <script src="<c:url value="/resources/adBootstrap/vendor/jquery/jquery.min.js" />"></script>
