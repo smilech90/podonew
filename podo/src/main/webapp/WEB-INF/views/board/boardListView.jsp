@@ -6,7 +6,7 @@
 		<jsp:include page="../common/header.jsp"/>
 		<style>
 			a { color: #c69ce6; }
-			a:hover { color : #d4d4d4; }
+			a:hover { color : #d4d4d4; cursor: pointer;}
 		</style>
 	</head>
 	<body>
@@ -22,6 +22,9 @@
 				</tr>
 				</thead>
 				<tr>
+				<c:if test="${ notice.id eq null}">
+					<td scope="row">공지사항이 없습니다.</td>
+				</c:if>
 					<td scope="row">${ notice.id }</td>
 						<td scope="row">
 							<a href="ndetail.do?id=${ notice.id }">${ notice.title }</a>					
@@ -42,6 +45,7 @@
 					</tr>
 				</c:forEach>
 			</table>
+			
 			<div class="row">
 			<c:if test="${loginUser.autho == 2 }">
 				<button class="button mx-auto" onclick="location.href='ninsertForm.do';">공지사항</button>
