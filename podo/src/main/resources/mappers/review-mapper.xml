@@ -296,9 +296,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 리부댓글 삭제 -->
 	<update id="deleteReviewComment">
-	update tb_comment
+    update tb_comment c
 	set status='N'
-	where id=#{id}
+	where c.id=#{id} and c.type=1
 	</update>
 	
 	<!-- 리뷰가져오는거 -->
