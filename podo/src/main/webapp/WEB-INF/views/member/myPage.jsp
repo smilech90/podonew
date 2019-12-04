@@ -531,7 +531,7 @@
 											<!-- width * 1.425 -->
 											<div class="podo-user-card col-3">
 												<input class="hidden-filmId" type="hidden" value="${ likeUserList.id }">
-												<div class="image_cover" onclick="location.href='userPage.do?userId=${likeUserList.id}&loginUserId=${loginUser.id}'">
+												<div class="image_cover" onclick="location.href='userPage.do?userId=${likeUserList.targetId}&loginUserId=${loginUser.id}'">
 														<c:if test="${likeUserList.changeName != null }">
 															<img src="resources/memberProfileImage/${likeUserList.changeName}" id="profile" width='200' height='200' style="border-radius: 100px;">
 														</c:if>
