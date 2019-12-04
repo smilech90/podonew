@@ -205,16 +205,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 합친부분 -->
 	<select id="selectRatingReviewDetailView" resultMap="reviewListSet">
-    select r.id as id,m.id as member_Id,m.image, r.spoiler_check, fi.change_name,f.title_kor,rf.star,r.modify_date,r.create_date,m.nickname,r.content,rr.rating_Sound,rr.rating_Visual,rr.rating_Acting,rr.rating_Pop,rr.rating_Script,rr.rating_Direct,rr.id as rr_id
-	from  TB_REVIEW r
-	left join tb_rating_review rr on(r.film_id=rr.id)
-	left join tb_member m on(r.member_id = m.id)
-	left join tb_film f on(f.id=r.film_id)
-	left join tb_genre g on(genre_id = g.id)
-	left join tb_detail_film df on(df.film_id=f.id)
-	left join tb_film_image fi on(df.id=fi.dfilm_id)
-	left join tb_rating_film rf on(f.id = rf.id)
+    select rownum, dr.*        
+		from(select r.id as id,m.id as member_Id,m.image, r.spoiler_check, fi.change_name,f.title_kor,rf.star,r.modify_date,r.create_date,m.nickname,r.content,rr.rating_Sound,rr.rating_Visual,rr.rating_Acting,rr.rating_Pop,rr.rating_Script,rr.rating_Direct,rr.id as rr_id
+			from  TB_REVIEW r
+			left join tb_rating_review rr on(r.film_id=rr.id)
+			left join tb_member m on(r.member_id = m.id)
+			left join tb_film f on(f.id=r.film_id)
+			left join tb_genre g on(genre_id = g.id)
+			left join tb_detail_film df on(df.film_id=f.id)
+			left join tb_film_image fi on(df.id=fi.dfilm_id)
+			left join tb_rating_film rf on(f.id = rf.id)
     where r.id=#{id}
+    order by df.id desc)dr
+		where rownum=1
 	</select>
 
 	
@@ -230,7 +233,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select r.member_id, r.content, f.title_kor, f.id as f_id, r.status, r.modify_date, b.change_name, rr.id
 		from tb_review r
 		join tb_film f on(r.film_id = f.id)
-		join (select df.film_id, i.change_name
+		join (select distinct(df.film_id), i.change_name
 		        from tb_detail_film df
 		        join tb_film_image i on(i.dfilm_id = df.id))b on(b.film_id=f.id)
         join tb_rating_review rr on(r.id= rr.review_id)
@@ -310,5 +313,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from tb_like
 		where user_id=#{id} and type=3
 	</select>
+	
+	<update id="updateReviewCount">
+		update tb_review
+		set 
+		<if test='content == 1'>
+			INAPPROPRIATE_COUNT = INAPPROPRIATE_COUNT+1
+		</if>
+		<if test='content == 2'>
+			SPOILER_COUNT = SPOILER_COUNT+1
+		</if>
+		where id = #{targetId}
+	</update>
 	
 </mapper>

@@ -380,12 +380,12 @@
         
 	</script>
 	<script>
-		$(document).ready(function(){
+	/* 	$(document).ready(function(){
 			$(".df_r_spoContent").on("click",function(){
 				$(this).children(".df_r_spoilerCheck").css("display","none");
 	        	$(this).children(".df_r_content").css("display","block");
 			});
-		});
+		}); */
     </script>
     
     <jsp:include page="../common/footer.jsp"/>

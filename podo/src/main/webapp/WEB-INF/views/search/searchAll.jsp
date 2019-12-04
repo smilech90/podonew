@@ -166,7 +166,7 @@
 		                    </a>
 		                  </li>
 		                  <li>
-		                    <a href="#" class="d-flex justify-content-between">
+		                    <a href="reviewList.do" class="d-flex justify-content-between">
 		                      <p>리뷰</p>
 		                      <c:if test="${ listCount lt 10 }">
 			                      <p>(0${ listCount })</p>
@@ -177,7 +177,7 @@
 		                    </a>
 		                  </li>
 		                  <li>
-		                    <a href="#" class="d-flex justify-content-between">
+		                    <a href="blist.do" class="d-flex justify-content-between">
 		                      <p>자유게시판</p>
 		                      <c:if test="${ listCount lt 10 }">
 			                      <p>(0${ listCount })</p>

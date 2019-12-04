@@ -2,8 +2,6 @@ package com.ch.podo.board.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -88,7 +86,7 @@ public class BoardController {
 	public ModelAndView boardDetail(int id, ModelAndView mv) {
 		Board board = boardService.selectBoard(id);
 		board.setContent(board.getContent().replaceAll("(\\r\\n|\\n)", "<br>"));
-		log.info("board : " + board);
+		// log.info("board : " + board);
 		
 		mv.addObject("board", board)
 			.setViewName("board/boardDetailView");
@@ -99,7 +97,7 @@ public class BoardController {
 	@RequestMapping("bupdateView.do")
 	public ModelAndView boardUpdateView(String id, ModelAndView mv) {
 		Board board = boardService.selectUpdateBoard(Integer.parseInt(id));
-		log.info("board : " + board);
+		// log.info("board : " + board);
 
 		mv.addObject("board", board)
 			.setViewName("board/boardUpdateForm");
@@ -114,7 +112,7 @@ public class BoardController {
 		if (!file.getOriginalFilename().equals("")) {
 			String renameFileName = PodoRenamePolicy.rename(file, request, "/boardUploadFiles");
 			board.setImageName(renameFileName);
-			log.info("renameFileName : " + renameFileName);
+			// log.info("renameFileName : " + renameFileName);
 		}
 
 		int result = boardService.updateBoard(board);
@@ -135,7 +133,7 @@ public class BoardController {
 			File f = new File(savePath + "/" + i.getChangeName());
 			if (f.exists()) {
 				f.delete();
-				log.info("Delete File!");
+				// log.info("Delete File!");
 				// 수정 전 파일들은 삭제할 수 없음 -> 시간없으니 생략
 			}
 		}
@@ -205,7 +203,7 @@ public class BoardController {
 	public ModelAndView inapproCount(Board b, Report r, ModelAndView mv) {
 		
 		int result = boardService.insertInappro(r);
-		System.out.println("r : " + result);
+		log.info("r : " + result);
 		
 		if(result > 0) {
 			mv.addObject("id", r.getTargetId()).setViewName("redirect:bdetail.do");

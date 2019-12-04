@@ -23,6 +23,9 @@ public class Notice {
 	private Date modifyDate;
 	private int imageId;
 	private int adminId;
+	
+	private String imageName;
+	private String nickName;
 
 
 }

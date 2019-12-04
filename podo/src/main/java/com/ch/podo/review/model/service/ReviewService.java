@@ -83,5 +83,8 @@ public interface ReviewService {
 	// 댓글 삭제
 	int deleteReviewComment(int id);
 	
+	// 좋아요 관련 체크
 	ArrayList<Like> checkLike(Member m);
+	
+	// 
 }

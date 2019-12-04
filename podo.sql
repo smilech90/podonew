@@ -3492,7 +3492,11 @@ VALUES(SEQ_REVIEW_ID.NEXTVAL, '뤼뷰 내용 04', DEFAULT, DEFAULT, DEFAULT, DEFAULT
 INSERT INTO TB_REVIEW
 VALUES(SEQ_REVIEW_ID.NEXTVAL, '리뷰 내용 05', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, default , default , 6, 6);
 INSERT INTO TB_REVIEW
-VALUES(SEQ_REVIEW_ID.NEXTVAL, '이것은 리뷰 내용 06', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, default , default , 2, 8);
+VALUES(SEQ_REVIEW_ID.NEXTVAL, '황금시대의 구하지 그들은 내는 놀이 노래하며 많이 사막이다. 피가 스며들어 인류의 얼음과 것이다. 유소년에게서 심장의 위하여, 찾아 위하여서. 가는 사랑의 뛰노는 원질이 날카로우나 꽃이 있는가? 그와 것은 길지 대한 끓는 황금시대를 수 끓는다. 얼마나 꽃 바이며, 위하여서, 방황하였으며, 맺어, 것이다. 청춘을 피어나는 끓는 바이며, 대중을 이것을 같이, 이성은 할지니, 부패뿐이다. 그들의 작고 있는 간에 불어 노래하며 실현에 있다. 그들은 위하여 풀밭에 반짝이는 생생하며, 사막이다. 낙원을 그와 거친 간에 새 끓는다. 우는 이성은 피어나는 것이 대한 같이, 끝까지 뿐이다.
+
+고동을 새 지혜는 있으랴? 이성은 공자는 천지는 몸이 것이다. 길을 밥을 이상은 그림자는 방황하였으며, 청춘은 우리의 것이다. 피가 보내는 오직 청춘의 우리의 쓸쓸하랴? 밥을 노래하며 크고 뜨고, 그것을 것이다.보라, 교향악이다. 인생을 얼음에 광야에서 우리 있는 피고 위하여서 교향악이다. 생생하며, 살 만물은 반짝이는 평화스러운 부패를 것이다. 가슴이 커다란 듣기만 가는 황금시대다. 설산에서 군영과 설레는 우리 거친 힘있다. 소금이라 속에서 밝은 주며, 뛰노는 보라.
+
+얼음 주며, 보이는 인도하겠다는 꽃이 이 같은 품으며, 때까지 때문이다. 위하여, 싶이 청춘을 소금이라 밝은 힘차게 군영과 가치를 듣는다. 간에 꽃 평화스러운 것이다. 피에 인생에 동산에는 힘차게 있는 얼음에 못할 무엇을 부패뿐이다. 무한한 보이는 심장은 발휘하기 사막이다. 구하기 목숨이 청춘은 창공에 것이다. 이상의 하는 용기가 옷을 인생을 눈이 살 듣기만 길을 황금시대다. 온갖 피는 간에 원질이 우리의 보는 구할 동력은 사막이다. 온갖 인간에 목숨을 평화스러운 충분히 기쁘며, 착목한는 쓸쓸하랴? 그러므로 대한 광야에서 대중을 생명을 어디 노년에게서 찾아 원질이 것이다. 같이 원대하고, 얼마나 아니다.', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, default , default , 2, 8);
 INSERT INTO TB_REVIEW
 VALUES(SEQ_REVIEW_ID.NEXTVAL, '이것은 리뷰 내용 07', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, default , default , 3, 6);
 INSERT INTO TB_REVIEW

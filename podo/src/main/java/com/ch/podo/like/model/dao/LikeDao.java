@@ -92,6 +92,11 @@ public class LikeDao {
 		
 		return sqlSession.insert("likeMapper.deleteLikeReview", like);
 	}
+
+	public int updateLikeCount(Like like) {
+		
+		return sqlSession.update("reviewMapper.updateLikeCount", like);
+	}
 	
 //	public ArrayList<Like> likeList(){
 //		ArrayList<Like> list;

@@ -13,14 +13,23 @@
 		<div class="container">
 			<table class="table table-hover table-striped table-dark my-5">
 				<thead>
-					<tr>
+				<tr>
 			      <th scope="col">#</th>
 			      <th scope="col">제목</th>
 			      <th scope="col">작성자</th>
 			      <th scope="col">작성일</th>
 			      <th scope="col">조회수</th>
-					</tr>
+				</tr>
 				</thead>
+				<tr>
+					<td scope="row">${ notice.id }</td>
+						<td scope="row">
+							<a href="ndetail.do?id=${ notice.id }">${ notice.title }</a>					
+						</td>
+						<td scope="row">${ notice.nickName }</td>
+						<td scope="row">${ notice.createDate }</td>
+						<td scope="row">${ notice.viewCount }</td>
+				</tr>
 				<c:forEach items="${ list }" var="b">
 					<tr>
 						<td scope="row">${ b.id }</td>
@@ -34,7 +43,12 @@
 				</c:forEach>
 			</table>
 			<div class="row">
+			<c:if test="${loginUser.autho == 2 }">
+				<button class="button mx-auto" onclick="location.href='ninsertForm.do';">공지사항</button>
+			</c:if>
+			<c:if test="${loginUser.autho == 1 }">
 				<button class="button mx-auto" onclick="location.href='binsertForm.do';">작성하기</button>
+			</c:if>
 			</div>
 			
 			
