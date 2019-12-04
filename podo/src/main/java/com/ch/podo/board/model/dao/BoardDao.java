@@ -79,6 +79,17 @@ public class BoardDao {
 	}
 	
 	
+	public int updateComment(Comment c) {
+		return sqlSession.update("boardMapper.updateComment", c);
+	}
+	
+	
+	public int deleteComment(int id) {
+		return sqlSession.update("boardMapper.deleteComment", id);
+	}
+	
+	
+	
 	public ArrayList<Board> selectboardListHome() {
 		
 		ArrayList<Board> list = (ArrayList)sqlSession.selectList("boardMapper.selectboardListHome");

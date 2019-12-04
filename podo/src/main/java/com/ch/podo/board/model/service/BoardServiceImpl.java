@@ -87,6 +87,19 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public int updateComment(Comment c) {
+		return boardDao.updateComment(c);
+	}
+
+	@Override
+	public int deleteComment(int id) {
+		return boardDao.deleteComment(id);
+	}
+	
+	
+	
+	
+	@Override
 	public ArrayList<Board> selectboardListHome() {
 		
 		return boardDao.selectboardListHome();
@@ -99,6 +112,5 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.insertInappro(r);
 	}
 	
-
 
 }

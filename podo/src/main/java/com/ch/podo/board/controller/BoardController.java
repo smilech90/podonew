@@ -156,43 +156,65 @@ public class BoardController {
 	
 	
 	// 댓글
-	/*
+	
+	// 댓글 리스트
 	@ResponseBody
 	@RequestMapping(value="commentList.do", produces="application/json; charset=UTF-8")
-	public void CommentList(int id) {
+	public String CommentList(int id) {
 		
-		ArrayList<Comment> cList = boardService.selectCommentList(id);
-		System.out.println(cList);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		
-		gson.toJson(cList);
-		
-	}
-	*/
-	@RequestMapping("commentList.do")
-	public void CommentList(int id, HttpServletResponse response) throws JsonIOException, IOException {
-		
-		ArrayList<Comment> cList = boardService.selectCommentList(id);
-		
-		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<Comment> list = boardService.selectCommentList(id);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
-		gson.toJson(cList, response.getWriter());
+		return gson.toJson(list);
 		
 	}
-
+	
+	
+	// 댓글 작성
 	@ResponseBody
 	@RequestMapping("commentInsert.do")
 	public String insertComment(Comment c) {
+		
 		int result = boardService.insertComment(c);
+		
 		if (result > 0) {
 			return "success";
 		} else {
 			return "fail";
+		}		
+	}
+	
+	// 댓글 수정
+	@RequestMapping("commentUpdate.do")
+	public String updateComment(Comment c) {
+		
+		int result = boardService.updateComment(c);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
 		}
 		
 	}
+	
+	
+	// 댓글 삭제
+	@RequestMapping("commentDelete.do")
+	public String deleteComment(int id) {
+		
+		int result = boardService.deleteComment(id);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+	
 
 	// 처란 메인페이지 리스트관련
 	@RequestMapping("boardListHome.do")
