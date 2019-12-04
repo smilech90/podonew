@@ -676,7 +676,7 @@
 								alert("좋아요 실패");
 							}
 						}else if(status == "nonlike"){ // 좋아요 취소
-							if(data >0){
+								if(data >0){
 								$(".likeReviewBtn").removeClass("btn-danger");
 								$(".likeReviewBtn").removeClass("btn-secondary");
 								$(".likeReviewBtn").addClass("btn-secondary");

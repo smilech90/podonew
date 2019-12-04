@@ -154,4 +154,17 @@
 		from tb_like
 	</select>
 	
+	<!-- 좋아요 카운트 갯수 +- -->
+	<update id="updateLikeCount">
+		update tb_review
+		set 
+		<if test='likeInp == "like"'>
+			LIKE_COUNT = LIKE_COUNT+1
+		</if>
+		<if test='likeInp == "nonlike"'>
+			LIKE_COUNT = LIKE_COUNT-1
+		</if>
+		where id = #{targetId}
+	</update>
+	
 </mapper>

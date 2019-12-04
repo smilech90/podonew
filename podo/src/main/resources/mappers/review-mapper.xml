@@ -311,4 +311,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where user_id=#{id} and type=3
 	</select>
 	
+	<update id="updateReviewCount">
+		update tb_review
+		set 
+		<if test='content == 1'>
+			INAPPROPRIATE_COUNT = INAPPROPRIATE_COUNT+1
+		</if>
+		<if test='content == 2'>
+			SPOILER_COUNT = SPOILER_COUNT+1
+		</if>
+		where id = #{targetId}
+	</update>
+	
 </mapper>

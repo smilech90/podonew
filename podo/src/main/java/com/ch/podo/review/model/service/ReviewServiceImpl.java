@@ -116,7 +116,11 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public int insertDeclaration(Report rep) {
 		
-		return reviewDao.insertDeclaration(rep);
+		int result = 0;
+		result = reviewDao.insertDeclaration(rep);
+		result = reviewDao.updateReviewCount(rep);
+		
+		return result;
 	}
 
 	@Override

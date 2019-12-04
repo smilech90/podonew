@@ -300,6 +300,27 @@ public class ReviewController {
 		return mv;
 	}
 	
+//  리뷰 신고하기
+	@RequestMapping("declarationModal2.do")
+	public ModelAndView insertDeclaration2(Report rep,ModelAndView mv) {
+		
+		
+		//Review r = reviewService.selectReviewReport(reviewNo);
+		System.out.println("구하고자하는값은"+rep);
+		
+		int result = reviewService.insertDeclaration(rep);
+		System.out.println("성공할건가"+result);
+		if(result>0) { // 성공
+			mv.addObject("id",rep.getTargetId()).setViewName("redirect:home.do");
+			
+		}else { // 실패
+			mv.addObject("msg", "신고하기 실풰").setViewName("error/errorPage");
+		}
+		
+		return mv;
+	}
+	
+	
 	
 
 	// 댓글 신고하기
