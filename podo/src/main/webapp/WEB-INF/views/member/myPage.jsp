@@ -930,6 +930,12 @@
 	</c:if>
 
 	<script>
+		
+		$(function(){
+			$(".nav").children("li").eq(5).addClass("active");
+		});
+		
+		
 		function bye(){
 			console.log("anjdi");
 			if (confirm("진짜루 탈퇴할꼬양?") == true){    //확인
