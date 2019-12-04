@@ -338,10 +338,10 @@ public class ReviewController {
 		ArrayList<Comment> reviewCommentList = reviewService.selectReviewComment(id);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		
-		// log.info("댓글"+reviewCommentList);
+
+		// log.info("댓글" + reviewCommentList);
 		return gson.toJson(reviewCommentList);
-		 
+ 
 	}
 	
 	//댓글 등록
@@ -359,8 +359,6 @@ public class ReviewController {
 			return "fail";
 		}
 	}
-	
-	// 리뷰 좋아요
 	
 	
 	// 리뷰 삭제

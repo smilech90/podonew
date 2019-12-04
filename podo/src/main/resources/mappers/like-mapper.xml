@@ -143,9 +143,9 @@
 	
 	<delete id="deleteLikeReview">
 		delete from tb_like
-		where user_id = #{userId} and
-			  target_id = #{targetId} and
-			  type=3
+		where user_id = #{userId}
+		  and target_id = #{targetId}
+		  and type=3
 	</delete>
 	
 	<!-- 관리자 메인 - 좋아요 제일 많이 받은 영화, 회원, 리뷰 -->
@@ -155,7 +155,7 @@
 	</select>
 	
 	<!-- 좋아요 카운트 갯수 +- -->
-	<update id="updateLikeCount">
+	<!-- <update id="updateLikeCount">
 		update tb_review
 		set 
 		<if test='likeInp == "like"'>
@@ -165,6 +165,6 @@
 			LIKE_COUNT = LIKE_COUNT-1
 		</if>
 		where id = #{targetId}
-	</update>
+	</update> -->
 	
 </mapper>

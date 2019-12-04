@@ -319,25 +319,22 @@
 				$("#rBtn").on("click", function(){
 					
 					var content = $("#review-comment").val();
-					var boardId = ${r.id};
-					var memberId = ${r.memberId};
-					var reviewId = ${r.ratingReviewId};
-					var nickName = "${r.nickName}";
+					var memberId = ${loginUser.id};
+					var reviewId = ${r.id};
 						
 					$.ajax({
 						url:"insertReviewComment.do",
 						data:{content:content,
-							  boardId:boardId,
 							  memberId:memberId,
 							  reviewId:reviewId,
-							  nickName:nickName
 						},
 						success:function(data){
 							if(data == "success"){
-								console.log(data.nickName);
+								console.log(data);
 								getReplyReviewCommentList();
 								$("#review-comment").val("");
 							}else{
+								console.log(data);
 								alert("댓글 작성 실패");
 							}
 						},error:function(){
@@ -356,14 +353,14 @@
 			
 			function getReplyReviewCommentList(){
 				
-				
+				var rid = ${r.id};
 				
 				$.ajax({
 					url:"reviewCommentList.do",
-					data:{id:${r.id}},
+					data:{ id : rid },
 					dataType:"json",
 					success:function(data){
-						//console.log(data);
+						console.log(data);
 						
 						$tbody = $("#rtb tbody");
 						$tbody.html("");
@@ -415,8 +412,6 @@
 				});
 			}
 			
-			
-
 			function deleteReviewComment(id){
 				if(confirm("댓글을 삭제하시겠습니까")){
 					$.ajax({
