@@ -134,8 +134,8 @@
                   <tr>
 					<th>No</th>
 					<th>장르</th>
-					<th>제목(국문/영문)</th>
-					<th>감독</th>
+					<th width="300">제목(국문/영문)</th>
+					<th width="200">감독</th>
 					<th>제작년도</th>
 					<th>제작국가</th>
 					<th>개봉여부</th>
