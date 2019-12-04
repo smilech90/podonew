@@ -113,16 +113,27 @@
 	</update>
 	
 	 <!-- 댓글 -->
+	 <!-- 윤진
 	 <select id="selectCommentList" resultMap="commentResultSet">
 	 	select *
-		from tb_comment
-		where board_id=#{id}
-		and status='Y'
+		from tb_comment c
+		join tb_member m on (c.member_id=m.id)
+		where c.status='Y'
+		order by c.id desc
 	 </select>
+	  -->
+	 
+	 <select id="selectCommentList" resultMap="commentResultSet">
+	 	select *
+		from tb_comment c
+		join tb_board b on (c.board_id = b.id)
+		where b.id=#{id}
+	 </select> 
+	  
 	 
 	 <insert id="insertComment">
 	 	insert into tb_comment
-	 	values(seq_comment_id.nextval, 2, #{content}, default, default, default, sysdate, sysdate, default, default, 1, #{boardId}, null)
+	 	values(seq_comment_id.nextval, 2, #{content}, default, default, default, sysdate, sysdate, default, default, #{memberId}, #{boardId}, default)
 	 </insert>
 	
 
@@ -134,6 +145,12 @@
 		order by b.id desc
 	</select>
 	
+	
+	<!-- 신고 -->
+	<insert id="insertInappro">
+		insert into tb_report
+		values(seq_report_id.nextval, 2, #{targetId}, #{content}, #{reportId}, #{reportedId})
+	</insert>
 	
 	
 	

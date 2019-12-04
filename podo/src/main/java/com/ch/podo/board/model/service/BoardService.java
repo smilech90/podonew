@@ -7,6 +7,7 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.report.model.vo.Report;
 
 public interface BoardService {
 	
@@ -50,6 +51,8 @@ public interface BoardService {
 	ArrayList<Board> selectboardListHome();
 	
 	
+	// 게시물 신고
+	int insertInappro(Report r);
 	
 	
 }

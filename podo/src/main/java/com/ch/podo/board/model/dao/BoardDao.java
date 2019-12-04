@@ -13,6 +13,7 @@ import com.ch.podo.board.model.vo.PageInfo;
 import com.ch.podo.comment.model.vo.Comment;
 import com.ch.podo.image.model.vo.Image;
 import com.ch.podo.member.model.vo.Member;
+import com.ch.podo.report.model.vo.Report;
 
 @Repository("boardDao")
 public class BoardDao {
@@ -80,7 +81,6 @@ public class BoardDao {
 	
 	// 댓글
 	public ArrayList<Comment> selectCommentList(int id){
-		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectCommentList", id);
 	}
 	
@@ -97,6 +97,10 @@ public class BoardDao {
 		return list;
 	}
 	
+	
+	public int insertInappro(Report r) {
+		return sqlSession.insert("boardMapper.insertInappro", r);
+	}
 	
 	
 	
