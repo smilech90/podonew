@@ -109,7 +109,7 @@
 			</div>
 		
 			<div class="row">
-				<p>${r.content }</p>
+				<p>${r.content }</p> 
 			</div>
 		</div>
 		
