@@ -72,7 +72,7 @@
 					<c:if test="${ review.spoilerCheck eq 'Y' }">
 						<div class="df_r_spoContent">
 							<div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
-							<div class="df_r_content">${ review.content }</div>
+							<div class="df_r_content" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">${ review.content }</div>
 						</div>
 						<div>
 							<small>${review.nickName }</small>
@@ -84,7 +84,7 @@
 					</c:if>
 					
 					<c:if test="${ review.spoilerCheck eq 'N' }">
-						<div>${ review.content }</div>
+						<div style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">${ review.content }</div>
 						<div>
 							<small>${review.nickName }</small>
 						</div>

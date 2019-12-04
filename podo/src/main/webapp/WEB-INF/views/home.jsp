@@ -65,9 +65,9 @@
 				margin-left:auto;
 				margin-right:auto;
 				
-				height: 150px;
-				/* border: 1px solid blue; */
-				width: 1110px;
+				height: 250px;
+				 border: 1px solid blue; 
+				width: 1100px;
 			}
 
 			.leftImage{
@@ -83,13 +83,19 @@
 
 			.userImageHome{
 			    
-				border-radius: 100%;
+				/* border-radius: 100%; */
 				height:60%;
-				width:100%;
+				width:50%;
 				/* border: 1px solid black; */
 				border-radius:30;
-				float:left;
+				float:left;				
 				text-align:center;
+				margin-left:25%;
+				
+			}
+			.reviewUser{
+				height: 100%;
+				width: 30%;
 			}
 			.nickNameHome{
 				font-size:10px;
@@ -121,6 +127,11 @@
 				width: 80%;
 				float: left;
 			}
+			.reviewUserImage{
+				float:left;
+				height: 100%;
+				width:30%;
+			}
 			
 			.homeContent{
 				width:100%;
@@ -134,6 +145,11 @@
 				float: left;
 				/* border: 1px solid yellow; */
 				height: 20%;
+			}
+			.titleEng{
+				width: 50%;
+				height: 100%;
+				float: left;
 			}
 			.contentKorea{
 				overflow:hidden;
@@ -174,7 +190,11 @@
 				margin-left: 75%;
 			}
 			.reviewR{
-				margin-left: 82%;
+			    
+				font-size: 16px;
+			}
+			.reviewR2{
+				font-size: 16px;
 			}
 			
 			
@@ -260,28 +280,42 @@
 			
 	        	<p align="center">리뷰</p>
 	        	
-	         			<a href="reviewList.do" id="ReviewMore">리뷰 더보기</a>
+	        <a href="reviewList.do" id="ReviewMore">리뷰 더보기</a>
       		<c:forEach items="${ reviewList }" var="r">
       	<div class="homeReviewArea">
 	        <div class="leftImage">
-	       	<c:if test="${ !empty rs.userImage }">
-	            <img class="userImageHome"  src="resources/memberProfileImage/${ rs.userImage }" height="100px">
+	       	<c:if test="${ !empty r.posterImage }">
+	            <img class="userImageHome"  src="resources/detailFilmImage/${ r.posterImage }" height="100px">
 	       	</c:if>
-	       	<c:if test="${ empty rs.userImage }">
-	            <img class="userImageHome"  src="resources/memberProfileImage/podoImage.png" height="100px">
+	       	<c:if test="${ empty r.posterImage }">
+	            <img class="userImageHome"  src="resources/detailFilmImage/podoImage.png" height="100px">
 	       	</c:if>
-	              <div class="nickNameHome">${ rs.nickName }님</div>
-	              <div class="starReview">★점:${ rs.star }점</div>
-	              <div class="countReview">추천수:${ rs.likeCount }회</div>
+	              <div class="nickNameHome"></div>
+	              <div class="starReview">★점:${ r.star }점</div>
+	              <div class="countReview">추천수:${ r.likeCount }회</div>
 					</div>
 			   		<div class="rightContent">
 			   			<div class="titleKorea">
-			   				${ r.titleKor }
+			   			<div class="titleEng">
+						${ r.titleKor }
+						</div>
+						<div class="reviewUserImage">
+					<c:if test="${ !empty r.userImage }">
+						<img class="reviewUser" src="resources/memberProfileImage/${ r.userImage }" height="20px">
+						${ r.nickName }님
+					</c:if>
+					
+					<c:if test="${ empty r.userImage }">
+						<img class="reviewUser" src="resources/memberProfileImage/podoImage.png" height="20px">
+					</c:if>
+						${ r.nickName }님
+						</div>
+					
 			   				<c:if test="${loginUser.id eq r.memberId }">
 								<a href="reviewUpdateView.do?id=${r.id}" class="reviewR">수정하기</a>
 							</c:if>
 							<c:if test="${ loginUser.id eq r.memberId }">
-								<a href="reviewDelete.do?id=${r.id}" >삭제하기</a>
+								<a href="reviewDelete.do?id=${r.id}" class="reviewR2">삭제하기</a>
 							</c:if>
 			   			</div>
 			   			
@@ -289,14 +323,14 @@
 								<c:if test="${ r.spoilerCheck eq 'Y' }">
 									<div class="contentKorea df_r_spoContent">
 										<div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
-										<div class="df_r_content">${ r.content }</div>
+										<div class="df_r_content" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">${ r.content }</div>
 										<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${r.id}';" style="margin-left:50%">본문보기</button>
 									</div>
 								</c:if>
 								<c:if test="${ r.spoilerCheck eq 'N' }">
 			            			<div class="contentKorea df_r_spoContent"> 
 			            			<div class="df_r_nospoilerCheck"></div>
-			            				<div class="df_r_content">${ r.content }</div>
+			            				<div style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">${ r.content }</div>
 			            			<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${r.id}';" style="margin-left:50%">본문보기</button>
 			            			</div>
 			            			

@@ -377,7 +377,7 @@
 								$writerTd = $("<td width='100'></td>").text(value.nickName); 
 								$contentTd = $("<td width='300'></td>").text(value.content);
 								$dateTd = $("<td width='100'></td>").text(value.createDate);
-								$deleteButton = $("<input class='delComment button' type='button'>").val('삭제')
+								$deleteButton = $("<input class='delComment button' type='button' onclick='deleteReviewComment();'>").val('삭제')
 								$updateButton = $("<input class='button' type='button'>").val('수정')
 								$deButton = $("<a class='comment-modal btn-reply button' href='#' data-toggle='modal'>댓글신고하기</a>")
 								
@@ -412,6 +412,7 @@
 				});
 			}
 			
+
 			function deleteReviewComment(id){
 				if(confirm("댓글을 삭제하시겠습니까")){
 					$.ajax({
@@ -422,6 +423,7 @@
 							alert("댓글이 삭제되었습니다.");
 						},
 						error:function(){
+							console.log("COMMENT_ID");
 							alert("댓글 삭제 실패");
 
 						}
@@ -508,7 +510,8 @@
 	    
 	    
 		// 댓글 삭제
-		$(".delComment").on( "click", function() {
+		
+		$(".delComment button").on( "click", function() {
 			$(function () {
 				deleteReviewComment();
 			});
