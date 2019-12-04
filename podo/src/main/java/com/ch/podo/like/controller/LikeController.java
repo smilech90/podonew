@@ -24,6 +24,9 @@ import com.ch.podo.review.model.dto.Review;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class LikeController {
 
@@ -124,10 +127,10 @@ public class LikeController {
 	
 	// 리뷰 좋아요
 	@RequestMapping("likeReviewClick.do")
-	public void likeReviewClick(Like like, String status,HttpServletResponse response) throws JsonIOException, IOException {
+	public void likeReviewClick(Like like, String status, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		int result = 0;
-
+		log.info("like : " + like);
 		
 		if(status.equals("like")) {
 			result = likeService.insertLikeReview(like);

@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.ch.podo.board.model.vo.PageInfo;
-import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.like.model.vo.Like;
-import com.ch.podo.member.model.vo.Member;
-import com.ch.podo.review.model.dto.Review;
 
 public interface LikeService {
 	
@@ -54,6 +51,5 @@ public interface LikeService {
 	// 리뷰 좋아요 취소
 	int deleteLikeReview(Like like);
 
-	 
 	
 }

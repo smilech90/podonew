@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.podo.board.model.vo.PageInfo;
-import com.ch.podo.film.model.vo.Film;
 import com.ch.podo.like.model.vo.Like;
-import com.ch.podo.member.model.vo.Member;
-import com.ch.podo.review.model.dto.Review;
 
 @Repository("likeDao")
 public class LikeDao {
@@ -95,6 +92,14 @@ public class LikeDao {
 		return sqlSession.insert("likeMapper.deleteLikeReview", like);
 	}
 
+
+
+
+	/*
+	public int updateLikeCount(Like like) {
+		
+		return sqlSession.update("reviewMapper.updateLikeCount", like);
+	}*/
 
 	
 

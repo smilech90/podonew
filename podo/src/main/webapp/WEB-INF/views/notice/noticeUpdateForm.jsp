@@ -10,37 +10,37 @@
 <body>
 	
 	<div class="container">
-		<form action="bupdate.do" method="post" enctype="multipart/form-data" class="boardInsertForm">
+		<form action="nupdate.do" method="post" enctype="multipart/form-data" class="noticeInsertForm">
 		
-	  	<input type="hidden" name="id" value=${ board.id }>
-	  	<input type="hidden" name="memberId" value=${ loginUser.id }>
-			<input type="hidden" name="imageName" value="${ board.imageName }">
+	  	<input type="hidden" name="id" value=${ notice.id }>
+	  	<input type="hidden" name="adminId" value=${ loginUser.id }>
+		<input type="hidden" name="imageName" value="${ notice.imageName }">
 			
 			<div class="form-group row">
 				<label for="" class="col-3 col-form-label">제목</label>
 		    	<div class="col-9">
-					<input type="text" class="form-control" name="title" value="${ board.title }" required>
+					<input type="text" class="form-control" name="title" value="${ notice.title }" required>
 		    	</div>
 		  	</div>
 		  	<div class="form-group row">
 				<label for="" class="col-3 col-form-label">최종수정일</label>
 		    	<div class="col-9">
-					<input type="text" class="form-control" name="createDate" value="${ board.modifyDate }" readonly>
+					<input type="text" class="form-control" name="createDate" value="${ notice.modifyDate }" readonly>
 		    	</div>
 		  	</div>
 			<div class="form-group row">
 				<label for="" class="col-3 col-form-label">내용</label>
 				<div class="col-9">
-					<textarea class="form-control" name="content" cols="20" rows="7">${ board.content }</textarea>
+					<textarea class="form-control" name="content" cols="20" rows="7">${ notice.content }</textarea>
 				</div>
 			</div>
 			
 			<!-- 파일 -->
 			<div class="form-group row">
 				<label for="" class="col-sm-2 col-form-label">첨부파일</label>
-				<input type="file" name="board-upload-file">
-				<c:if test="${ !empty board.imageName }">
-					<a href="${ pageContext.servletContext.contextPath }/resources/buploadFiles/${ board.imageName }" download="${ board.imageName }">${ board.imageName }</a>
+				<input type="file" name="notice-upload-file">
+				<c:if test="${ !empty notice.imageName }">
+					<a href="${ pageContext.servletContext.contextPath }/resources/nuploadFiles/${ notice.imageName }" download="${ notice.imageName }">${ notice.imageName }</a>
 				</c:if>
 			</div>
 			
@@ -48,7 +48,7 @@
 			
 			<div class="form-group row" id="button">
 				<div class="btn-group mx-auto">
-					<button type="button" class="btn btn-secondary btn-lg" onclick="location.href='blist.do';">취소</button>
+					<button type="button" class="btn btn-secondary btn-lg" onclick="location.href='nlist.do';">취소</button>
 					<button type="submit" class="btn btn-lg btn-primary">수정완료</button>
 				</div>
 			</div>

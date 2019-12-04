@@ -179,7 +179,9 @@ public class ReviewDao {
 	}*/
 
 
-	
+	public int updateReviewCount(Report rep) {
+		return sqlSession.update("reviewMapper.updateReviewCount", rep);
+	}
 	
 	
 }
