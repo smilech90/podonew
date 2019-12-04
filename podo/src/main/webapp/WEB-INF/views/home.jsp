@@ -136,6 +136,7 @@
 				height: 20%;
 			}
 			.contentKorea{
+				overflow:hidden;
 				background:rgb(18,22,49);
 				float: left;
 				width:95%;
@@ -144,13 +145,14 @@
 			}
 			.btns{
 			 	float:left;
-				margin-left:440px;
+				margin-left:75%;
 				width:100%;
 				height: 15%;
+				font-size:10px;
 			}
 			.table-responsive-xl{
 			
-				width: 800px;
+				width: 1110px;
 				margin-left:auto;
 				margin-right:auto;
 			}
@@ -166,10 +168,13 @@
 				text-align: center;
 			}
 			#boardMore{
-				margin-left: 750px;
+				margin-left: 95%;
 			}
 			#ReviewMore{
-				margin-left: 850px;
+				margin-left: 75%;
+			}
+			.reviewR{
+				margin-left: 82%;
 			}
 			
 			
@@ -179,8 +184,13 @@
 		.df_r_content{
     		display : none;
     	}
-    	.df_r_spoContent{
-    		cursor: pointer;
+    	 .df_r_spoilerCheck{
+    	color:red;
+	    cursor:pointer;
+    	display : block;
+    	}
+    	.df_r_nospoilerCheck{
+    	display : block;
     	}
 			
 		</style>
@@ -268,7 +278,7 @@
 			   			<div class="titleKorea">
 			   				${ r.titleKor }
 			   				<c:if test="${loginUser.id eq r.memberId }">
-								<a href="reviewUpdateView.do?id=${r.id}" style="margin-left: 725px;">수정하기</a>
+								<a href="reviewUpdateView.do?id=${r.id}" class="reviewR">수정하기</a>
 							</c:if>
 							<c:if test="${ loginUser.id eq r.memberId }">
 								<a href="reviewDelete.do?id=${r.id}" >삭제하기</a>
@@ -280,15 +290,22 @@
 									<div class="contentKorea df_r_spoContent">
 										<div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
 										<div class="df_r_content">${ r.content }</div>
+										<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${r.id}';" style="margin-left:50%">본문보기</button>
 									</div>
 								</c:if>
 								<c:if test="${ r.spoilerCheck eq 'N' }">
-			            			<div class="contentKorea"> ${ r.content }</div>
+			            			<div class="contentKorea df_r_spoContent"> 
+			            			<div class="df_r_nospoilerCheck"></div>
+			            				<div class="df_r_content">${ r.content }</div>
+			            			<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${r.id}';" style="margin-left:50%">본문보기</button>
+			            			</div>
+			            			
 									
 								</c:if>
 
 							</p>
 	             		 <div class="btns">${r.modifyDate } 작성 &nbsp;
+	             		 				
 										<c:if test="${ r.like==loginUser.id }">
 		                                	<button class='likeReviewBtn btn-danger'>LIKED</button>
 		                                	<input type="hidden" class="likeInp" value="1"/>
@@ -297,9 +314,11 @@
 		                                    <button class='likeReviewBtn btn-secondary'>LIKE</button>
 		                                   <input type="hidden" class="likeInp" value="0"/>
 		                                </c:if>
+		                    <input type="hidden" value="${r.id }">
+		                    <input type="hidden" value="${ r.memberId }">
 							<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">리뷰신고하기</a>
-						<a class="declaration-modal" href="#" data-toggle="modal">신고하기</a>&nbsp;
-						<a href="#">댓글 0개</a>
+						
+						<a href="ratingDetailReview.do?id=${r.id}">댓글 ${c.comment }개</a>
 						</div>
 			        </div>       
 	    </div>
@@ -365,10 +384,12 @@
 				</div>
 				<div class="modal-body">
 					신고하기
-					<form action="declarationModal.do" method="post">
+					
+					<form action="declarationModal2.do" method="post">
+					
+					<input type="hidden" id="reviewId" name="targetId" value="">
+					<input type="hidden" id="reviewMemberId" name="reportedId" value="">
 						<input type="hidden" name="reportId" value="${ loginUser.id }">
-						<input type="hidden" name="targetId" value="${ r.id }">
-						<input type="hidden" name="reportedId" value="${ r.memberId }">
 						
 					<div class="eu">
 						
@@ -408,14 +429,23 @@
 			
 			// 신고하기
 
-			$(".declaration-modal").on("click", function() {
-				$(".de_modal").modal();
-				//console.log("${ loginUser.id }");
-			});
+		// 리뷰 신고하기 버튼 클릭 시
+	$(".declaration-modal").on( "click", function() {
+		var id = $(this).prev().prev().val();
+		var memberId = $(this).prev().val();
+		console.log(id);
+		console.log(memberId);
+		
+		$("#reviewId").val(id);
+		$("#reviewMemberId").val(memberId);
+		
+        $(".de_modal").modal();
+        //console.log("8");
+    });
 			
 			
 			// 스퍼일러 유무 체크 관련
-			$(document).ready(function(){
+		/* 	$(document).ready(function(){
 				$(".df_r_spoContent").on("click",function(){
 					  if (confirm("정말 확인하시겠습니까??") == true){    //확인
 							$(this).children(".df_r_spoilerCheck").css("display","none");
@@ -424,18 +454,26 @@
 					      return;
 					  }
 				});
+			}); */
+			$(document).ready(function(){
+				$(".df_r_spoContent").on("click",function(){
+					$(this).children(".df_r_spoilerCheck").css("display","none");
+					$(this).children(".df_r_nospoilerCheck").css("display","");
+		        	$(this).children(".df_r_content").css("display","block");
+				});
 			});
-			
 			//좋아요
-				$(function() {
+		$(function() {
 		//var likeReivew = $(".likeInp").val();
 		//console.log("값 : " + likeReivew);
 		
 		$(".likeReviewBtn").on("click", function(){
 			var userId = "${loginUser.id}";
-			var targetId = "${ r.id }"; /* 타겟넘버를 다른방법으로 3개 가져와야합니다. */
-			var likeInp = $(".likeInp").val();
+			var targetId = $(this).prev().val(); /* 타겟넘버를 다른방법으로 3개 가져와야합니다. */
+			var likeInp = $(this).next().val();
 			var status = "";
+			
+			var btn = $(this);
 			
 			//console.log("버튼클릭시 : " + likeInp);
 			
@@ -446,6 +484,7 @@
 			}
 			//console.log(status);
 			$.ajax({
+				
 					url:"likeReviewClick.do",
 					data:{userId:userId,
 						  targetId:targetId,
@@ -455,21 +494,21 @@
 						//console.log(data);
 						if(status == "like"){ // 좋아요클릭시
 							if(data == 1){
-								$(".likeReviewBtn").removeClass("btn-danger");
-								$(".likeReviewBtn").removeClass("btn-secondary");
-								$(".likeReviewBtn").addClass("btn-danger");
-								$(".likeReviewBtn").text('LIKED');
-								$(".likeInp").val('1');
+								btn.removeClass("btn-danger");
+								btn.removeClass("btn-secondary");
+								btn.addClass("btn-danger");
+								btn.text('LIKED');
+								btn.next().val('1');
 							}else{
 								alert("좋아요 실패");
 							}
 						}else if(status == "nonlike"){ // 좋아요 취소
 							if(data >0){
-								$(".likeReviewBtn").removeClass("btn-danger");
-								$(".likeReviewBtn").removeClass("btn-secondary");
-								$(".likeReviewBtn").addClass("btn-secondary");
-								$(".likeReviewBtn").text('LIKE');
-								$(".likeInp").val('0');
+								btn.removeClass("btn-danger");
+								btn.removeClass("btn-secondary");
+								btn.addClass("btn-secondary");
+								btn.text('LIKE');
+								btn.next().val('0');
 							}else{
 								alert("좋아요 실패");
 							}
@@ -477,6 +516,7 @@
 						//console.log("에이작스 후 : " + likeInp);
 							
 					},error:function(){
+						console.log(targetId);
 						console.log("라이크 ajax 통신 실패");
 					}
 				});  
