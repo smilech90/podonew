@@ -326,4 +326,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id = #{targetId}
 	</update>
 	
+	
+	<select id="getCommentCount" resultType="_int">
+		select count(*) 
+   		from tb_comment c
+    	where c.status='Y'and c.type=1
+	</select> 
+	
 </mapper>

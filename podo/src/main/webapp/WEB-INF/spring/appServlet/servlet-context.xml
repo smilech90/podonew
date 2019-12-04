@@ -47,8 +47,10 @@
 			<mapping path="/flist.do"/>
 			<mapping path="/finsertForm.do"/>
 			<mapping path="/adRlist.do"/>
-
+	
 			<mapping path="/declarationModal.do"/>
+			<mapping path="/declarationModal2.do"/>
+			
 			<mapping path="/likeReviewClick.do"/>
 			
 

@@ -345,7 +345,7 @@
 		                    <input type="hidden" value="${ r.memberId }">
 							<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">리뷰신고하기</a>
 						
-						<a href="ratingDetailReview.do?id=${r.id}">댓글 ${c.comment }개</a>
+						<a href="ratingDetailReview.do?id=${r.id}">댓글 보기</a>
 						</div>
 			        </div>       
 	    </div>
@@ -523,7 +523,7 @@
 								btn.text('LIKED');
 								btn.next().val('1');
 							}else{
-								alert("좋아요 실패");
+								alert("로그인 해주세요");
 							}
 						}else if(status == "nonlike"){ // 좋아요 취소
 							if(data >0){
@@ -533,7 +533,7 @@
 								btn.text('LIKE');
 								btn.next().val('0');
 							}else{
-								alert("좋아요 실패");
+								alert("로그인 해주세요");
 							}
 						}
 						//console.log("에이작스 후 : " + likeInp);
