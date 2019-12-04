@@ -278,7 +278,7 @@ public class FilmController {
 											 String fid, @RequestParam("flag") int flag)
 			throws JsonIOException, IOException {
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		log.info("loginUser : " + loginUser);
+		// log.info("loginUser : " + loginUser);
 		
 		if (loginUser == null) {
 			return 0;
@@ -289,10 +289,10 @@ public class FilmController {
 		like.setUserId(loginUser.getId());
 		
 		if (flag > 0) {
-			log.info("like insert 실행");
+			// log.info("like insert 실행");
 			return likeService.insertLikeFilm(like);
 		} else {
-			log.info("like delete 실행");
+			// log.info("like delete 실행");
 			return likeService.deleteLikeFilm(like);
 		}
 		
@@ -325,10 +325,10 @@ public class FilmController {
 		rate.setUserId(loginUser.getId());
 
 		if (flag > 0) {
-			log.info("saw insert 실행");
+			// log.info("saw insert 실행");
 			return ratingFilmService.insertSawFilm(rate);
 		} else {
-			log.info("saw delete 실행");
+			// log.info("saw delete 실행");
 			return ratingFilmService.deleteSawFilm(rate);
 		}
 		
@@ -360,11 +360,11 @@ public class FilmController {
 		// 이미 기존에 있는 별점을 다시 눌렀을 경우 취소되면서 update
 		// (insert할때 saw가 'Y'가 되기 때문에 별점을 지운다고 삭제하진 않음)
 		if (flag == null) {
-			log.info("rate insert 실행");
+			// log.info("rate insert 실행");
 			return ratingFilmService.insertRateFilm(rate);
 		// 이미 기존에 별점이 있다면 수정
 		} else if (flag.getStar() == Integer.parseInt(star)) {
-			log.info("rate same update 실행");
+			// log.info("rate same update 실행");
 			int result = ratingFilmService.updateSameRateFilm(rate);
 			if (result > 0) {
 				return 414;
@@ -372,7 +372,7 @@ public class FilmController {
 				return 0;
 			}
 		} else {
-			log.info("rate update실행");
+			// log.info("rate update실행");
 			return ratingFilmService.updateRateFilm(rate);
 		}
 		
@@ -540,7 +540,7 @@ public class FilmController {
 		if (!file.getOriginalFilename().equals("")) {
 			String renameFileName = PodoRenamePolicy.rename(file, request, "/detailFilmImage");
 			img.setChangeName(renameFileName);
-			log.info("renameFileName : " + renameFileName);
+			// log.info("renameFileName : " + renameFileName);
 		}
 		// log.info("img : " + img);
 		
@@ -563,7 +563,7 @@ public class FilmController {
 		
 		ArrayList<Film> list = filmService.manyStar();
 		
-		System.out.println(list);
+		// System.out.println(list);
 		
 		mv.addObject("list", list).setViewName("admin/admin");
 		
