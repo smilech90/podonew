@@ -87,8 +87,8 @@ public class BoardController {
 	@RequestMapping("bdetail.do")
 	public ModelAndView boardDetail(int id, ModelAndView mv) {
 		Board board = boardService.selectBoard(id);
-		board.setContent(board.getContent().replaceAll("\r\n", "<br>"));
-		// log.info("board : " + board);
+		board.setContent(board.getContent().replaceAll("(\\r\\n|\\n)", "<br>"));
+		log.info("board : " + board);
 		
 		mv.addObject("board", board)
 			.setViewName("board/boardDetailView");

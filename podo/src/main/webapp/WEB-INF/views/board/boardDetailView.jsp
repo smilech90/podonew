@@ -5,11 +5,6 @@
 <%-- <fmt:formatDate var="today" value="${ today }" pattern="yyyy-MM-dd"/> --%>
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-=======
 	<head>
 		<jsp:include page="../common/header.jsp"/>
 		<style>
@@ -55,7 +50,6 @@
 					<div class="row">
 						<p>${ board.content }</p>
 					</div>
->>>>>>> changsu
 
 					
 					<div class="news_d_footer flex-column flex-sm-row">
@@ -258,7 +252,7 @@
 				function getCommentList(){
 					$.ajax({
 						url:"commentList.do",
-						data:{id:${b.id}},
+						data:{id:${board.id}},
 						dataType:"json",
 						success:function(data){
 							console.log(data);
