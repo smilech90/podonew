@@ -412,7 +412,6 @@
 				});
 			}
 			
-			
 			function deleteReviewComment(id){
 				if(confirm("댓글을 삭제하시겠습니까")){
 					$.ajax({
@@ -493,14 +492,14 @@
 			
 		// 리뷰 신고하기 버튼 클릭 시
 		$(".declaration-modal").on( "click", function() {
-	        $(".de_modal").modal();
-	        //console.log("${ loginUser.id }");
-	    });
+        $(".de_modal").modal();
+        //console.log("${ loginUser.id }");
+    });
 		// 댓글 신고하기 버튼 클릭시
 		$(".comment-modal").on( "click", function() {
-	        $(".cm_modal").modal();
-	        //console.log("${ loginUser.id }");
-	    });
+        $(".cm_modal").modal();
+        //console.log("${ loginUser.id }");
+    });
 		
 		
 	/*  신고..에이작스?   $(document).on("click","cm_modal", function() {
@@ -521,18 +520,15 @@
 			} else {
 				$(".reviewType").css("display","none");
 			}
-			
 		}
 	
-		/* //댓글 클릭시
+		//댓글 클릭시
 		function commentClick() {
 			if($("#commentDe").is(":checked") == true) {
 				$(".commentType").css("display","inline-block");
 			} else {
 				$(".commentType").css("display","none");
 			}
-			
-	
 		}
 		//자유게시판 클릭시
 		function freeClick() {
@@ -541,8 +537,6 @@
 			} else {
 				$(".freeType").css("display","none");
 			}
-			
-	
 		}
 		// 컬렉션 신고시
 		function collectionClick() {
@@ -551,9 +545,7 @@
 			} else {
 				$(".collectionType").css("display","none");
 			}
-			
-	
-		} */
+		}
 		
 	
 		</script>
