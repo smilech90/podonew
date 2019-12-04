@@ -20,7 +20,9 @@ public class Notice {
 	private String content;
 	private int viewCount;
 	private Date createDate;
-	private Date modifyDate;
+	private Date modifyDate;	
+	private String status;
+	
 	private int imageId;
 	private int adminId;
 	

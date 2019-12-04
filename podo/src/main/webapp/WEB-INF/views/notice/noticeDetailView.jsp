@@ -21,10 +21,10 @@
 			<div class="col-lg-12">
 				<div class="main_blog_details">
 					<c:if test="${ !empty notice.imageName }">
-						<a href="${ pageContext.servletContext.contextPath }/resources/boardUploadFiles/${ board.imageName }" download="${ notice.imageName}"
+						<a href="${ pageContext.servletContext.contextPath }/resources/noticeUploadFiles/${ notice.imageName }" download="${ notice.imageName}"
 							 id="download-image" style="display: none;">${ notice.imageName}</a>
 						<div class="row">
-							<img id="notice-image" class="mx-auto my-5" src="${ pageContext.servletContext.contextPath }/resources/boardUploadFiles/${ notice.imageName }" style="width: 400px;">
+							<img id="notice-image" class="mx-auto my-5" src="${ pageContext.servletContext.contextPath }/resources/noticeUploadFiles/${ notice.imageName }" style="width: 400px;">
 						</div>
 					</c:if>
 					<a 	href="#"><h4>${ notice.title }</h4></a>
@@ -145,9 +145,9 @@
 		
 		<div class="form-group row">
 			<div class="btn-group btn-group-lg mx-auto" role="group" aria-label="...">
-				<c:if test="${ loginUser.id eq notice.memberId }">
-					<button class="btn btn-secondary btn-lg" onclick="location.href='bdelete.do?id=${ notice.id }';">삭제하기</button>
-					<button class="btn btn-lg btn-primary" onclick="location.href='bupdateView.do?id=${ notice.id }';">수정하기</button>
+				<c:if test="${ loginUser.id eq notice.adminId }">
+					<button class="btn btn-secondary btn-lg" onclick="location.href='ndelete.do?id=${ notice.id }';">삭제하기</button>
+					<button class="btn btn-lg btn-primary" onclick="location.href='nupdateView.do?id=${ notice.id }';">수정하기</button>
 				</c:if>
 			</div>
 		</div>
@@ -158,7 +158,15 @@
 		
 		<!-- <a class="comment-modal btn-reply text-uppercase" href="#" data-toggle="modal">댓글신고하기</a> -->
 		
-				
+		
+		<script>
+			$("#notice-image").on("click", function(){
+				console.log("asd");
+				$("#download-image").get(0).click();
+			});
+		</script>
+		
 		<jsp:include page="../common/footer.jsp"/>
+		
 	</body>
 </html>

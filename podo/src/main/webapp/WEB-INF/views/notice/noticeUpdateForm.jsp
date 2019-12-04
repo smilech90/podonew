@@ -48,7 +48,7 @@
 			
 			<div class="form-group row" id="button">
 				<div class="btn-group mx-auto">
-					<button type="button" class="btn btn-secondary btn-lg" onclick="location.href='nlist.do';">취소</button>
+					<button type="button" class="btn btn-secondary btn-lg" onclick="location.href='blist.do';">취소</button>
 					<button type="submit" class="btn btn-lg btn-primary">수정완료</button>
 				</div>
 			</div>
