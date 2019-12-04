@@ -276,16 +276,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectReviewComment" resultMap="commentResultSet">
 		select *
 		from tb_comment c
-        left join tb_member m on (c.member_id=m.id)
-		where BOARD_ID=#{id}
-		and c.status='Y'
+        left join tb_member m on (c.member_id = m.id)
+		where review_id = #{id}
+		and c.status = 'Y'
         order by c.id desc
 	</select>
 	
 	<!-- 리뷰댓글 넣기 -->
 	<insert id="insertReviewComment">
 	 	insert into tb_comment
-	 	values(seq_comment_id.nextval, 1, #{content}, default, default, default, sysdate, sysdate, default, default, #{memberId}, #{boardId}, #{reviewId})
+	 	values(seq_comment_id.nextval, 1, #{content}, default, default, default, sysdate, sysdate, default, default, #{memberId}, null, #{reviewId})
 	 </insert>
 	
 	<!-- 댓글 신고하기 -->
