@@ -87,8 +87,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public int updateComment(Comment c) {
-		return boardDao.updateComment(c);
+	public int updateComment(int id, String content) {
+		return boardDao.updateComment(id, content);
 	}
 
 	@Override

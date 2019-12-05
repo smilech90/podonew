@@ -45,7 +45,7 @@ public interface BoardService {
 	int insertComment(Comment c);
 	
 	// 댓글 수정
-	int updateComment(Comment c);
+	int updateComment(int id, String content);
 	
 	// 댓글 삭제
 	int deleteComment(int id);

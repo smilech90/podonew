@@ -158,6 +158,7 @@ public class BoardController {
 	// 댓글
 	
 	// 댓글 리스트
+	@ResponseBody
 	@RequestMapping(value="commentsList.do", produces="application/json; charset=UTF-8")
 	public String CommentList(int id) {
 		
@@ -184,11 +185,12 @@ public class BoardController {
 		
 	}
 	
+	
 	// 댓글 수정
 	@RequestMapping("updateComment.do")
-	public String updateComment(Comment c) {
+	public String updateComment(int id, String content) {
 		
-		int result = boardService.updateComment(c);
+		int result = boardService.updateComment(id, content);
 		
 		if(result > 0) {
 			return "success";

@@ -108,7 +108,7 @@
 	 	values(seq_comment_id.nextval, 2, #{content}, default, default, default, sysdate, sysdate, default, default, #{memberId}, #{boardId}, default)
 	 </insert>
 	 
-	 <update id="updateComment">
+	 <update id="updateComment" parameterType="hashmap">
 	 	update tb_comment
 	 	set content=#{content}
 	 	where id=#{id}

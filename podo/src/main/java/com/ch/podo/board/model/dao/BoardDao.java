@@ -79,8 +79,13 @@ public class BoardDao {
 	}
 	
 	
-	public int updateComment(Comment c) {
-		return sqlSession.update("boardMapper.updateComment", c);
+	public int updateComment(int id, String content) {
+		HashMap map = new HashMap<>();
+		map.put("id", id);
+		map.put("content", content);
+		
+		
+		return sqlSession.update("boardMapper.updateComment", map);
 	}
 	
 	

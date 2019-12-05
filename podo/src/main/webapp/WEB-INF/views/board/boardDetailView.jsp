@@ -54,8 +54,8 @@
 					
 					<div class="news_d_footer flex-column flex-sm-row">
 						<a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2" href="#">
-						<span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>COMMENTS 개수?</a>
-						 <a href="#"><span class="align-middle mr-2"><i class="ti-heart"></i></span>LIKE</a>
+						<span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>COMMENTS</a>
+						<!-- <a href="#"><span class="align-middle mr-2"><i class="ti-heart"></i></span>LIKE</a> -->
 						<!-- <div class="news_socail ml-sm-auto mt-sm-0 mt-2">
 							<a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i
 								class="fab fa-twitter"></i></a> <a href="#"><i
@@ -158,13 +158,11 @@
 				<!-- 댓글 작성 -->				
 				<div class="comment-form">
 					<h4>COMMENT</h4>
-					<form>
 						<div class="form-group">
 						<textarea id="c-content" class="form-control mb-10 c-content" rows="5" name="message" placeholder="댓글을 입력하세요."
 						onfocus="this.placeholder = ''" onblur="this.placeholder = '댓글을 입력하세요.'" required=""></textarea>
 						</div>
-						<a href="#" class="button submit_btn" id="comment-btn">작성</a>
-					</form>
+						<button class="button submit_btn" id="comment-btn">작성</button>
 				</div>
 				
 			</div>
@@ -215,61 +213,7 @@
 			</div>
 		</div>
 		
-		<!-- <script>
 		
-				$(function(){
-					getCommentList();
-				});
-				
-				function getCommentList(){
-					$.ajax({
-						url:"commentList.do",
-						data:{id:${board.id}},
-						dataType:"json",
-						success:function(data){
-							console.log(data);
-							
-							$tbody = $("#c-list tbody");
-							$tbody.html("");
-							
-							$("#rCount").text("댓글 (" + data.length + ")");
-							
-							if(data.length > 0){
-								$.each(data, function(index, value){
-									$tr = $("<tr></tr>");
-									
-									$writerTd = $("<td width='100'></td>").text(value.writer);
-									$contentTd = $("<td></td>").text(value.content);
-									$dateTd = $("<td></td>").text(value.createDate);
-									
-									$tr.append($writerTd);
-									$tr.append($contentTd);
-									$tr.append($dateTd);
-									
-									$tbody.append($tr);
-									
-								});
-							}else{
-								$tr = $("<tr></tr>");
-								
-								$contentTd = $("<td colspan='3'></td>").text("등록된 댓글이 없습니다.");
-								$tr.append($contentTd);
-								
-								$tbody.append($tr);
-								
-							}
-						},
-						error:function(){
-							console.log("ajax 통신 실패");
-						}
-					});
-				}
-				
-				$("#board-image").on("click", function(){
-					console.log("asd");
-					$("#download-image").get(0).click();
-				});
-		</script> -->
 		
 		
 		<script>
@@ -279,16 +223,17 @@
 				getCommentList();
 				
 				$("#comment-btn").on("click", function(){
-					var content = $("c-content").val();
+					
+					var content = $(".c-content").val();
 					var boardId = ${board.id};
 					var memberId = "${loginUser.id}";
-					
 					$.ajax({
 						url:"insertComment.do",
 						data:{
 							content:content,
 							boardId:boardId,
 							memberId:memberId},
+						dataType:"json",
 						success:function(data){
 							if(data == "success"){
 								getCommentList();
@@ -311,18 +256,18 @@
 			function getCommentList(){
 				
 				$.ajax({
-					url:"insertComment.do",
+					url:"commentsList.do",
 					data:{id:${board.id}},
 					dataType:"json",
 					success:function(data){
+						
+						console.log(data);
 						
 						$commentarea = $(".comment-list");
 						$commentarea.html("");
 						
 						if(data.length > 0){
 							
-							$.each(data, function(index, value){
-																
 								$.each(data, function(index, value){
 									
 									$commentarea = $(".comment-list");
@@ -337,8 +282,8 @@
 									$content = $("<p class='comment'></p>").text(value.content);
 									$date = $("<p class='date'>작성일</p>").text(value.createDate);
 									
-									$updateBtn = $("<a style='width:70px; float:right;' class='btn-reply text-uppercase updateBtn'>수정</a>");
-									$deleteBtn = $("<a style='width:70px; float:right;' class='btn-reply text-uppercase deleteBtn'>삭제</a>");
+									$updateBtn = $("<a style='width:70px; float:right;' class='btn-reply updateBtn'>수정</a>");
+									$deleteBtn = $("<a style='width:70px; float:right;' class='btn-reply deleteBtn'>삭제</a>");
 									
 									$modifyDiv = $("<div style='display:none;' class='modifyDiv'></div>");
 									$modifyTextarea = $("<textarea class='modifyTextarea'></textarea>");
@@ -353,10 +298,7 @@
 									
 								});
 								
-								
-								
-								
-							});
+							
 						}else{	// 댓글 없을때
 							$commentarea = $(".comment-list");
 							$commentarea.append("<span>등록된 댓글이 없습니다.</span>");
