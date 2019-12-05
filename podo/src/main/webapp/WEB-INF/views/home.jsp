@@ -66,7 +66,6 @@
 				margin-right:auto;
 				
 				height: 250px;
-				 border: 1px solid blue; 
 				width: 1100px;
 			}
 
@@ -82,20 +81,18 @@
 			}
 
 			.userImageHome{
-			    
-				/* border-radius: 100%; */
 				height:60%;
 				width:50%;
-				/* border: 1px solid black; */
 				border-radius:30;
 				float:left;				
 				text-align:center;
 				margin-left:25%;
-				
+								
 			}
 			.reviewUser{
 				height: 100%;
 				width: 30%;
+				border-radius: 100px;
 			}
 			.nickNameHome{
 				font-size:10px;
@@ -128,9 +125,10 @@
 				float: left;
 			}
 			.reviewUserImage{
-				float:left;
+				float:right;
 				height: 100%;
 				width:30%;
+				
 			}
 			
 			.homeContent{
@@ -140,11 +138,9 @@
 			}
 			
 			.titleKorea{
-				
 				width:100%;
 				float: left;
-				/* border: 1px solid yellow; */
-				height: 20%;
+				height: 30%;
 			}
 			.titleEng{
 				width: 50%;
@@ -156,12 +152,11 @@
 				background:rgb(18,22,49);
 				float: left;
 				width:95%;
-				height:65%;
-				/* border: 1px solid orange; */
+				height:60%;
 			}
 			.btns{
 			 	float:left;
-				margin-left:75%;
+				margin-left:70%;
 				width:100%;
 				height: 15%;
 				font-size:10px;
@@ -275,10 +270,8 @@
 			</div>
 		</section>
 		<!-- 영화리뷰쪽 -->
-		
 			
-			
-	        	<p align="center">리뷰</p>
+	        	<h5><p align="center">리뷰</p></h5>
 	        	
 	        <a href="reviewList.do" id="ReviewMore">리뷰 더보기</a>
       		<c:forEach items="${ reviewList }" var="r">
@@ -324,14 +317,14 @@
 									<div class="contentKorea df_r_spoContent">
 										<div class="df_r_spoilerCheck">해당 내용은 스포일러를 포함하고 있습니다.</div>
 										<div class="df_r_content" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">${ r.content }</div>
-										<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${r.id}';" style="margin-left:50%">본문보기</button>
+										<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${r.id}';" style="float:right">본문보기</button>
 									</div>
 								</c:if>
 								<c:if test="${ r.spoilerCheck eq 'N' }">
 			            			<div class="contentKorea df_r_spoContent"> 
 			            			<div class="df_r_nospoilerCheck"></div>
 			            				<div style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">${ r.content }</div>
-			            			<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${r.id}';" style="margin-left:50%">본문보기</button>
+			            			<button class="btn btn-secondary" onclick="location.href='ratingDetailReview.do?id=${r.id}';" style="float:right">본문보기</button>
 			            			</div>
 			            			
 									
@@ -352,7 +345,7 @@
 		                    <input type="hidden" value="${ r.memberId }">
 							<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">리뷰신고하기</a>
 						
-						<a href="ratingDetailReview.do?id=${r.id}">댓글 ${c.comment }개</a>
+						<a href="ratingDetailReview.do?id=${r.id}">댓글 보기</a>
 						</div>
 			        </div>       
 	    </div>
@@ -370,7 +363,7 @@
     	<div style="height:200px;"></div>
     </div>	
     <div class="table-responsive-xl">
-	    <p align="center">자유게시판</p>
+	    <h5><p align="center">자유게시판</p></h5>
 						<a href="blist.do" id="boardMore">더보기</a>
 	<table class="table table-striped table-dark" align="center" cellspacing="0">
 		<tr>
@@ -397,13 +390,8 @@
 	</table>
 	</div>
     <!--================ Blog slider end =================-->  
-    
-    <div class="row">
-    	<div style="height:800px;"></div>
-    </div>
-    
+
 	  <jsp:include page="common/footer.jsp"/>
-	  
 	  
 	  <!-- 신고하기 모달 -->
 	<div class="modal fade de_modal" tabindex="-1" role="dialog"
@@ -535,7 +523,7 @@
 								btn.text('LIKED');
 								btn.next().val('1');
 							}else{
-								alert("좋아요 실패");
+								alert("로그인 해주세요");
 							}
 						}else if(status == "nonlike"){ // 좋아요 취소
 							if(data >0){
@@ -545,7 +533,7 @@
 								btn.text('LIKE');
 								btn.next().val('0');
 							}else{
-								alert("좋아요 실패");
+								alert("로그인 해주세요");
 							}
 						}
 						//console.log("에이작스 후 : " + likeInp);

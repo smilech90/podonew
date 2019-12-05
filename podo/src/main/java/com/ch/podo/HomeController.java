@@ -40,6 +40,7 @@ public class HomeController {
 
 		ArrayList<Review> reviewList = r.selectReviewListMain();
 		int listReviewCount = r.getReviewListCount();
+		int getCommentCount = r.getCommentCount();
 		if(session.getAttribute("loginUser")!=null) {
 			Member m=(Member)session.getAttribute("loginUser");
 			ArrayList<Like> listLike=r.checkLike(m);

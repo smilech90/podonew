@@ -47,7 +47,7 @@ public class ReviewController {
 		//System.out.println(pi);
 		mv.addObject("list",list).addObject("pi", pi).setViewName("reviewView/reviewList");
 		
-		log.info("리뷰리스트 왜 스포일러체크 널인지 : "  + list);
+		//log.info("리뷰리스트 왜 스포일러체크 널인지 : "  + list);
 		
 		return mv;
 		
@@ -58,7 +58,7 @@ public class ReviewController {
 	public ModelAndView reviewWriteView(String spoilerCheck,int loginUserId,int filmId, ModelAndView mv,HttpSession session) {
 		
 		Film f = reviewService.selectFilm(filmId);
-		log.info("f : " + f);
+		//log.info("f : " + f);
 		
 		//쓴날짜 오기위해 가져오는건데 의미없는듯 r = reviewService.selectReview();
 		
@@ -76,8 +76,8 @@ public class ReviewController {
 	// 글 쓰기(별점은 어떻게 가져올지 아직 ..)
 	@RequestMapping("reviewWrite.do")
 	public String reviewWrite(DetailFilm df, ModelAndView mv,Review r,Model model) {
-		log.info("스포변경전의 r"+r);
-		log.info("스포 변경 전 : "+ r.getSpoilerCheck());
+		//log.info("스포변경전의 r"+r);
+		//log.info("스포 변경 전 : "+ r.getSpoilerCheck());
 
 		if (r.getSpoilerCheck() != null) {// 체크값이 널이 아닐때
 			if (r.getSpoilerCheck().equals("0")) {
@@ -90,7 +90,7 @@ public class ReviewController {
 			r.setSpoilerCheck("N");
 		}
 
-		System.out.println("스포 변경 후 : "+ r.getSpoilerCheck());
+		//System.out.println("스포 변경 후 : "+ r.getSpoilerCheck());
 		
 
 		//int result = reviewService.reivewInsert(df);
@@ -175,7 +175,7 @@ public class ReviewController {
 	public ModelAndView reviewUpdate(Review r, ModelAndView mv, HttpSession session ) {
 		//레이팅 6개
 		
-		System.out.println("스포 업데이트 전 : "+ r.getSpoilerCheck());
+		//System.out.println("스포 업데이트 전 : "+ r.getSpoilerCheck());
 		
 		
 		
@@ -190,7 +190,7 @@ public class ReviewController {
 			r.setSpoilerCheck("N");
 		}
 		
-		System.out.println("스포 업데이트 후 : "+ r.getSpoilerCheck());
+		//System.out.println("스포 업데이트 후 : "+ r.getSpoilerCheck());
 		/*if (r.getSpoilerCheck().equals("Y")) {
 			r.setSpoilerCheck("N");
 		} else {
@@ -246,8 +246,7 @@ public class ReviewController {
 		
 		ArrayList<Review> list = reviewService.selectAdReviewList();
 		
-		mv.addObject("list", list)
-		  .setViewName("admin/reviewListView");
+		mv.addObject("list", list).setViewName("admin/reviewListView");
 		
 		return mv;
 	}
@@ -258,7 +257,7 @@ public class ReviewController {
 		
 
 		ArrayList<Review> list = reviewService.selectReviewListMain();
-		System.out.println(list);
+		//System.out.println(list);
 		mv.addObject("list",list).setViewName("reviewView/reviewList");
 		
 		// log.info("리뷰리스트 : "  + list);
@@ -273,10 +272,10 @@ public class ReviewController {
 	public ModelAndView insertDeclaration(Review r, Report rep, ModelAndView mv) {
 
 		// Review r = reviewService.selectReviewReport(reviewNo);
-		log.info("구하고자하는값은" + rep);
+		//log.info("구하고자하는값은" + rep);
 
 		int result = reviewService.insertDeclaration(rep);
-		log.info("성공할건가" + result);
+		//log.info("성공할건가" + result);
 		if (result > 0) { // 성공
 			mv.addObject("id", rep.getTargetId()).setViewName("redirect:ratingDetailReview.do");
 		} else { // 실패
@@ -293,10 +292,10 @@ public class ReviewController {
 		
 		
 		//Review r = reviewService.selectReviewReport(reviewNo);
-		System.out.println("구하고자하는값은"+rep);
+		//System.out.println("구하고자하는값은"+rep);
 		
 		int result = reviewService.insertDeclaration(rep);
-		System.out.println("성공할건가"+result);
+		//System.out.println("성공할건가"+result);
 		if(result>0) { // 성공
 			mv.addObject("id",rep.getTargetId()).setViewName("redirect:home.do");
 			
@@ -315,10 +314,10 @@ public class ReviewController {
 	public ModelAndView insertDeclarationComment(Review r, Report rep, ModelAndView mv) {
 
 		// Review r = reviewService.selectReviewReport(reviewNo);
-		log.info("댓글신고" + rep);
+		//log.info("댓글신고" + rep);
 
 		int result = reviewService.insertDeclarationComment(rep);
-		log.info("성공할건가" + result);
+		//log.info("성공할건가" + result);
 		if (result > 0) { // 성공
 			mv.addObject("id", rep.getTargetId()).setViewName("redirect:ratingDetailReview.do");
 		} else { // 실패
@@ -334,7 +333,7 @@ public class ReviewController {
 	@ResponseBody
 	@RequestMapping(value="reviewCommentList.do", produces="application/json; charset=UTF-8")
 	public String reviewCommentList(int id ){
-		
+		int CommentCount = reviewService.getCommentCount();
 		ArrayList<Comment> reviewCommentList = reviewService.selectReviewComment(id);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -352,7 +351,7 @@ public class ReviewController {
 		
 		int result = reviewService.insertReviewComment(c);
 
-		log.info("result : " + result);
+		//log.info("result : " + result);
 		if (result > 0) {
 			return "success";
 		} else {

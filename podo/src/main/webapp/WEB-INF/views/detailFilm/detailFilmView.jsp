@@ -125,14 +125,11 @@
     .homeReviewArea{
 		margin-left:auto;
 		margin-right:auto;
-		
-		height: 150px;
-		/* border: 1px solid blue; */
+		height: 200px;
 		width: 1150px;
 	}
     .leftImage{
-		 background:rgba(49,58,102,0.75);
-		/* border: 1px solid green; */
+		background:rgba(49,58,102,0.75);
 		width: 20%;
 		height: 100%;
 		margin-left:auto;
@@ -192,7 +189,7 @@
 	}
 	.btns{
 	 	float:left;
-		margin-left:610px;
+		margin-left:500px;
 		width:100%;
 		height: 15%;
 	}
@@ -329,7 +326,7 @@
 		                                </c:if>
 							<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">리뷰신고하기</a>
 						<a class="declaration-modal" href="#" data-toggle="modal">신고하기</a>&nbsp;
-						<a href="#">댓글 0개</a>
+						<a href="ratingDetailReview.do?id=${r.id}">댓글보기</a>
 						</div>
 			        </div>       
 	    </div>

@@ -51,6 +51,8 @@
 			
 
 			<mapping path="/declarationModal.do"/>
+			<mapping path="/declarationModal2.do"/>
+			
 			<mapping path="/likeReviewClick.do"/>
 			
 

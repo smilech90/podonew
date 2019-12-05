@@ -109,7 +109,7 @@
 			</div>
 		
 			<div class="row">
-				<p>${r.content }</p>
+				<p>${r.content }</p> 
 			</div>
 		</div>
 		
@@ -330,7 +330,7 @@
 						},
 						success:function(data){
 							if(data == "success"){
-								console.log(data);
+								//console.log(data);
 								getReplyReviewCommentList();
 								$("#review-comment").val("");
 							}else{
@@ -377,7 +377,7 @@
 								$writerTd = $("<td width='100'></td>").text(value.nickName); 
 								$contentTd = $("<td width='300'></td>").text(value.content);
 								$dateTd = $("<td width='100'></td>").text(value.createDate);
-								$deleteButton = $("<input class='delComment button' type='button' onclick='deleteReviewComment();'>").val('삭제')
+								$deleteButton = $("<input class='delComment button' type='button' onclick='deleteReviewComment(id);'>").val('삭제')
 								$updateButton = $("<input class='button' type='button'>").val('수정')
 								$deButton = $("<a class='comment-modal btn-reply button' href='#' data-toggle='modal'>댓글신고하기</a>")
 								
@@ -414,16 +414,17 @@
 			
 
 			function deleteReviewComment(id){
+				var id = ${r.id};
 				if(confirm("댓글을 삭제하시겠습니까")){
 					$.ajax({
 						type:"post",
 						url:"deleteReviewComment.do",
-						data:{"COMMENT_ID":id},
+						data:{"id":id},
 						success:function(){
 							alert("댓글이 삭제되었습니다.");
 						},
 						error:function(){
-							console.log("COMMENT_ID");
+							console.log(id);
 							alert("댓글 삭제 실패");
 
 						}
@@ -517,23 +518,23 @@
 			});
 		});
 		//리뷰 클릭시
-		function reviewClick() {
+/* 		function reviewClick() {
 			if($("#reviewDe").is(":checked") == true) {
 				$(".reviewType").css("display","inline-block");
 			} else {
 				$(".reviewType").css("display","none");
 			}
-		}
+		} */
 	
 		//댓글 클릭시
-		function commentClick() {
+	/* 	function commentClick() {
 			if($("#commentDe").is(":checked") == true) {
 				$(".commentType").css("display","inline-block");
 			} else {
 				$(".commentType").css("display","none");
 			}
-		}
-		//자유게시판 클릭시
+		} */
+		/* //자유게시판 클릭시
 		function freeClick() {
 			if($("#freeDe").is(":checked") == true) {
 				$(".freeType").css("display","inline-block");
@@ -548,7 +549,7 @@
 			} else {
 				$(".collectionType").css("display","none");
 			}
-		}
+		} */
 		
 	
 		</script>

@@ -158,6 +158,12 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.checkLike(m);
 	}
 
+	@Override
+	public int getCommentCount() {
+		
+		return reviewDao.getCommentCount();
+	}
+
 	/*
 	@Override
 	public int reivewInsert(DetailFilm df) {
