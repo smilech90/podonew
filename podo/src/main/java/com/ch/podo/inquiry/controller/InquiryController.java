@@ -55,4 +55,22 @@ public class InquiryController {
 			return "fail";
 		}
 	}
+	
+	
+	
+	// 관리자 문의 리스트 조회
+	@RequestMapping("inquiryList.do")
+	public ModelAndView selectQuestionList(ModelAndView mv) {
+		
+		ArrayList<Inquiry> list = inquiryService.selectInquiryList();
+		
+		mv.addObject("list", list)
+		  .setViewName("admin/inquiryListView");
+		
+		return mv;
+	}
+	
+	
+	
+	
 }

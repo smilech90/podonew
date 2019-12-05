@@ -16,7 +16,7 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
  
-  <title>관리자 페이지</title>
+  <title>AdminPage</title>
   <style>
 	
 	td .unblind { color:red ; }
@@ -117,12 +117,12 @@
           <span>리뷰관리</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="blist.do">
           <ion-icon name="done-all"></ion-icon>
           <span>공지사항</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="inquiryList.do">
           <ion-icon name="help-circle"></ion-icon>
           <span>문의사항</span></a>
       </li>

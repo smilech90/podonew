@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +14,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
   <title>AdminPage</title>
   <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
@@ -126,35 +131,51 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            	리뷰리스트</div>
+            	회원문의목록</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead align="center">                
                   <tr>
                     <th>No</th>
-					<th>영화제목</th>
-					<th>작성자</th>
-					<th>좋아요</th>
-					<th>스포일러</th>
-					<th>신고</th>
-					<th>상태</th>
+                    <th>타입</th>
+                    <th>문의회원</th>
+                    <th>문의작성일</th>
+                    <th>답변여부</th>
+                    <th>답변작성일</th>
                   </tr>
                 </thead>
                 <tbody align="center">
-				<c:forEach items="${ list }" var="r">	
-					<tr>
-						<td>${ r.id }</td>			
-						<td>
-							<a href="ratingDetailReview.do?id=${ r.id }">${ r.titleKor }&nbsp;/ ${ r.titleEng }</a>
-						</td>
-						<td>${ r.nickName }</td>
-						<td>${ r.likeCount }</td>
-						<td>${ r.spoilerCheck }</td>
-						<td>${ r.spoilerCount + r.inappropriateCount}</td>
-						<td>${ r.status }</td>
-					</tr>
-				</c:forEach>
+					<c:forEach items="${ list }" var="q">
+						<tr>
+							<td>${ q.id }</td>
+							<td>
+								<c:choose>
+								    <c:when test="${ q.type == 1}">
+										일반
+								    </c:when>
+								    <c:when test="${ q.type == 2}">
+										DB제보
+								    </c:when>
+								</c:choose>
+							</td>
+							<td>${ q.nickname }</td>
+							<td>${ q.createDate }</td>
+							<td>
+								<c:choose>
+								    <c:when test="${ q.answer == null }">
+								    	<button type="button" class="btn btn-danger inquiry-modal" data-toggle="modal" data-target="#answerModal" data-id="">답변미등록</button>									
+								    </c:when>
+								    <c:when test="${ q.answer != null}">
+								    
+										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#" data-id="">답변완료</button>
+								    </c:when>
+								</c:choose>
+							</td>
+					
+							<td>${ q.answerDate }</td>
+						</tr>
+					</c:forEach>
                 </tbody>
               </table>
             </div>
@@ -179,6 +200,46 @@
 
   </div>
   <!-- /#wrapper -->
+  
+  
+  <!-- 문의 답변 모달 -->
+  
+  <div class="modal" id="answerModal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">문의 답변하기</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="form-group">
+				<label for="qucontent">문의내용</label>
+				<input type="hidden" id="con" value="${q.content}" />
+					<textarea class="form-control" id="qucontent" name="content" rows="5" cols="50" style="resize: none" readonly></textarea>
+				</div>
+	      		<hr>
+		      <form action="adminAnswer.do" method="post">
+		      	<div class="form-group">
+					<label for="qucontent">답변내용</label>
+					<textarea class="form-control" id="aucontent" name="content" rows="5" cols="50" style="resize: none"></textarea>
+				</div>
+		      
+			  <div class="modal-footer">
+		        <button type="submit" class="btn btn-success">답변등록</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+		      </div>    
+		     </form>
+		  </div> 
+	    </div>
+	  </div>
+	</div>
+	
+	
+
+  
+  
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
@@ -203,6 +264,13 @@
       </div>
     </div>
   </div>
+  
+
+  
+  
+  
+  
+  
 
   <!-- Bootstrap core JavaScript-->
   <script src="<c:url value="/resources/adBootstrap/vendor/jquery/jquery.min.js" />"></script>

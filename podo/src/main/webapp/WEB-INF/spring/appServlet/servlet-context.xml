@@ -47,6 +47,8 @@
 			<mapping path="/flist.do"/>
 			<mapping path="/finsertForm.do"/>
 			<mapping path="/adRlist.do"/>
+			<mapping path="/inquiryList.do"/>
+			
 
 			<mapping path="/declarationModal.do"/>
 			<mapping path="/likeReviewClick.do"/>
@@ -71,6 +73,8 @@
 			<mapping path="/flist.do"/>
 			<mapping path="/finsertForm.do"/>
 			<mapping path="/adRlist.do"/>
+			<mapping path="/inquiryList.do"/>
+			
 			<beans:bean id="AdminInterceptor" class="com.ch.podo.common.interceptor.AdminInterceptor"/>
 		</interceptor>
 		
