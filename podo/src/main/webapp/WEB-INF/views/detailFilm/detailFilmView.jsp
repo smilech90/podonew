@@ -197,6 +197,9 @@
 		border-radius: 10px;
     	border : 1px solid white;
 	}
+	.review_con{
+    	overflow:hidden;
+    }
 </style>
 <body>
 	<!-- 헤더  -->
@@ -310,7 +313,7 @@
 									</div>
 								</c:if>
 								<c:if test="${ r.spoilerCheck eq 'N' }">
-			            			<div class="contentKorea"> ${ r.content }</div>
+			            			<div class="contentKorea review_con"> ${ r.content }</div>
 									
 								</c:if>
 
