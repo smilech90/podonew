@@ -326,7 +326,7 @@
 		                                </c:if>
 							<a class="declaration-modal btn-reply text-uppercase" href="#" data-toggle="modal">리뷰신고하기</a>
 						<a class="declaration-modal" href="#" data-toggle="modal">신고하기</a>&nbsp;
-						<a href="#">댓글 0개</a>
+						<a href="ratingDetailReview.do?id=${r.id}">댓글보기</a>
 						</div>
 			        </div>       
 	    </div>

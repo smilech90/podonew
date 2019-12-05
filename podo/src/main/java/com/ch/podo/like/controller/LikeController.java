@@ -130,7 +130,7 @@ public class LikeController {
 	public void likeReviewClick(Like like, String status, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		int result = 0;
-		log.info("like : " + like);
+		//log.info("like : " + like);
 		
 		if(status.equals("like")) {
 			result = likeService.insertLikeReview(like);

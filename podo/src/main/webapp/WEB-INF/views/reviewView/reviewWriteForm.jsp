@@ -80,15 +80,15 @@
                    <%--       <p>${ r.createDate }에 작성</p> --%>
                       </div>
                       <div class="d-flex">
-                        <img width="42" height="42" src="resources/memberProfileImage/${ loginUser.image }1.jpg" alt="">
+                        <img width="42" height="42" src="resources/memberProfileImage/${ loginUser.image }" alt="">
                       </div>
                     </div>
                   	</div>
                   <div class="float-right mt-sm-0 mt-3">
                     <div class="media">
                       <div class="media-body">
-                        <h5>${m.nickName }</h5>
-                        <p>여기가 별점남기는곳입니다!!</p>
+                        <h5>청포도</h5>
+                        <p>여기가 글쓰는곳입니다!!</p>
                       </div>
                       <div class="d-flex">
                 
@@ -168,31 +168,31 @@
          </tr>
          <tr>
             <td>음악</td>
-            <td><input type="number" name="ratingSound" class="insertRating" id="ratingSound" placeholder="10점까지 입력가능"  min="0" max="10" value=""></td>
+            <td><input type="number" name="ratingSound" class="form-control insertRating" id="ratingSound" placeholder="10점까지 입력가능"  min="0" max="10" value=""></td>
          </tr>
          <tr>   
             <td>영상</td>
-            <td><input type="number" name="ratingVisual" class="insertRating" id="ratingVisual" placeholder="10점까지 입력가능"  min="0" max="10" ></td>
+            <td><input type="number" name="ratingVisual" class="form-control insertRating" id="ratingVisual" placeholder="10점까지 입력가능"  min="0" max="10" ></td>
          </tr>
          <tr>
             <td>연기</td>
-            <td><input type="number" name="ratingActing" class="insertRating" id="ratingActing" placeholder="10점까지 입력가능"  min="0" max="10" ></td>
+            <td><input type="number" name="ratingActing" class="form-control insertRating" id="ratingActing" placeholder="10점까지 입력가능"  min="0" max="10" ></td>
          </tr>
          <tr>
             <td>대중성</td>
-            <td><input type="number" name="ratingPop" class="insertRating" id="ratingPop" placeholder="10점까지 입력가능"  min="0" max="10"></td>
+            <td><input type="number" name="ratingPop" class="form-control insertRating" id="ratingPop" placeholder="10점까지 입력가능"  min="0" max="10"></td>
          </tr>
          <tr>
             <td>각본</td>
-            <td><input type="number" name="ratingScript" class="insertRating" id="ratingScript" placeholder="10점까지 입력가능"  min="0" max="10"></td>
+            <td><input type="number" name="ratingScript" class="form-control insertRating" id="ratingScript" placeholder="10점까지 입력가능"  min="0" max="10"></td>
          </tr>
          <tr>
             <td>연출</td>
-            <td><input type="number" name="ratingDirect" class="insertRating" id="ratingDirect" placeholder="10점까지 입력가능"  min="0" max="10"></td>
+            <td><input type="number" name="ratingDirect" class="form-control insertRating" id="ratingDirect" placeholder="10점까지 입력가능"  min="0" max="10"></td>
          </tr>
          <tr>
          	<td>내용</td>
-         	<td><textarea rows="4" cols="22" name="content"></textarea></td>
+         	<td><textarea class="form-control" rows="4" cols="22" name="content"></textarea></td>
          </tr>
          <tr>
              <td colspan="2" align="center">

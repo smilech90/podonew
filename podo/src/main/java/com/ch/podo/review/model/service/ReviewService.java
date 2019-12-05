@@ -85,6 +85,8 @@ public interface ReviewService {
 	
 	// 좋아요 관련 체크
 	ArrayList<Like> checkLike(Member m);
+	// 댓글 갯수 가져오기
+	int getCommentCount();
 	
 	// 
 }
