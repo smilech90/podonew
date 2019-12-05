@@ -158,8 +158,7 @@ public class BoardController {
 	// 댓글
 	
 	// 댓글 리스트
-	@ResponseBody
-	@RequestMapping(value="commentList.do", produces="application/json; charset=UTF-8")
+	@RequestMapping(value="commentsList.do", produces="application/json; charset=UTF-8")
 	public String CommentList(int id) {
 		
 		ArrayList<Comment> list = boardService.selectCommentList(id);
@@ -172,8 +171,7 @@ public class BoardController {
 	
 	
 	// 댓글 작성
-	@ResponseBody
-	@RequestMapping("commentInsert.do")
+	@RequestMapping("insertComment.do")
 	public String insertComment(Comment c) {
 		
 		int result = boardService.insertComment(c);
@@ -182,11 +180,12 @@ public class BoardController {
 			return "success";
 		} else {
 			return "fail";
-		}		
+		}
+		
 	}
 	
 	// 댓글 수정
-	@RequestMapping("commentUpdate.do")
+	@RequestMapping("updateComment.do")
 	public String updateComment(Comment c) {
 		
 		int result = boardService.updateComment(c);
@@ -201,7 +200,7 @@ public class BoardController {
 	
 	
 	// 댓글 삭제
-	@RequestMapping("commentDelete.do")
+	@RequestMapping("deleteComment.do")
 	public String deleteComment(int id) {
 		
 		int result = boardService.deleteComment(id);
@@ -232,7 +231,6 @@ public class BoardController {
 	public ModelAndView inapproCount(Board b, Report r, ModelAndView mv) {
 		
 		int result = boardService.insertInappro(r);
-		log.info("r : " + result);
 		
 		if(result > 0) {
 			mv.addObject("id", r.getTargetId()).setViewName("redirect:bdetail.do");

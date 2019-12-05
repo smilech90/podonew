@@ -53,10 +53,9 @@
 
 					
 					<div class="news_d_footer flex-column flex-sm-row">
-						<a href="#"><span class="align-middle mr-2"><i class="ti-heart"></i></span>LIKE</a>
-						
 						<a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2" href="#">
 						<span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>COMMENTS 개수?</a>
+						 <a href="#"><span class="align-middle mr-2"><i class="ti-heart"></i></span>LIKE</a>
 						<!-- <div class="news_socail ml-sm-auto mt-sm-0 mt-2">
 							<a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i
 								class="fab fa-twitter"></i></a> <a href="#"><i
@@ -108,8 +107,9 @@
 				<a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-3" href="#">
 						<span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>COMMENTS</a>
 				</div>
+					
 					<div class="comment-list">
-						<div class="single-comment justify-content-between d-flex">
+						<!-- <div class="single-comment justify-content-between d-flex">
 							<div class="user justify-content-between d-flex">
 								<div class="thumb">
 									<img src="img/blog/c1.jpg" alt="">
@@ -127,12 +127,11 @@
 								<a href="" class="btn-reply text-uppercase" id="">수정</a>
 								<a href="" class="btn-reply text-uppercase" id="">삭제</a>
 							</div>
-						</div>
-					</div>
-					
-					
-					<!-- 수정폼 -->
-					<div class="comment-list left-padding" id="c-modify-form">
+						</div> -->
+						
+						
+						<!-- 수정폼 -->
+					<!-- <div class="comment-list left-padding" id="c-modify-form">
 						<div class="single-comment justify-content-between d-flex">
 							<div class="user justify-content-between d-flex">
 								<div class="thumb">
@@ -150,17 +149,18 @@
 								<a href="" class="btn-reply text-uppercase">완료</a>
 							</div>
 						</div>
+					</div> -->
 					</div>
 					
 				</div>
 				
-				<!-- 댓글 작성 -->
 				
+				<!-- 댓글 작성 -->				
 				<div class="comment-form">
 					<h4>COMMENT</h4>
 					<form>
 						<div class="form-group">
-						<textarea id="c-content" class="form-control mb-10" rows="5" name="message" placeholder="댓글을 입력하세요."
+						<textarea id="c-content" class="form-control mb-10 c-content" rows="5" name="message" placeholder="댓글을 입력하세요."
 						onfocus="this.placeholder = ''" onblur="this.placeholder = '댓글을 입력하세요.'" required=""></textarea>
 						</div>
 						<a href="#" class="button submit_btn" id="comment-btn">작성</a>
@@ -170,11 +170,7 @@
 			</div>
 		</div>
 		<!--================ End Blog Post Area =================-->
-		
-		
-		<div class="comment-list" id="c-comment-form">
-		</div>
-		
+				
 		
 				
 		<div class="form-group row">
@@ -283,20 +279,20 @@
 				getCommentList();
 				
 				$("#comment-btn").on("click", function(){
-					var content = $("#c-content").val();
+					var content = $("c-content").val();
 					var boardId = ${board.id};
-					var writer = "${loginUser.id}";
+					var memberId = "${loginUser.id}";
 					
 					$.ajax({
-						url:"commentInsert.do",
+						url:"insertComment.do",
 						data:{
 							content:content,
-							writer:writer,
-							boardId:boardId},
+							boardId:boardId,
+							memberId:memberId},
 						success:function(data){
 							if(data == "success"){
 								getCommentList();
-								$("#c-content").val("");
+								$(".c-content").val("");
 							}else{
 								alert("댓글 작성 실패");
 							}
@@ -313,51 +309,133 @@
 			
 			// 댓글 리스트
 			function getCommentList(){
+				
 				$.ajax({
-					url:"commentList.do",
+					url:"insertComment.do",
 					data:{id:${board.id}},
 					dataType:"json",
 					success:function(data){
 						
-						$comment-area = $("#comment-area");
-						$comment-area.html("");
+						$commentarea = $(".comment-list");
+						$commentarea.html("");
 						
 						if(data.length > 0){
+							
 							$.each(data, function(index, value){
+																
+								$.each(data, function(index, value){
+									
+									$commentarea = $(".comment-list");
+									
+									$commentDiv = $("<div class='commentDiv'></div>");
+									
+									$commentlistDiv = $("<div class='commentlistDiv'></div>");
+									
+									$commentcontentDiv = $("<div class='commentcontentDiv'></div>");
+									
+									$ninkName = $("<p class='ninkName'></p>").text(value.nickName);
+									$content = $("<p class='comment'></p>").text(value.content);
+									$date = $("<p class='date'>작성일</p>").text(value.createDate);
+									
+									$updateBtn = $("<a style='width:70px; float:right;' class='btn-reply text-uppercase updateBtn'>수정</a>");
+									$deleteBtn = $("<a style='width:70px; float:right;' class='btn-reply text-uppercase deleteBtn'>삭제</a>");
+									
+									$modifyDiv = $("<div style='display:none;' class='modifyDiv'></div>");
+									$modifyTextarea = $("<textarea class='modifyTextarea'></textarea>");
+									$modifyBtn = $("<button class='modifyBtn'>등록</button>");
+									$hiddenCid = $("<input type='hidden' class='hiddenCid'>").val(value.id);
+									
+									
+									$modifyDiv.append($modifyTextarea).append($modifyBtn).append($hiddenCid);
+									$commentarea.append($commentDiv).append($commentlistDiv).append($deleteBtn).append($updateBtn);
+									$commentlistDiv.append($commentcontentDiv).append($modifyDiv);
+									$commentcontentDiv.append($ninkName).append($content).append($date);
+									
+								});
 								
-								$comment-area = $("<div></div>");
-								$comment-form = $("<div></div>");
-								$comment-div = $("<div></div>");
-								$comment-list = $("<div></div>");
-								$comment-con = $("<div></div>");
-								$c-writer = $("<p></p>").text(value.nickName);
-								$c-date = $("<p></p>").text(value.createDate);
-								$c-content = $("<p></p>").text(value.content);
 								
-								$comment-area.append($comment-form);
-								$comment-form.append($comment-div);
-								$comment-div.append($comment-list);
-								$comment-list.append($comment-con);
-								$comment-div.append($comment-con);
-								$comment-con.append($c-writer).append("<br>").append($c-date).append("<br>").append($c-content);
+								
 								
 							});
-							
-						}else{
-							
-							$comment-area = $("<div></div>");
-							
-							$comment-p = $("<span>등록된 댓글이 없습니다.</span>").text("등록된 댓글이 없습니다.");
-							
-							$comment-area.append($comment-p);
-							
+						}else{	// 댓글 없을때
+							$commentarea = $(".comment-list");
+							$commentarea.append("<span>등록된 댓글이 없습니다.</span>");
 						}
+						
 					},
 					error:function(){
 						console.log("ajax 통신 실패");
 					}
-				})
+				});
+				
 			}
+			
+			// 댓글 수정
+			 $(document).on("click", ".updateBtn", function(){
+				
+				$(this).parent().children(".commentcontentDiv").toggle();
+				$(this).parent().children(".modifyDiv").next().toggle();
+				
+			});
+			
+			$(document).on("click",".modifyBtn", function() {
+				
+		         var id = $(this).next().val();
+		         
+		         var content = $(this).prev().val();
+
+		         $.ajax({
+		            url:"updateComment.do",
+		            data:{id:id,
+		            	  content:content},
+		            	  
+		            success:function(data){
+		               
+		               if(data == "success"){
+		            	   getCommentList();
+		            	   alert("댓글을 수정하였습니다.");
+		               }else{
+		                  alert("댓글 수정 실패");
+		               }
+		            },
+		            error:function(){
+		               console.log("ajax 통신 실패");
+		            }
+		            
+		         });
+		      });
+			
+			
+			// 댓글 삭제
+		      $(document).on("click", ".deleteBtn", function(){
+		         
+		    	 var id = $(this).parent().children().eq(2).val();
+
+		         if(confirm("댓글을 삭제하시겠습니까?")){
+		            
+		            $.ajax({
+		               url:"deleteComment.do",
+		               data:{id:id},
+		               success:function(data){
+		                  
+		                  if(data == "success"){
+		                	  getCommentList();
+		                  }else{
+		                     alert("댓글 삭제 실패");
+		                  }
+		               },
+		               error:function(){
+		                  console.log("ajax 통신 실패");
+		               }
+		            }); 
+		         }
+		      });
+			
+			
+		      $("#board-image").on("click", function(){
+					console.log("asd");
+					$("#download-image").get(0).click();
+				});
 		</script>
 		
 		<jsp:include page="../common/footer.jsp"/>

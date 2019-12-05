@@ -96,16 +96,11 @@
 	
 	 <!-- 댓글 -->	 	 
 	 <select id="selectCommentList" resultMap="commentResultSet">
-	 	<!-- select c.*
-		from tb_comment c
-		join tb_board b on (c.board_id = b.id)
-		where b.id=#{id} -->
 		select c.*, m.nickname
 		from tb_comment c
 		join tb_member m on (c.member_id = m.id)
 		where board_id=#{boardId} and c.status='Y'
         order by c.id desc
-		
 	 </select>
 	 
 	 <insert id="insertComment">
@@ -116,13 +111,13 @@
 	 <update id="updateComment">
 	 	update tb_comment
 	 	set content=#{content}
-	 	where id={id}
+	 	where id=#{id}
 	 </update>
 	 
 	 <update id="deleteComment">
 	 	update tb_comment
 	 	set status='N'
-	 	where id={id}
+	 	where id=#{id}
 	 </update>
 	 
 	 
