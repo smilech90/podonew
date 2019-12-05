@@ -79,6 +79,22 @@ public class BoardDao {
 	}
 	
 	
+	public int updateComment(int id, String content) {
+		HashMap map = new HashMap<>();
+		map.put("id", id);
+		map.put("content", content);
+		
+		
+		return sqlSession.update("boardMapper.updateComment", map);
+	}
+	
+	
+	public int deleteComment(int id) {
+		return sqlSession.update("boardMapper.deleteComment", id);
+	}
+	
+	
+	
 	public ArrayList<Board> selectboardListHome() {
 		
 		ArrayList<Board> list = (ArrayList)sqlSession.selectList("boardMapper.selectboardListHome");

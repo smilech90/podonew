@@ -54,7 +54,6 @@ public class NoticeController {
 			
 		}
 		
-		System.out.println(notice);
 		int result = noticeService.insertNotice(notice);
 		
 		if(result > 0) {

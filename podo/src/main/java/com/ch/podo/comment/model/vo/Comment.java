@@ -26,8 +26,8 @@ public class Comment {
 	private String status;			// 상태
 	private int level;
 	private int memberId;
-	private String nickName;		//사용자 닉네임
 	private int boardId;			// 상위 댓글
 	private int reviewId;			// 상위 댓글
 	
+	private String nickName;		//사용자 닉네임
 }

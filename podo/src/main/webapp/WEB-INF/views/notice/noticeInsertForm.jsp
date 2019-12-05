@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.boardInsertForm{
+	.noticeInsertForm{
 		text-align: center;
 		margin-left: 500px;
 	}

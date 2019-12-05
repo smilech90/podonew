@@ -156,36 +156,27 @@ public class BoardController {
 	
 	
 	// 댓글
-	/*
+	
+	// 댓글 리스트
 	@ResponseBody
-	@RequestMapping(value="commentList.do", produces="application/json; charset=UTF-8")
-	public void CommentList(int id) {
+	@RequestMapping(value="commentsList.do", produces="application/json; charset=UTF-8")
+	public String CommentList(int id) {
 		
-		ArrayList<Comment> cList = boardService.selectCommentList(id);
-		System.out.println(cList);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		
-		gson.toJson(cList);
-		
-	}
-	*/
-	@RequestMapping("commentList.do")
-	public void CommentList(int id, HttpServletResponse response) throws JsonIOException, IOException {
-		
-		ArrayList<Comment> cList = boardService.selectCommentList(id);
-		
-		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<Comment> list = boardService.selectCommentList(id);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
-		gson.toJson(cList, response.getWriter());
+		return gson.toJson(list);
 		
 	}
-
-	@ResponseBody
-	@RequestMapping("commentInsert.do")
+	
+	
+	// 댓글 작성
+	@RequestMapping("insertComment.do")
 	public String insertComment(Comment c) {
+		
 		int result = boardService.insertComment(c);
+		
 		if (result > 0) {
 			return "success";
 		} else {
@@ -193,6 +184,38 @@ public class BoardController {
 		}
 		
 	}
+	
+	
+	// 댓글 수정
+	@RequestMapping("updateComment.do")
+	public String updateComment(int id, String content) {
+		
+		int result = boardService.updateComment(id, content);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+	
+	// 댓글 삭제
+	@RequestMapping("deleteComment.do")
+	public String deleteComment(int id) {
+		
+		int result = boardService.deleteComment(id);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+	
 
 	// 처란 메인페이지 리스트관련
 	@RequestMapping("boardListHome.do")
@@ -210,7 +233,6 @@ public class BoardController {
 	public ModelAndView inapproCount(Board b, Report r, ModelAndView mv) {
 		
 		int result = boardService.insertInappro(r);
-		log.info("r : " + result);
 		
 		if(result > 0) {
 			mv.addObject("id", r.getTargetId()).setViewName("redirect:bdetail.do");

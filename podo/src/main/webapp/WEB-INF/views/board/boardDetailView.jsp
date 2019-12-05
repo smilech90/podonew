@@ -8,19 +8,19 @@
 	<head>
 		<jsp:include page="../common/header.jsp"/>
 		<style>
-			
 			#board-image {
 				cursor: pointer;
 			}
+			
 			
 		</style>
 	</head>
 	<body>
 		
 		<!--================ Start Blog Post Area =================-->
-		<div class="container">
-			<div class="col-lg-12">
-				<div class="main_blog_details">
+		<div class="container" id="container">
+			<div class="col-lg-12" id="contain">
+				<div class="main_blog_details" id="div">
 					<c:if test="${ !empty board.imageName }">
 						<a href="${ pageContext.servletContext.contextPath }/resources/boardUploadFiles/${ board.imageName }" download="${ board.imageName}"
 							 id="download-image" style="display: none;">${ board.imageName}</a>
@@ -31,7 +31,7 @@
 					<a 	href="#"><h4>${ board.title }</h4></a>
 					<div class="user_details">
 						<div class="float-left">
-							<a href="#">Lifestyle</a> <a href="#">Gadget</a>
+							<a href="#" id=>신고하기</a>
 						</div>
 						<div class="float-right mt-sm-0 mt-3">
 							<div class="media">
@@ -53,21 +53,19 @@
 
 					
 					<div class="news_d_footer flex-column flex-sm-row">
-						<a href="#"><span class="align-middle mr-2"><i
-								class="ti-heart"></i></span>Lily and 4 people like this</a> <a
-							class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2"
-							href="#"><span class="align-middle mr-2"> <i
-								class="ti-themify-favicon"></i></span>06 Comments</a>
-						<div class="news_socail ml-sm-auto mt-sm-0 mt-2">
+						<a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2" href="#">
+						<span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>COMMENTS</a>
+						<!-- <a href="#"><span class="align-middle mr-2"><i class="ti-heart"></i></span>LIKE</a> -->
+						<!-- <div class="news_socail ml-sm-auto mt-sm-0 mt-2">
 							<a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i
 								class="fab fa-twitter"></i></a> <a href="#"><i
 								class="fab fa-dribbble"></i></a> <a href="#"><i
 								class="fab fa-behance"></i></a>
-						</div>
+						</div> -->
 					</div>
 				</div>
 
-				<div class="navigation-area">
+				<!-- ><div class="navigation-area">
 					<div class="row">
 						<div
 							class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
@@ -99,28 +97,41 @@
 						</div>
 					</div>
 				</div>
-				<div class="comments-area">
-					<h4>05 Comments</h4>
+				-->
+				
+				<!-- 댓글 -->
+				
+				<!-- 댓글 list -->
+				<div class="comments-area" id="comment-area">
+				<div class="news_d_footer flex-column flex-sm-row">
+				<a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-3" href="#">
+						<span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>COMMENTS</a>
+				</div>
+					
 					<div class="comment-list">
-						<div class="single-comment justify-content-between d-flex">
+						<!-- <div class="single-comment justify-content-between d-flex">
 							<div class="user justify-content-between d-flex">
 								<div class="thumb">
 									<img src="img/blog/c1.jpg" alt="">
 								</div>
+								
 								<div class="desc">
 									<h5>
-										<a href="#">Emilly Blunt</a>
+										<a href="#">작성자</a>
 									</h5>
-									<p class="date">December 4, 2017 at 3:12 pm</p>
-									<p class="comment">Never say goodbye till the end comes!</p>
+									<p class="date">작성일</p>
+									<p class="comment" id="c-content">작성 내용</p>
 								</div>
 							</div>
 							<div class="reply-btn">
-								<a href="" class="btn-reply text-uppercase">reply</a>
+								<a href="" class="btn-reply text-uppercase" id="">수정</a>
+								<a href="" class="btn-reply text-uppercase" id="">삭제</a>
 							</div>
-						</div>
-					</div>
-					<div class="comment-list left-padding">
+						</div> -->
+						
+						
+						<!-- 수정폼 -->
+					<!-- <div class="comment-list left-padding" id="c-modify-form">
 						<div class="single-comment justify-content-between d-flex">
 							<div class="user justify-content-between d-flex">
 								<div class="thumb">
@@ -128,89 +139,48 @@
 								</div>
 								<div class="desc">
 									<h5>
-										<a href="#">Elsie Cunningham</a>
+										<a href="#">작성자</a>
 									</h5>
-									<p class="date">December 4, 2017 at 3:12 pm</p>
-									<p class="comment">Never say goodbye till the end comes!</p>
+									<p class="date">댓글 수정 날짜</p>
+									<p class="comment">댓글 수정</p>
 								</div>
 							</div>
 							<div class="reply-btn">
-								<a href="" class="btn-reply text-uppercase">reply</a>
+								<a href="" class="btn-reply text-uppercase">완료</a>
 							</div>
 						</div>
+					</div> -->
 					</div>
+					
 				</div>
+				
+				
+				<!-- 댓글 작성 -->				
 				<div class="comment-form">
-					<h4>Leave a Reply</h4>
-					<form>
+					<h4>COMMENT</h4>
 						<div class="form-group">
-							<textarea class="form-control mb-10" rows="5" name="message"
-								placeholder="Messege" onfocus="this.placeholder = ''"
-								onblur="this.placeholder = 'Messege'" required=""></textarea>
+						<textarea id="c-content" class="form-control mb-10 c-content" rows="5" name="message" placeholder="댓글을 입력하세요."
+						onfocus="this.placeholder = ''" onblur="this.placeholder = '댓글을 입력하세요.'" required=""></textarea>
 						</div>
-						<a href="#" class="button submit_btn">Post Comment</a>
-					</form>
+						<button class="button submit_btn" id="comment-btn">작성</button>
 				</div>
+				
 			</div>
 		</div>
 		<!--================ End Blog Post Area =================-->
+				
 		
+				
 		<div class="form-group row">
 			<div class="btn-group btn-group-lg mx-auto" role="group" aria-label="...">
 				<c:if test="${ loginUser.id eq board.memberId }">
-					<button class="btn btn-secondary btn-lg" onclick="location.href='bdelete.do?id=${ board.id }';">삭제하기</button>
-					<button class="btn btn-lg btn-primary" onclick="location.href='bupdateView.do?id=${ board.id }';">수정하기</button>
+					<a class="button submit_btn" onclick="location.href='bdelete.do?id=${ board.id }';">삭제하기</a>
+					<a href="#" class="button submit_btn" onclick="location.href='bupdateView.do?id=${ board.id }';">수정하기</a>
 				</c:if>
 			</div>
 		</div>
-	
-		<br><br>
-		<hr>
-
-		<!-- 댓글 -->
 		
-		<!-- 댓글 작성 div -->
-		<div align="center" class="board-detail-comment">
-			<div class="-detail-box">
-				<h3>댓글</h3>
-				<div class="inputTb">
-					<table>
-						<tr>
-							<td><textarea cols="55" rows="5" id="c-content"></textarea></td>
-							<td><button id="commentBtn">등록</button></td>
-						</tr>
-					</table>
-				</div>
-				
-				<br>
-	
-				<!-- 댓글 리스트 -->
-				<table cellspacing="0" id="c-list">
-					<thead>
-						<tr>
-							<td colspan="4" style="height: 10px; font-size: 12px;"><b
-								id="rCount"></b></td>
-						</tr>
-						<tr style="height: 10px; font-size: 12px;">
-							<td>내용</td>
-							<td>작성자</td>
-							<td>작성일</td>
-							<td>a</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td><button type="button">수정</button></td>
-							<td><button type="button">삭제</button></td>
-							<td>a</td>
-						</tr>
-					</thead>
-					<tbody>
-	
-					</tbody>
-				</table>
-			</div>
-		</div>
-	
+		
 		<!-- 게시판 신고하기 모달 -->
 		<div class="modal fade de_modal" id="boardReport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -230,6 +200,7 @@
 							
 						<div class="form-group">
 							<input class="commentType" type="radio" value="1" name="content">부적절한내용
+							&nbsp;
 							<input class="commentType" type="radio" value="2" name="content">스포일러
 						</div>
 						<div class="modal-footer">
@@ -241,59 +212,169 @@
 				</div>
 			</div>
 		</div>
-		<!-- <a class="comment-modal btn-reply text-uppercase" href="#" data-toggle="modal">댓글신고하기</a> -->
-	
+		
+		
+		
+		
 		<script>
 		
-				$(function(){
-					getCommentList();
-				});
+			// 댓글 작성
+			$(function(){
+				getCommentList();
 				
-				function getCommentList(){
+				$("#comment-btn").on("click", function(){
+					
+					var content = $(".c-content").val();
+					var boardId = ${board.id};
+					var memberId = "${loginUser.id}";
 					$.ajax({
-						url:"commentList.do",
-						data:{id:${board.id}},
+						url:"insertComment.do",
+						data:{
+							content:content,
+							boardId:boardId,
+							memberId:memberId},
 						dataType:"json",
 						success:function(data){
-							console.log(data);
-							
-							$tbody = $("#c-list tbody");
-							$tbody.html("");
-							
-							$("#rCount").text("댓글 (" + data.length + ")");
-							
-							if(data.length > 0){
-								$.each(data, function(index, value){
-									$tr = $("<tr></tr>");
-									
-									$writerTd = $("<td width='100'></td>").text(value.writer);
-									$contentTd = $("<td></td>").text(value.content);
-									$dateTd = $("<td></td>").text(value.createDate);
-									
-									$tr.append($writerTd);
-									$tr.append($contentTd);
-									$tr.append($dateTd);
-									
-									$tbody.append($tr);
-									
-								});
+							if(data == "success"){
+								getCommentList();
+								$(".c-content").val("");
 							}else{
-								$tr = $("<tr></tr>");
-								
-								$contentTd = $("<td colspan='3'></td>").text("등록된 댓글이 없습니다.");
-								$tr.append($contentTd);
-								
-								$tbody.append($tr);
-								
+								alert("댓글 작성 실패");
 							}
 						},
 						error:function(){
 							console.log("ajax 통신 실패");
 						}
 					});
-				}
+					
+					
+				})
 				
-				$("#board-image").on("click", function(){
+			});
+			
+			// 댓글 리스트
+			function getCommentList(){
+				
+				$.ajax({
+					url:"commentsList.do",
+					data:{id:${board.id}},
+					dataType:"json",
+					success:function(data){
+						
+						console.log(data);
+						
+						$commentarea = $(".comment-list");
+						$commentarea.html("");
+						
+						if(data.length > 0){
+							
+								$.each(data, function(index, value){
+									
+									$commentarea = $(".comment-list");
+									
+									$commentDiv = $("<div class='commentDiv'></div>");
+									
+									$commentlistDiv = $("<div class='commentlistDiv'></div>");
+									
+									$commentcontentDiv = $("<div class='commentcontentDiv'></div>");
+									
+									$ninkName = $("<p class='ninkName'></p>").text(value.nickName);
+									$content = $("<p class='comment'></p>").text(value.content);
+									$date = $("<p class='date'>작성일</p>").text(value.createDate);
+									
+									$updateBtn = $("<a style='width:70px; float:right;' class='btn-reply updateBtn'>수정</a>");
+									$deleteBtn = $("<a style='width:70px; float:right;' class='btn-reply deleteBtn'>삭제</a>");
+									
+									$modifyDiv = $("<div style='display:none;' class='modifyDiv'></div>");
+									$modifyTextarea = $("<textarea class='modifyTextarea'></textarea>");
+									$modifyBtn = $("<button class='modifyBtn'>등록</button>");
+									$hiddenCid = $("<input type='hidden' class='hiddenCid'>").val(value.id);
+									
+									
+									$modifyDiv.append($modifyTextarea).append($modifyBtn).append($hiddenCid);
+									$commentarea.append($commentDiv).append($commentlistDiv).append($deleteBtn).append($updateBtn);
+									$commentlistDiv.append($commentcontentDiv).append($modifyDiv);
+									$commentcontentDiv.append($ninkName).append($content).append($date);
+									
+								});
+								
+							
+						}else{	// 댓글 없을때
+							$commentarea = $(".comment-list");
+							$commentarea.append("<span>등록된 댓글이 없습니다.</span>");
+						}
+						
+					},
+					error:function(){
+						console.log("ajax 통신 실패");
+					}
+				});
+				
+			}
+			
+			// 댓글 수정
+			 $(document).on("click", ".updateBtn", function(){
+				
+				$(this).parent().children(".commentcontentDiv").toggle();
+				$(this).parent().children(".modifyDiv").next().toggle();
+				
+			});
+			
+			$(document).on("click",".modifyBtn", function() {
+				
+		         var id = $(this).next().val();
+		         
+		         var content = $(this).prev().val();
+
+		         $.ajax({
+		            url:"updateComment.do",
+		            data:{id:id,
+		            	  content:content},
+		            	  
+		            success:function(data){
+		               
+		               if(data == "success"){
+		            	   getCommentList();
+		            	   alert("댓글을 수정하였습니다.");
+		               }else{
+		                  alert("댓글 수정 실패");
+		               }
+		            },
+		            error:function(){
+		               console.log("ajax 통신 실패");
+		            }
+		            
+		         });
+		      });
+			
+			
+			// 댓글 삭제
+		      $(document).on("click", ".deleteBtn", function(){
+		         
+		    	 var id = $(this).parent().children().eq(2).val();
+
+		         if(confirm("댓글을 삭제하시겠습니까?")){
+		            
+		            $.ajax({
+		               url:"deleteComment.do",
+		               data:{id:id},
+		               success:function(data){
+		                  
+		                  if(data == "success"){
+		                	  getCommentList();
+		                  }else{
+		                     alert("댓글 삭제 실패");
+		                  }
+		               },
+		               error:function(){
+		                  console.log("ajax 통신 실패");
+		               }
+		            }); 
+		         }
+		      });
+			
+			
+		      $("#board-image").on("click", function(){
 					console.log("asd");
 					$("#download-image").get(0).click();
 				});
