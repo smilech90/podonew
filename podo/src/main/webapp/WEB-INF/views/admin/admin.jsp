@@ -107,12 +107,12 @@
           <span>리뷰관리</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="blist.do">
           <ion-icon name="done-all"></ion-icon>
           <span>공지사항</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="inquiryList.do">
           <ion-icon name="help-circle"></ion-icon>
           <span>문의사항</span></a>
       </li>
@@ -128,47 +128,7 @@
 	    <li class="breadcrumb-item active" aria-current="page">★★★가장 높은 <b>별점</b>을 받은 영화★★★</li>
 	  </ol>
 	</nav>
-	     
-     
-<!--    
-     <div class="card-deck">
-	  <div class="card" align="center">
-	    <img src="resources/adminImage/겨울왕국.jpg" class="card-img-top" alt="...">
-	    <div class="card-body">
-	      <h5 class="card-title" align="center">겨울왕국</h5>
-	      <button type="button" class="btn btn-danger">상세페이지로</button>
-	    </div>
-	    <div class="card-footer">
-	      <small class="text-muted">Last updated 3 mins ago</small>
-	    </div>
-	  </div>
-	  <div class="card" align="center">
-	    <img src="resources/adminImage/나를찾아줘.jpg" class="card-img-top" alt="...">
-	    <div class="card-body">
-	      <h5 class="card-title" align="center">나를 찾아줘</h5>
-	      <button type="button" class="btn btn-danger">상세페이지로</button>
-	      
-	    </div>
-	    <div class="card-footer">
-	      <small class="text-muted">Last updated 3 mins ago</small>
-	    </div>
-	  </div>
-	  <div class="card" align="center">
-	    <img src="resources/adminImage/블랙머니.jpg" class="card-img-top" alt="...">
-	    <div class="card-body">
-	      <h5 class="card-title" align="center">블랙 머니</h5>
-	      <button type="button" class="btn btn-danger">상세페이지로</button>
-	      
-	    </div>
-	    <div class="card-footer">
-	      <small class="text-muted">Last updated 3 mins ago</small>
-	    </div>
-	  </div>
-	</div>
- -->  
-     
-     
-     	
+
      	
           <div class="card-deck">
 		  <div class="card" align="center">

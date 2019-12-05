@@ -107,12 +107,12 @@
           <span>리뷰관리</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="blist.do">
           <ion-icon name="done-all"></ion-icon>
           <span>공지사항</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="inquiryList.do">
           <ion-icon name="help-circle"></ion-icon>
           <span>문의사항</span></a>
       </li>
